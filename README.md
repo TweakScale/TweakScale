@@ -9,3 +9,5 @@ https://forum.kerbalspaceprogram.com/index.php?/topic/179030-14-tweakscale-under
 
 etc
 
+- - -
+Unholy interactions between modules is what Krakens feed on... — Lisias
