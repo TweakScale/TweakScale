@@ -452,6 +452,12 @@ namespace TweakScale
                 part.SendEvent ("OnPartResourceChanged", data, 0);
             }
 
+            // send AttachNodes Changed message to KSP Recall if needed
+            if (0 != this.part.attachNodes.Count) {
+                BaseEventDetails data = new BaseEventDetails (BaseEventDetails.Sender.USER);
+                data.Set<int> ("InstanceID", this.part.GetInstanceID ());
+                part.SendEvent ("OnPartAttachNodeChanged", data, 0);
+            }
         }
 
         private void UpdateCrewManifest()
