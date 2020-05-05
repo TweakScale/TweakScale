@@ -161,8 +161,7 @@ namespace TweakScale
                     // We also stops any further processing, as we could damage something that is already damaged.
                     else if (null != (r = this.checkForShowStoppers(prefab)))
                     {   // This are situations that we should not allow the KSP to run to prevent serious corruption.
-                        // This is **FAR** from a good measure, but it's the only viable.
-                        Log.warn("**FATAL** Found a showstopper problem on {0} ({1}).", p.name, p.title);
+                        // This is **FAR** from being a good measure, but it's the only viable.
                         Log.error("**FATAL** Part {0} ({1}) has a fatal problem due {2}.", p.name, p.title, r);
                         ++showstoppers_count;
                         continue;
