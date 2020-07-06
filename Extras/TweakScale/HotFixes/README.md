@@ -9,3 +9,13 @@ Since the original intended behaviour of the broken Add'On is restored (even tha
 However, these patches are hand crafts to specific situations, are not for the general use. Different Add'Ons combinations can demand slightly different patches, and using the wrong patch can render the installment non compatible with sane installments.
 
 The patches are named using the **offending** Add'On , "--" and followed by the *offended* one.
+
+## License
+
+These patches are licensed to you under:
+
+* [WTFPL](http://www.wtfpl.net), see [here](../LICENSE).
+	+ You are free to:
+		- Do whatever you want!
+	+ Under the following terms:
+		- You follow your heart's desire. :)

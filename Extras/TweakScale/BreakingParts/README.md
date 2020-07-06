@@ -10,3 +10,12 @@ A workaound is to break the parts again :P but this time, on purpose and in a sa
 
 It's advised to copy only the patches needed to fix your savegame. Keep in mind that by using these patches, your crafts are not compatible to mainstream anymore, as the canonical releases have the patches fixed from now.
 
+## License
+
+These patches are licensed to you under:
+
+* [WTFPL](http://www.wtfpl.net), see [here](../LICENSE).
+	+ You are free to:
+		- Do whatever you want!
+	+ Under the following terms:
+		- You follow your heart's desire. :)
