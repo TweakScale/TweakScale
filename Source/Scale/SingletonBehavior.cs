@@ -26,7 +26,7 @@ using UnityEngine;
 
 namespace TweakScale
 {
-    class SingletonBehavior<T> : MonoBehaviour where T : SingletonBehavior<T>
+    internal class SingletonBehavior<T> : MonoBehaviour where T : SingletonBehavior<T>
     {
         public static T Instance { get; protected set; }
 

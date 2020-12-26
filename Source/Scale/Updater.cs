@@ -54,9 +54,9 @@ namespace TweakScale
     }
 
     [KSPAddon(KSPAddon.Startup.Instantly, true)]
-    class TweakScaleRegister : RescalableRegistratorAddon
+    public class TweakScaleRegister : RescalableRegistratorAddon
     {
-        override public void OnStart()
+        public override void OnStart()
         {
 			Type[] genericRescalable = Tools.GetAllTypes()
                 .Where(IsGenericRescalable)
@@ -90,17 +90,17 @@ namespace TweakScale
         }
     }
 
-    static class TweakScaleUpdater
+    internal static class TweakScaleUpdater
     {
         // Every kind of updater is registered here, and the correct kind of updater is created for each PartModule.
-        static readonly Dictionary<Type, Func<PartModule, IRescalable>> Ctors = new Dictionary<Type, Func<PartModule, IRescalable>>();
+        private static readonly Dictionary<Type, Func<PartModule, IRescalable>> Ctors = new Dictionary<Type, Func<PartModule, IRescalable>>();
 
         /// <summary>
         /// Registers an updater for partmodules of type <paramref name="pm"/>.
         /// </summary>
         /// <param name="pm">Type of the PartModule type to update.</param>
         /// <param name="creator">A function that creates an updater for this PartModule type.</param>
-        static public void RegisterUpdater(Type pm, Func<PartModule, IRescalable> creator)
+        public static void RegisterUpdater(Type pm, Func<PartModule, IRescalable> creator)
         {
             Ctors[pm] = creator;
         }
@@ -122,9 +122,8 @@ namespace TweakScale
 
         private static IRescalable CreateUpdater(PartModule module)
         {
-			// ReSharper disable once SuspiciousTypeConversion.Global
-			IRescalable updater = module as IRescalable;
-            if (updater != null)
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            if (module is IRescalable updater)
             {
                 return updater;
             }
@@ -136,7 +135,7 @@ namespace TweakScale
     /// This class updates mmpfxField and properties that are mentioned in TWEAKSCALEEXPONENTS blocks in .cfgs.
     /// It does this by looking up the mmpfxField or property by name through reflection, and scales the exponentValue stored in the base part (i.e. prefab).
     /// </summary>
-    class TSGenericUpdater : IRescalable
+    internal class TSGenericUpdater : IRescalable
     {
         private readonly Part _part;
         private readonly Part _basePart;
@@ -155,12 +154,12 @@ namespace TweakScale
         }
     }
 
-    interface IUpdateable
+    internal interface IUpdateable
     {
         void OnUpdate();
     }
     
-    class EmitterUpdater : IRescalable, IUpdateable
+    internal class EmitterUpdater : IRescalable, IUpdateable
     {
         private struct EmitterData
         {
@@ -244,8 +243,7 @@ namespace TweakScale
             {
                 if (fx is ModelMultiParticleFX)
                 {
-					List<KSPParticleEmitter> p = _mmpFxField.GetValue(fx) as List<KSPParticleEmitter>;
-                    if (p == null)
+                    if (!(_mmpFxField.GetValue(fx) is List<KSPParticleEmitter> p))
                         continue;
                     foreach (KSPParticleEmitter pe in p)
                     {

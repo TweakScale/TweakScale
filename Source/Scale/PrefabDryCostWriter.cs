@@ -1,4 +1,27 @@
-﻿using System;
+﻿/*
+		This file is part of TweakScale /L
+		© 2018-2020 LisiasT
+		© 2015-2018 pellinor
+		© 2014 Gaius Godspeed and Biotronic
+
+		TweakScale /L is double licensed, as follows:
+
+		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt
+		* GPL 2.0 : https://www.gnu.org/licenses/gpl-2.0.txt
+
+		And you are allowed to choose the License that better suit your needs.
+
+		TweakScale /L is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+		You should have received a copy of the SKL Standard License 1.0
+		along with TweakScale /L. If not, see <https://ksp.lisias.net/SKL-1_0.txt>.
+
+		You should have received a copy of the GNU General Public License 2.0
+		along with TweakScale /L If not, see <https://www.gnu.org/licenses/>.
+*/
+using System;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
@@ -127,7 +150,12 @@ namespace TweakScale
                         // refuse to scale it. Sorry.
                         Log.error("Part {0} ({1}) didn't passed the sanity check due {2}.", p.name, p.title, r);
                         Log.warn("Removing TweakScale support for {0} ({1}).", p.name, p.title);
-                        prefab.RemoveModule(prefab.Modules ["TweakScale"]);
+
+                        PartModule m = prefab.Modules["TweakScale"];
+                        prefab.RemoveModule(m);
+                        if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.FindByVersion(1,8,0))
+                            UnityEngine.Object.Destroy(m);  // Kill the bastard so it doesn't came back from nowhere to bite our ass!
+
                         ++sanity_failures_count;
                         ++unscalable_count; // Since this part is not scalable, we must account it as non scalable!
                         continue;
@@ -179,15 +207,9 @@ namespace TweakScale
                 try
                 {
                     TweakScale m = prefab.Modules["TweakScale"] as TweakScale;
-                    m.DryCost = (float)(p.cost - prefab.Resources.Cast<PartResource>().Aggregate(0.0, (a, b) => a + b.maxAmount * b.info.unitCost));
-                    m.ignoreResourcesForCost |= prefab.Modules.Contains("FSfuelSwitch");
-
-                    if (m.DryCost < 0)
-                    {
-                        Log.error("PrefabDryCostWriter: negative dryCost: part={0}, DryCost={1}", p.name, m.DryCost);
-                        m.DryCost = 0;
-                    }
-                    Log.dbg("Part {0} ({1}) has drycost {2} with ignoreResourcesForCost {3}",  p.name, p.title, m.DryCost, m.ignoreResourcesForCost);
+                    m.OriginalCrewCapacity = prefab.CrewCapacity;
+                    m.CalculateDryCostIfNeeded();
+                    Log.dbg("Part {0} ({1}) has drycost {2} and OriginalCrewCapacity {3}",  p.name, p.title, m.DryCost, m.OriginalCrewCapacity);
                 }
                 catch (Exception e)
                 {
@@ -227,25 +249,8 @@ namespace TweakScale
                 return "having missed attributes - see issue [#30]( https://github.com/net-lisias-ksp/TweakScale/issues/30 )";
             }
 
-            if (p.Modules.Contains("ModulePartVariants"))
-            {
-                PartModule m = p.Modules["ModulePartVariants"];
-                foreach(FieldInfo fi in m.ModuleAttributes.publicFields)
-                {
-                    if("variantList" != fi.Name) continue;
-                    IList variantList = (IList)fi.GetValue(m);
-                    foreach (object partVariant in variantList)
-                        foreach (PropertyInfo property in partVariant.GetType().GetProperties())
-                        { 
-                            if ("Cost" == property.Name && 0.0 != (float)property.GetValue(partVariant, null))
-                                return "having a ModulePartVariants with Cost - see issue [#13]( https://github.com/net-lisias-ksp/TweakScale/issues/13 )";                                        
-                            if ("Mass" == property.Name && 0.0 != (float)property.GetValue(partVariant, null))
-                                return "having a ModulePartVariants with Mass - see issue [#13]( https://github.com/net-lisias-ksp/TweakScale/issues/13 )";                                        
-                        }
-                }
-            }
-            if (p.Modules.Contains("FSbuoyancy"))
-                return "using FSbuoyancy module - see issue [#9]( https://github.com/net-lisias-ksp/TweakScale/issues/9 )";
+            if (p.Modules.Contains("FSbuoyancy") && !p.Modules.Contains("TweakScalerFSbuoyancy"))
+                return "using FSbuoyancy module without TweakScaleCompanion for Firespitter installed - see issue [#1] from TSC_FS ( https://github.com/net-lisias-ksp/TweakScaleCompantion_FS/issues/1 )";
 
             if (p.Modules.Contains("ModuleB9PartSwitch"))
             {

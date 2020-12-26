@@ -1,4 +1,4 @@
-Tweakscale Documentation - Configuration
+TweakScale Documentation - Configuration
 
 Target audience: people who write part configs and ModuleManager patches. 
 
@@ -10,22 +10,17 @@ Table of Contents
 4. Field Definitions
 
 
-==================================================
-
-1.  TWEAKSCALEEXPONENTS
+## 1.	TWEAKSCALEEXPONENTS
 
 When an object is scaled, its properties scale (approximately) with a power law:
 
-p_new = p_old * scaleFactor ^ exponent
+	p_new = p_old * scaleFactor ^ exponent
 
-The exponent depends on the value, for example it is 1 for length, 2 for surface area 
-and 3 for volume. It can be any real number, and will usually be somewhere between -1 and 3. 
+The exponent depends on the value, for example it is 1 for length, 2 for surface area and 3 for volume. It can be any real number, and will usually be somewhere between -1 and 3. 
 
-ConfigNodes of type "TWEAKSCALEEXPONENTS" are used to define which values should be scaled, 
-and which exponent to use. Reasonable values for commonly used values are defined in 
-the file ScaleExponents.cfg. 
+ConfigNodes of type `TWEAKSCALEEXPONENTS` are used to define which values should be scaled, and which exponent to use. Reasonable values for commonly used values are defined in the file ScaleExponents.cfg. 
 
-A TWEAKSCALEEXPONENTS node looks like the following:
+A `TWEAKSCALEEXPONENTS` node looks like the following:
 
     TWEAKSCALEEXPONENTS
     {
@@ -51,27 +46,19 @@ A TWEAKSCALEEXPONENTS node looks like the following:
         }
     }
 
-The name is either "Part" or the name of a partModule. Note that the names of the exponents 
-refer to the internal names of C#-variables in the game (or mod) code, which are not always 
-identical to the names found in the part config. 
+The name is either `Part` or the name of a partModule. Note that the names of the exponents refer to the internal names of C#-variables in the game (or mod) code, which are not always identical to the names found in the part config. 
 
-If a field begins with an Exclamation Point (!), then the value is used for 
-relative scaling (needed for resource nodes, which are persistent and also written by other 
-sources). Unfortunately this conflicts with ModuleManager syntax, so it can not be used in 
-MM patches. 
+If a field begins with an Exclamation Point (`!`), then the value is used for relative scaling (needed for resource nodes, which are persistent and also written by other sources). 
 
-The "-ignore" means "do not touch resource nodes if a part module of name 'ModuleFuelTanks' 
-is present". 
+The "-ignore" means "do not touch resource nodes if a part module of name `ModuleFuelTanks` is present". 
 
-==================================================
+Unfortunately these conflicts with ModuleManager syntax, so it can not be used in MM patches. 
 
-2.  SCALETYPE
+## 2.	SCALETYPE
 
-SCALETYPE is used to define a group of standard values which can be referenced 
-in a module definition with a "type" value. This is mainly used for the UI
-(i.e. ""), but can also have embedded TWEAKSCALEEXPONENTS nodes. 
+`SCALETYPE` is used to define a group of standard values which can be referenced in a module definition with a "type" value. This is mainly used for the UI (i.e. *"PAW"*), but can also have embedded `TWEAKSCALEEXPONENTS` nodes. 
 
-A typical example looks like this (for more see DefaultScales.cfg):
+A typical example looks like this (for more see `DefaultScales.cfg`):
 
     SCALETYPE
     {
@@ -84,9 +71,7 @@ A typical example looks like this (for more see DefaultScales.cfg):
     }
 
 
-==================================================
-
-3.  TweakScale Modules
+## 3.	TweakScale Modules
 
 To make a part scaleable, Tweakscale needs its module added to the part. A typical 
 module will look like the following (see the patches folder for more examples):
@@ -98,13 +83,11 @@ module will look like the following (see the patches folder for more examples):
         defaultScale = 2.5
     }
 
-The config node can contain overrides for values from the SCALETYPE, as well as 
-embedded TWEAKSCALEEXPONENTS nodes (which will affect only this part).
+The config node can contain overrides for values from the `SCALETYPE`, as well as embedded `TWEAKSCALEEXPONENTS` nodes (which will affect only this part).
 
-The preferable way is to specify most parameters globally or inside SCALETYPE nodes. 
+The preferable way is to specify most parameters globally or inside `SCALETYPE` nodes. 
 
-When writing your own part patches, the simplest way is to search for similar parts 
-in the TweakScale/patches folder, and copy from there. For example: 
+When writing your own part patches, the simplest way is to search for similar parts in the TweakScale/patches folder, and copy from there. For example: 
 
     @PART[fuelTank] // FL-T400 Fuel Tank
     {
@@ -115,11 +98,11 @@ in the TweakScale/patches folder, and copy from there. For example:
         }
     }
 
-==================================================
 
-4. Field Definitions
+## 4.	Field Definitions
 
 The individual fields are:
+
     name = TweakScale         Module name
     type =                    References a defined SCALETYPE
     defaultScale =            The UI scale that corresponds to the unscaled part
@@ -129,5 +112,7 @@ The individual fields are:
     scaleFactors =            UI: Mayor steps for the tweakable (reachable with the arrow buttons). 
     scaleNames =              UI: Scale names (only freescale=false)
     incrementSlide =          UI: step size for the slider (only freescale=true)
+    ignoreResourcesForCost =  false: default. Costs of Resources are handled by TweakScale
+                              true: TweakScale ignores Resources while computing costs. It's up to other module to handle this.
 
-Deprecated fields: scaleNodes, minScale, maxScale, incrementLarge, incrementSmall, 
+Deprecated fields: scaleNodes, minScale, maxScale, incrementLarge, incrementSmall.

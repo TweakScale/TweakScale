@@ -1,66 +1,93 @@
 ## ANNOUNCE
 
-I'm having a terrible Monday - for circa 70 hours already :P . Due some Real Job issues, I'm currently unable to have proper sleeptime, so issuing a full new TweakScale version with new features and proper fixes is a too much bold move right now - so I decided to release a minimal one.
+Release 2.4.3.5 is available for downloading, with the following changes:
 
-That said, Release 2.4.3.18 is available for downloading.
-
-* Lifted the Houston for KSP 1.10, and added scaling support for the new parts :
-	+ `MpoProbe` - Moho Planetary Observer
-	+ `MtmStage` - Moho Transfer Module
-	+ `smallClaw]` - Advanced Grabbing Unit Jr. 
-* TweakScale 2.4.3.x series is EoL.
-	+ No further minor versions will be issued.
-	+ Further fixes and new features will be implemented only on TweakScale 2.4.4.0 and newer.
-* KSP Recall is heavily pushed on KSP 1.9.x.
-	+ weakScale will pesky you until you install it.
-* TweakScale 2.4.3 will complain when running on KSP > 1.10 .
-	+ But you can try your luck nevertheless - just be absolutely sure you installed [S.A.V.E.](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-181-save-automatic-backup-system-180-3165/)
-		- Really. Everybody **should** be using [S.A.V.E.](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-181-save-automatic-backup-system-180-3165/) by now, and I holding myself to do not code a new Houston for it.  
++ Updated KSPe Light for TweakScale:
+	+ Standard Installation Check
+	+ Common Dialogs
+		- More consistent appearance between different installations 
+	+ Internal routines updated to understand Unity 2019. 
+		- KSP 1.8 Ready, baby! ;)
+* Issues Fixed:
+	+ [#26](https://github.com/net-lisias-ksp/TweakScale/issues/26) Document the patches
+	+ [#69](https://github.com/net-lisias-ksp/TweakScale/issues/69) Act on deprecated or misplaced patches
+	+ [#76](https://github.com/net-lisias-ksp/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
 
 See [OP](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*) for the links.
 
 ## Highlights
 
-### KSP 1.10.x Support
+### New Runtime Check
 
-KSP 1.10 is supported by TweakScale 2.4.3.
+TweakScale knows complains with a "Houston" (Fatal Error Message) when it detectes it was wrongly installed.
 
-### KSP 1.9.x Support
+### Deprecated Patches
 
-#### VAB/SPH Editor
+Then following patches were deprecated as the respectives Add'Ons are not available for downloading anymore, rendering them useless and even dangerous to be used by the ones that have them on their archives:
 
-KSP 1.9.x Editor introduced a glitch that was rendering parts with ModulePartVariant displaced on loading. Crafts being instantiated on LaunchPad/Runway (as also living craft on the Universe) are not affected.
+* [KOSMOS](https://forum.kerbalspaceprogram.com/index.php?/topic/6679-*)
+* [UDK's Large Structural Components](https://forum.kerbalspaceprogram.com/index.php?/topic/31891-*)
 
-This is what I know until this moment:
+These ones were deprecated due the Add'On's maintainers decided to internalize them and maintain the patches themselves.
 
-* KSP is shoving back prefab data into living crafts on savegames (and on loading crafts on the Editor) since 1.6 or 1.7, and recently started to obliterate the resources customisations made by Modules.
-	+ You already know that, KSP Recall was born due it.
-* The novelty is that, somehow, surface attachments are, now, also affected - but not exactly as the Resources, and this is what caught me with my pants down (and what made me bork the 2.4.3.13 release, already withdrawn):
-	+ Parts with variants are getting surface attachments mangled on Editor, but parts without variants are not!
-		- Attachments points apparently are being mangled too, but I did't did a full testing on the matter - proceed with caution
-			- Attachment points with parts are also reset, but are preserved on classic parts.
-			- Boy, what a mess... :P 
-* This, **probably**, could be also solved by using the `GameEvents.onEditorVariantApplied`, but since KSP still mangles with TweakScale business in other situations (including on Flight Scene), I would need to split the survivorship logic in two different places now - so I opted to keep the current Event handling for while until I fully refactor (and validade) the code.
-	+ Surviving different KSP Version's idiosyncrasies are taxing badly the codetree
-	+ And I'm firm on my commitment to keep TweakScale (core) compatible with every KSP still em use - expect TweakScale 2.5 to be useable down to KSP 1.2 (KSPe already does it, by the way) - so I will be able to backport every fix and enhancements to people that choose to stay playing older KSP versions.
-* The after math is that I'm still using Unity's Update callback to handle the "first Scale Back" event, needed to survive KSP manglings.
-For some time I considered using KSP Recall to handle this situation, but since Scaling is the TweakScale's Core Business, and I don't intend to tie KSP Recall to TweakScale in any way (it must be a generic solution for everyone, not just for me), I rolled back any change on it.
+* [HGR](https://forum.kerbalspaceprogram.com/index.php?/topic/131556-*)
+* [KAX](https://forum.kerbalspaceprogram.com/index.php?/topic/180268-*)
+* [Mining Extensions](https://forum.kerbalspaceprogram.com/index.php?/topic/130325-*)
+* [Mark 3 Expansion](https://forum.kerbalspaceprogram.com/index.php?/topic/109401-*)
 
-Please also note that there's a lot of glitches on KSP 1.9 Editor not related to TweakScale (or any other Add'On).
+Deprecated patches are preserved on the `Extras/Deprecated` directory on the distribution file. In the unlikely event you need them back, it's recommended to copy them into a customized place on your installment and not on the TweakScale's directory hierarchy. TweakScale suggests `GameData/__LOCAL/TweakScale` .
 
-#### Drain Valve
+### Overrules
 
-The FTE-1 Drain Valve is being scaled, however not properly. Mass and size scales fine, but the drain rate is not. See Issue [#102](https://github.com/net-lisias-ksp/TweakScale/issues/102) for details.
+A overrule, as the name says, is a patch the overrules TweakScale (and anything else) in order to make things "broken" in a deterministic way.
 
+A complete essay can be found [here](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-14-tweakscale-under-lisias-management-2434-2019-0903/&do=findComment&comment=3663098).
 
-#### Resources
+### Hot Fixes
 
-KSP 1.9.x is known to replace any Resource customisation made by custom modules with default definitions from the `prefab`.
+A Hot Fix is a hand crafted patch that fixes by brute force patching problems, forcing the original intended result for a given KSP installment. The difference from an overrule is that Hot Fixes don't break compatibility with sane installments, so you can start new savegames and share your crafts without worries.
 
-This affects many Add'Ons, being TweakScale only one of them. So a new Add'On called [KSP Recall](https://forum.kerbalspaceprogram.com/index.php?/topic/192048-*/) was created to specifically handle KSP issues that would affect everybody.
+A complete essay can be found [here](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-14-tweakscale-under-lisias-management-2434-2019-0903/&do=findComment&comment=3663098).
 
-Users of KSP 1.9.0 and 1.9.1 are **urged** to install [KSP Recall](https://forum.kerbalspaceprogram.com/index.php?/topic/192048-*/). Future KSP releases may or may not fix the glitches [KSP Recall](https://forum.kerbalspaceprogram.com/index.php?/topic/192048-*/) aims to workaround - but until there, you need KSP Recall to use TweakScale on KSP 1.9.x . 
+### New Scaling Behaviour
 
-#### Misc
+A new TWEAKSCALEBEHAVIOUR, ModuleGeneratorExtended , is available for parts using ModuleGenerator that wants to scale the INPUT_RESOURCES too. This feature wasn't introduced directly into the ModuleGenerator's TWEAKSCALEEXPONENTS to prevent damage on Add'Ons (and savegames) that rely on the current behaviour (scaling only the output), as suddenly the resource consumption would increase on already stablished bases and crafts.
+
+Just add the lines as the example below (the output resources scaling is still inherited from the default patch!).
+
+```
+@PART[my_resource_converter]:NEEDS[TweakScale]
+{
+    #@TWEAKSCALEBEHAVIOR[ModuleGeneratorExtended]/MODULE[TweakScale] { }
+    %MODULE[TweakScale]
+    {
+        type = free
+    }
+}
+```
+
+## WARNINGS
+
+The known *Unholy interaction between modules* (Kraken Food), rogue patches or known incompatibilities between third parties Add'On that can lead to disasters are being detected on the Sanity Checks with a proper (scaring) warning being shown. A full essay about these issues can be found [here](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-14-tweakscale-under-lisias-management-2434-2019-0903/).
+
+Unfortunately, such issues are a serious Show Stopper, potentially (and silently) ruining your savegames. This is not TweakScale fault, but yet it's up to it to detect the problem and warn you about it. If this happens with you, call for help. A "Cancel" button is available for the brave Kerbonauts willing to fly unsafe.
+
+TweakScale strongly recommends using [S.A.V.E.](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-*).
+
+Special procedures for recovering mangled installments once the TweakScale are installed (triggering the MM cache rebuilding) are possible, but **keep your savegames backed up**. And **DON`T SAVE** your crafts once you detect the problem. Reach me on [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*) for help.
+
+TweakScale stills "mangles further" affected crafts and savegames with some badly (but recoverable) patched parts so when things are fixed, your crafts preserve the TweakScale settings without harm. **THIS DOES NOT FIX THE PROBLEM**,  as this is beyond the reach of TweakScale - but it at least prevents you from losing your crafts and savegames once the problem happens and then is later fixed. You will detect this by KSP complaining about a missing `TweakScaleRogueDuplicate` module (previously `TweakScaleDisabled`, renamed for clarity). You can safely ignore this.
+
+As usual, this version still drops support in runtime for some problematic parts. Any savegame with such problematic parts scaled will have them "descaled". This is not a really big problem as your game was going to crash sooner or later anyway - but if you plan to return to such savegame later when TweakScale will fully support that parts again, it's better to backup your savegames!
 
 Keep an eye on the [Known Issues](https://github.com/net-lisias-ksp/TweakScale/blob/master/KNOWN_ISSUES.md) file.
+
+— — — — —
+
+This Release will be published using the following Schedule:
+
+* GitHub, reaching first manual installers and users of KSP-AVC. Right now.
+* CurseForge, by Friday night
+* SpaceDock (and CKAN users), by Saturday night.
+
+The reasoning is to gradually distribute the Release to easily monitor the deployment and cope with eventual mishaps.

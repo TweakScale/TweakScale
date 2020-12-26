@@ -9,9 +9,12 @@ check() {
 	fi
 
 	if [ ! -f "./GameData/$TARGETBINDIR/KSPe.Light.TweakScale.dll" ] ; then
-		echo "KSPe.Light.TweakScale not found!!! Aborting."
-		read line
-		exit -1
+		if [ ! -f "${LIB}/KSPe.Light.TweakScale.dll" ] ; then
+				echo "KSPe.Light.TweakScale not found!!! Aborting."
+				read line
+				exit -1
+		fi
+		cp "${LIB}/KSPe.Light.TweakScale.dll" "./GameData/$TARGETBINDIR/"
 	fi
 }
 
@@ -19,7 +22,7 @@ deploy_dev() {
 	local DLL=$1
 
 	if [ -f "./bin/Release/$DLL.dll" ] ; then
-		cp "./bin/Release/$DLL.dll" "$LIB"
+		cp "./bin/Release/$DLL.dll" "$LIB"/$DLL.BETA.dll
 	fi
 }
 
@@ -29,12 +32,12 @@ deploy_bin() {
 	if [ -f "./bin/Release/$DLL.dll" ] ; then
 		cp "./bin/Release/$DLL.dll" "./GameData/$TARGETBINDIR/"
 		if [ -d "${KSP_DEV}/GameData/$TARGETBINDIR/" ] ; then
-			cp "./bin/Release/$DLL.dll" "${KSP_DEV/}GameData/$TARGETBINDIR/"
+			cp "./bin/Release/$DLL.dll" "${KSP_DEV}/GameData/$TARGETBINDIR/"
 		fi
 	fi
 	if [ -f "./bin/Debug/$DLL.dll" ] ; then
 		if [ -d "${KSP_DEV}/GameData/$TARGETBINDIR/" ] ; then
-			cp "./bin/Debug/$DLL.dll" "${KSP_DEV}GameData/$TARGETBINDIR/"
+			cp "./bin/Debug/$DLL.dll" "${KSP_DEV}/GameData/$TARGETBINDIR/"
 		fi
 	fi
 }
@@ -52,12 +55,12 @@ deploy_gamedata() {
 	if [ -f "./bin/Release/$DLL" ] ; then
 		cp "./bin/Release/$DLL" "./GameData/${PLACE}_$DLL"
 		if [ -d "${KSP_DEV}/GameData/" ] ; then
-			cp "./bin/Release/$DLL" "${KSP_DEV/}GameData/${PLACE}_$DLL"
+			cp "./bin/Release/$DLL" "${KSP_DEV}/GameData/${PLACE}_$DLL"
 		fi
 	fi
 	if [ -f "./bin/Debug/$DLL" ] ; then
 		if [ -d "${KSP_DEV}/GameData/" ] ; then
-			cp "./bin/Debug/$DLL" "${KSP_DEV}GameData/${PLACE}_$DLL"
+			cp "./bin/Debug/$DLL" "${KSP_DEV}/GameData/${PLACE}_$DLL"
 		fi
 	fi
 }
@@ -66,7 +69,7 @@ VERSIONFILE=$PACKAGE.version
 check
 cp $VERSIONFILE "./GameData/$TARGETDIR"
 cp CHANGE_LOG.md "./GameData/$TARGETDIR"
-cp *LICENSE "./GameData/$TARGETDIR"
+cp LICENSE* "./GameData/$TARGETDIR"
 cp NOTICE "./GameData/$TARGETDIR"
 deploy_md README.md
 

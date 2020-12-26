@@ -36,7 +36,7 @@ namespace TweakScale
         private readonly UI_FloatRange _floatRange;
         private const BindingFlags LookupFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-        static void ConcatSafely(string name, Func<string> a, ref string result)
+        private static void ConcatSafely(string name, Func<string> a, ref string result)
         {
             try
             {
@@ -249,8 +249,10 @@ namespace TweakScale
         {
             if ((object)_floatRange == null)
             {
+                Log.dbg("RescaleFloatRange _floatRange for {0}/{1} is NULL!", _object, this.Name);
                 return;
             }
+            Log.dbg("RescaleFloatRange for {0}/{1} to {2}", _object, this.Name, factor);
             _floatRange.maxValue *= factor;
             _floatRange.minValue *= factor;
             _floatRange.stepIncrement *= factor;

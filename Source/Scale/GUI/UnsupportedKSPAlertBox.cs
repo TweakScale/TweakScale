@@ -21,28 +21,35 @@
 		You should have received a copy of the GNU General Public License 2.0
 		along with TweakScale /L If not, see <https://www.gnu.org/licenses/>.
 */
+﻿using System;
 using UnityEngine;
-using System;
-using KSPe;
+using KSPe.UI;
 
 namespace TweakScale.GUI
 {
-    internal static class UnsupportedKSPAlertBox
+    internal class UnsupportedKSPAdviseBox : CommonBox
     {
         private static readonly string MSG = @"Unfortunately TweakScale is currently not known to work correctly on KSP {0} (and newer)!
 
-It's not certain that it will not work fine, it's **NOT KNOWN** and if anything goes wrong, KSP will inject bad information on your savegames corrupting parts with TwekScale.";
+It's not certain that it will not work fine, it's **NOT KNOWN** and if anything goes wrong, KSP will inject bad information on your savegames corrupting parts with TwekScale.
 
-        private static readonly string AMSG = @"check the GitHub issue #{1} (KSP will close) to be updated on any news about KSP {0}";
+Please proceed with caution - use S.A.V.E. just in case.";
 
-        internal static void Show(string kspVersion, string issueNumber)
+        internal static void Show(string currentVersion)
         {
-            KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
-                string.Format(MSG, kspVersion, issueNumber),
-                AMSG,
-                () => { Application.OpenURL(string.Format("https://github.com/net-lisias-ksp/TweakScale/issues/{0}", issueNumber)); Application.Quit(); }
+            GameObject go = new GameObject("TweakScale.AdviseBox");
+            TimedMessageBox dlg = go.AddComponent<TimedMessageBox>();
+
+            GUIStyle win = createWinStyle(Color.white);
+            GUIStyle text = createTextStyle();
+
+            dlg.Show(
+                "TweakScale advises", 
+                string.Format(MSG, currentVersion),
+                30, 0, 0,
+                win, text
             );
-            Log.force("\"Houston, we have a Problem!\" about KSP {0} was displayed", kspVersion);
+            Log.force("\"TweakScale advises\" about KSP was displayed.");
         }
     }
 }

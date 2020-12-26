@@ -4,7 +4,7 @@
 		© 2015-2018 pellinor
 		© 2014 Gaius Godspeed and Biotronic
 
-		THIE FILE is licensed to you under:
+		THIS FILE is licensed to you under:
 
 		* WTFPL - http://www.wtfpl.net
 			* Everyone is permitted to copy and distribute verbatim or modified

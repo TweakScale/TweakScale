@@ -219,7 +219,7 @@ namespace TweakScale
 
         public static bool HasParent(this Part p)
         {
-            return (object) p.parent != null;
+            return !(p.parent is null);
         }
 
         public static string ToString_rec(this object obj, int depth = 0)
@@ -243,8 +243,10 @@ namespace TweakScale
                 {
                     result.AppendFormat("{0}: {1}, ", field.Name, fmt(field.GetValue(obj, null)));
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    // FIXME Why this? Check for problems, log it. Reevaluate and try to fix the cause.
+                    Debug.LogException(e);
                 }
             }
 

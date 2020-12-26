@@ -21,6 +21,8 @@
 		You should have received a copy of the GNU General Public License 2.0
 		along with TweakScale /L If not, see <https://www.gnu.org/licenses/>.
 */
+using System;
+
 using UnityEngine;
 
 using TweakScale.Annotations;
@@ -36,19 +38,20 @@ namespace TweakScale
             Log.init();
             Log.force("Version {0}", Version.Text);
 
-/*            if (1 == KSPe.Util.KSP.Version.Current.MAJOR && KSPe.Util.KSP.Version.Current.MINOR >= 10)
-            {
-                GUI.UnsupportedKSPAlertBox.Show("1.10", "115");
-            }
-            else*/ if (1 == KSPe.Util.KSP.Version.Current.MAJOR && KSPe.Util.KSP.Version.Current.MINOR == 9)
-            {
-                Type calledType = Type.GetType("KSP_Recall.Version, KSP-Recall", false, false);
-                if (null == calledType) GUI.NoRecallAlertBox.Show();
-            }
-            else try
+            try
             {
                 KSPe.Util.Compatibility.Check<Startup>(typeof(Version), typeof(Configuration));
                 KSPe.Util.Installation.Check<Startup>(typeof(Version));
+
+                if (1 == KSPe.Util.KSP.Version.Current.MAJOR && KSPe.Util.KSP.Version.Current.MINOR == 9)
+                {
+                    Type calledType = Type.GetType("KSP_Recall.Version, KSP-Recall", false, false);
+                    if (null == calledType) GUI.NoRecallAlertBox.Show();
+                }
+                else if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1,11,1))
+                {
+                    GUI.UnsupportedKSPAdviseBox.Show(KSPe.Util.KSP.Version.Current.ToString());
+                }
             }
             catch (KSPe.Util.InstallmentException e)
             {
@@ -63,29 +66,10 @@ namespace TweakScale
     {
         internal static bool shouldShowWarnings = true;
 
-        private const string MMEXPCACHE = "PluginData/ModuleManager/ConfigCache.cfg";
-        private const string MMCACHE = "GameData/ModuleManager.ConfigCache";
-
         [UsedImplicitly]
         public static void ModuleManagerPostLoad()
         {
-            try
-            {
-                string path = System.IO.Path.Combine(KSPUtil.ApplicationRootPath, MMEXPCACHE);
-                if (!System.IO.File.Exists(path))
-                {
-                    path = System.IO.Path.Combine(KSPUtil.ApplicationRootPath, MMCACHE);
-                    if (!System.IO.File.Exists(path)) throw new System.IO.FileNotFoundException("Module Manager cache not found!");
-                }
-                System.IO.FileInfo fi = new System.IO.FileInfo(path);
-                System.DateTime lastmodified = fi.LastWriteTime;
-                double hours = (System.DateTime.Now - lastmodified).TotalHours;
-                shouldShowWarnings = (hours < 1);
-            }
-            catch (System.Exception e)
-            {
-                Log.error("Error [{0}] while checking Module Manager cache age!", e);
-            }
+            shouldShowWarnings = !KSPe.Util.ModuleManagerTools.IsLoadedFromCache;
             Log.detail("ModuleManagerPostLoad handled! shouldShowWarnings is {0}", shouldShowWarnings);
         }
     }
