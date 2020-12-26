@@ -10,7 +10,7 @@ clean() {
 	fi
 }
 
-FILE=$PACKAGE-$VERSION.BETA.zip
+FILE=$PACKAGE-$VERSION${PROJECT_STATE}.zip
 echo $FILE
 clean
 zip -r $FILE ./GameData/* -x ".*"
