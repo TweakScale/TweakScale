@@ -1,41 +1,58 @@
 ## ANNOUNCE
 
-Release 2.4.3.5 is available for downloading, with the following changes:
+Release 2.4.4.0 is available for downloading, with the following changes:
 
 + Updated KSPe Light for TweakScale:
-	+ Standard Installation Check
-	+ Common Dialogs
-		- More consistent appearance between different installations 
-	+ Internal routines updated to understand Unity 2019. 
-		- KSP 1.8 Ready, baby! ;)
+	+ Suport for KSP 1.11
+* Chain Scaling now "jumps over" parts without TweakScale support, instead of just breaking the chain.
+* Parts with Variants that change Mass and/or Cost are now supported. #HURRAY
+* Formal Public Interface for scaling helpers (used mainly by the Companions)
+* Added `ignoreResourcesForCost` attribute to allow custom modules to deactivate TweakScale calculations for resources
+* Installation checks, detecting common installation errors.
 * Issues Fixed:
-	+ [#26](https://github.com/net-lisias-ksp/TweakScale/issues/26) Document the patches
-	+ [#69](https://github.com/net-lisias-ksp/TweakScale/issues/69) Act on deprecated or misplaced patches
-	+ [#76](https://github.com/net-lisias-ksp/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-
+	+ Formally closes 49 issues, backporting (almost) all fixes from the Beta Releases until 2.5.0.27. Please see the [Change Log](https://github.com/net-lisias-ksp/TweakScale/blob/master/CHANGE_LOG.md), as they are too much to be enumerated comfortably here!
+	
 See [OP](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*) for the links.
 
 ## Highlights
 
-### New Runtime Check
+### Formal support for KSP from 1.4.4 to 1.11
 
-TweakScale knows complains with a "Houston" (Fatal Error Message) when it detectes it was wrongly installed.
+KSP 1.11 didn't introduced any changes that break TweakScale, so it's formally supported. However, in order to proper support Variants, the minimal KSP version supported by now is 1.4.4 . Sorry for that.
 
-### Deprecated Patches
+TweakScale 2.5 aims to bring back support for KSP down to 1.2.2 (exactly how, is still work in progress, but it's feasible as being demonstrated by some Unofficial forks of mine).
 
-Then following patches were deprecated as the respectives Add'Ons are not available for downloading anymore, rendering them useless and even dangerous to be used by the ones that have them on their archives:
+### Parts with Variants
 
-* [KOSMOS](https://forum.kerbalspaceprogram.com/index.php?/topic/6679-*)
-* [UDK's Large Structural Components](https://forum.kerbalspaceprogram.com/index.php?/topic/31891-*)
+Variants that change Cost and/or Nass are now fully supported, but TweakScale is struggling to support Parts with Variants that changes Attachment Nodes.
 
-These ones were deprecated due the Add'On's maintainers decided to internalize them and maintain the patches themselves.
+I had planned to withdraw TweakScale support from such parts as I did in the past, but then I realised that most Version 2 parts from already scalable parts (as Terrier...) would had TweakScale withdrawn, and this would render some crafts and savegames corrupted.
 
-* [HGR](https://forum.kerbalspaceprogram.com/index.php?/topic/131556-*)
-* [KAX](https://forum.kerbalspaceprogram.com/index.php?/topic/180268-*)
-* [Mining Extensions](https://forum.kerbalspaceprogram.com/index.php?/topic/130325-*)
-* [Mark 3 Expansion](https://forum.kerbalspaceprogram.com/index.php?/topic/109401-*)
+Since most of these parts didn't misbehave on a noticeable way, I decided to just let it go as is for while. Just a few stock parts are misbehaving into a noticeable way, and these parts are (until the moment):
 
-Deprecated patches are preserved on the `Extras/Deprecated` directory on the distribution file. In the unlikely event you need them back, it's recommended to copy them into a customized place on your installment and not on the TweakScale's directory hierarchy. TweakScale suggests `GameData/__LOCAL/TweakScale` .
+- The Mastodon engine
+- The Structural Tubes
+	- T-12
+	- T-18
+	- T-25
+	- T-37
+	- T-50
+
+And probably more, as Add'Ons starts to use such feature. 
+
+The only workaround at the moment is to descale these parts before applying the variant and then scaling them again. Alternatively, just detach and reattach the misbehaving parts.
+
+A proper fix is Work in Progress, and is expected to be released on 2.4.4.1.
+
+### Deprecating Patches
+
+Support for all non Squad parts are on a deprecating status and will be definitively removed on TweakScale 2.5. The [TweakScale Companion Program](https://forum.kerbalspaceprogram.com/index.php?/topic/192216-tweakscale-companion-program-2020-1001/) will be the source for supporting third-parties add'ons.
+
+It's advised to install the needed Companions as they reach Gold status.
+
+### Sanity Checks
+
+Parts using Firespitter's `FSbuoyancy` needs the latest [TweakScale Companion for Firespitter](https://forum.kerbalspaceprogram.com/index.php?/topic/192216-tweakscale-companion-program-2020-1001/), as only the Companion has the specific code that knows how to handle it.
 
 ### Overrules
 
@@ -76,9 +93,7 @@ TweakScale strongly recommends using [S.A.V.E.](https://forum.kerbalspaceprogram
 
 Special procedures for recovering mangled installments once the TweakScale are installed (triggering the MM cache rebuilding) are possible, but **keep your savegames backed up**. And **DON`T SAVE** your crafts once you detect the problem. Reach me on [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*) for help.
 
-TweakScale stills "mangles further" affected crafts and savegames with some badly (but recoverable) patched parts so when things are fixed, your crafts preserve the TweakScale settings without harm. **THIS DOES NOT FIX THE PROBLEM**,  as this is beyond the reach of TweakScale - but it at least prevents you from losing your crafts and savegames once the problem happens and then is later fixed. You will detect this by KSP complaining about a missing `TweakScaleRogueDuplicate` module (previously `TweakScaleDisabled`, renamed for clarity). You can safely ignore this.
-
-As usual, this version still drops support in runtime for some problematic parts. Any savegame with such problematic parts scaled will have them "descaled". This is not a really big problem as your game was going to crash sooner or later anyway - but if you plan to return to such savegame later when TweakScale will fully support that parts again, it's better to backup your savegames!
+TweakScale stills "mangles further" affected crafts and savegames with some badly (but recoverable) patched parts so when things are fixed, your crafts preserve the TweakScale settings without harm. **THIS DOES NOT FIX THE PROBLEM**, as this is beyond the reach of TweakScale - but it at least prevents you from losing your crafts and savegames once the problem happens and then it is later fixed. You will detect this by KSP complaining about a missing `TweakScaleRogueDuplicate` module (previously `TweakScaleDisabled`, renamed for clarity). You can safely ignore this.
 
 Keep an eye on the [Known Issues](https://github.com/net-lisias-ksp/TweakScale/blob/master/KNOWN_ISSUES.md) file.
 
@@ -87,7 +102,7 @@ Keep an eye on the [Known Issues](https://github.com/net-lisias-ksp/TweakScale/b
 This Release will be published using the following Schedule:
 
 * GitHub, reaching first manual installers and users of KSP-AVC. Right now.
-* CurseForge, by Friday night
-* SpaceDock (and CKAN users), by Saturday night.
+* CurseForge, by Sunday night
+* SpaceDock (and CKAN users), by Monday night.
 
 The reasoning is to gradually distribute the Release to easily monitor the deployment and cope with eventual mishaps.
