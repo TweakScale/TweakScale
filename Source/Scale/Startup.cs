@@ -41,7 +41,7 @@ namespace TweakScale
             try
             {
                 KSPe.Util.Compatibility.Check<Startup>(typeof(Version), typeof(Configuration));
-                KSPe.Util.Installation.Check<Startup>(typeof(Version));
+                KSPe.Util.Installation.Check<Startup>("Scale", "TweakScale", null, true);
 
                 if (1 == KSPe.Util.KSP.Version.Current.MAJOR && KSPe.Util.KSP.Version.Current.MINOR == 9)
                 {
