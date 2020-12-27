@@ -9,8 +9,13 @@ Release 2.4.4.0 is available for downloading, with the following changes:
 * Formal Public Interface for scaling helpers (used mainly by the Companions)
 * Added `ignoreResourcesForCost` attribute to allow custom modules to deactivate TweakScale calculations for resources
 * Installation checks, detecting common installation errors.
+* **Complete** overhaul of the patches for Stock (and DLC) parts
+	+ Only fixes that don't break current savegames were applied.
+	+ TweakScale 2.5 will have further fixes merged, even when unbalancing existing crafts.
 * Issues Fixed:
 	+ Formally closes 49 issues, backporting (almost) all fixes from the Beta Releases until 2.5.0.27. Please see the [Change Log](https://github.com/net-lisias-ksp/TweakScale/blob/master/CHANGE_LOG.md), as they are too much to be enumerated comfortably here!
+
+All of these totalling **353** commits to be merged since the previous 2.4.3.21 release!!
 	
 See [OP](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*) for the links.
 
