@@ -523,7 +523,7 @@ namespace TweakScale
 
 			// And since the super's Move code doesn't works right when you are "scaling back" a part, we need to
 			// "fix" them now
-			this.MoveParts();
+			//this.MoveParts(); // Deactivated to fastrack the 2.4.4.0 release.
 
 			this.ScaleDragCubes(true); // I'm unsure if I should enable this. FIXME: TEST, TEST, TEST!
 			this.OnChange();

@@ -260,7 +260,22 @@ namespace TweakScale
                     return "having ModuleB9PartSwitch together ModuleFuelTanks - see issue [#12]( https://github.com/net-lisias-ksp/TweakScale/issues/12 )";
             }
 
-            return null;
+			// This would introduce some breakage on already scaling parts on the wild, so I decided to just let it go as it is.
+			// I will get a lot of heat due Mastodon and the Tubes, but at least I will not break current savegames on the wild. :/
+#if false
+			if (p.Modules.Contains("ModulePartVariants"))
+			{
+				// It's more straightforward to check the Config Node, as the ModulePart has the Attachment Nodes filled up even
+				// when the Config does not specify them. I'm presuming the ModulePartVariants.variantList[].AttachNodes is being
+				// filled up at runtime to accelerate changing Variants...
+				ConfigNode partNode = GameDatabase.Instance.GetConfigs("PART").FirstOrDefault(c => c.name.Replace('_', '.') == p.name).config;
+				ConfigNode moduleNode = partNode.GetNodes("MODULE").FirstOrDefault(n => n.GetValue("name") == "ModulePartVariants");
+				ConfigNode[] variantsNodes = moduleNode.GetNodes("VARIANT");
+				foreach (ConfigNode cn in variantsNodes) if (null != cn.GetNode("NODES"))
+    				return "having a Variant that change attachment nodes - see issue [#139]( https://github.com/net-lisias-ksp/TweakScale/issues/139 )";
+			}
+#endif
+			return null;
         }
 
         private string checkForShowStoppers(Part p)
