@@ -518,19 +518,19 @@ namespace TweakScale
             // If it didn't, this event may induce Recall to cache the part's resource before he could finish his business.
             // So whoever has received that event, he will need to handle OnPartResourceChanged too after, even by us doing it here.
 
-            // send Resource Changed message to KSP Recall if needed
+            Log.dbg("send Resource Changed message to KSP Recall if needed");
             if (0 != this.partDB.part.Resources.Count) this.NotifyPartResourcesChanged();
 
-            // send AttachNodes Changed message to KSP Recall if needed
+            Log.dbg("send AttachNodes Changed message to KSP Recall if needed");
             if (0 != this.partDB.part.attachNodes.Count) this.NotifyPartAttachmentNodesChanged();
 
             this.NotifyPartSurfaceAttachmentChanged(); // This is not working on KSP 1.9, apparently Editor overwrites us before we send the event here!
 
-            // send scaling part message
+            Log.dbg("send scaling part message");
             this.NotifyPartScaleChanged();
 
-            // Notify the Word we changed the ship.
             GameEvents.onEditorShipModified.Fire(EditorLogic.fetch.ship);
+            Log.dbg("Notify the World we changed the ship.");
         }
 
         private void SetupCrewManifest()
