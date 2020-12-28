@@ -185,11 +185,11 @@ namespace TweakScale
             }
         }
 
-        internal void RescaleIfNeededAndUpdate()
+        internal void RestoreScaleIfNeededAndUpdate()
         {
             if (!IsScaled) return;
             this.RescaleAndUpdate();
-            this.NotifyListeners();
+            this.NotifyListeners(false);
         }
 
         internal void ScaleAndUpdate()
@@ -296,7 +296,7 @@ namespace TweakScale
                         if (!this.IsPartMatchesPrefab(cn))
                             this.FixPartScaling(node, cn);
                     }
-                    this.RescaleIfNeededAndUpdate();
+                    this.RestoreScaleIfNeededAndUpdate();
                 }
                 else
                     this.enabled = false;
@@ -512,7 +512,7 @@ namespace TweakScale
             }
         }
 
-        private void NotifyListeners()
+        private void NotifyListeners(bool fireShipModified = true)
         {
             // Problem: We don't have the slightest idea if the OnPartScaleChanged was already handled or not.
             // If it didn't, this event may induce Recall to cache the part's resource before he could finish his business.
@@ -529,8 +529,8 @@ namespace TweakScale
             Log.dbg("send scaling part message");
             this.NotifyPartScaleChanged();
 
-            GameEvents.onEditorShipModified.Fire(EditorLogic.fetch.ship);
             Log.dbg("Notify the World we changed the ship.");
+            if (fireShipModified) GameEvents.onEditorShipModified.Fire(EditorLogic.fetch.ship);
         }
 
         private void SetupCrewManifest()
