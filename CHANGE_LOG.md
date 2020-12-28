@@ -1,9 +1,12 @@
 # TweakScale :: Change Log
 
-* 2020-1228: 2.4.4.1 (Lisias) for 1.4.4 <= KSP <= 1.11.1
+* 2020-1228: 2.4.4.2 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ Fixes a NRE that passed through unattended for some time since last refactoring.
+	+ **FINALLY** identified the merge error that leaked a duplicated patch file into the distribution stream!
 	+ Closes issues:
 		- [#152](https://github.com/net-lisias-ksp/TweakScale/issues/152) Unexpected NRE while initialising scaled parts on launch
+* 2020-1228: 2.4.4.1 (Lisias) for 1.4.4 <= KSP <= 1.11.1
+	+ ***DITCHED***
 * 2020-1226: 2.4.4.0 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ (Temporarily) Raises the bar to KSP 1.4.4 due the Variant stunt.
 		- Support for KSP down to 1.2.2 is still on the back log, but I need to finish support for modern KSP first!
