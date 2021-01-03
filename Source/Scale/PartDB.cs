@@ -486,7 +486,7 @@ namespace TweakScale
 		{
 			this.ScalePartModelTransform();
 			this.MoveSurfaceAttachment(true, true);
-			this.MoveAttachmentNodes(true, true);
+			this.MoveAttachmentNodes(false, true);
 		}
 
 		internal override double CalculateDryCost()
