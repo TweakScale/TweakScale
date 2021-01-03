@@ -48,6 +48,13 @@ namespace TweakScale
 		/// </summary>
 		public readonly Part prefab;
 
+		/// <summary>
+		/// Initialises the PartDB thingy.
+		/// </summary>
+		/// <param name="prefab"></param> the prefab data fetch from the KSP's OnLoad(null) call
+		/// <param name="part"></param> the part 
+		/// <param name="scaleType"></param> the default scaleType
+		/// <param name="ts"></param> the TweakScale object that own us. **MUST BE NULL** when starting up KSP (Loading Scene).
 		protected PartDB(Part prefab, Part part, ScaleType scaleType, TweakScale ts)
 		{
 			this.prefab = prefab;
