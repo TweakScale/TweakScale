@@ -279,7 +279,7 @@ namespace TweakScale
             {
                 // Loading of the part from a saved craft
                 tweakScale = currentScale;
-                if (HighLogic.LoadedSceneIsEditor || IsScaled)
+                if (HighLogic.LoadedSceneIsEditor)
                 { 
                     this.Setup(part);
 
@@ -298,8 +298,7 @@ namespace TweakScale
                     }
                     this.RestoreScaleIfNeededAndUpdate();
                 }
-                else
-                    this.enabled = false;
+				this.enabled = this.IsScaled;
             }
         }
 
