@@ -48,7 +48,7 @@ namespace TweakScale
                     Type calledType = Type.GetType("KSP_Recall.Version, KSP-Recall", false, false);
                     if (null == calledType) GUI.NoRecallAlertBox.Show();
                 }
-                else if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1,10,1))
+                else if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1,11,1))
                 {
                     GUI.UnsupportedKSPAdviseBox.Show(KSPe.Util.KSP.Version.Current.ToString());
                 }
