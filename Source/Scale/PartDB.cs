@@ -33,7 +33,7 @@ namespace TweakScale
 	{
 		public readonly Part part;
 		protected TweakScale ts;
-		protected readonly bool IsOnKSP19 = KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.FindByVersion(1,9,0);
+		protected readonly bool HasKSP19bug = KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.FindByVersion(1,9,0);
 		protected float currentScale;
 		protected float previousScale;
 		protected readonly float defaultScale;
@@ -119,7 +119,7 @@ namespace TweakScale
 			Log.dbg("FirstUpdate for {0}", this.ts.InstanceID);
 			this.ScaleDragCubes(true);
 			if (HighLogic.LoadedSceneIsEditor)						// cloned parts and loaded crafts seem to need this (otherwise the node positions revert)
-				if (this.IsOnKSP19) this.FirstScalePartKSP19();		// This is needed by (surprisingly!) KSP 1.9
+				if (this.HasKSP19bug) this.FirstScalePartKSP19();	// This is needed by (surprisingly!) KSP 1.9
 				else this.ScalePart(false, true);					// This was originally shoved on Update() for KSP 1.2 on commit 09d7744
 		}
 
