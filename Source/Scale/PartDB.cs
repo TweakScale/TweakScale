@@ -95,11 +95,12 @@ namespace TweakScale
 		{
 			get
 			{
+				Log.dbg("Get Module Cost {0}", this.ts.InstanceID);
 				double r = this.ts.DryCost - this.part.partInfo.cost;
 				Log.dbg("Module Cost without resources {0} {1}", this.ts.InstanceID, r);
 				r += this.ts.ignoreResourcesForCost
 					? 0.0
-					: part.Resources.Cast<PartResource>().Aggregate(0.0, (a, b) => a + b.maxAmount * b.info.unitCost)
+					: this.part.Resources.Cast<PartResource>().Aggregate(0.0, (a, b) => a + b.maxAmount * b.info.unitCost)
 				;
 				Log.dbg("Module Cost *WITH* resources {0} {1}", this.ts.InstanceID, r);
 				return (float)r;
