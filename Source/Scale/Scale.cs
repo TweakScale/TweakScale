@@ -870,7 +870,7 @@ namespace TweakScale
             BaseEventDetails data = new BaseEventDetails(BaseEventDetails.Sender.USER);
             data.Set<int>("InstanceID", this.part.GetInstanceID());
             data.Set<Type>("issuer", this.GetType());
-            this.part.SendEvent("NotifyPartAttachmentNodesChanged", data, 0);
+            this.part.SendEvent("OnPartAttachmentNodesChanged", data, 0);
         }
 
         private void NotifyPartSurfaceAttachmentChanged()
