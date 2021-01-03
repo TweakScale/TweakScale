@@ -118,9 +118,9 @@ namespace TweakScale
 		{
 			Log.dbg("FirstUpdate for {0}", this.ts.InstanceID);
 			this.ScaleDragCubes(true);
-			if (HighLogic.LoadedSceneIsEditor)						// cloned parts and loaded crafts seem to need this (otherwise the node positions revert)
-				if (this.HasKSP19bug) this.FirstScalePartKSP19();	// This is needed by (surprisingly!) KSP 1.9
-				else this.ScalePart(false, true);					// This was originally shoved on Update() for KSP 1.2 on commit 09d7744
+			if (HighLogic.LoadedSceneIsEditor)								// cloned parts and loaded crafts seem to need this (otherwise the node positions revert)
+				if (this.HasKSP19bug) this.FirstScalePartKSP19();			// This is needed by (surprisingly!) KSP 1.9
+				else this.ScalePart(false, true);							// This was originally shoved on Update() for KSP 1.2 on commit 09d7744
 		}
 
 		internal void Scale()
@@ -477,8 +477,8 @@ namespace TweakScale
 		protected override void FirstScalePartKSP19()
 		{
 			this.ScalePartModelTransform();
-			this.MoveSurfaceAttachment(false, true);
-			this.MoveAttachmentNodes(false, true);
+			this.MoveSurfaceAttachment(true, true);
+			this.MoveAttachmentNodes(true, true);
 		}
 
 		internal override double CalculateDryCost()
