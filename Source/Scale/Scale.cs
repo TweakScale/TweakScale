@@ -277,12 +277,12 @@ namespace TweakScale
             }
             else
             {
+				this.Setup(part);
+
                 // Loading of the part from a saved craft
                 tweakScale = currentScale;
                 if (HighLogic.LoadedSceneIsEditor)
                 { 
-                    this.Setup(part);
-
 					// That's the problem - somewhere in the not so near past, KSP implemented a stunt called
 					// UpgradePipeline. This thing acts after the PartModule's OnLoad handler, and it injects
 					// back default values from prefab into the part on loading. This was intended to allow older
@@ -296,8 +296,8 @@ namespace TweakScale
                         if (!this.IsPartMatchesPrefab(cn))
                             this.FixPartScaling(node, cn);
                     }
-                    this.RestoreScaleIfNeededAndUpdate();
                 }
+				this.RestoreScaleIfNeededAndUpdate();
 				this.enabled = this.IsScaled;
             }
         }
