@@ -1,5 +1,11 @@
 # TweakScale :: Change Log
 
+* 2021-0104: 2.4.4.3 (Lisias) for 1.4.4 <= KSP <= 1.11.1
+	+ Fix some regressions from 2.4.4.2 that passed through.
+	+ Updates KSPe.Light for TweakScale
+	+ Closes Issues:
+		- [#154](https://github.com/net-lisias-ksp/TweakScale/issues/154) Problems on loading crafts with parts with variants that are surface attached
+		- [#143](https://github.com/net-lisias-ksp/TweakScale/issues/143) Wait for KSP Recall to close its issue #9 *AND* #11
 * 2020-1228: 2.4.4.2 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ Fixes a NRE that passed through unattended for some time since last refactoring.
 	+ **FINALLY** identified the merge error that leaked a duplicated patch file into the distribution stream!
