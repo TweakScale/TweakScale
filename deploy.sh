@@ -32,7 +32,7 @@ deploy() {
 	if [ -f "./bin/Release/$DLL" ] ; then
 		cp "./bin/Release/$DLL" "./GameData/$TARGETBINDIR/"
 		if [ -d "${KSP_DEV}/GameData/$TARGETBINDIR/" ] ; then
-			cp "./bin/Release/$DLL" "${KSP_DEV/}GameData/$TARGETBINDIR/"
+			cp "./bin/Release/$DLL" "${KSP_DEV}GameData/$TARGETBINDIR/"
 		fi
 	fi
 	if [ -f "./bin/Debug/$DLL" ] ; then
