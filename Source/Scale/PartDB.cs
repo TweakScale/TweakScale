@@ -143,7 +143,6 @@ namespace TweakScale
 		{
 			Log.dbg("Rescale for {0}", this.ts.InstanceID);
 			this.ScalePart(true, true);
-			this.ScaleDragCubes(true); // I'm unsure if I should enable this. FIXME: TEST, TEST, TEST!
 			this.OnChange();
 		}
 
@@ -533,7 +532,6 @@ namespace TweakScale
 			// "fix" them now
 			this.MoveParts();
 
-			this.ScaleDragCubes(true); // I'm unsure if I should enable this. FIXME: TEST, TEST, TEST!
 			this.OnChange();
 		}
 
