@@ -566,7 +566,6 @@ namespace TweakScale
 					continue;
 				}
 
-				if (0 != this.part.symmetryCounterparts.Count) continue;
 				this.MovePart(node);
 			}
 		}
@@ -598,11 +597,6 @@ namespace TweakScale
 					, currentPosition, desiredPosition, deltaPos);
 			} else
 				Log.error("Error moving part on Variant. Node {0} does not have counterpart in part variants {1} and/or {2}.", node.id, this.previousVariant.Name, this.currentVariant.Name);
-		}
-
-		protected void MovePartSymetry(AttachNode node)
-		{
-
 		}
 
 		private AttachNode[] FindAttachingNode(Part part, Part attachedPart)

@@ -142,6 +142,8 @@ namespace TweakScale
         /// </summary>
         public ScalingFactor ScalingFactor => new ScalingFactor(tweakScale / defaultScale, tweakScale / currentScale, isFreeScale ? -1 : tweakName);
 
+		private bool isCopy = false;
+
         protected virtual void SetupPrefab(Part prefabPart)
         {
             Log.dbg("SetupPrefab {0}", this.InstanceID);
@@ -367,6 +369,13 @@ namespace TweakScale
             }
         }
 
+		public override void OnCopy(PartModule partModule)
+		{
+			Log.dbg("OnCopy {0}", this.InstanceID);
+			base.OnCopy(partModule);
+            this.isCopy = true;
+		}
+
 		[UsedImplicitly]
 		private void OnDestroy()
 		{
@@ -431,7 +440,7 @@ namespace TweakScale
             {
                 _firstUpdate = false;
                 if (this.FailsIntegrity()) return;
-                if (this.IsScaled) this.partDB.FirstUpdate();
+                if (this.IsScaled && !this.isCopy) this.partDB.FirstUpdate();
             }
 
             if (HighLogic.LoadedSceneIsFlight)
@@ -958,7 +967,7 @@ namespace TweakScale
 
         }
 
-        public new bool enabled {
+		public new bool enabled {
             get { return base.enabled; }
             set {
                 if (base.enabled != value)
