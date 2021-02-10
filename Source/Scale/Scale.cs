@@ -100,12 +100,12 @@ namespace TweakScale
         /// <summary>
         /// The scale exponentValue array. If isFreeScale is false, the part may only be one of these scales.
         /// </summary>
-        protected float[] ScaleFactors = { 0.625f, 1.25f, 2.5f, 3.75f, 5f };
+        internal float[] ScaleFactors = { 0.625f, 1.25f, 2.5f, 3.75f, 5f };
         
         /// <summary>
         /// PartDB - KSP Part data abstraction layer
         ///</summary>
-        protected PartDB partDB;
+        internal PartDB partDB;
 
         /// <summary>
         /// Cached scale vector, we need this because the game regularly reverts the scaling of the IVA overlay
@@ -152,8 +152,6 @@ namespace TweakScale
         /// </summary>
         [KSPField(isPersistant = false)]
         public float MassScale = 1;
-
-        private Hotkeyable _chainingEnabled;
 
         /// <summary>
         /// The ScaleType for this part.
@@ -202,7 +200,6 @@ namespace TweakScale
 
             _updaters = TweakScaleUpdater.CreateUpdaters(part).ToArray();
             this.SetupCrewManifest();
-            this.HandleChildrenScaling(); // Wrongplace?
 
             if (!isFreeScale && ScaleFactors.Length != 0)
             {
@@ -437,13 +434,11 @@ namespace TweakScale
             {
                 if (this.partDB.HasCrew)
                 {
-                    GameEvents.onEditorShipModified.Add(OnEditorShipModified);
+					GameEvents.onEditorShipModified.Add(this.OnEditorShipModified);
                     this.wasOnEditorShipModifiedAdded = true;
                 }
 
-                _chainingEnabled = HotkeyManager.Instance.AddHotkey(
-                    "Scale chaining", new[] {KeyCode.LeftShift}, new[] {KeyCode.LeftControl, KeyCode.K}, false
-                    );
+				Features.ScaleChaining.Init();
             }
 
             // scale IVA overlay
@@ -496,7 +491,7 @@ namespace TweakScale
 		/// <summary>
 		/// Scale has changed!
 		/// </summary>
-		private void OnTweakScaleChanged()
+		internal void OnTweakScaleChanged()
         {
             if (!isFreeScale)
             {
@@ -505,10 +500,8 @@ namespace TweakScale
 
             this.partDB.SetScale(tweakScale);
 
-            if ((_chainingEnabled != null) && _chainingEnabled.State)
-            {
-                this.HandleChildrenScaling();
-            }
+			if (Features.ScaleChaining.Enabled)
+				Features.ScaleChaining.Execute(this);
 
             this.ScaleAndUpdate();
             this.MarkWindowDirty();
@@ -518,15 +511,17 @@ namespace TweakScale
             this.NotifyListeners();
         }
 
-        private bool wasOnEditorShipModifiedAdded = false;
-        [UsedImplicitly]
-        private void OnEditorShipModified(ShipConstruct ship)
-        {
-            Log.dbg("OnEditorShipModified {0}", this.InstanceID);
+		private bool wasOnEditorShipModifiedAdded = false;
+		[UsedImplicitly]
+		private void OnEditorShipModified(ShipConstruct ship)
+		{
+			//only run the following block in the editor; it updates the crew-assignment GUI
+			if (!HighLogic.LoadedSceneIsEditor) return;
+			Log.dbg("OnEditorShipModified {0}", this.InstanceID);
 
-            if (HighLogic.LoadedSceneIsEditor) //only run the following block in the editor; it updates the crew-assignment GUI
-                this.UpdateCrewManifest(); 
-        }
+			if (HighLogic.LoadedSceneIsEditor) 
+				this.UpdateCrewManifest(); 
+		}
 
         [UsedImplicitly]
         public void Update()
@@ -778,55 +773,6 @@ namespace TweakScale
             if (m.antennaCombinable) { str += " (Combinable)"; }
             m.powerText = str;
         }
-
-		/// <summary>
-		/// Propagate relative scaling factor to children.
-		/// </summary>
-		private void HandleChildrenScaling()
-		{
-			this.HandleChildrenScaling(this.part);
-		}
-
-		private void HandleChildrenScaling(Part father)
-		{
-			HashSet<Part> rejected = new HashSet<Part>();
-			HashSet<Part> parts = new HashSet<Part>();
-			{
-				int len = father.children.Count;
-				for (int i = 0; i < len; ++i) parts.Add(father.children[i]);
-			}
-			while (parts.Count > 0) {
-				foreach (Part p in parts) {
-					if (!this.HandleChildScaling(p)) {
-						// if we get here, the part is not scalable. So we need to handle their children ourselves
-						int len = p.children.Count;
-						for (int i = 0; i < len; ++i) rejected.Add(p.children[i]);
-					}
-				}
-				parts.Clear();
-				parts.UnionWith(rejected);
-                rejected.Clear();
-			}
-		}
-
-		private bool HandleChildScaling(Part child)
-		{
-			TweakScale b = child.GetComponent<TweakScale>();
-			if (null == b) {
-				Log.dbg("Ignoring child scaling {0}:{1}", child.name, child.persistentId);
-				return false;
-			}
-			Log.dbg("Handling child scaling {0}:{1}", child.name, child.persistentId);
-			float factor = ScalingFactor.relative.linear;
-			if (Math.Abs(factor - 1) <= 1e-4f) return true;
-
-			b.tweakScale *= factor;
-			if (!b.isFreeScale && (b.ScaleFactors.Length > 0)) {
-				b.tweakName = Tools.ClosestIndex(b.tweakScale, b.ScaleFactors);
-			}
-			b.OnTweakScaleChanged();
-            return true;
-		}
 
 		/// <summary>
 		/// Disable TweakScale module if something is wrong.
