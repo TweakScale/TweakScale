@@ -28,42 +28,46 @@ using UnityEngine;
 
 namespace TweakScale
 {
-    [KSPAddon(KSPAddon.Startup.EditorAny, false)]
-    internal class HotkeyManager : SingletonBehavior<HotkeyManager>
-    {
-        private readonly OSD _osd = new OSD();
-        private readonly Dictionary<string, Hotkeyable> _hotkeys = new Dictionary<string, Hotkeyable>();
-        private /*readonly*/ PluginConfiguration _config;
+	[KSPAddon(KSPAddon.Startup.EditorAny, true)]
+	internal class HotkeyManager : SingletonBehavior<HotkeyManager>
+	{
+		private readonly object MUTEX = new object();
+		private readonly OSD _osd = new OSD();
+		private readonly Dictionary<string, Hotkeyable> _hotkeys = new Dictionary<string, Hotkeyable>();
+		private /*readonly*/ PluginConfiguration _config;
 
+		[UsedImplicitly]
 		private new void Awake()
 		{
-            base.Awake();
+			Log.dbg("HotkeyManager.Awake");
+			base.Awake();
 
-            _config = PluginConfiguration.CreateForType<TweakScale>();
+			_config = PluginConfiguration.CreateForType<TweakScale>();
 		}
 
-        public PluginConfiguration Config => _config;
+		public PluginConfiguration Config => _config;
 
-        [UsedImplicitly]
-        private void OnGUI()
-        {
-            _osd.Update();
-        }
+		[UsedImplicitly]
+		private void OnGUI()
+		{
+			_osd.Update();
+		}
 
-        [UsedImplicitly]
-        private void Update()
-        {
-            foreach (Hotkeyable key in _hotkeys.Values)
-            {
-                key.Update();
-            }
-        }
+		[UsedImplicitly]
+		private void Update()
+		{
+			foreach (Hotkeyable key in _hotkeys.Values) {
+				key.Update();
+			}
+		}
 
-        public Hotkeyable AddHotkey(string hotkeyName, ICollection<KeyCode> tempDisableDefault, ICollection<KeyCode> toggleDefault, bool state)
-        {
-            if (_hotkeys.ContainsKey(hotkeyName))
-                return _hotkeys[hotkeyName];
-            return _hotkeys[hotkeyName] = new Hotkeyable(_osd, hotkeyName, tempDisableDefault, toggleDefault, state);
-        }
-    }
+		public Hotkeyable AddHotkey(string hotkeyName, ICollection<KeyCode> tempDisableDefault, ICollection<KeyCode> toggleDefault, bool state)
+		{
+			lock (MUTEX) {
+				if (_hotkeys.ContainsKey(hotkeyName))
+					return _hotkeys[hotkeyName];
+				return _hotkeys[hotkeyName] = new Hotkeyable(_osd, hotkeyName, tempDisableDefault, toggleDefault, state);
+			}
+		}
+	}
 }
