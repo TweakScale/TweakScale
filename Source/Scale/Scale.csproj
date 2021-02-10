@@ -68,6 +68,7 @@
     <Compile Include="GUI\NoRecallAlertBox.cs" />
     <Compile Include="GUI\UnsupportedKSPAlertBox.cs" />
     <Compile Include="PartDB.cs" />
+    <Compile Include="Features\ScaleChaining.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -110,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GUI\" />
+    <Folder Include="Features\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HotKey\" />

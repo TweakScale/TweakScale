@@ -105,6 +105,8 @@ namespace TweakScale
         /// </summary>
         /// <param name="obj">The object to format.</param>
         /// <returns>A more readable representation of <paramref name="obj"/>>.</returns>
+		// TODO: Remove on Version 2.5
+		[System.Obsolete("Tools.PreFormat is deprecated and will be removed on TweakScale 2.5")]
         public static object PreFormat(this object obj)
         {
             if (obj == null)
@@ -130,6 +132,8 @@ namespace TweakScale
         /// <param name="name">Name of the ConfigNode's field.</param>
         /// <param name="defaultValue">The exponentValue to use when the ConfigNode doesn't contain what we want.</param>
         /// <returns>The exponentValue in the ConfigNode, or <paramref name="defaultValue"/> if no decent exponentValue is found there.</returns>
+		// TODO: Remove on Version 2.5
+		[System.Obsolete("Tools.ConfigValue<T> is deprecated and will be removed on TweakScale 2.5")]
         public static T ConfigValue<T>(ConfigNode config, string name, T defaultValue)
         {
             if (!config.HasValue(name))
@@ -161,6 +165,8 @@ namespace TweakScale
         /// <param name="name">The name of the exponentValue to fetch.</param>
         /// <param name="defaultValue">The exponentValue to return if the exponentValue does not exist, or cannot be converted to <typeparamref name="T"/>s.</param>
         /// <returns>An array containing the elements of the string exponentValue as <typeparamref name="T"/>s.</returns>
+		// TODO: Remove on Version 2.5
+		[System.Obsolete("Tools.ConfigValue<T> is deprecated and will be removed on TweakScale 2.5")]
         public static T[] ConfigValue<T>(ConfigNode config, string name, T[] defaultValue)
         {
             if (!config.HasValue(name))
@@ -177,6 +183,8 @@ namespace TweakScale
         /// <param name="value">A comma-delimited list of values.</param>
         /// <param name="defaultValue">The exponentValue to return if the list does not hold valid values.</param>
         /// <returns>An arra</returns>
+		// TODO: Remove on Version 2.5
+		[System.Obsolete("Tools.ConvertString<T> is deprecated and will be removed on TweakScale 2.5")]
         public static T[] ConvertString<T>(string value, T[] defaultValue)
         {
             try
