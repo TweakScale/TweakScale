@@ -26,14 +26,21 @@ using UnityEngine;
 
 namespace TweakScale
 {
-    internal class SingletonBehavior<T> : MonoBehaviour where T : SingletonBehavior<T>
-    {
-        public static T Instance { get; protected set; }
+	internal class SingletonBehavior<T> : MonoBehaviour where T : SingletonBehavior<T>
+	{
+		// NOTE: THIS IS NOT THREAD SAFE!
+		private static T instance = null;
+		public static T Instance {
+			get {
+				return instance;
+			}
+		}
 
-        [UsedImplicitly]
-        protected void Awake()
-        {
-            Instance = (T)this;
-        }
-    }
+		[UsedImplicitly]
+		protected void Awake()
+		{
+			Log.dbg("SingletonBehavior.Awake");
+			instance = (T)this;
+		}
+	}
 }
