@@ -225,6 +225,7 @@ namespace TweakScale
             }
         }
 
+		[System.Obsolete("Tools.HasParent is deprecated and will be removed on TweakScale 2.5")]
         public static bool HasParent(this Part p)
         {
             return !(p.parent is null);
