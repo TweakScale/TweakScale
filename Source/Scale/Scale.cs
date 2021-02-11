@@ -640,15 +640,15 @@ namespace TweakScale
         }
 
         public static Type tfInterface = null;
+		private static readonly BindingFlags tBindingFlags = BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Static;
         private void updateTestFlight()
         {
             if (null == tfInterface) return;
-            BindingFlags tBindingFlags = BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Static;
             string _name = "scale";
             string value = ScalingFactor.absolute.linear.ToString();
             string owner = "TweakScale";
 
-            bool valueAdded = (bool)tfInterface.InvokeMember("AddInteropValue", BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Static, null, null, new System.Object[] { part, _name, value, owner });
+			bool valueAdded = (bool)tfInterface.InvokeMember("AddInteropValue", tBindingFlags, null, null, new System.Object[] { part, _name, value, owner });
             Log.dbg("TF: valueAdded={0}, value={1}", valueAdded, value);
         }
 
