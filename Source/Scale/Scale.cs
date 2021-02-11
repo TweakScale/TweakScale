@@ -172,6 +172,9 @@ namespace TweakScale
                 ScaleType = (prefab.Modules["TweakScale"] as TweakScale).ScaleType;
                 SetupFromConfig(ScaleType);
                 this.partDB = PartDB.Create(prefab, part, ScaleType, this);     // This need to be reworked. I calling this twice. :(
+
+                part.OnEditorAttach += OnEditorAttach;
+                this.wasOnEditorAttachAdded = true;
             }
 
             _updaters = TweakScaleUpdater.CreateUpdaters(part).ToArray();
@@ -352,6 +355,7 @@ namespace TweakScale
                     this.wasOnEditorShipModifiedAdded = true;
                 }
 
+				Features.AutoScale.Init();
 				Features.ScaleChaining.Init();
             }
 
@@ -377,8 +381,11 @@ namespace TweakScale
 			Log.dbg("OnDestroy {0}", this._InstanceID); // Something bad is happening inside KSP guts before this being called,
 														// so I had to cache the InstanceID because the part's data are inconsistent at this point.
 
-			if (null != this.partDB) this.partDB = this.partDB.Destroy();
+			Features.ScaleChaining.DeInit();
+			Features.AutoScale.DeInit();
+			if (this.wasOnEditorAttachAdded) this.part.OnEditorAttach -= this.OnEditorAttach;
 			if (this.wasOnEditorShipModifiedAdded) GameEvents.onEditorShipModified.Remove(this.OnEditorShipModified);
+			if (null != this.partDB) this.partDB = this.partDB.Destroy();
 		}
 
 
@@ -425,6 +432,21 @@ namespace TweakScale
 			if (HighLogic.LoadedSceneIsEditor) 
 				this.UpdateCrewManifest(); 
 		}
+
+		private bool wasOnEditorAttachAdded = false;
+		[UsedImplicitly]
+		private void OnEditorAttach()
+		{
+			//only run the following block in the editor; it updates the crew-assignment GUI
+			if (!HighLogic.LoadedSceneIsEditor) return;
+			Log.dbg("OnEditorAttach {0}", this.InstanceID);
+
+            if (null == this.part.parent) return; // This should be impossible, but better safe than sorry...
+            TweakScale module = this.part.parent.GetComponent<TweakScale>();
+			if (null != module && Features.AutoScale.Enabled)
+				Features.AutoScale.Execute(module, this);
+		}
+
 
         [UsedImplicitly]
         public void Update()

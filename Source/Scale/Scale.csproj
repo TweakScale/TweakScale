@@ -68,6 +68,7 @@
     <Compile Include="GUI\NoRecallAlertBox.cs" />
     <Compile Include="GUI\UnsupportedKSPAlertBox.cs" />
     <Compile Include="PartDB.cs" />
+    <Compile Include="Features\AutoScale.cs" />
     <Compile Include="Features\ScaleChaining.cs" />
   </ItemGroup>
   <ItemGroup>
