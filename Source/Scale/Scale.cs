@@ -132,8 +132,8 @@ namespace TweakScale
         /// </summary>
         public ScaleType ScaleType { get; private set; }
 
-        public bool IsScaled => (Math.Abs(currentScale / defaultScale - 1f) > 1e-5f);
-        private bool IsChanged => currentScale != (isFreeScale ? tweakScale : ScaleFactors [tweakName]);
+        public bool IsScaled => this.enabled && (Math.Abs(currentScale / defaultScale - 1f) > 1e-5f);
+        private bool IsChanged => this.enabled && currentScale != (isFreeScale ? tweakScale : ScaleFactors [tweakName]);
 
         /// <summary>
         /// The current scaling factor.
