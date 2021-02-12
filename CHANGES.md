@@ -1,5 +1,10 @@
 # TweakScale :: Changes
 
+* 2021-0212: 2.5.0.30 Beta (Lisias) for KSP >= 1.4.4
+	+ Back to the beta program!
+	+ Consolidates all changes up to Release 2.4.4.5
+	+ Some minor code compliance and preemptive bug fixes
+	+ **Ressurrects** the long gone **AutoScale** #HURRAY!!!!
 * 2020-1125: 2.5.0.29 Beta (Lisias) for KSP >= 1.4.4
 	+ I missed a detail, I didn't accounted for the `attPos` atribute (moving an attached part with the "Move" tool). Fixed.
 * 2020-1123: 2.5.0.28 Beta (Lisias) for KSP >= 1.4.4

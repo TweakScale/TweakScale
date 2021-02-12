@@ -1,5 +1,10 @@
 # TweakScale :: Change Log
 
+* 2021-0212: 2.5.0.30 Beta (Lisias) for KSP >= 1.4.4
+	+ Back to the beta program!
+	+ Consolidates all changes up to Release 2.4.4.5
+	+ Some minor code compliance and preemptive bug fixes
+	+ **Ressurrects** the long gone **AutoScale** #HURRAY!!!!
 * 2021-0120: 2.4.4.5 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ Fix some somewhat embarrassing bugs on the default patching.
 		- Thank you very much, [AccidentalDisassembly](https://forum.kerbalspaceprogram.com/index.php?/profile/110936-accidentaldisassembly/)!
