@@ -39,7 +39,7 @@ namespace TweakScale
 		[UsedImplicitly]
 		protected void Awake()
 		{
-			Log.dbg("SingletonBehavior.Awake");
+			Log.dbg("SingletonBehavior.Awake: {0}", this.GetType().Name);
 			instance = (T)this;
 		}
 	}
