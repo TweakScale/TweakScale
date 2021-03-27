@@ -31,7 +31,7 @@ namespace TweakScale.GUI
     {
         private static readonly string MSG = @"KSP Recall was not found!
 
-On KSP 1.9.x KSP Recall **is needed** to fix problems on Resources (not only on TweakScale, it only happens that TweakScale is the first known victim of the problem).";
+On KSP 1.9.x and 1.11.x KSP Recall **is needed** to fix problems on Resources and Recovering Funds (not only on TweakScale, it only happens that TweakScale is the first known victim of the problem).";
 
         private static readonly string AMSG = @"download KSP Recall from the Forum's page (KSP will close)";
 
