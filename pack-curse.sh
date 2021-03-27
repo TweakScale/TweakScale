@@ -15,7 +15,6 @@ FILE=${pwd}/Archive/$PACKAGE-$VERSION${PROJECT_STATE}-CurseForge.zip
 echo $FILE
 clean
 cd GameData
-<<<<<<< HEAD
 
 zip -r $FILE ./TweakScale/* -x ".*"
 zip -r $FILE ./ModuleManagerWatchDog/* -x ".*"

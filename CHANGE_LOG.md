@@ -1,5 +1,11 @@
 # TweakScale :: Change Log
 
+* 2021-0327: 2.4.4.6 (Lisias) for 1.4.4 <= KSP <= 1.11.2
+	+ Allows running on KSP 1.11.2 without an warning
+	+ Warns the user to install KSP Recall on KSP 1.11.x too.
+	+ Closes Issues:
+		- [#165](https://github.com/net-lisias-ksp/TweakScale/issues/165) Issue with TweakScale instal 
+			- Related to CurseForge. 
 * 2021-0120: 2.4.4.5 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ Fix some somewhat embarrassing bugs on the default patching.
 		- Thank you very much, [AccidentalDisassembly](https://forum.kerbalspaceprogram.com/index.php?/profile/110936-accidentaldisassembly/)!

@@ -7,7 +7,7 @@ PROJECTSDIR="$PACKAGE/"
 VERSIONFILE="TweakScale.version"
 DLLS="Scale KSPe.Light.TweakScale"
 PD_DLLS=""
-GD_DLLS="KSPe"
+GD_DLLS="Scale_Redist"
 GD_PRIORITY="999"
 
 PROJECT_BRANCH=`git branch | grep \* | cut -d ' ' -f2`
