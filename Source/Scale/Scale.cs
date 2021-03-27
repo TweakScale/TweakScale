@@ -965,6 +965,8 @@ namespace TweakScale
 		private void NotifyPartScaleChanged()
         {
             BaseEventDetails data = new BaseEventDetails(BaseEventDetails.Sender.USER);
+            data.Set<int>("InstanceID", this.part.GetInstanceID());
+            data.Set<Type>("issuer", this.GetType());
             data.Set<float>("factorAbsolute", ScalingFactor.absolute.linear);
             data.Set<float>("factorRelative", ScalingFactor.relative.linear);
             this.part.SendEvent("OnPartScaleChanged", data, 0);
