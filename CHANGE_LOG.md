@@ -1,5 +1,14 @@
 # TweakScale :: Change Log
 
+* 2021-0403: 2.5.0.31 Beta (Lisias) for KSP >= 1.4.4
+	+ Implements `Active` and `Available` properties for runtime, part by part, control of availability of TweakScale features.
+		- `Active` controls if TweakScale will be activated for a given part.
+			- Inactivated Tweakscale will revert to the default scale, and the user will not be able to rescale the part unless he/she reactivate it using the PAW. No Scaling controls are enabled when inactivated.
+		- `Available` controls if TweakScale widgets on PAW will be available for the user, being it active or not.
+			- This can lock the current TweakScale state, as the user will not be able to change it.
+			- Can only be set (or reset) programatically or by patches.   
+		- Perfect for Challenges and Custom, dedicated Savegames. 
+	+ Recognizes KSP 1.11.2 as a supported version.
 * 2021-0212: 2.5.0.30 Beta (Lisias) for KSP >= 1.4.4
 	+ Back to the beta program!
 	+ Consolidates all changes up to Release 2.4.4.5
