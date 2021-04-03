@@ -147,7 +147,7 @@ namespace TweakScale
 		}
 
 		internal virtual PartDB Destroy() {
-			Log.dbg("{0}.Destroy {1} ", this.GetType().Name, this.ts.InstanceID);
+			Log.dbg("{0}.Destroy {1} ", this.GetType().Name, (null!=this.ts) ? this.ts.InstanceID : "<no TweakScale instance>");
 			return null;
 		}
 
