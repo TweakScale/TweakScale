@@ -23,8 +23,6 @@
 */
 using System;
 using System.Collections;
-using System.Linq;
-using System.Reflection;
 
 using TweakScale.Annotations;
 
@@ -241,7 +239,7 @@ namespace TweakScale
             
             try {
                 TweakScale m = p.Modules.GetModule<TweakScale>();
-                if (m.Fields["tweakScale"].guiActiveEditor == m.Fields["tweakName"].guiActiveEditor)
+                if (m.active && m.available && m.Fields["tweakScale"].guiActiveEditor == m.Fields["tweakName"].guiActiveEditor)
                     return "not being correctly initialized - see issue [#30]( https://github.com/net-lisias-ksp/TweakScale/issues/30 )";
             }
             catch (System.NullReferenceException)
