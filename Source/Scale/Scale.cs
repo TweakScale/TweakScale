@@ -32,6 +32,28 @@ namespace TweakScale
 {    
 	public class TweakScale : PartModule, IPartCostModifier, IPartMassModifier
     {
+		/// <summary>
+		/// Tells if TweakScale is active or not. When inactiva, it will be completely uselees, as it was not installed on this part at all
+		/// </summary>
+		[KSPField(isPersistant = true, guiActiveEditor = true, guiName = "TweakScale is")]
+		[UI_Toggle(disabledText = "Inactive", enabledText = "Active", scene = UI_Scene.Editor)]
+		public bool active = true;
+
+		/// <summary>
+		/// Allows to hide the TweakScale widgets from the PAW when set to false, so the current selections can't be changed by the user.
+		/// Usefull to soft remove tweakscale from a part for challenges by using active = false above together this one.
+		/// Obviously, there's no PAW widget for this. :)
+		/// </summary>
+		[KSPField(isPersistant = true)]
+		public bool available = true;
+
+		/// <summary>
+		/// To tell the user when TweakScale is unavailable, to prevent him/her to think TweakScale was deinstalled.
+		/// </summary>
+		[KSPField(isPersistant = false, guiActiveEditor = false, guiName = "TweakScale is")]
+        [UI_Label(scene = UI_Scene.Editor)]
+		public string availabilityStatus = " Unavailable";
+
         /// <summary>
         /// The selected scale. Different from currentScale only for destination single update, where currentScale is set to match this.
         /// </summary>
@@ -232,29 +254,42 @@ namespace TweakScale
             if (-1 == tweakScale)
                 tweakScale = currentScale;
 
-            Fields["tweakScale"].guiActiveEditor = false;
-            Fields["tweakName"].guiActiveEditor = false;
-            ScaleFactors = scaleType.ScaleFactors;
-            if (ScaleFactors.Length <= 0)
-                return;
-
-            if (isFreeScale)
-            {
-                Fields["tweakScale"].guiActiveEditor = true;
-				UI_ScaleEdit range = (UI_ScaleEdit)Fields["tweakScale"].uiControlEditor;
-                range.intervals = scaleType.ScaleFactors;
-                range.incrementSlide = scaleType.IncrementSlide;
-                range.unit = scaleType.Suffix;
-                range.sigFigs = 3;
-                Fields["tweakScale"].guiUnits = scaleType.Suffix;
-            }
-            else
-            {
-                Fields["tweakName"].guiActiveEditor = scaleType.ScaleFactors.Length > 1;
-				UI_ChooseOption options = (UI_ChooseOption)Fields["tweakName"].uiControlEditor;
-                options.options = scaleType.ScaleNames;
-            }
+            this.SetupWidgets(scaleType);
         }
+
+		private void SetupWidgets(ScaleType scaleType)
+		{
+			ScaleFactors = scaleType.ScaleFactors;
+			this.SetupWidgetsVisibility();
+			if (ScaleFactors.Length <= 0) return;
+
+			if (isFreeScale) {
+				BaseField field = Fields["tweakScale"];
+				UI_ScaleEdit range = (UI_ScaleEdit)field.uiControlEditor;
+				range.intervals = scaleType.ScaleFactors;
+				range.incrementSlide = scaleType.IncrementSlide;
+				range.unit = scaleType.Suffix;
+				range.sigFigs = 3;
+				field.guiUnits = scaleType.Suffix; 
+			} else {
+				UI_ChooseOption options = (UI_ChooseOption)Fields["tweakName"].uiControlEditor;
+				options.options = scaleType.ScaleNames;
+			}
+		}
+
+		private void SetupWidgetsVisibility()
+		{
+			{
+				BaseField field = Fields["active"];
+				field.guiActiveEditor = this.available;
+				field.uiControlEditor.onFieldChanged = this.OnActiveFieldChange;
+			}
+
+			Fields["availabilityStatus"].guiActiveEditor = !this.available;
+			Fields["tweakScale"].guiActiveEditor = this.active && this.available && this.isFreeScale;
+			Fields["tweakName"].guiActiveEditor = this.active && this.available && (!this.isFreeScale && this.ScaleFactors.Length > 1);
+		}
+
 		#region KSP Event Handlers
 
         [UsedImplicitly]
@@ -292,9 +327,21 @@ namespace TweakScale
                     }
                 }
 				this.RestoreScaleIfNeededAndUpdate();
-				this.enabled = this.IsScaled;
+				this.enabled = this.active && this.IsScaled;
             }
         }
+
+        /// <summary>
+		/// Ensures new attributes will be added when loading older configs
+		/// </summary>
+		/// <param name="node"></param>
+        private void OnLoadDefaults(ConfigNode node)
+		{
+            Log.dbg("OnLoadDefaults before {0}", node.ToString());
+			if(!node.HasValue("active")) node.AddValue("active", true);
+			if(!node.HasValue("available")) node.AddValue("available", true);
+            Log.dbg("OnLoadDefaults after {0}", node.ToString());
+		}
 
 		[UsedImplicitly]
         public override void OnSave(ConfigNode node)
@@ -383,6 +430,12 @@ namespace TweakScale
 
 		private void OnTweakScaleChanged(BaseField field, object what)
 		{
+			Log.dbg("OnTweakScaleChanged {0}", this.InstanceID);
+			this.HandlenTweakScaleChanged();
+		}
+
+		private void HandlenTweakScaleChanged()
+		{
 			this.OnTweakScaleChanged();
 			foreach (Part p in this.part.symmetryCounterparts)
 				p.FindModuleImplementing<TweakScale>().OnTweakScaleChanged();
@@ -393,8 +446,6 @@ namespace TweakScale
 		/// </summary>
 		internal void OnTweakScaleChanged()
         {
-            Log.dbg("OnTweakScaleChanged {0}", this.InstanceID);
-
             if (!isFreeScale)
             {
                 tweakScale = ScaleFactors[tweakName];
@@ -439,7 +490,6 @@ namespace TweakScale
 				Features.AutoScale.Execute(module, this);
 		}
 
-
         [UsedImplicitly]
         public void Update()
         {
@@ -466,6 +516,12 @@ namespace TweakScale
         }
 
 #endregion
+
+		private void ResetTweakScale()
+		{
+			this.tweakScale = this.defaultScale;
+			this.HandlenTweakScaleChanged();
+		}
 
         private void CallUpdaters()
         {
@@ -821,7 +877,19 @@ namespace TweakScale
 
         public float CurrentScaleFactor => this.partDB.RescaleFactor;
 
-        #endregion
+		#endregion
+
+
+		#region Event Handlers
+
+		private void OnActiveFieldChange(BaseField field, object what)
+		{
+			Log.dbg("OnActiveFieldChange {0}:{1:X} to {2} (current {3})", field.name, this.part.GetInstanceID(), what, this.active);
+			this.SetupWidgetsVisibility();
+			if (!this.active) this.ResetTweakScale();
+		}
+
+		#endregion
 
 
 		#region Event Senders
