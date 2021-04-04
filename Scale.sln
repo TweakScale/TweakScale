@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale", "Source\Scale\Scale
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale_Redist", "Source\Scale_Redist\Scale_Redist.csproj", "{2BE63D8B-350E-4EDD-959C-4B7397984364}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Scale_TweakableEverything", "Source\Scale_TweakableEverything\Scale_TweakableEverything.csproj", "{83C0EAD4-F928-4246-96D7-94454DD1C04C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale_TweakableEverything", "Source\Scale_TweakableEverything\Scale_TweakableEverything.csproj", "{1E379ED8-DB42-4FC1-B7F5-BF9A9A4F3B2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,10 @@ Global
 		{70D38878-43DB-4F6E-8002-45ADA5391AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70D38878-43DB-4F6E-8002-45ADA5391AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70D38878-43DB-4F6E-8002-45ADA5391AF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83C0EAD4-F928-4246-96D7-94454DD1C04C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83C0EAD4-F928-4246-96D7-94454DD1C04C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83C0EAD4-F928-4246-96D7-94454DD1C04C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83C0EAD4-F928-4246-96D7-94454DD1C04C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E379ED8-DB42-4FC1-B7F5-BF9A9A4F3B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E379ED8-DB42-4FC1-B7F5-BF9A9A4F3B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E379ED8-DB42-4FC1-B7F5-BF9A9A4F3B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E379ED8-DB42-4FC1-B7F5-BF9A9A4F3B2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
@@ -36,20 +36,9 @@ Global
 		$0.CSharpFormattingPolicy = $2
 		$2.AfterDelegateDeclarationParameterComma = True
 		$2.scope = text/x-csharp
-		$2.IndentSwitchSection = False
-		$2.NewLinesForBracesInProperties = False
-		$2.NewLinesForBracesInAccessors = False
-		$2.NewLinesForBracesInAnonymousMethods = False
-		$2.NewLinesForBracesInControlBlocks = False
-		$2.NewLinesForBracesInAnonymousTypes = False
-		$2.NewLinesForBracesInObjectCollectionArrayInitializers = False
-		$2.NewLinesForBracesInLambdaExpressionBody = False
-		$2.NewLineForElse = False
-		$2.NewLineForCatch = False
-		$2.NewLineForFinally = False
 		$2.NewLineForMembersInObjectInit = False
 		$2.NewLineForMembersInAnonymousTypes = False
-		$2.NewLineForClausesInQuery = False
+		$2.NewLinesForBracesInMethods = False
 		$0.TextStylePolicy = $3
 		$3.FileWidth = 132
 		$3.EolMarker = Unix
