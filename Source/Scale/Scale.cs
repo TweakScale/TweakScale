@@ -877,16 +877,30 @@ namespace TweakScale
 
         public float CurrentScaleFactor => this.partDB.RescaleFactor;
 
+		public void SetState(bool active, bool available)
+		{
+			Log.stackdump("SetState {0} to active = {1}, available = {2})", this.InstanceID, active, available);
+			this.SetStateInternal(active, available);
+			foreach (Part p in this.part.symmetryCounterparts)
+				p.FindModuleImplementing<TweakScale>().SetStateInternal(active, available);
+		}
+
 		#endregion
 
+		internal void SetStateInternal(bool active, bool available)
+		{
+			this.active = active;
+			this.available = available;
+			this.SetupWidgetsVisibility();
+			if (!this.active) this.ResetTweakScale();
+		}
 
 		#region Event Handlers
 
-		private void OnActiveFieldChange(BaseField field, object what)
+		private void OnActiveFieldChange(BaseField field, object previous)
 		{
-			Log.dbg("OnActiveFieldChange {0}:{1:X} to {2} (current {3})", field.name, this.part.GetInstanceID(), what, this.active);
-			this.SetupWidgetsVisibility();
-			if (!this.active) this.ResetTweakScale();
+			Log.dbg("OnActiveFieldChange {0}:{1:X} from {2} to {3}", field.name, this.part.GetInstanceID(), previous, this.active);
+			this.SetState(this.active, this.available);
 		}
 
 		#endregion
