@@ -1001,10 +1001,7 @@ namespace TweakScale
             get { return base.enabled; }
             set {
                 if (base.enabled != value)
-                {
-                    System.Diagnostics.StackTrace t = new System.Diagnostics.StackTrace();
-                    Log.detail("Enabled set to {0} {1}", value, t);
-                }
+                    Log.stackdump("Enabled set to {0}", value);
                 base.enabled = value;
             }
         }

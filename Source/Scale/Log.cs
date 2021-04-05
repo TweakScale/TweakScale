@@ -29,6 +29,8 @@ namespace TweakScale
 	{
 		private static readonly Logger log = Logger.CreateForType<TweakScale>();
 
+		internal static KSPe.Util.Log.Level level => log.level;
+
 		internal static void force (string msg, params object [] @params)
 		{
 			log.force (msg, @params);
@@ -47,6 +49,18 @@ namespace TweakScale
 		internal static void detail(string msg, params object[] @params)
 		{
 			log.detail(msg, @params);
+		}
+
+		internal static void trace(string msg, params object[] @params)
+		{
+			log.trace(msg, @params);
+		}
+
+		internal static void stackdump(string msg, params object[] @params)
+		{
+			Log.detail(msg, @params);
+			System.Diagnostics.StackTrace t = new System.Diagnostics.StackTrace();
+			Log.trace("Called by {0}", t);
 		}
 
 		internal static void error(Exception e, object offended)
