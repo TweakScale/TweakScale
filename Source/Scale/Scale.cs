@@ -374,9 +374,9 @@ namespace TweakScale
 			if (UPGRADE_PILELINED_KSP && HighLogic.LoadedSceneIsEditor && !(this.active && this.IsScaled))
 			{
 				Log.detail("Part {0} is being saved without TweakScale as it is not used or active.", this.part.name);
-                Log.dbg(node.ToString());
-                node.ClearData();
-                Log.dbg(node.ToString());
+				node.ClearData();
+				node.comment = "Nothing to see here. Please ignore me.";
+				node.name = ""; // Pushing my luck a bit.
 			}
 
             base.OnSave(node);
