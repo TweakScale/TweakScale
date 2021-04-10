@@ -1,5 +1,11 @@
 # TweakScale :: Change Log
 
+* 2021-0410: 2.5.0.32 Beta (Lisias) for KSP >= 1.4.4
+	+ Declutters craft files, preventing TweakScale MODULE nodes from begin written on it when the part is not scaled or it's deactivated.
+		- Now your unscaled crafts can be shared on KerbalX *et all* without being tagged as using TweakScale.
+		- And you can play Challenges where TweakScale is not allowed without deinstalling TweakScale - or creating a new installment just because of it.
+	+ Closes Issues:
+		- [#85](https://github.com/net-lisias-ksp/TweakScale/issues/85) Clean TweakScale's Module from unchanged parts on save 
 * 2021-0410: 2.4.5.0 (Lisias) for 1.4.4 <= KSP <= 1.11.2
 	+ Adds `active` and `available` properties on TweakScale, allowing patches and 3rd parties' plugins to selectively disable TweakScale on some parts without the need to remove it by brute force and rebooting.
 		- Aimed to make easier to define constraints on Challenges and Custom Installations. 
