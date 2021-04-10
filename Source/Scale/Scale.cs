@@ -33,7 +33,11 @@ using System.Collections.Generic;
 namespace TweakScale
 {    
 	public class TweakScale : PartModule, IPartCostModifier, IPartMassModifier
-    {
+	{
+		// Checks if the running KSP has the Upgrade Pipeline feature, so TweakScale can omit itself from craft files when not used,
+		// as the module will be injected back on loading when needed.
+		private static readonly bool UPGRADE_PILELINED_KSP = KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.GetVersion(1,4,0);
+
 		/// <summary>
 		/// Tells if TweakScale is active or not. When inactiva, it will be completely uselees, as it was not installed on this part at all
 		/// </summary>
@@ -349,6 +353,31 @@ namespace TweakScale
                     false);
                 Log.warn("Part {0} has a Rogue Duplicated TweakScale!", part.name);
             }
+
+			// Preventing saving the TweakScale module data on the craft file when TweakScale is not active neither in use for this
+			// part.
+			//
+			// Aims to declutter the craft files, allowing the user to publish unscaled crafts on KerbalX et all without cluttering
+			// it with unneeded dependencies.
+			//
+			// Will also save the user the need to build a TweakScaleless KSP installment to play Challenges where TweakScale is not
+			// allowed.
+			//
+			// Theoretically this could be used too on savegames, but for what? Savegames are not usually shared, and when they do,
+			// the one getting it need to have all the add'ons installed anyway. (and mangling savegames without a real need send me
+			// shivers down my spine.
+			//
+			// This can only be applied on KSP >= 1.4, where the Upgrade Pipeline is there to inject back the module on laoding,
+			// otherwise the part will get TweakScale permanently ripped off until being removed and a new one attached to the
+			// editting craft.
+			//
+			if (UPGRADE_PILELINED_KSP && HighLogic.LoadedSceneIsEditor && !(this.active && this.IsScaled))
+			{
+				Log.detail("Part {0} is being saved without TweakScale as it is not used or active.", this.part.name);
+                Log.dbg(node.ToString());
+                node.ClearData();
+                Log.dbg(node.ToString());
+			}
 
             base.OnSave(node);
         }
