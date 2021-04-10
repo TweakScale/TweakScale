@@ -1,25 +1,27 @@
 ## ANNOUNCE
 
-Release 2.4.4.0 is available for downloading, with the following changes:
+Release 2.4.5.0 is available for downloading, with the following changes:
 
-+ Updated KSPe Light for TweakScale:
-	+ Suport for KSP 1.11
-* Chain Scaling now "jumps over" parts without TweakScale support, instead of just breaking the chain.
-* Parts with Variants that change Mass and/or Cost are now supported. #HURRAY
-* Formal Public Interface for scaling helpers (used mainly by the Companions)
-* Added `ignoreResourcesForCost` attribute to allow custom modules to deactivate TweakScale calculations for resources
-* Installation checks, detecting common installation errors.
-* **Complete** overhaul of the patches for Stock (and DLC) parts
-	+ Only fixes that don't break current savegames were applied.
-	+ TweakScale 2.5 will have further fixes merged, even when unbalancing existing crafts.
+* Adds two Module attributes to allow granular control, part by part, of TweakScale behaviour, allowing it to be deactivated at user's choice, or even made unavailable  without the need to deinstall TweakScale (and then screwing up savegames)
+	+ Intended to make easier to take party on Challenges where TweakScale is not allowed
+	+ Also allows Challenges to easily ban TweakScale only on some parts by patches (or even code).
 * Issues Fixed:
-	+ Formally closes 49 issues, backporting (almost) all fixes from the Beta Releases until 2.5.0.27. Please see the [Change Log](https://github.com/net-lisias-ksp/TweakScale/blob/master/CHANGE_LOG.md), as they are too much to be enumerated comfortably here!
-
-All of these totalling **353** commits to be merged since the previous 2.4.3.21 release!!
+	+ [#172](https://github.com/net-lisias-ksp/TweakScale/issues/172) Wait for KSPe bug #10
+		- Some interesting installment checks were updated on KSPe, and the respective KSPe Light for TweakScale was updated with them. 
+	+ [#170](https://github.com/net-lisias-ksp/TweakScale/issues/170) Add 'active' and 'available' properties
 	
 See [OP](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*) for the links.
 
 ## Highlights
+
+### Standard mechanism to control TweakScale availability
+
+From 2.4.5.0 and up, it's possible to deactivate TweakScale on some (or even all) parts by patching or on the user interface without affecting living crafts on the savegame (or even already existent craft files).
+
+A patching only feature can lock up TweakScale on the current state, making easier to create artefacts to automatically reconfigure a savegame for Challenges with specific rules. Again, without affecting existent crafts or savegames - once the craft is launched, it's not affected by these options.
+
+See the [Documentation](https://github.com/net-lisias-ksp/TweakScale/tree/master/GameData/TweakScale/Docs) for details.
+
 
 ### Formal support for KSP from 1.4.4 to 1.11
 
