@@ -541,6 +541,7 @@ namespace TweakScale
                 }
             }
 
+            // FixMe: This is being called every single Frame. We really need to do it? This wastes CPU cycles...
             this.CallUpdateables();
         }
 
