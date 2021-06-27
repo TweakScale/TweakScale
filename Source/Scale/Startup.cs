@@ -42,12 +42,12 @@ namespace TweakScale
                 KSPe.Util.Compatibility.Check<Startup>(typeof(Version), typeof(Configuration));
                 KSPe.Util.Installation.Check<Startup>("Scale", "TweakScale", null, true);
 
-                if (1 == KSPe.Util.KSP.Version.Current.MAJOR && (9 == KSPe.Util.KSP.Version.Current.MINOR || 11 == KSPe.Util.KSP.Version.Current.MINOR))
+                if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.FindByVersion(1,9,0))
                 {
                     Type calledType = Type.GetType("KSP_Recall.Version, KSP-Recall", false, false);
                     if (null == calledType) GUI.NoRecallAlertBox.Show();
                 }
-                else if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1,11,1))
+                else if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1,12,0))
                 {
                     GUI.UnsupportedKSPAdviseBox.Show(KSPe.Util.KSP.Version.Current.ToString());
                 }
