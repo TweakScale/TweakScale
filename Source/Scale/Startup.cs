@@ -45,11 +45,16 @@ namespace TweakScale
                 if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.FindByVersion(1,9,0))
                 {
                     Type calledType = Type.GetType("KSP_Recall.Version, KSP-Recall", false, false);
-                    if (null == calledType) GUI.NoRecallAlertBox.Show();
+                    if (null == calledType)
+                    {
+                        GUI.NoRecallAlertBox.Show();
+                        return;
+                    }
                 }
-                else if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1,12,0))
+                if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1,12,0))
                 {
                     GUI.UnsupportedKSPAdviseBox.Show(KSPe.Util.KSP.Version.Current.ToString());
+                    return;
                 }
             }
             catch (KSPe.Util.InstallmentException e)
