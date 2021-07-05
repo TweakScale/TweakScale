@@ -1,4 +1,5 @@
-source ../CONFIG.inc
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+source ${SCRIPT_DIR}/../CONFIG.inc
 
 PACKAGE=TweakScale
 TARGETDIR="$PACKAGE"
