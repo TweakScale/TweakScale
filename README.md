@@ -349,8 +349,8 @@ Detailed installation instructions are now on its own file (see the [In a Hurry]
 		- Under the following terms:
 			- You follow your heart's desire. :)
 * [KSPe.Light](https://github.com/net-lisias-ksp/KSPAPIExtensions/tree/local/TweakScale) is licensed to TweakScale under [SKL 1.0](https://ksp.lisias.net/SKL-1_0.txt)
-	+ KSPe.Light is a lighweight version of KSPe, a component from KSP API Extensions /L.
-	+ This library is not meant to general public consuption. Use [KSP API Extensions](https://github.com/net-lisias-ksp/KSPAPIExtensions/releases) instead.
+	+ KSPe.Light is a lightweight version of KSPe, a component from KSP API Extensions /L.
+	+ This library is not meant to general public consumption. Use [KSP API Extensions](https://github.com/net-lisias-ksp/KSPAPIExtensions/releases) instead.
 
 See [NOTICE](./NOTICE) for further copyright and trademarks notices.
 
@@ -366,4 +366,4 @@ See [NOTICE](./NOTICE) for further copyright and trademarks notices.
 	+ [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/72554-090-tweakscale-rescale-everything-v150-2014-12-24-1040-utc/&)
 	+ [CurseForge](https://kerbal.curseforge.com/projects/tweakscale)
 	+ [GitHub](https://github.com/Biotronic/TweakScale)
-* Originaly Forked from [Gaius Goodspeed](https://forum.kerbalspaceprogram.com/index.php?/profile/66495-gaius/)'s [Goodspeed Aerospace Part & TweakScale](https://forum.kerbalspaceprogram.com/index.php?/topic/65819-0235-goodspeed-aerospace-parts-v201441b/) plugin
+* Originally Forked from [Gaius Goodspeed](https://forum.kerbalspaceprogram.com/index.php?/profile/66495-gaius/)'s [Goodspeed Aerospace Part & TweakScale](https://forum.kerbalspaceprogram.com/index.php?/topic/65819-0235-goodspeed-aerospace-parts-v201441b/) plugin
