@@ -1,18 +1,37 @@
 ## ANNOUNCE
 
-Release 2.4.5.0 is available for downloading, with the following changes:
+Release 2.4.5.2 is available for downloading, with the following changes:
 
-* Adds two Module attributes to allow granular control, part by part, of TweakScale behaviour, allowing it to be deactivated at user's choice, or even made unavailable  without the need to deinstall TweakScale (and then screwing up savegames)
-	+ Intended to make easier to take party on Challenges where TweakScale is not allowed
-	+ Also allows Challenges to easily ban TweakScale only on some parts by patches (or even code).
-* Issues Fixed:
-	+ [#172](https://github.com/net-lisias-ksp/TweakScale/issues/172) Wait for KSPe bug #10
-		- Some interesting installment checks were updated on KSPe, and the respective KSPe Light for TweakScale was updated with them. 
-	+ [#170](https://github.com/net-lisias-ksp/TweakScale/issues/170) Add 'active' and 'available' properties
++ Raise the bar to KSP 1.12.2
++ (Finally) adds support for Parts and Modules from KSP 1.11 and newer.
++ Implements the `TweakScaleExperimental` Patches Program.
+	+ A lot of patches are not fully tested, and some Exponents will probably need revising.
+	+ Since both these patches itself, as well the unavoidable revisions that will follow may unbalance current crafts in savegames, it's advised discretion on activating the Experimental features.
++ Closes Issues:
+	- [#186](https://github.com/net-lisias-ksp/TweakScale/issues/186) Check and implement all Modules left behind from 1.4.0 up to 1.10.1
+	- [#184](https://github.com/net-lisias-ksp/TweakScale/issues/184) Scale some unsupported parts on EXPERIMENTAL status
+	- [#182](https://github.com/net-lisias-ksp/TweakScale/issues/182) Get rid of TODOs related to updating scale types.
+	- [#181](https://github.com/net-lisias-ksp/TweakScale/issues/181) Support the new Parts introduced on KSP 1.12 and Update Scale Exponents to the new Modules
+	- [#128](https://github.com/net-lisias-ksp/TweakScale/issues/128) Support the new Parts introduced on KSP 1.12 and Update Scale Exponents to the new Modules
+	- [#120](https://github.com/net-lisias-ksp/TweakScale/issues/120) Support the new Parts introduced on KSP 1.10
+	- [#50](https://github.com/net-lisias-ksp/TweakScale/issues/150) Support the new Parts introduced on KSP 1.11 and Update Scale Exponents to the new Modules
 	
 See [OP](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*) for the links.
 
 ## Highlights
+
+### `TweakScaleExperimental` support for parts and modules
+
+From 2.4.5.2, TweakScale is starting to support, as possible, all KSP modules - and not only the most visible ones, as well parts.
+
+In order to pursue that goal without risking your ongoing savegames (as changing Exponents **will** unbalance your designs, potentially ruining your crafts), some parts and modules scaling are only available on **Experimental** mode.
+
+Such mode will patch almost all KSP parts and modules (but **Serenity/Breaking Ground** as this one will be tackled down later, see the [backlog](https://github.com/net-lisias-ksp/TweakScale/milestone/23) for more information), including some that I'm unsure should be scaled - not to mention Exponents that I'm pretty sure will need some rebalancing.
+
+In order to toy with these parts and modules, you need to create a directory called `TweakScaleExperimental` in your `GameData`. The directory may be empty, it's enough to have it on `GameData` so Module Manager will register it, satisfying the `:NEEDS` that enable such patches and Exponents.
+
+Please only enable these patches on disposable or non valuable KSP installments. These patches are going to change for sure in the near future, and these changes will be incompatible with savagames created with the previous set of Experimental patches.
+
 
 ### Standard mechanism to control TweakScale availability
 

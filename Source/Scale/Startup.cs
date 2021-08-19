@@ -51,7 +51,7 @@ namespace TweakScale
                         return;
                     }
                 }
-                if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1,12,1))
+                if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1,12,2))
                 {
                     GUI.UnsupportedKSPAdviseBox.Show(KSPe.Util.KSP.Version.Current.ToString());
                     return;
