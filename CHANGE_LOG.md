@@ -1,5 +1,9 @@
 # TweakScale :: Change Log
 
+* 2021-0823: 2.4.5.3 (Lisias) for 1.4.4 <=KSP <= 1.12.2
+	+ **DITCHED**
+	+ Since I borked (again) the release on the Spacedock, I'm jumping this version to prevent playing havoc with CKAN.
+		- Isso tá ficando chato, já. :(
 * 2021-0819: 2.4.5.2 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ Raise the bar to KSP 1.12.2
 	+ (Finally) adds support for Parts and Modules from KSP 1.11 and newer.
