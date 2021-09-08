@@ -1,6 +1,16 @@
 # TweakScale :: Change Log
 
-* 2021-0823: 2.4.5.3 (Lisias) for 1.4.4 <=KSP <= 1.12.2
+* 2021-0907: 2.4.5.4 (Lisias) for 1.4.4 <= KSP <= 1.12.2
+	+ Declutters craft files, preventing TweakScale MODULE nodes from being written on it when the part is not scaled or it's deactivated.
+		- Now your unscaled crafts can be shared on KerbalX *et all* without being tagged as using TweakScale.
+		- And you can play Challenges where TweakScale is not allowed without deinstalling TweakScale - or creating a new installment just because of it.
+	+ Updates [ModuleManagerWatchDog](https://github.com/net-lisias-ksp/ModuleManagerWatchDog/) to 1.0.1.0.
+		- Copes with KSP 1.12.x DLL loading new behaviours
+		- Add sanity checks for `999_Scale_Redist.dll`
+		- Add sanity checks for `Interstallar_Redist.dll`
+	+ Closes Issues:
+		- [#85](https://github.com/net-lisias-ksp/TweakScale/issues/85) Clean TweakScale's Module from unchanged parts on save 
+* 2021-0823: 2.4.5.3 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ **DITCHED**
 	+ Since I borked (again) the release on the Spacedock, I'm jumping this version to prevent playing havoc with CKAN.
 		- Isso tá ficando chato, já. :(
