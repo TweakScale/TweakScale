@@ -1,5 +1,7 @@
 # TweakScale :: Change Log
 
+* 2021-0911: 2.4.5.5 (Lisias) for 1.4.4 <= KSP <= 1.12.2
+	+ Re-release for Spacedock, as I managed to upload the wrong package. 
 * 2021-0907: 2.4.5.4 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ Declutters craft files, preventing TweakScale MODULE nodes from being written on it when the part is not scaled or it's deactivated.
 		- Now your unscaled crafts can be shared on KerbalX *et all* without being tagged as using TweakScale.
