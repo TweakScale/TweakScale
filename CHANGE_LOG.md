@@ -1,12 +1,16 @@
 # TweakScale :: Change Log
 
-* 2021-0912: 2.5.0.33 Beta (Lisias) for KSP >= 1.3.1
+* 2021-0912: 2.5.0.34 Beta (Lisias) for KSP >= 1.3.1
 	+ Catches up all fixes already published on mainstream.
 	+ Implements support for **ALL** KSP versions downto 1.3.1 !!! #HURRAY!!
 		- Specialised DLLs loaded under demand, thanks KSPe!
 		- 1.2.2, however, will need more work. Unsure if it worths it.
+	+ Better compatibility with 3rd Party Add'Ons when Decluttering. 
 	+ Closes Issues:
+		- [#201](https://github.com/net-lisias-ksp/TweakScale/issues/201) The "Decluttering" Feature from 2.5.4.4 is breaking KCT
 		- [#198](https://github.com/net-lisias-ksp/TweakScale/issues/198) Breakdown Scaling support for each major KSP version in specialised DLLs
+* 2021-0912: 2.5.0.33 Beta (Lisias) for KSP >= 1.3.1
+	+ Ditching this version as a new release was made on the same day. 
 * 2021-0911: 2.4.5.5 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ Re-release for Spacedock, as I managed to upload the wrong package. 
 * 2021-0907: 2.4.5.4 (Lisias) for 1.4.4 <= KSP <= 1.12.2
