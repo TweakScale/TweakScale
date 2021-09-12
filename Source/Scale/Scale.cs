@@ -371,7 +371,7 @@ namespace TweakScale
 			// otherwise the part will get TweakScale permanently ripped off until being removed and a new one attached to the
 			// editting craft.
 			//
-			if (UPGRADE_PILELINED_KSP && HighLogic.LoadedSceneIsEditor && !(this.active && this.IsScaled))
+			if (UPGRADE_PILELINED_KSP && HighLogic.LoadedSceneIsEditor && !(this.active && this.IsScaled) && this.IsSaveMode())
 			{
 				Log.detail("Part {0} is being saved without TweakScale as it is not used or active.", this.part.name);
 				node.ClearData();
@@ -382,7 +382,21 @@ namespace TweakScale
 			base.OnSave(node);
 		}
 
-        [UsedImplicitly]
+		private bool IsSaveMode()
+		{
+			System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace();
+			foreach (System.Diagnostics.StackFrame frame in st.GetFrames())
+			{
+				string classname = frame.GetMethod().DeclaringType.Name;
+				string methodname = frame.GetMethod().ToString();
+				Log.dbg("IsSaveMode {0} {1}", classname, methodname);
+				if ("ShipConstruct".Equals(classname) && "ConfigNode SaveShip()".Equals(methodname))
+					return true;
+			}
+			return false;
+		}
+
+		[UsedImplicitly]
         public override void OnAwake()
         {
             Log.dbg("OnAwake {0}", this.InstanceID);
