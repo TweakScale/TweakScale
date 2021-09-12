@@ -98,16 +98,16 @@ namespace TweakScale.Features
 			AttachNode nodeA = nodes.Value.Item1;
 			AttachNode nodeB = nodes.Value.Item2;
 
-			int aIdx = a.partDB.prefab.attachNodes.FindIndex(t => t.id == nodeA.id);
-			int bIdx = b.partDB.prefab.attachNodes.FindIndex(t => t.id == nodeB.id);
+			int aIdx = a.scaler.prefab.attachNodes.FindIndex(t => t.id == nodeA.id);
+			int bIdx = b.scaler.prefab.attachNodes.FindIndex(t => t.id == nodeB.id);
 			if (aIdx < 0 || bIdx < 0
-					|| aIdx >= a.partDB.prefab.attachNodes.Count
-					|| aIdx >= a.partDB.prefab.attachNodes.Count
+					|| aIdx >= a.scaler.prefab.attachNodes.Count
+					|| aIdx >= a.scaler.prefab.attachNodes.Count
 				)
 				return 1f;
 
-			float sizeA = (float)a.partDB.prefab.attachNodes[aIdx].size;
-			float sizeB = (float)b.partDB.prefab.attachNodes[bIdx].size;
+			float sizeA = (float)a.scaler.prefab.attachNodes[aIdx].size;
+			float sizeB = (float)b.scaler.prefab.attachNodes[bIdx].size;
 
 			if (sizeA == 0) sizeA = 0.5f;
 			if (sizeB == 0) sizeB = 0.5f;
