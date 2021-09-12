@@ -31,7 +31,7 @@ using TweakScale.Annotations;
 using System.Collections.Generic;
 
 namespace TweakScale
-{    
+{
 	public class TweakScale : PartModule, IPartCostModifier, IPartMassModifier
 	{
 		// Checks if the running KSP has the Upgrade Pipeline feature, so TweakScale can omit itself from craft files when not used,
@@ -379,8 +379,8 @@ namespace TweakScale
 				node.name = ""; // Pushing my luck a bit.
 			}
 
-            base.OnSave(node);
-        }
+			base.OnSave(node);
+		}
 
         [UsedImplicitly]
         public override void OnAwake()
