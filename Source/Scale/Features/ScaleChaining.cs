@@ -85,10 +85,10 @@ namespace TweakScale.Features
 		{
 			TweakScale b = child.GetComponent<TweakScale>();
 			if (null == b) {
-				Log.dbg("Ignoring child scaling {0}:{1}", child.name, child.persistentId);
+				Log.dbg("Ignoring child scaling {0}:{1}", child.name, child.GetInstanceID());
 				return false;
 			}
-			Log.dbg("Handling child scaling {0}:{1}", child.name, child.persistentId);
+			Log.dbg("Handling child scaling {0}:{1}", child.name, child.GetInstanceID());
 			if (Math.Abs(factor - 1) <= 1e-4f) return true;
 
 			b.tweakScale *= factor;

@@ -22,60 +22,55 @@
 		along with TweakScale /L If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-
 using UnityEngine;
-
 using TweakScale.Annotations;
 
 namespace TweakScale
 {
-    [KSPAddon(KSPAddon.Startup.Instantly, true)]
-    internal class Startup : MonoBehaviour
+	[KSPAddon(KSPAddon.Startup.Instantly, true)]
+	internal class Startup : MonoBehaviour
 	{
-        [UsedImplicitly]
-        private void Start()
-        {
-            Log.force("Version {0}", Version.Text);
+		[UsedImplicitly]
+		private void Start() {
+			Log.force("Version {0}", Version.Text);
 
-            try
-            {
-                KSPe.Util.Compatibility.Check<Startup>(typeof(Version), typeof(Configuration));
-                KSPe.Util.Installation.Check<Startup>("Scale", "TweakScale", null, true);
+			try
+			{
+				KSPe.Util.Compatibility.Check<Startup>(typeof(Version), typeof(Configuration));
+				KSPe.Util.Installation.Check<Startup>("Scale", "TweakScale", null, true);
 
-                if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.FindByVersion(1,9,0))
-                {
-                    Type calledType = Type.GetType("KSP_Recall.Version, KSP-Recall", false, false);
-                    if (null == calledType)
-                    {
-                        GUI.NoRecallAlertBox.Show();
-                        return;
-                    }
-                }
-                if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1,12,2))
-                {
-                    GUI.UnsupportedKSPAdviseBox.Show(KSPe.Util.KSP.Version.Current.ToString());
-                    return;
-                }
-            }
-            catch (KSPe.Util.InstallmentException e)
-            {
-                Log.error(e.ToShortMessage());
-                KSPe.Common.Dialogs.ShowStopperAlertBox.Show(e);
-            }
-        }
+				if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.FindByVersion(1, 9, 0))
+				{
+					Type calledType = Type.GetType("KSP_Recall.Version, KSP-Recall", false, false);
+					if (null == calledType)
+					{
+						GUI.NoRecallAlertBox.Show();
+						return;
+					}
+				}
+				if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1, 12, 1))
+				{
+					GUI.UnsupportedKSPAdviseBox.Show(KSPe.Util.KSP.Version.Current.ToString());
+					return;
+				}
+
+				using (KSPe.Util.SystemTools.Assembly.Loader<TweakScale> a = new KSPe.Util.SystemTools.Assembly.Loader<TweakScale>())
+				{
+					if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
+						a.LoadAndStartup("Scale.PartDB.13x");
+					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 4))
+						a.LoadAndStartup("Scale.PartDB.14x");
+					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 8, 0))
+						a.LoadAndStartup("Scale.PartDB.15x");
+					else
+						a.LoadAndStartup("Scale.PartDB.18x");
+				}
+			}
+			catch (KSPe.Util.InstallmentException e)
+			{
+				Log.error(e.ToShortMessage());
+				KSPe.Common.Dialogs.ShowStopperAlertBox.Show(e);
+			}
+		}
 	}
-
-    [KSPAddon(KSPAddon.Startup.Instantly, true)]
-    internal class ModuleManagerListener : MonoBehaviour
-    {
-        internal static bool shouldShowWarnings = true;
-
-        [UsedImplicitly]
-        public static void ModuleManagerPostLoad()
-        {
-            shouldShowWarnings = !KSPe.Util.ModuleManagerTools.IsLoadedFromCache;
-            Log.detail("ModuleManagerPostLoad handled! shouldShowWarnings is {0}", shouldShowWarnings);
-        }
-    }
-
 }

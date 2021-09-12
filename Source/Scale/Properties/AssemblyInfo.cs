@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Scale")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("TweakScale scales everything!")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("L Aerospace/KSP Division")]
-[assembly: AssemblyProduct("Scale")]
-[assembly: AssemblyCopyright("Copyright © 2018-2021 LisiasT")]
-[assembly: AssemblyTrademark("TweakScale™ by Gaius Goodspeed, Biotronic, Pellinor, LisiasT")]
+[assembly: AssemblyCompany(TweakScale.LegalMamboJambo.Company)]
+[assembly: AssemblyProduct(TweakScale.LegalMamboJambo.Product)]
+[assembly: AssemblyCopyright(TweakScale.LegalMamboJambo.Company)]
+[assembly: AssemblyTrademark(TweakScale.LegalMamboJambo.Trademark)]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
