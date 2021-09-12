@@ -8,7 +8,7 @@ clean() {
 	find ./bin -name "$DLL" -delete
 	find ./obj -name "$DLL" -delete
 	rm -f "./GameData/$DLL"
-	rm -f "./GameData/$TARGETBINDIR/$DLL"
+	rm -R -f "./GameData/$TARGETBINDIR"
 	rm -f "$LIB/$DLL"
 	rm -f "${KSP_DEV}/GameData/$DLL"
 	rm -f "${KSP_DEV}/GameData/$TARGETBINDIR/$DLL"
