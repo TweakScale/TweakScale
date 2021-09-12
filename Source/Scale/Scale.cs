@@ -378,18 +378,42 @@ namespace TweakScale
 			// otherwise the part will get TweakScale permanently ripped off until being removed and a new one attached to the
 			// editting craft.
 			//
-			if (UPGRADE_PILELINED_KSP && HighLogic.LoadedSceneIsEditor && !(this.active && this.IsScaled))
+			if (UPGRADE_PILELINED_KSP && HighLogic.LoadedSceneIsEditor && !(this.active && this.IsScaled) && this.IsSaveMode())
 			{
 				Log.detail("Part {0} is being saved without TweakScale as it is not used or active.", this.part.name);
+
+				// Besides aborting the method (what makes de node to be persisted as an empty node called PARTDATA)
+				// I'm mangling the node anyway.
 				node.ClearData();
 				node.comment = "Nothing to see here. Please ignore me.";
-				node.name = ""; // Pushing my luck a bit.
+				//node.name = ""; // Pushing my luck a bit.
+				node.name = "i";// KCT rereads the craft file after saving, but a possible bug prevents it
+								// from correctly reading NODES without a name, as it appears.
+								// (not necessarily a bug on KCT, the problem appears to be on ConfigNode.CopyToRecursive,
+								// but it worths to mention that crafts decluttered by this tool are loaded fine
+								// by KSP downto KSP 1.4.0. Perhaps due UpgradePipeline?
+				return; // Let's think different... (yep, it worked).
 			}
 
 			base.OnSave(node);
 		}
 
-        [UsedImplicitly]
+		// Prevents mangling ConfigNodes when not saving the thing into a craft file.
+		private bool IsSaveMode()
+		{
+			System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace();
+			foreach (System.Diagnostics.StackFrame frame in st.GetFrames())
+			{
+				string classname = frame.GetMethod().DeclaringType.Name;
+				string methodname = frame.GetMethod().ToString();
+				Log.dbg("IsSaveMode {0} {1}", classname, methodname);
+				if ("ShipConstruct".Equals(classname) && "ConfigNode SaveShip()".Equals(methodname))
+					return true;
+			}
+			return false;
+		}
+
+		[UsedImplicitly]
         public override void OnAwake()
         {
             Log.dbg("OnAwake {0}", this.InstanceID);
