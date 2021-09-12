@@ -31,7 +31,7 @@ namespace TweakScale.PartDB
 		private PartVariant previousVariant;
 		private PartVariant currentVariant;
 
-		internal VariantPartScaler(Part prefab, Part part, ScaleType scaleType, TweakScale ts) : base(prefab, part, scaleType, ts)
+		public VariantPartScaler(Part prefab, Part part, ScaleType scaleType, TweakScale ts) : base(prefab, part, scaleType, ts)
 		{
 			this.previousVariant = this.currentVariant = part.variants.SelectedVariant;
 		}
