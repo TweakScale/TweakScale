@@ -2,25 +2,44 @@
 
 Fellow Kerbonauts,
 
-Due some changes on the Status Quo, mainly due some RL issues "infecting" my life (but not only), the TweakScale Road map was updated.
+Due recent developments on the KSP, culminating on the current release 1.12.2, the Road Map were (again) heavily reworked.
 
-The TweakScale 2.4.3.x series is, **FINALLY**, EoL.  `#HURRAY` (I will not miss these ones. :P )
+Oh well. :)
 
-I want to thank every one of you that helped me to diagnose all that glitches, bugs and misbehaviours in which TweakScale was, directly or indirectly, involved. Every bug report, every complain, every log, had helped me to detect, diagnose and fix a huge amount of bugs and misconfigurations on the whole eco system, what ends up being good for everybody.
+The 2.4.5 series are over. I didn't managed to accomplish what I wanted from it due (not so) unexpected difficulties that arose from the 1.12.x series that, summed to the current ones (specifically, Serenity), suggest a change on the order that things need to be done as well shrinking the scope of each milestone to a more manageable workload.
 
-I'm pretty happy with the ending results besides the trouble, we have a way more stable gaming instalment nowadays. As nothing good comes cheap, we have a somewhat whiny game setup too. :P 
+What I want to share with you now is what to expect from the next minor TweakScale versions:
 
-Oh well. :) 
+## 2.4.6.x : The hunt for missing support
 
-What I want to share with you now is what to expect from the next two minor TweakScale versions, 2.4.4.x and the yet somewhat far 2.5.x .
+While the 2.4.5.x series focused on missing support on patches, the 2.4.6.x will focus on missing support from code.
 
-## 2.4.4.x : Le Roi est mort, Vive le Roi.
+KSP downto 1.3.1 will be supported again, and the bug hunt will focus on bugs that affect the majority of KSP versions - due the way the code is being designed, everything affecting 1.3.1 will affect also up to 1.12.2, so it makes sense to hunt down these bugs first.
 
-The whole 2.4.4.x releases will be focused on properly supporting what's now unsupported from Stock and KSP 1.9.x (except new Modules and Serenity).
+Every effort to **AVOID** breaking backwards compatibility will be applied - exception made by the `TweakScaleExperimental` patches, that can be changed at anytime without notice. **DO NOT** activate the Experimental Patches on your "production" savegames - but they should be OK for short-living installents (and videomaking)
 
-The main purpose of the 2.4.4 series is to **pave the way** to a lean and clean TweakScale, using and abusing from the new Concept of [TweakScale Companion Program](https://forum.kerbalspaceprogram.com/index.php?/topic/192216-*/) (see [github](https://github.com/net-lisias-ksp/TweakScaleCompanion) too).
+## 2.4.7.x : Technical Debts on Scalings
 
-Every effort to **AVOID** breaking backwards compatibility will be applied. 
+With the "legacy" support finished (and remembering that these artefacts are also used on modern KSP!), the hunt for technical debts plaguing the most recent KSPs will be carried out.
+
+## 2.4.8.x : The Big Patches Clean Up
+
+This one will be another one focused on Patching.
+
+The `TweakScaleExperimental` program will be finished, with all scalable parts still on Experimental status being formally supported (or just ditched - not everything needs to be scaled, after all).
+
+The long due Localisation efforts will be finally carried out.
+
+## 2.4.9.x : The Patches Big Clean Up
+
+Some new features implementing some recently detected use cases while supporting KIS and Stock Inventory.
+
+Efforts to use the new widgets from KSP 1.8 and forward.
+
+## 2.4.10.x : Serenity
+
+Researches suggest that supporting Serenity will be a hell of a task. So I focused all the related efforts on this series.
+
 
 ## 2.5.0.x : "My Kraken…. It's full of ":FOR"s….
 
@@ -41,21 +60,8 @@ So, in the end, it's a matter of choosing the KSP eco system we want to have - a
 
 A important change is due to happen on 2.5.0.x to protect my SAS and to help me to keep the TweakScale /L eco system healthy. Rest assured that current Add'Ons will be able to use and embed TweakScale as they always did no matter what.
 
-## 2.5.1.x : Old parts, New tricks
 
-Renewed support for currently (partially) supported parts will be updated - in special, I want to make Wheels correctly scalable again. This, as usual, will not be free - by correctly scaling up the Wheels, we end up correctly scaling down them too - and so things can break on games with tiny little wheels that now are too strong for they sizes and will became weaker as they should.
+## *status quo*
 
-Serenity Parts will be dealt on this series too. Could not do it before because a lot of new Modules would demand a **lot** of research, and, frankly, KSP 1.9.x broke my legs on this task.
-
-Finally, some nasty errors from the legacy patches will be fixed.
-
-Let's see what happens...
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/H8_SOAVNVj0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-While one or another mistake will probably bite our SAS, I expect a very smooth transition for the whole series.
-
-But, as already is usual, **no savegame will be left behind**.
-
-The (current) [schedule](https://github.com/net-lisias-ksp/TweakScale/milestones) is here.
+The (current) schedule [is here](https://github.com/net-lisias-ksp/TweakScale/milestones).
 
