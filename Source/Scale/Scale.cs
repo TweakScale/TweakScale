@@ -29,7 +29,7 @@ using UnityEngine;
 using TweakScale.Annotations;
 
 namespace TweakScale
-{    
+{
 	public class TweakScale : PartModule, IPartCostModifier, IPartMassModifier
 	{
 		// Checks if the running KSP has the Upgrade Pipeline feature, so TweakScale can omit itself from craft files when not used,
@@ -339,12 +339,13 @@ namespace TweakScale
 		/// Ensures new attributes will be added when loading older configs
 		/// </summary>
 		/// <param name="node"></param>
-        private void OnLoadDefaults(ConfigNode node)
+		[UsedImplicitly]
+		private void OnLoadDefaults(ConfigNode node)
 		{
-            Log.dbg("OnLoadDefaults before {0}", node.ToString());
+			Log.dbg("OnLoadDefaults before {0}", node.ToString());
 			if(!node.HasValue("active")) node.AddValue("active", this.active);
 			if(!node.HasValue("available")) node.AddValue("available", this.available);
-            Log.dbg("OnLoadDefaults after {0}", node.ToString());
+			Log.dbg("OnLoadDefaults after {0}", node.ToString());
 		}
 
 		[UsedImplicitly]
@@ -385,8 +386,8 @@ namespace TweakScale
 				node.name = ""; // Pushing my luck a bit.
 			}
 
-            base.OnSave(node);
-        }
+			base.OnSave(node);
+		}
 
         [UsedImplicitly]
         public override void OnAwake()
