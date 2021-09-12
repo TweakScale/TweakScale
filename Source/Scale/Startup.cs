@@ -34,6 +34,31 @@ namespace TweakScale
 		private void Start() {
 			Log.force("Version {0}", Version.Text);
 
+			try	// Check for critical artefacts first!
+			{
+				using (KSPe.Util.SystemTools.Assembly<TweakScale> a = new KSPe.Util.SystemTools.Assembly<TweakScale>())
+				{
+					if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
+						a.LoadAndStartup("Scale.PartDB.13x");
+					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 4))
+						a.LoadAndStartup("Scale.PartDB.14x");
+					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 8, 0))
+						a.LoadAndStartup("Scale.PartDB.15x");
+					else
+						a.LoadAndStartup("Scale.PartDB.18x");
+				}
+
+				// Check if the needed Classes are available...
+				KSPe.Util.SystemTools.TypeFinder.FindByQualifiedName("TweakScale.PartDB.StandardPartScaler");
+				if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.GetVersion(1, 8, 0))
+					KSPe.Util.SystemTools.TypeFinder.FindByQualifiedName("TweakScale.PartDB.VariantPartScaler");
+			}
+			catch (System.Exception e)
+			{
+				Log.error(e.ToString());
+				GUI.MissingDLLAlertBox.Show(e.Message);
+			}
+
 			try
 			{
 				KSPe.Util.Compatibility.Check<Startup>(typeof(Version), typeof(Configuration));
@@ -48,22 +73,11 @@ namespace TweakScale
 						return;
 					}
 				}
-				if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1, 12, 1))
+
+				if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1, 12, 2))
 				{
 					GUI.UnsupportedKSPAdviseBox.Show(KSPe.Util.KSP.Version.Current.ToString());
 					return;
-				}
-
-				using (KSPe.Util.SystemTools.Assembly.Loader<TweakScale> a = new KSPe.Util.SystemTools.Assembly.Loader<TweakScale>())
-				{
-					if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
-						a.LoadAndStartup("Scale.PartDB.13x");
-					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 4))
-						a.LoadAndStartup("Scale.PartDB.14x");
-					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 8, 0))
-						a.LoadAndStartup("Scale.PartDB.15x");
-					else
-						a.LoadAndStartup("Scale.PartDB.18x");
 				}
 			}
 			catch (KSPe.Util.InstallmentException e)
