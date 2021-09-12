@@ -32,6 +32,11 @@ The following file layout must be present after installation:
 			...
 		[TweakScale]
 			[Plugins]
+				[PluginData]
+					Scale.PartDB.13x.dll
+					Scale.PartDB.14x.dll
+					Scale.PartDB.15x.dll
+					Scale.PartDB.18x.dll
 				KSPe.Light.TweakScale.dll
 				Scale.dll
 			[patches]

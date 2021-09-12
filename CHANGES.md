@@ -1,5 +1,12 @@
 # TweakScale :: Changes
 
+* 2021-0912: 2.5.0.33 Beta (Lisias) for KSP >= 1.3.1
+	+ Catches up all fixes already published on mainstream.
+	+ Implements support for **ALL** KSP versions downto 1.3.1 !!! #HURRAY!!
+		- Specialised DLLs loaded under demand, thanks KSPe!
+		- 1.2.2, however, will need more work. Unsure if it worths it.
+	+ Closes Issues:
+		- [#198](https://github.com/net-lisias-ksp/TweakScale/issues/198) Breakdown Scaling support for each major KSP version in specialised DLLs
 * 2021-0410: 2.5.0.32 Beta (Lisias) for KSP >= 1.4.4
 	+ Declutters craft files, preventing TweakScale MODULE nodes from begin written on it when the part is not scaled or it's deactivated.
 		- Now your unscaled crafts can be shared on KerbalX *et all* without being tagged as using TweakScale.
