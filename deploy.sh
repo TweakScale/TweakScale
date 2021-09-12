@@ -3,9 +3,9 @@
 source ./CONFIG.inc
 
 check() {
-	if [ ! -d "./GameData/$TARGETBINDIR/" ] ; then
-		rm -f "./GameData/$TARGETBINDIR/"
-		mkdir -p "./GameData/$TARGETBINDIR/"
+	if [ ! -d "./GameData/$TARGETBINDIR/PluginData" ] ; then
+		rm -r -f "./GameData/$TARGETBINDIR/"
+		mkdir -p "./GameData/$TARGETBINDIR/PluginData"
 	fi
 
 	if [ ! -f "./GameData/$TARGETBINDIR/KSPe.Light.TweakScale.dll" ] ; then
