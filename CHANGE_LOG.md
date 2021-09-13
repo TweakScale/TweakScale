@@ -1,5 +1,9 @@
 # TweakScale :: Change Log
 
+* 2021-0913: 2.5.0.35 Beta (Lisias) for KSP >= 1.3.1
+	+ Fixes (again) the Decluttering thingy. 
+	+ Closes Issues:
+		- [#201](https://github.com/net-lisias-ksp/TweakScale/issues/201) The "Decluttering" Feature from 2.5.4.4 is breaking KCT
 * 2021-0912: 2.5.0.34 Beta (Lisias) for KSP >= 1.3.1
 	+ Catches up all fixes already published on mainstream.
 	+ Implements support for **ALL** KSP versions downto 1.3.1 !!! #HURRAY!!
