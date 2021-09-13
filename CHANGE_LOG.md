@@ -1,5 +1,9 @@
 # TweakScale :: Change Log
 
+* 2021-0913: 2.4.5.8 (Lisias) for 1.4.4 <= KSP <= 1.12.2
+	+ Fixes (again) the Decluttering thingy. 
+	+ Closes Issues:
+		- [#201](https://github.com/net-lisias-ksp/TweakScale/issues/201) The "Decluttering" Feature from 2.5.4.4 is breaking KCT
 * 2021-0912: 2.4.5.7 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ Better compatibility with 3rd Party Add'Ons when Decluttering. 
 	+ Closes Issues:
