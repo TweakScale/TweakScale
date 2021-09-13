@@ -1,0 +1,69 @@
+# allow git to guess types we don't specify
+#*          text=auto
+
+# Source code
+*.c        text
+*.cs       text diff=csharp
+*.cpp      text diff=cpp
+*.java     text diff=java
+*.py       text diff=python
+
+*.htm      text diff=html
+*.html     text diff=html
+*.css      text diff=css
+*.js       text
+*.md       text diff=markdown
+
+# explictly specify most everything
+*.cfg      text
+*.asset    text
+*.shader   text
+*.manifest text
+*.md       text
+*.txt      text
+*.resx     text
+
+# Image and other binaries
+*.png     binary
+*.dds     binary
+*.mu      binary
+*.dll     binary
+*.bundle  binary
+
+# Compression utilities
+*.zip     binary
+*.7z      binary
+*.rar     binary
+*.gz      binary
+*.bz2     binary
+*.lz      binary
+*.lz4     binary
+*.lzo     binary
+*.lzma    binary
+*.xz      binary
+*.z       binary
+*.Z       binary
+
+# Visual Studio
+*.sln    merge=union
+*.csproj merge=union
+*.vbproj merge=union
+*.fsproj merge=union
+*.dbproj merge=union
+
+# Standard to msysgit
+*.doc    diff=astextplain
+*.DOC    diff=astextplain
+*.docx   diff=astextplain
+*.DOCX   diff=astextplain
+*.dot    diff=astextplain
+*.DOT    diff=astextplain
+*.pdf    diff=astextplain
+*.PDF    diff=astextplain
+*.rtf    diff=astextplain
+*.RTF    diff=astextplain
+
+# More known and most used filetypes
+*.csv    text
+*.fods   text diff=html
+*.my     binary
