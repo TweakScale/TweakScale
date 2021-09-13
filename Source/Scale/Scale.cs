@@ -374,14 +374,24 @@ namespace TweakScale
 			if (UPGRADE_PILELINED_KSP && HighLogic.LoadedSceneIsEditor && !(this.active && this.IsScaled) && this.IsSaveMode())
 			{
 				Log.detail("Part {0} is being saved without TweakScale as it is not used or active.", this.part.name);
+
+				// Besides aborting the method (what makes de node to be persisted as an empty node called PARTDATA)
+				// I'm mangling the node anyway.
 				node.ClearData();
 				node.comment = "Nothing to see here. Please ignore me.";
-				node.name = ""; // Pushing my luck a bit.
+				//node.name = ""; // Pushing my luck a bit.
+				node.name = "i";// KCT rereads the craft file after saving, but a possible bug prevents it
+								// from correctly reading NODES without a name, as it appears.
+								// (not necessarily a bug on KCT, the problem appears to be on ConfigNode.CopyToRecursive,
+								// but it worths to mention that crafts decluttered by this tool are loaded fine
+								// by KSP downto KSP 1.4.0. Perhaps due UpgradePipeline?
+				return; // Let's think different... (yep, it worked).
 			}
 
 			base.OnSave(node);
 		}
 
+		// Prevents mangling ConfigNodes when not saving the thing into a craft file.
 		private bool IsSaveMode()
 		{
 			System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace();
