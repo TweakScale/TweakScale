@@ -21,14 +21,14 @@
 		You should have received a copy of the GNU General Public License 2.0
 		along with TweakScale /L If not, see <https://www.gnu.org/licenses/>.
 */
-using UnityEngine;
-namespace TweakScale.PartDB.KSP18
+
+namespace TweakScale.PartDB.KSP14
 {
 	public class Startup
 	{
 		private void Start()
 		{
-			UnityEngine.Debug.LogFormat("Support for KSP 1.4.0 to 1.4.3 Version {0}", Version.Text);
+			Log.force("Support for KSP 1.4.0 to 1.4.3 Version {0}", Version.Text);
 		}
 	}
 }

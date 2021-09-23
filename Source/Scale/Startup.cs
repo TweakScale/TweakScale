@@ -50,7 +50,7 @@ namespace TweakScale
 
 				// Check if the needed Classes are available...
 				KSPe.Util.SystemTools.TypeFinder.FindByQualifiedName("TweakScale.PartDB.StandardPartScaler");
-				if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.GetVersion(1, 8, 0))
+				if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
 					KSPe.Util.SystemTools.TypeFinder.FindByQualifiedName("TweakScale.PartDB.VariantPartScaler");
 			}
 			catch (System.Exception e)
