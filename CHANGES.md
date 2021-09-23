@@ -1,5 +1,8 @@
 # TweakScale :: Changes
 
+* 2021-0922: 2.5.0.36 Beta (Lisias) for KSP >= 1.3.1
+	+ Recompiled against the new KSPe 2.4.0.0
+		- [Update before using](https://github.com/net-lisias-ksp/KSPAPIExtensions/releases/tag/RELEASE%2F2.4.0.0), it's a hard dependency on the new Version. 
 * 2021-0913: 2.5.0.35 Beta (Lisias) for KSP >= 1.3.1
 	+ Fixes (again) the Decluttering thingy. 
 	+ Closes Issues:
