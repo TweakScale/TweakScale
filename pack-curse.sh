@@ -10,12 +10,14 @@ clean() {
 	fi
 }
 
+echo "Not available yet!"
+exit 1
+
 pwd=$(pwd)
 FILE=${pwd}/Archive/$PACKAGE-$VERSION${PROJECT_STATE}-CurseForge.zip
 echo $FILE
 clean
 cd GameData
-<<<<<<< HEAD
 
 zip -r $FILE ./TweakScale/* -x ".*"
 zip -r $FILE ./ModuleManagerWatchDog/* -x ".*"
