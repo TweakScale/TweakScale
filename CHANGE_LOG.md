@@ -1,5 +1,11 @@
 # TweakScale :: Change Log
 
+* 2021-0925: 2.4.5.9 (Lisias) for 1.4.4 <= KSP <= 1.12.2
+        + Adds (missing) patches for 3 parts that I left behind:
+                + LV-T30 Reliant V2
+                + LV-T45 Swivel V2
+                + Ground Anchor (in Experimental yet)
+        + Ongoing savegames still using the 'V1' parts didn't noticed the bork, because these parts still exists on the game (they are only hidden) and are being scaled normally. Only new crafts and savegames were being hindered by the absence of these two patches.
 * 2021-0922: 2.5.0.36 Beta (Lisias) for KSP >= 1.3.1
 	+ Recompiled against the new KSPe 2.4.0.0
 		- [Update before using](https://github.com/net-lisias-ksp/KSPAPIExtensions/releases/tag/RELEASE%2F2.4.0.0), it's a hard dependency on the new Version. 
