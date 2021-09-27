@@ -1,5 +1,8 @@
 # TweakScale :: Changes
 
+* 2021-0927: 2.5.0.37 (Lisias) for 1.4.4 <= KSP <= 1.12.2
+	+ Maintenance release
+		- Declares the Ground Anchor as Experimental		- Updates the code base to the latest KSPe release (2.4.0.1 at this moment)
 * 2021-0922: 2.5.0.36 Beta (Lisias) for KSP >= 1.3.1
 	+ Recompiled against the new KSPe 2.4.0.0
 		- [Update before using](https://github.com/net-lisias-ksp/KSPAPIExtensions/releases/tag/RELEASE%2F2.4.0.0), it's a hard dependency on the new Version. 
