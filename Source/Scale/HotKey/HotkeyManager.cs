@@ -23,8 +23,8 @@
 */
 using System.Collections.Generic;
 using KSP.IO;
-using TweakScale.Annotations;
 using UnityEngine;
+using KSPe.Annotations;
 
 namespace TweakScale
 {

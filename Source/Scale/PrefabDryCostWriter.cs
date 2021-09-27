@@ -24,7 +24,7 @@
 using System;
 using System.Collections;
 
-using TweakScale.Annotations;
+using KSPe.Annotations;
 
 namespace TweakScale
 {

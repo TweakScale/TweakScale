@@ -23,7 +23,7 @@
 */
 using System.Collections.Generic;
 using UnityEngine;
-using TweakScale.Annotations;
+using KSPe.Annotations;
 
 namespace TweakScale.PartDB
 {

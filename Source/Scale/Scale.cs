@@ -26,7 +26,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-using TweakScale.Annotations;
+using KSPe.Annotations;
 
 namespace TweakScale
 {
