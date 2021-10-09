@@ -31,18 +31,23 @@
     <Reference Include="System" />
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.4.1\UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="TweakableEVA">
       <HintPath>..\..\..\..\..\..\LIB\plugins\TweakableEVA.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="TweakableReactionWheels">
       <HintPath>..\..\..\..\..\..\LIB\plugins\TweakableReactionWheels.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="TweakableDockingNode">
       <HintPath>..\..\..\..\..\..\LIB\plugins\TweakableDockingNode.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.4.1\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -53,6 +58,7 @@
     <ProjectReference Include="..\Scale_Redist\Scale_Redist.csproj">
       <Project>{2BE63D8B-350E-4EDD-959C-4B7397984364}</Project>
       <Name>Scale_Redist</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

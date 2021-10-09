@@ -1,7 +1,5 @@
 .vs
 Archive
-Source/**/Version.cs
-Source/**/Configuration.cs
 GameData/**/*.dll
 GameData/**/LICENSE*
 GameData/**/NOTICE
@@ -9,7 +7,8 @@ GameData/**/README.md
 GameData/**/CHANGE_LOG.md
 GameData/**/KNOWN_ISSUES.md
 GameData/**/*.version
-GameData/*/Plugins/**/*.dll
+Source/**/Properties/Version.cs
+Source/**/Properties/Configuration.cs
 Source/*/*.user
 bin
 obj
