@@ -35,9 +35,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScalingFactor.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="..\Version.cs">
-      <Link>Properties\Version.cs</Link>
+    <Compile Include="Properties\Version.cs">
+      <DependentUpon>Version.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Version.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Version.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Scale_Redist")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("TweakScale /L Redistributable Assembly")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Scale_Redist")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("L Aerospace/KSP Division")]
+[assembly: AssemblyProduct("TweakScale /L Redistributable")]
+[assembly: AssemblyCopyright("Copyright © 2018-2021 LisiasT")]
+[assembly: AssemblyTrademark("TweakScale™ by Gaius Goodspeed, Biotronic, Pellinor, LisiasT")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 

@@ -29,18 +29,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="KSPe">
-      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.8.0\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.8.0\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.8.0\UnityEngine.CoreModule.dll</HintPath>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.8.0\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -78,11 +66,6 @@
     <ProjectReference Include="..\Scale_Redist\Scale_Redist.csproj">
       <Project>{2BE63D8B-350E-4EDD-959C-4B7397984364}</Project>
       <Name>Scale_Redist</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\PartDB13x\PartDB13x.csproj">
-      <Project>{6B48EB58-62EF-4763-822A-1C38CF5B72EC}</Project>
-      <Name>Scale.PartDB.13x</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

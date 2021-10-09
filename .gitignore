@@ -7,8 +7,8 @@ GameData/**/README.md
 GameData/**/CHANGE_LOG.md
 GameData/**/KNOWN_ISSUES.md
 GameData/**/*.version
-Source/Version.cs
-Source/Configuration.cs
+Source/**/Version.cs
+Source/**/Configuration.cs
 Source/*/*.user
 bin
 obj
