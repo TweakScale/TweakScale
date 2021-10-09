@@ -42,9 +42,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScaleType.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="..\Version.cs">
-      <DependentUpon>Version.tt</DependentUpon>
-    </Compile>
     <Compile Include="GUI\ShowStopperAlertBox.cs" />
     <Compile Include="GUI\SanityCheckAlertBox.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -96,11 +93,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Version.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <Link>Properties\Version.tt</Link>
-      <LastGenOutput>Version.cs</LastGenOutput>
-    </None>
     <None Include="..\Configuration.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <Link>Properties\Configuration.tt</Link>

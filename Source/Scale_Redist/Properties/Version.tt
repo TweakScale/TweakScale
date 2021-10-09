@@ -18,7 +18,7 @@
 
 	try
 	{
-		string file = this.Host.ResolvePath("../" + PROJECT_NAME + ".version");
+		string file = this.Host.ResolvePath("../../../" + PROJECT_NAME + ".version");
 		string text = File.ReadAllText(file);
 
 		{

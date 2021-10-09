@@ -1,7 +1,7 @@
 .vs
 Archive
-Source/Version.cs
-Source/Configuration.cs
+Source/**/Version.cs
+Source/**/Configuration.cs
 GameData/**/*.dll
 GameData/**/LICENSE*
 GameData/**/NOTICE
