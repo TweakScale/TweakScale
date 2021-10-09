@@ -21,8 +21,8 @@
 		You should have received a copy of the GNU General Public License 2.0
 		along with TweakScale /L If not, see <https://www.gnu.org/licenses/>.
 */
-using TweakScale.Annotations;
 using UnityEngine;
+using KSPe.Annotations;
 
 namespace TweakScale
 {

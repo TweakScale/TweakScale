@@ -25,4 +25,3 @@ using System.Runtime.CompilerServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(TweakScale.Version.Number)]
 [assembly: AssemblyFileVersion(TweakScale.Version.Number)]
-[assembly: KSPAssemblyDependency("KSPe", 2, 3)]

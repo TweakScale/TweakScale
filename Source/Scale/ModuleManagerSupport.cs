@@ -22,7 +22,7 @@
 		along with TweakScale /L If not, see <https://www.gnu.org/licenses/>.
 */
 using UnityEngine;
-using TweakScale.Annotations;
+using KSPe.Annotations;
 
 namespace TweakScale
 {
