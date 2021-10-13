@@ -8,7 +8,7 @@
     <RootNamespace>TweakScale</RootNamespace>
     <AssemblyName>Scale.PartDB.14x</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <BaseIntermediateOutputPath>..\..\obj</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\obj\PartDB14x</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
