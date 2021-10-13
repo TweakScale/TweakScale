@@ -22,10 +22,13 @@
 		along with TweakScale /L If not, see <https://www.gnu.org/licenses/>.
 */
 
+using KSPe.Annotations;
+
 namespace TweakScale.PartDB.KSP15
 {
 	public class Startup
 	{
+		[UsedImplicitly]
 		private void Start()
 		{
 			Log.force("Support for KSP 1.4.4 to 1.7.3 Version {0}", Version.Text);
