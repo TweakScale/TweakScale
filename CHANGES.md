@@ -1,5 +1,7 @@
 # TweakScale :: Changes
 
+* 2021-1016: 2.4.6.1 (Lisias) for 1.3.0 <= KSP <= 1.12.2
+	+ Rolls back an incomplete localization issue that passed through while merging features from the development branch.
 * 2021-1010: 2.4.6.0 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Breaks the 1.4.4 barrier! Now TweakScale supports from KSP 1.3.0 to the latest! **#HURRAY!!**
 	+ Resurrects the AutoScale feature. Use `CTRL-L` to activate/deactivate
