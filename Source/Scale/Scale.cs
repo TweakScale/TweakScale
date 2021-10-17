@@ -61,14 +61,14 @@ namespace TweakScale
         /// <summary>
         /// The selected scale. Different from currentScale only for destination single update, where currentScale is set to match this.
         /// </summary>
-        [KSPField(isPersistant = false, guiActiveEditor = true, guiName = "#TweakScale_GUI_Scale", guiFormat = "0.000", guiUnits = "m")]//Scale
+        [KSPField(isPersistant = false, guiActiveEditor = true, guiName = "Scale", guiFormat = "0.000", guiUnits = "m")]
         [UI_ScaleEdit(scene = UI_Scene.Editor)]
         public float tweakScale = -1;
 
         /// <summary>
         /// Index into scale values array.
         /// </summary>
-        [KSPField(isPersistant = false, guiActiveEditor = true, guiName = "#TweakScale_GUI_Scale")]//Scale
+        [KSPField(isPersistant = false, guiActiveEditor = true, guiName = "Scale")]
         [UI_ChooseOption(scene = UI_Scene.Editor)]
         public int tweakName = 0;
 
