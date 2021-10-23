@@ -70,6 +70,7 @@
     <Compile Include="PartDB\Scaler.cs" />
     <Compile Include="PartDB\GameEvents.cs" />
     <Compile Include="GUI\MissingDLLAlertBox.cs" />
+    <Compile Include="Globals.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="KSPe.Light.TweakScale">
