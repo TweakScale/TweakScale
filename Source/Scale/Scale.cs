@@ -378,7 +378,12 @@ namespace TweakScale
 			// otherwise the part will get TweakScale permanently ripped off until being removed and a new one attached to the
 			// editting craft.
 			//
-			if (UPGRADE_PILELINED_KSP && HighLogic.LoadedSceneIsEditor && !(this.active && this.IsScaled) && this.IsSaveMode())
+			if (Globals.Instance.AllowStealthSave
+					&& UPGRADE_PILELINED_KSP
+					&& HighLogic.LoadedSceneIsEditor
+					&& !(this.active && this.IsScaled)
+					&& this.IsSaveMode()
+				)
 			{
 				Log.detail("Part {0} is being saved without TweakScale as it is not used or active.", this.part.name);
 

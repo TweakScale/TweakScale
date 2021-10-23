@@ -70,28 +70,33 @@
     <Compile Include="PartDB\Scaler.cs" />
     <Compile Include="PartDB\GameEvents.cs" />
     <Compile Include="GUI\MissingDLLAlertBox.cs" />
+    <Compile Include="Globals.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="KSPe.Light.TweakScale">
+      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.Light.TweakScale.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Compile Include="Features\AutoScale.cs" />
+    <Compile Include="Features\ScaleChaining.cs" />
+    <Compile Include="Properties\LegalMamboJambo.cs" />
+    <Compile Include="ModuleManagerSupport.cs" />
+    <Compile Include="Scale.cs" />
+    <Compile Include="PartDB\Scaler.cs" />
+    <Compile Include="PartDB\GameEvents.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="KSPe">
-      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="KSPe.UI">
-      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.4\UnityEngine.UI.dll</HintPath>
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\UnityEngine.dll</HintPath>
