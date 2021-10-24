@@ -68,15 +68,15 @@ namespace TweakScale.PartDB
 		{
 			Log.dbg("VariantPartScaler.OnEditorVariantApplied {0} {1}", this.ts.InstanceID, partVariant.Name);
 
-			this.SetVariant(partVariant);
 			if (!this.ts.IsScaled) return;
+			if (this.currentVariant == this.SetVariant(partVariant)) return;
 
 			// When an variant is applied, all the attachment nodes are replaced by "vanilla" ones
 			// So we need to rescale them using absolute scales.
 			this.MoveAttachmentNodes(false, true);
 
 			// And since the super's Move code doesn't works right when you are "scaling back" a part, we need to
-			// "fix" them now
+			// "fix" them now.
 			this.MoveParts();
 
 			this.OnChange();
