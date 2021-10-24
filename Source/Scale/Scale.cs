@@ -224,7 +224,7 @@ namespace TweakScale
 
         internal void RescaleAndUpdate()
         {
-			this.scaler.Rescale();
+			this.scaler.Restore();
             try {
                 this.CallUpdaters();
             } catch (Exception exception) {

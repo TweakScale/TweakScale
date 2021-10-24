@@ -153,9 +153,9 @@ namespace TweakScale.PartDB
 			this.OnChange();
 		}
 
-		internal void Rescale()
+		internal void Restore()
 		{
-			Log.dbg("Rescale for {0}", this.ts.InstanceID);
+			Log.dbg("Restore for {0}", this.ts.InstanceID);
 			this.ScalePart(true, true);
 			this.OnChange();
 		}
