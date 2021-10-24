@@ -52,16 +52,21 @@
     <Compile Include="..\PartDB14x\PartDB\EditorHelper.cs">
       <Link>PartDB\EditorHelper.cs</Link>
     </Compile>
-    <Compile Include="PartDB\VariantPartScaler.cs" />
+    <Compile Include="PartDB\VariantPartScaler1122.cs" />
     <Compile Include="..\PartDB13x\PartDB\StandardPartScaler.cs">
       <Link>PartDB\StandardPartScaler.cs</Link>
     </Compile>
+    <Compile Include="..\PartDB15x\PartDB\VariantPartScaler15x.cs">
+      <Link>PartDB\VariantPartScaler15x.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB18x\PartDB\VariantPartScaler18x.cs">
+      <Link>PartDB\VariantPartScaler18x.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB14x\PartDB\VariantPartScaler.cs">
+      <Link>PartDB\VariantPartScaler.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PartDB13x\Scale.PartDB.13x.csproj">
-      <Project>{6B48EB58-62EF-4763-822A-1C38CF5B72EC}</Project>
-      <Name>Scale.PartDB.13x</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Scale\Scale.csproj">
       <Project>{70D38878-43DB-4F6E-8002-45ADA5391AF7}</Project>
       <Name>Scale</Name>

@@ -45,12 +45,15 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="PartDB\VariantPartScaler.cs" />
+    <Compile Include="PartDB\VariantPartScaler15x.cs" />
     <Compile Include="..\PartDB13x\PartDB\StandardPartScaler.cs">
       <Link>PartDB\StandardPartScaler.cs</Link>
     </Compile>
     <Compile Include="..\PartDB14x\PartDB\EditorHelper.cs">
       <Link>PartDB\EditorHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB14x\PartDB\VariantPartScaler.cs">
+      <Link>PartDB\VariantPartScaler.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
