@@ -139,8 +139,14 @@ namespace TweakScale.PartDB
 			{
 				Vector3 currentPosition = this.part.partTransform.InverseTransformPoint(node.attachedPart.partTransform.position);	// Where we are
 				Vector3 desiredPosition = currentNodesWithSameId[0].position;														// Where we should be
-				Vector3 deltaPos = desiredPosition - currentPosition - (attachedPartNode.Length > 0 ? attachedPartNode[0].position : Vector3.zero);
+				Vector3 deltaPos = desiredPosition - currentPosition;
 
+				if (attachedPartNode.Length > 0)
+				{
+					deltaPos -= attachedPartNode[0].position;
+				}
+
+				deltaPos *= this.ts.CurrentScaleFactor;
 				bool isAttachedParent = node.attachedPart == this.part.parent;
 				if (isAttachedParent) {
 					deltaPos = -deltaPos + this.part.attPos;
