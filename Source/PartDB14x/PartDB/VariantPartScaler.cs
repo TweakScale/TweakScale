@@ -38,6 +38,8 @@ namespace TweakScale.PartDB
 
 		internal PartVariant SetVariant(PartVariant partVariant)
 		{
+			Log.dbg("VariantPartScaler.SetVariant {0}", partVariant.DisplayName);
+
 			PartVariant r = this.previousVariant;
 			this.previousVariant = this.currentVariant;
 			this.currentVariant = partVariant;
@@ -64,12 +66,15 @@ namespace TweakScale.PartDB
 
 		protected override void OnChange()
 		{
+			Log.dbg("VariantPartScaler.OnChange");
+
 			base.OnChange();
 		}
 
 		internal void OnEditorVariantApplied(Part part, PartVariant partVariant)
 		{
-			Log.dbg("OnEditorVariantApplied {0} {1}", this.ts.InstanceID, partVariant.Name);
+			Log.dbg("VariantPartScaler.OnEditorVariantApplied {0} {1}", this.ts.InstanceID, partVariant.Name);
+
 			this.SetVariant(partVariant);
 			if (!this.ts.IsScaled) return;
 
@@ -86,11 +91,15 @@ namespace TweakScale.PartDB
 
 		protected override AttachNode[] FindBaseNodesWithSameId(AttachNode node)
 		{
+			Log.dbg("VariantPartScaler.FindBaseNodesWithSameId {0}", node.id);
+
 			return this.FindBaseNodesWithSameId(node, this.currentVariant);
 		}
 
 		protected AttachNode[] FindBaseNodesWithSameId(AttachNode node, PartVariant variant)
 		{
+			Log.dbg("VariantPartScaler.FindBaseNodesWithSameId {0} {1}", node.id, variant.DisplayName);
+
 			AttachNode [] baseNodesWithSameId = this.prefab.variants.variantList[this.prefab.variants.GetVariantIndex(variant.Name)].AttachNodes
 				.Where(a => a.id == node.id)
 				.ToArray();
@@ -105,13 +114,15 @@ namespace TweakScale.PartDB
 
 		protected void MoveParts()
 		{
+			Log.dbg("VariantPartScaler.MoveParts");
+
 			int len = this.part.attachNodes.Count;
 			for (int i = 0; i < len; i++) {
 				AttachNode node = this.part.attachNodes[i];
 
 				if (null == node.attachedPart)
 				{
-					Log.dbg("{0}'s node {1} has not attached part.", this.part.name, node.id);
+					Log.dbg("{0}'s node {1} has not attached part.", this.InstanceID(), node.id);
 					continue;
 				}
 
@@ -124,6 +135,8 @@ namespace TweakScale.PartDB
 
 		protected void MovePart(AttachNode node)
 		{
+			Log.dbg("VariantPartScaler.MovePart {0}", node.id);
+
 			AttachNode[] currentNodesWithSameId = this.FindNodesWithSameId(node);									// The node was scaled correctly, we can use the node as is
 			AttachNode[] previousBaseNodesWithSameId = this.FindBaseNodesWithSameId(node, this.previousVariant);	// This is where the part was
 			AttachNode[] currentBaseNodesWithSameId = this.FindBaseNodesWithSameId(node, this.currentVariant);		// This is where the part should be
@@ -144,7 +157,7 @@ namespace TweakScale.PartDB
 				}
 
 				Log.dbg("Moving {0}'s node {1} attached part {2}{3} from {4} to {5} by {6}."
-					, this.part.name, node.id, node.attachedPart.name
+					, this.ts.InstanceID, node.id, InstanceID(node.attachedPart)
 					, isAttachedParent ? " those attachment is his parent" : ""
 					, currentPosition, desiredPosition, deltaPos);
 			} else
@@ -153,11 +166,13 @@ namespace TweakScale.PartDB
 
 		protected void MovePartSymetry(AttachNode node)
 		{
-
+			Log.dbg("VariantPartScaler.MovePartSymetry {0}", node.id);
 		}
 
 		private AttachNode[] FindAttachingNode(Part part, Part attachedPart)
 		{
+			Log.dbg("VariantPartScaler.FindAttachingNode {0} {1}", InstanceID(part), InstanceID(attachedPart));
+
 			AttachNode [] attachingNodes = attachedPart.attachNodes
 				.Where(a => a.attachedPart == part)
 				.ToArray();
