@@ -42,6 +42,8 @@ namespace TweakScale.PartDB
 		/// <param name="absolute">Whether to use absolute or relative scaling.</param>
 		protected void MoveNode(AttachNode node, AttachNode baseNode, bool movePart, bool absolute)
 		{
+			Log.dbg("StandardPartScaler.MoveNode {0} {1} {2}", node.id, baseNode.id, movePart, absolute);
+
 			if (baseNode == null)
 			{
 				baseNode = node;
@@ -67,6 +69,8 @@ namespace TweakScale.PartDB
 
 		protected void MovePart(Vector3 deltaPos, AttachNode node, float linearScale)
 		{
+			Log.dbg("StandardPartScaler.MovePart {0} {1} {2}", deltaPos, node.id, linearScale);
+
 			if (node.attachedPart == this.part.parent)
 			{
 				this.part.transform.Translate(-deltaPos, this.part.transform);
@@ -88,6 +92,8 @@ namespace TweakScale.PartDB
 		/// <param name="baseNode">The same node, as found on the prefab part.</param>
 		protected void ScaleAttachNode(AttachNode node, AttachNode baseNode)
 		{
+			Log.dbg("StandardPartScaler.ScaleAttachNode {0} {1}", node.id, baseNode.id);
+
 			if (this.ts.isFreeScale || this.ScaleNodes == null || this.ScaleNodes.Length == 0)
 			{
 				float tmpBaseNodeSize = baseNode.size;
@@ -110,6 +116,8 @@ namespace TweakScale.PartDB
 
 		protected override void MoveAttachmentNodes(bool moveParts, bool absolute)
 		{
+			Log.dbg("StandardPartScaler.MoveAttachmentNodes {0} {1}", moveParts, absolute);
+
 			int len = this.part.attachNodes.Count;
 			for (int i = 0; i < len; i++) {
 				AttachNode node = this.part.attachNodes[i];
@@ -131,6 +139,8 @@ namespace TweakScale.PartDB
 
 		protected AttachNode[] FindNodesWithSameId(AttachNode node)
 		{
+			Log.dbg("StandardPartScaler.FindNodesWithSameId {0}", node.id);
+
 			AttachNode[] nodesWithSameId = this.part.attachNodes
 				.Where(a => a.id == node.id)
 				.ToArray();
@@ -140,6 +150,8 @@ namespace TweakScale.PartDB
 
 		protected virtual AttachNode[] FindBaseNodesWithSameId(AttachNode node)
 		{
+			Log.dbg("StandardPartScaler.FindBaseNodesWithSameId {0}", node.id);
+
 			AttachNode[] baseNodesWithSameId = this.prefab.attachNodes
 				.Where(a => a.id == node.id)
 				.ToArray();
@@ -149,12 +161,16 @@ namespace TweakScale.PartDB
 
 		protected override void MoveSurfaceAttachment(bool moveParts, bool absolute)
 		{
+			Log.dbg("StandardPartScaler.MoveSurfaceAttachment");
+
 			if (null != this.part.srfAttachNode)
 				this.MoveNode(this.part.srfAttachNode, this.prefab.srfAttachNode, moveParts, absolute);
 		}
 
 		protected override void MoveSurfaceAttachedParts()
 		{
+			Log.dbg("StandardPartScaler.MoveSurfaceAttachedParts");
+
 			int numChilds = this.part.children.Count;
 			for (int i = 0; i < numChilds; i++)
 			{
@@ -170,6 +186,8 @@ namespace TweakScale.PartDB
 
 		protected override void ScalePartModelTransform()
 		{
+			Log.dbg("StandardPartScaler.ScalePartModelTransform");
+
 			this.part.rescaleFactor = this.prefab.rescaleFactor * this.ts.ScalingFactor.absolute.linear;
 
 			Transform trafo = this.part.partTransform.Find("model");
@@ -207,6 +225,8 @@ namespace TweakScale.PartDB
 		 */
 		protected override void ScaleDragCubes(bool absolute)
 		{
+			Log.dbg("StandardPartScaler.ScaleDragCubes {0}", absolute);
+
 			ScalingFactor.FactorSet factor = absolute
 				? this.ts.ScalingFactor.absolute
 				: this.ts.ScalingFactor.relative
@@ -236,6 +256,8 @@ namespace TweakScale.PartDB
 		 */
 		protected override void RescaleDragCubes()
 		{
+			Log.dbg("StandardPartScaler.RescaleDragCubes");
+
 			ScalingFactor.FactorSet factor = this.ts.ScalingFactor.absolute; // Rescaling it's always absolute!
 
 			int len = this.part.DragCubes.Cubes.Count;
@@ -270,6 +292,8 @@ namespace TweakScale.PartDB
 
 		protected override void OnEditorIn() { Log.dbg("{0}:{1} OnEditorIn", this.GetType().Name, this.ts.InstanceID); }
 		protected override void OnEditorOut() { Log.dbg("{0}:{1} OnEditorOut", this.GetType().Name, this.ts.InstanceID); }
+		protected static string InstanceID(Part p) => string.Format("{0}:{1:X}", p.name, p.GetInstanceID());
+		protected string InstanceID() => null == this.ts ? this.part.name : this.ts.InstanceID;
 	}
 
 }
