@@ -26,7 +26,7 @@ using UnityEngine;
 
 namespace TweakScale.PartDB
 {
-	internal class VariantPartScaler : StandardPartScaler
+	internal partial class VariantPartScaler : StandardPartScaler
 	{
 		private PartVariant previousVariant;
 		private PartVariant currentVariant;
@@ -62,13 +62,6 @@ namespace TweakScale.PartDB
 		{
 			GameEventEditorVariantAppliedListener.Instance.Remove(this);
 			base.OnEditorOut();
-		}
-
-		protected override void OnChange()
-		{
-			Log.dbg("VariantPartScaler.OnChange");
-
-			base.OnChange();
 		}
 
 		internal void OnEditorVariantApplied(Part part, PartVariant partVariant)

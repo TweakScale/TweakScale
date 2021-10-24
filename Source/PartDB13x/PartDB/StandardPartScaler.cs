@@ -33,6 +33,29 @@ namespace TweakScale.PartDB
 		{
 		}
 
+		protected override void DoScale()
+		{
+			Log.dbg("StandardPartScaler.Scale for {0}", this.ts.InstanceID);
+			this.ScalePart(true, false);
+			this.ScaleDragCubes(false);
+			this.OnChange();
+		}
+
+		protected override void DoRestore()
+		{
+			Log.dbg("StandardPartScaler.Restore for {0}", this.ts.InstanceID);
+			this.ScalePart(true, true);
+			this.OnChange();
+		}
+
+		protected override void DoFirstUpdate()
+		{
+			Log.dbg("StandardPartScaler.FirstUpdate for {0}", this.ts.InstanceID);
+			this.ScaleDragCubes(true);
+			if (HighLogic.LoadedSceneIsEditor)							// cloned parts and loaded crafts seem to need this (otherwise the node positions revert)
+				this.ScalePart(false, true);							// This was originally shoved on Update() for KSP 1.2 on commit 09d7744
+		}
+
 		/// <summary>
 		/// Moves <paramref name="node"/> to reflect the new scale. If <paramref name="movePart"/> is true, also moves attached parts.
 		/// </summary>

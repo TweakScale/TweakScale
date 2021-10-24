@@ -49,6 +49,7 @@
     <Compile Include="..\PartDB13x\PartDB\StandardPartScaler.cs">
       <Link>PartDB\StandardPartScaler.cs</Link>
     </Compile>
+    <Compile Include="PartDB\VariantPartScaler14x.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scale\Scale.csproj">

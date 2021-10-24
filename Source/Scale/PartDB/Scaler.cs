@@ -134,30 +134,17 @@ namespace TweakScale.PartDB
 
 		internal virtual void FirstUpdate()
 		{
-			Log.dbg("FirstUpdate for {0}", this.ts.InstanceID);
-			this.ScaleDragCubes(true);
-			if (HighLogic.LoadedSceneIsEditor)								// cloned parts and loaded crafts seem to need this (otherwise the node positions revert)
-				this.FirstScale();
-		}
-
-		protected virtual void FirstScale()
-		{
-			this.ScalePart(false, true);							// This was originally shoved on Update() for KSP 1.2 on commit 09d7744
+			this.DoFirstUpdate();
 		}
 
 		internal void Scale()
 		{
-			Log.dbg("Scale for {0}", this.ts.InstanceID);
-			this.ScalePart(true, false);
-			this.ScaleDragCubes(false);
-			this.OnChange();
+			this.DoScale();
 		}
 
 		internal void Restore()
 		{
-			Log.dbg("Restore for {0}", this.ts.InstanceID);
-			this.ScalePart(true, true);
-			this.OnChange();
+			this.DoRestore();
 		}
 
 		internal Scaler Destroy() { return this.DestroyYourself(); }
@@ -176,6 +163,9 @@ namespace TweakScale.PartDB
 		//
 		// None of these makes any sense for Prefab!
 		//
+		protected virtual void DoScale() { }
+		protected virtual void DoRestore() { }
+		protected virtual void DoFirstUpdate() { }
 		protected virtual void OnChange() { } 
 		protected virtual void ScalePartModelTransform() { }
 		protected virtual void ScaleDragCubes(bool absolute) { }
