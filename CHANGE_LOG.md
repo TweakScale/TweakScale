@@ -1,5 +1,15 @@
 # TweakScale :: Change Log
 
+* 2021-1026: 2.4.6.2 (Lisias) for 1.3.0 <= KSP <= 1.12.2
+	+ Fixes some mishaps on the scale types.
+	+ Adds a way to deactivate the StealthSave via MM patching.
+	+ Closes Issues:
+		- [#208](https://github.com/net-lisias-ksp/TweakScale/issues/208) Chain Scaling Parts with variants are borking when the parent part is "inverted"
+		- [#207](https://github.com/net-lisias-ksp/TweakScale/issues/207) The Upgrade Pipeline thingy (or something else?) is playing havoc with TweakScale 
+		- [#175](https://github.com/net-lisias-ksp/TweakScale/issues/175) Wrong displacement of the attached part placed inverted when scaling its parent
+		- [#163](https://github.com/net-lisias-ksp/TweakScale/issues/163) Radial Symmetry (when using variants) are misplacing parts.
+		- [#131](https://github.com/net-lisias-ksp/TweakScale/issues/131) Chain Scaling parts is playing havoc with the Radial Attachment Positions. 
+		- [#36](https://github.com/net-lisias-ksp/TweakScale/issues/36) [TweakScale Warning] Exception during ModulePartVariants interaction
 * 2021-1016: 2.4.6.1 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Rolls back an incomplete localization issue that passed through while merging features from the development branch.
 * 2021-1010: 2.4.6.0 (Lisias) for 1.3.0 <= KSP <= 1.12.2
