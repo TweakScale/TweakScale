@@ -104,7 +104,7 @@ namespace TweakScale.PartDB
 				node.attachedPart.attPos *= linearScale;
 
 				Vector3 offset = node.attachedPart.attPos - oldAttPos;
-				node.attachedPart.transform.Translate(deltaPos + offset, node.attachedPart.transform);
+				node.attachedPart.transform.Translate(deltaPos + offset, this.part.transform);
 			}
 		}
 
