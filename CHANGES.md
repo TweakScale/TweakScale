@@ -1,5 +1,14 @@
 # TweakScale :: Changes
 
+* 2021-0927: 2.5.0.38 (Lisias) for KSP >= 1.3
+	+ Maintenance Release.
+	+ Closes Issues:
+		- [#208](https://github.com/net-lisias-ksp/TweakScale/issues/208) Chain Scaling Parts with variants are borking when the parent part is "inverted"
+		- [#207](https://github.com/net-lisias-ksp/TweakScale/issues/207) The Upgrade Pipeline thingy (or something else?) is playing havoc with TweakScale 
+		- [#175](https://github.com/net-lisias-ksp/TweakScale/issues/175) Wrong displacement of the attached part placed inverted when scaling its parent
+		- [#163](https://github.com/net-lisias-ksp/TweakScale/issues/163) Radial Symmetry (when using variants) are misplacing parts.
+		- [#131](https://github.com/net-lisias-ksp/TweakScale/issues/131) Chain Scaling parts is playing havoc with the Radial Attachment Positions. 
+		- [#36](https://github.com/net-lisias-ksp/TweakScale/issues/36) [TweakScale Warning] Exception during ModulePartVariants interaction
 * 2021-0927: 2.5.0.37 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ Maintenance release
 		- Declares the Ground Anchor as Experimental		- Updates the code base to the latest KSPe release (2.4.0.1 at this moment)
