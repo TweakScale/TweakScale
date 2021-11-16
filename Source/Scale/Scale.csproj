@@ -71,6 +71,7 @@
     <Compile Include="PartDB\GameEvents.cs" />
     <Compile Include="GUI\MissingDLLAlertBox.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="ToolbarSupport.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="KSPe.Light.TweakScale">
