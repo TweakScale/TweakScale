@@ -71,7 +71,9 @@
     <Compile Include="PartDB\GameEvents.cs" />
     <Compile Include="GUI\MissingDLLAlertBox.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="ToolbarSupport.cs" />
+    <Compile Include="GUI\Icons.cs" />
+    <Compile Include="GUI\ToolbarSupport.cs" />
+    <Compile Include="GUI\SettingsGui.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="KSPe.Light.TweakScale">
@@ -90,6 +92,7 @@
     <Reference Include="System" />
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\Assembly-CSharp-firstpass.dll</HintPath>
@@ -98,6 +101,7 @@
     <Reference Include="UnityEngine.UI">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.4.4\UnityEngine.UI.dll</HintPath>
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\UnityEngine.UI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\UnityEngine.dll</HintPath>
