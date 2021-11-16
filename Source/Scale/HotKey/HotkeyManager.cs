@@ -27,7 +27,7 @@ using KSPe.Annotations;
 
 namespace TweakScale
 {
-	[KSPAddon(KSPAddon.Startup.EditorAny, true)]
+	[KSPAddon(KSPAddon.Startup.MainMenu, true)]
 	internal class HotkeyManager : SingletonBehavior<HotkeyManager>
 	{
 		private readonly object MUTEX = new object();
@@ -40,6 +40,7 @@ namespace TweakScale
 		{
 			Log.dbg("HotkeyManager.Awake");
 			base.Awake();
+			DontDestroyOnLoad(this);
 
 			_config = PluginConfiguration.CreateForType<TweakScale>();
 		}
@@ -66,6 +67,16 @@ namespace TweakScale
 				if (_hotkeys.ContainsKey(hotkeyName))
 					return _hotkeys[hotkeyName];
 				return _hotkeys[hotkeyName] = new Hotkeyable(_osd, hotkeyName, tempDisableDefault, toggleDefault, state);
+			}
+		}
+
+		public void RemoveHotkey(Hotkeyable hotKey) => this.RemoveHotkey(hotKey.Name);
+		public void RemoveHotkey(string hotkeyName)
+		{
+			lock (MUTEX)
+			{
+				if (_hotkeys.ContainsKey(hotkeyName))
+					_hotkeys.Remove(hotkeyName);
 			}
 		}
 	}

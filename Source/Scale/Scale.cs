@@ -29,6 +29,22 @@ using KSPe.Annotations;
 
 namespace TweakScale
 {
+	[KSPAddon(KSPAddon.Startup.EditorAny, false)]
+	internal class TweakScaleHotKeys : MonoBehaviour
+	{
+		private void Awake()
+		{
+			Features.AutoScale.Init();
+			Features.ScaleChaining.Init();
+		}
+
+		private void OnDestroy()
+		{
+			Features.ScaleChaining.DeInit();
+			Features.AutoScale.DeInit();
+		}
+	}
+
 	public class TweakScale : PartModule, IPartCostModifier, IPartMassModifier
 	{
 		// Checks if the running KSP has the Upgrade Pipeline feature, so TweakScale can omit itself from craft files when not used,
@@ -289,8 +305,18 @@ namespace TweakScale
 			}
 
 			Fields["availabilityStatus"].guiActiveEditor = !this.available;
-			Fields["tweakScale"].guiActiveEditor = this.active && this.available && this.isFreeScale;
-			Fields["tweakName"].guiActiveEditor = this.active && this.available && (!this.isFreeScale && this.ScaleFactors.Length > 1);
+
+			{
+				BaseField field = Fields["tweakScale"];
+				field.guiActiveEditor = this.active && this.available && this.isFreeScale;
+				field.uiControlEditor.onFieldChanged = this.OnFieldChange;
+			}
+
+			{
+				BaseField field = Fields["tweakName"];
+				field.guiActiveEditor = this.active && this.available && (!this.isFreeScale && this.ScaleFactors.Length > 1);
+				field.uiControlEditor.onFieldChanged = this.OnFieldChange;
+			}
 		}
 
 		#region KSP Event Handlers
@@ -451,9 +477,6 @@ namespace TweakScale
 					GameEvents.onEditorShipModified.Add(this.OnEditorShipModified);
                     this.wasOnEditorShipModifiedAdded = true;
                 }
-
-				Features.AutoScale.Init();
-				Features.ScaleChaining.Init();
             }
 
             // scale IVA overlay
@@ -478,8 +501,6 @@ namespace TweakScale
 			Log.dbg("OnDestroy {0}", this._InstanceID); // Something bad is happening inside KSP guts before this being called,
 														// so I had to cache the InstanceID because the part's data are inconsistent at this point.
 
-			Features.ScaleChaining.DeInit();
-			Features.AutoScale.DeInit();
 			if (this.wasOnEditorAttachAdded) this.part.OnEditorAttach -= this.OnEditorAttach;
 			if (this.wasOnEditorShipModifiedAdded) GameEvents.onEditorShipModified.Remove(this.OnEditorShipModified);
 			if (null != this.scaler) this.scaler = this.scaler.Destroy();
@@ -960,6 +981,12 @@ namespace TweakScale
 		{
 			Log.dbg("OnActiveFieldChange {0}:{1:X} from {2} to {3}", field.name, this.part.GetInstanceID(), previous, this.active);
 			this.SetState(this.active, this.available);
+			if (null != GUI.ToolbarSupport.Instance) GUI.ToolbarSupport.Instance.UpdateIcon(active, available);
+		}
+
+		private void OnFieldChange(BaseField field, object previous)
+		{
+			if (null != GUI.ToolbarSupport.Instance) GUI.ToolbarSupport.Instance.UpdateIcon();
 		}
 
 		#endregion

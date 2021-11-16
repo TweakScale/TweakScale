@@ -26,14 +26,22 @@ namespace TweakScale.Features
 {
 	internal static class AutoScale
 	{
-		private static Hotkeyable hotkeyable;
-		public static bool Enabled => (hotkeyable != null && hotkeyable.State);
-		private static int counter = 0;
+		internal static Hotkeyable hotkeyable { get; private set; }
+		public static bool Available => (hotkeyable != null);
+		public static bool Enabled => (Available && Active);
+		public static bool Active
+		{
+			get => hotkeyable.State;
+			set
+			{
+				if (value == hotkeyable.State) return;
+				hotkeyable.State = value;
+			}
+		}
 
 		public static void Init()
 		{
-			++counter;
-			if (counter > 1) return;
+			if (null != hotkeyable) return;
 			hotkeyable = HotkeyManager.Instance.AddHotkey(
 				"Autoscale", new[] {KeyCode.LeftShift},	new[] {KeyCode.LeftControl, KeyCode.L}, false
 				);
@@ -41,10 +49,9 @@ namespace TweakScale.Features
 
 		public static void DeInit()
 		{
-			--counter;
-			if (counter < 1)
-			{
-			}
+			if (null == hotkeyable) return;
+			HotkeyManager.Instance.RemoveHotkey(hotkeyable);
+			hotkeyable = null;
 		}
 
 		private static AttachNode FindAttachNodeByPart(Part a, Part b)

@@ -35,9 +35,13 @@ namespace TweakScale
         private bool _state;
         private readonly PluginConfiguration _config;
 
-        public bool State {
-            get { return _state && !_tempDisable.IsTriggered; }
-        }
+		public bool State
+		{
+			get { return _state && !_tempDisable.IsTriggered; }
+			set { _state = value; this.forcedUpdate(); }
+		}
+
+        public string Name => _name;
 
         public Hotkeyable(OSD osd, string name, ICollection<KeyCode> tempDisableDefault, ICollection<KeyCode> toggleDefault, bool state)
         {
@@ -76,9 +80,15 @@ namespace TweakScale
             if (!_toggle.IsTriggered)
                 return;
             _state = !_state;
+            this.forcedUpdate();
+        }
+
+        public void forcedUpdate()
+        {
             _osd.Info(_name + (_state ? " enabled." : " disabled."));
             _config.SetValue(_name, _state);
             _config.save();
+            GUI.ToolbarSupport.Instance.UpdateIcon();
         }
 
         public static bool operator true(Hotkeyable a)
