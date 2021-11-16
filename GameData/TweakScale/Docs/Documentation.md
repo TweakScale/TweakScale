@@ -104,11 +104,14 @@ When writing your own part patches, the simplest way is to search for similar pa
 The individual fields are:
 
     name = TweakScale         Module name
+
     active =                  Boolean. Defines if TweakScale will be active on this part or not.
                               User selectable.
                               Inactive parts cannot be scaled and do not propagate TweakScale
+
                               module on the craft file and savegame.
                               Can be omitted on module definitions, default is true.
+
     available =               Boolean. Defines if TweakScale is available.
                               NOT user selectable.
                               When unavailable, TweakScale settings cannot be changed, effectively
@@ -117,14 +120,22 @@ The individual fields are:
                               Installations where some parts can be TweakScaled and others do not.
                               Makes more sense when active = false, but it's not limited to.
                               Can be omitted on module definitions, default is true.
+
     type =                    References a defined SCALETYPE
+
     defaultScale =            The UI scale that corresponds to the unscaled part
+
     freeScale =               false: only the sizes in the scaleFactors list are available
                               true:  intermediate scales are available (the tweakable has a slider)
+
     suffix = (m/%)            UI: Suffix for the scale display
+
     scaleFactors =            UI: Mayor steps for the tweakable (reachable with the arrow buttons). 
+
     scaleNames =              UI: Scale names (only freescale=false)
+
     incrementSlide =          UI: step size for the slider (only freescale=true)
+
     ignoreResourcesForCost =  false: default. Costs of Resources are handled by TweakScale
                               true: TweakScale ignores Resources while computing costs. It's up to
                               other module to handle this.
