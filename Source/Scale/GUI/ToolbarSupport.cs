@@ -93,7 +93,8 @@ namespace TweakScale.GUI
 		}
 
 		private void OnEditorPartPlaced(Part part) {
-			if (part.Modules.Contains<TweakScale>())
+			// This thing is called when you delete a part too!!!
+			if (null == part || null == part.Modules || part.Modules.Contains<TweakScale>())
 				this.UpdateIcon();
 			else
 				this.button.SetTexture(GUI.Icons.ScaleUnsupported);
