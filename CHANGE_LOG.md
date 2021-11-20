@@ -1,5 +1,12 @@
 # TweakScale :: Change Log
 
+* 2021-1120: 2.4.6.3 (Lisias) for 1.3.0 <= KSP <= 1.12.2
+	+ Closes Issues:
+		- [#211](https://github.com/net-lisias-ksp/TweakScale/issues/211) Mitigate the HotKeys being hijacked by 3rd-parties
+		- [#209](https://github.com/net-lisias-ksp/TweakScale/issues/209) TweakScale not installed on wrong directory
+		- [#197](https://github.com/net-lisias-ksp/TweakScale/issues/197) Flags (the parts attachable) are losing the attaching points when its parent is duplicated
+		- [#167](https://github.com/net-lisias-ksp/TweakScale/issues/167) Mirror Symmetry is displacing some (all?) parts when scaled
+		- [#139](https://github.com/net-lisias-ksp/TweakScale/issues/139) Scaling Part with Variants that change attachment nodes is not working as expecnted
 * 2021-1120: 2.5.0.39 (Lisias) for KSP >= 1.3
 	+ Maintenance Release.
 	+ Closes Issues:
