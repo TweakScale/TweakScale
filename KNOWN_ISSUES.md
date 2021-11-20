@@ -1,9 +1,15 @@
 # TweakScale :: Known Issues
 
-* As from 2.4.4.0, TweakScale is now **double licensed** under the [SKP 1.0](https://ksp.lisias.net/SKL-1_0.txt) and [GPL 2.0](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
+* There's a nasty and annoying bug **ON KSP's `Assembly Loader/Resolver`** that it's playing havoc to TweakScale lately.
+	+ Long history made short, this KSP's bug is triggered by a DLL falling to be loaded due a faulty or missing dependency, a situation that breaks some code inside the `Assembly Loader/Resolver` and from that point **EVERYTHING** borks being loaded no matter what.
+	+ Since TweakScale can't tell the difference from a bogus problem from a real one, it ends up displaying [this message](https://user-images.githubusercontent.com/17166550/142723300-b02210f1-9e1e-4486-bbab-7bae744c8538.png) to you as it was TweakScale installment the problem.
+	+ A full essay about how to fix this problem is available on [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-130/&do=findComment&comment=4056719).
+* As from 2.4.4.0 (and 2.5.0.x from Experimental Releases), TweakScale is now **double licensed** under the [SKP 1.0](https://ksp.lisias.net/SKL-1_0.txt) and [GPL 2.0](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
 	+ All the previous releases until 2.4.3.21 are still licensed under the WTFPL license.
 	+ All artefacts on the Extras directory are still licensed under the WTFPL.
 	+ See the [README](./README.md) for details.
+* Scaling some Communication Devices are purely cosmetic, as the most powerful ones appears to be already on the max range allowed by KSP's engine.
+	+ Always check the scaled antenna's range before committing it on a Science or Career game, as sometimes scaling them would be only a waste of Funds and Resources (and mass). 
 	+ They can be useful on third parties add'ons, however.
 * Scaling some parts are considered **EXPERIMENTAL** and so these scalings are deactivated by default. They should only be used with **prudence**, as they potentially can unbalance existing crafts in the game and, ultimately, badly mangle your savegame if you choose to deactivate them.
 	+ To activate these scalings, create a directory called `TweakScaleExperimental` on your `GameData` and reboot KSP.
@@ -11,12 +17,6 @@
 	+ **No bug reports** will be accepted when `TweakScaleExperimental` is active, but you can file reports telling me if the thing is working or not. :)
 		- And suggestions! Suggestions are welcome!  
 	+ **Use them at your own risk.** :)
-* Scaled parts with Variants now correctly translates the attached part when applying variants #HURRAY
-	- As long the part has no symmetry, when things get completely screwed up...
-		- See [this comment](https://github.com/net-lisias-ksp/TweakScale/issues/42#issuecomment-732321477) on [Issue #42](https://github.com/net-lisias-ksp/TweakScale/issues/42)
-* Scaling some parts as Communication Devices and Launch Clamps are purely cosmetic.
-	+ Always check the scaled antenna's range before committing it on a Science or Career game, as sometimes scaling them would be only a waste of Funds and Resources (and mass).
-	+ No noticeable change of behaviour on LaunchClamps were noticed, but third-party add'ons my use additional modules that would be affected by scaling.
 * KSP 1.9 is known to mangle with Attachment Points the same way it does with Resources.
 	+ This affects every Add'On that changes the Part's Attachment Node.
 	+ TweakScale is not affected, as it reworks the attachment points as needed. 
