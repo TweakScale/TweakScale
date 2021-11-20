@@ -28,23 +28,11 @@ namespace TweakScale.PartDB
 {
 	internal partial class VariantPartScaler : StandardPartScaler
 	{
-		private readonly bool HasKSP19bug = KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.FindByVersion(1,9,0);
-
 		protected override void DoFirstUpdate()
 		{
 			Log.dbg("VariantPartScaler.DoFirstUpdate");
 
-			if (this.HasKSP19bug) this.FirstScalePartKSP19();			// This is needed by (surprisingly!) KSP 1.9
-			else this.ScalePart(true, true);							// This was originally shoved on Update() for KSP 1.2 on commit 09d7744
-		}
-
-		private void FirstScalePartKSP19()
-		{
-			Log.dbg("VariantPartScaler.FirstScalePartKSP19");
-
-			this.ScalePartModelTransform();
-			this.MoveSurfaceAttachment(true, true);
-			this.MoveAttachmentNodes(false, true);
+			this.ScalePart(true, true);							// This was originally shoved on Update() for KSP 1.2 on commit 09d7744
 		}
 	}
 }
