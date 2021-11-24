@@ -1,5 +1,8 @@
 # TweakScale :: Change Log
 
+* 2021-1123: 2.4.6.4 (Lisias) for 1.3.0 <= KSP <= 1.12.2
+	+ Turns off by default (and makes hard to activate) the SteathSave due a (another) bug related to the Upgrade Pipeline.
+	+ Reverts the `KSPe.Light.TweakScale` to the previous release due a shitstorm apparently related to borked `Kernel32.dll` on some systems
 * 2021-1120: 2.4.6.3 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Closes Issues:
 		- [#211](https://github.com/net-lisias-ksp/TweakScale/issues/211) Mitigate the HotKeys being hijacked by 3rd-parties
