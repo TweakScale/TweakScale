@@ -76,14 +76,14 @@ namespace TweakScale
         /// <summary>
         /// The selected scale. Different from currentScale only for destination single update, where currentScale is set to match this.
         /// </summary>
-        [KSPField(isPersistant = false, guiActiveEditor = true, guiName = "Scale", guiFormat = "0.000", guiUnits = "m")]
+        [KSPField(isPersistant = false, guiActiveEditor = true, guiName = "#TweakScale_GUI_Scale", guiFormat = "0.000", guiUnits = "m")]//Scale
         [UI_ScaleEdit(scene = UI_Scene.Editor)]
         public float tweakScale = -1;
 
         /// <summary>
         /// Index into scale values array.
         /// </summary>
-        [KSPField(isPersistant = false, guiActiveEditor = true, guiName = "Scale")]
+        [KSPField(isPersistant = false, guiActiveEditor = true, guiName = "#TweakScale_GUI_Scale")]//Scale
         [UI_ChooseOption(scene = UI_Scene.Editor)]
         public int tweakName = 0;
 
@@ -127,6 +127,7 @@ namespace TweakScale
         public Vector3 defaultTransformScale = new Vector3(0f, 0f, 0f);
 
         private bool _firstUpdate = true;
+        private bool _firstUpdateAfterCopy = false;
         private bool is_duplicate = false;
         public bool scaleMass = true;
 
@@ -490,6 +491,7 @@ namespace TweakScale
 		{
 			Log.dbg("OnCopy {0}", this.InstanceID);
 			base.OnCopy(partModule);
+			this._firstUpdateAfterCopy = true;
 		}
 
 		[UsedImplicitly]
@@ -578,7 +580,13 @@ namespace TweakScale
 				if (this.IsScaled) this.scaler.FirstUpdate();
             }
 
-            if (HighLogic.LoadedSceneIsFlight)
+			if (_firstUpdateAfterCopy)
+			{
+				this._firstUpdateAfterCopy = false;
+				if (this.IsScaled) this.scaler.CopyUpdate();
+			}
+
+			if (HighLogic.LoadedSceneIsFlight)
             {
                 // flight scene frequently nukes our OnStart resize some time later
                 if ((part.internalModel != null) && (part.internalModel.transform.localScale != _savedIvaScale))

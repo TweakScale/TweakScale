@@ -28,12 +28,11 @@ namespace TweakScale.PartDB
 {
 	internal partial class VariantPartScaler : StandardPartScaler
 	{
-		protected override void DoCopyUpdate()
+		protected override void OnChange()
 		{
-			Log.dbg("VariantPartScaler.DoCopyUpdate");
-			this.DoFirstUpdate();
-			this.MoveParts();
-			base.DoCopyUpdate();
+			Log.dbg("VariantPartScaler.OnChange");
+
+			base.OnChange();
 		}
 	}
 }
