@@ -131,20 +131,10 @@ namespace TweakScale.PartDB
 			return r;
 		}
 
-		internal virtual void FirstUpdate()
-		{
-			this.DoFirstUpdate();
-		}
-
-		internal void Scale()
-		{
-			this.DoScale();
-		}
-
-		internal void Restore()
-		{
-			this.DoRestore();
-		}
+		internal void FirstUpdate()		{ this.DoFirstUpdate(); }
+		internal void CopyUpdate()		{ this.DoCopyUpdate(); }
+		internal void Scale()			{ this.DoScale(); }
+		internal void Restore()			{ this.DoRestore(); }
 
 		internal Scaler Destroy() { return this.DestroyYourself(); }
 		protected virtual Scaler DestroyYourself() {
@@ -165,6 +155,7 @@ namespace TweakScale.PartDB
 		protected virtual void DoScale() { }
 		protected virtual void DoRestore() { }
 		protected virtual void DoFirstUpdate() { }
+		protected virtual void DoCopyUpdate() { }
 		protected virtual void OnChange() { } 
 		protected virtual void ScalePartModelTransform() { }
 		protected virtual void ScaleDragCubes(bool absolute) { }

@@ -127,6 +127,7 @@ namespace TweakScale
         public Vector3 defaultTransformScale = new Vector3(0f, 0f, 0f);
 
         private bool _firstUpdate = true;
+        private bool _firstUpdateAfterCopy = false;
         private bool is_duplicate = false;
         public bool scaleMass = true;
 
@@ -490,7 +491,7 @@ namespace TweakScale
 		{
 			Log.dbg("OnCopy {0}", this.InstanceID);
 			base.OnCopy(partModule);
-			this._firstUpdate = true;
+			this._firstUpdateAfterCopy = true;
 		}
 
 		[UsedImplicitly]
@@ -579,7 +580,13 @@ namespace TweakScale
 				if (this.IsScaled) this.scaler.FirstUpdate();
             }
 
-            if (HighLogic.LoadedSceneIsFlight)
+			if (_firstUpdateAfterCopy)
+			{
+				this._firstUpdateAfterCopy = false;
+				if (this.IsScaled) this.scaler.CopyUpdate();
+			}
+
+			if (HighLogic.LoadedSceneIsFlight)
             {
                 // flight scene frequently nukes our OnStart resize some time later
                 if ((part.internalModel != null) && (part.internalModel.transform.localScale != _savedIvaScale))
