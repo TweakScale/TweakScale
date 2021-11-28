@@ -152,19 +152,19 @@ namespace TweakScale.PartDB
 		//
 		// None of these makes any sense for Prefab!
 		//
-		protected virtual void DoScale() { }
-		protected virtual void DoRestore() { }
-		protected virtual void DoFirstUpdate() { }
-		protected virtual void DoCopyUpdate() { }
-		protected virtual void OnChange() { } 
-		protected virtual void ScalePartModelTransform() { }
-		protected virtual void ScaleDragCubes(bool absolute) { }
-		protected virtual void RescaleDragCubes() { }
-		protected virtual void MoveSurfaceAttachment(bool moveParts, bool absolute) { }
-		protected virtual void MoveAttachmentNodes(bool moveParts, bool absolute) { }
-		protected virtual void MoveSurfaceAttachedParts() { }
-		protected virtual void OnEditorIn() { }
-		protected virtual void OnEditorOut() { }
+		protected virtual void DoScale()		{ Log.dbg("{0}.Scale for {0}", this.GetType().Name, this.ts.InstanceID); }
+		protected virtual void DoRestore()		{ Log.dbg("{0}.Restore for {0}", this.GetType().Name, this.ts.InstanceID); }
+		protected virtual void DoFirstUpdate()	{ Log.dbg("{0}.FirstUpdate for {0}", this.GetType().Name, this.ts.InstanceID); }
+		protected virtual void DoCopyUpdate()	{ Log.dbg("{0}.DoCopyUpdate", this.GetType().Name); }
+		protected virtual void OnChange()		{ Log.dbg("{0}.OnChange", this.GetType().Name); } 
+		protected virtual void ScalePartModelTransform()		{ Log.dbg("{0}.ScalePartModelTransform", this.GetType().Name); }
+		protected virtual void ScaleDragCubes(bool absolute)	{ Log.dbg("{0}.ScalePartModelTransform", this.GetType().Name); }
+		protected virtual void RescaleDragCubes()				{ Log.dbg("{0}.RescaleDragCubes", this.GetType().Name); }
+		protected virtual void MoveSurfaceAttachment(bool moveParts, bool absolute)	{ Log.dbg("{0}.MoveSurfaceAttachment", this.GetType().Name);  }
+		protected virtual void MoveAttachmentNodes(bool moveParts, bool absolute)	{ Log.dbg("{0}.MoveAttachmentNodes {0} {1}", this.GetType().Name, moveParts, absolute); }
+		protected virtual void MoveSurfaceAttachedParts()	{ Log.dbg("{0}.MoveSurfaceAttachedParts", this.GetType().Name); }
+		protected virtual void OnEditorIn()		{ Log.dbg("{0}:{1} OnEditorIn", this.GetType().Name, this.ts.InstanceID); }
+		protected virtual void OnEditorOut()	{ Log.dbg("{0}:{1} OnEditorOut", this.GetType().Name, this.ts.InstanceID); }
 
 		/// <summary>
 		/// Updates properties that change linearly with scale.

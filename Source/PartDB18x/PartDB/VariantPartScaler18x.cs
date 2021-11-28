@@ -32,8 +32,7 @@ namespace TweakScale.PartDB
 
 		protected override void DoFirstUpdate()
 		{
-			Log.dbg("VariantPartScaler.DoFirstUpdate");
-
+			base.DoFirstUpdate();
 			if (this.HasKSP19bug) this.FirstScalePartKSP19();			// This is needed by (surprisingly!) KSP 1.9
 			else this.ScalePart(true, true);							// This was originally shoved on Update() for KSP 1.2 on commit 09d7744
 		}

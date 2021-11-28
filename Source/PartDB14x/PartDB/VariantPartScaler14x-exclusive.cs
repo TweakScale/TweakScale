@@ -30,8 +30,6 @@ namespace TweakScale.PartDB
 	{
 		protected override void OnChange()
 		{
-			Log.dbg("VariantPartScaler.OnChange");
-
 			base.OnChange();
 		}
 	}
