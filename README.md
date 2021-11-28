@@ -1,13 +1,8 @@
-# TweakScale /L : Under New Management
-- - - 
-*Lasciate ogne speranza, voi ch'intrate*
-- - - 
+# TweakScale /L
 
 **TweakScale** lets you change the size of a part.
 
 **TweakScale /L** is TweakScale under Lisias' management.
-
-**This is a Beta Release** ! Don't use on "production" installs. Patches and interfaces are expected to change between releases.
 
 
 ## In a Hurry
@@ -15,6 +10,7 @@
 * [Source](https://github.com/net-lisias-ksp/TweakScale)
 	+ [Issue Tracker](https://github.com/net-lisias-ksp/TweakScale/issues)
 	+ [Orthodox (development) Branch](https://github.com/net-lisias-kspu/TweakScale/tree/dev/orthodox)
+	+ [Heterodox Branch](https://github.com/net-lisias-kspu/TweakScale/tree/dev/heterodox)
 		- " *Lasciate ogne speranza, voi ch'intrate* "
 * Documentation
 	+ [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-141-tweakscale-under-new-management/&)

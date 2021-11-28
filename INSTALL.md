@@ -1,4 +1,4 @@
-# TweakScale /L : Under New Management
+# TweakScale /L
 
 **TweakScale** lets you change the size of a part.
 
