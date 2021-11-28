@@ -35,7 +35,7 @@ namespace TweakScale.PartDB
 
 		protected override void DoScale()
 		{
-			Log.dbg("StandardPartScaler.Scale for {0}", this.ts.InstanceID);
+			base.DoScale();
 			this.ScalePart(true, false);
 			this.ScaleDragCubes(false);
 			this.OnChange();
@@ -43,14 +43,14 @@ namespace TweakScale.PartDB
 
 		protected override void DoRestore()
 		{
-			Log.dbg("StandardPartScaler.Restore for {0}", this.ts.InstanceID);
+			base.DoRestore();
 			this.ScalePart(true, true);
 			this.OnChange();
 		}
 
 		protected override void DoFirstUpdate()
 		{
-			Log.dbg("StandardPartScaler.FirstUpdate for {0}", this.ts.InstanceID);
+			base.DoFirstUpdate();
 			this.ScaleDragCubes(true);
 			if (HighLogic.LoadedSceneIsEditor)							// cloned parts and loaded crafts seem to need this (otherwise the node positions revert)
 				this.ScalePart(false, true);							// This was originally shoved on Update() for KSP 1.2 on commit 09d7744
@@ -139,7 +139,7 @@ namespace TweakScale.PartDB
 
 		protected override void MoveAttachmentNodes(bool moveParts, bool absolute)
 		{
-			Log.dbg("StandardPartScaler.MoveAttachmentNodes {0} {1}", moveParts, absolute);
+			base.MoveAttachmentNodes(moveParts, absolute);
 
 			int len = this.part.attachNodes.Count;
 			for (int i = 0; i < len; i++) {
@@ -184,7 +184,7 @@ namespace TweakScale.PartDB
 
 		protected override void MoveSurfaceAttachment(bool moveParts, bool absolute)
 		{
-			Log.dbg("StandardPartScaler.MoveSurfaceAttachment");
+			base.MoveSurfaceAttachment(moveParts, absolute);
 
 			if (null != this.part.srfAttachNode)
 				this.MoveNode(this.part.srfAttachNode, this.prefab.srfAttachNode, moveParts, absolute);
@@ -192,7 +192,7 @@ namespace TweakScale.PartDB
 
 		protected override void MoveSurfaceAttachedParts()
 		{
-			Log.dbg("StandardPartScaler.MoveSurfaceAttachedParts");
+			base.MoveSurfaceAttachedParts();
 
 			int numChilds = this.part.children.Count;
 			for (int i = 0; i < numChilds; i++)
@@ -209,7 +209,7 @@ namespace TweakScale.PartDB
 
 		protected override void ScalePartModelTransform()
 		{
-			Log.dbg("StandardPartScaler.ScalePartModelTransform");
+			base.ScalePartModelTransform();
 
 			this.part.rescaleFactor = this.prefab.rescaleFactor * this.ts.ScalingFactor.absolute.linear;
 
@@ -248,8 +248,7 @@ namespace TweakScale.PartDB
 		 */
 		protected override void ScaleDragCubes(bool absolute)
 		{
-			Log.dbg("StandardPartScaler.ScaleDragCubes {0}", absolute);
-
+			base.ScaleDragCubes(absolute);
 			ScalingFactor.FactorSet factor = absolute
 				? this.ts.ScalingFactor.absolute
 				: this.ts.ScalingFactor.relative
@@ -279,7 +278,7 @@ namespace TweakScale.PartDB
 		 */
 		protected override void RescaleDragCubes()
 		{
-			Log.dbg("StandardPartScaler.RescaleDragCubes");
+			base.RescaleDragCubes();
 
 			ScalingFactor.FactorSet factor = this.ts.ScalingFactor.absolute; // Rescaling it's always absolute!
 
@@ -313,8 +312,6 @@ namespace TweakScale.PartDB
 			this.part.DragCubes.ForceUpdate(true, true);
 		}
 
-		protected override void OnEditorIn() { Log.dbg("{0}:{1} OnEditorIn", this.GetType().Name, this.ts.InstanceID); }
-		protected override void OnEditorOut() { Log.dbg("{0}:{1} OnEditorOut", this.GetType().Name, this.ts.InstanceID); }
 		protected static string InstanceID(Part p) => string.Format("{0}:{1:X}", p.name, p.GetInstanceID());
 		protected string InstanceID() => null == this.ts ? this.part.name : this.ts.InstanceID;
 	}

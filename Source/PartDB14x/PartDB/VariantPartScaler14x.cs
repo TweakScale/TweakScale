@@ -30,10 +30,9 @@ namespace TweakScale.PartDB
 	{
 		protected override void DoCopyUpdate()
 		{
-			Log.dbg("VariantPartScaler.DoCopyUpdate");
+			base.DoCopyUpdate();
 			this.DoFirstUpdate();
 			this.MoveParts();
-			base.DoCopyUpdate();
 		}
 	}
 }
