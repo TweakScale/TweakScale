@@ -146,7 +146,6 @@ namespace TweakScale.PartDB
 					deltaPos -= attachedPartNode[0].position;
 				}
 
-				deltaPos *= this.ts.CurrentScaleFactor;
 				bool isAttachedParent = node.attachedPart == this.part.parent;
 				if (isAttachedParent) {
 					deltaPos = -deltaPos + this.part.attPos;
