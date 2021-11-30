@@ -1,5 +1,10 @@
 # TweakScale :: Changes
 
+* 2021-1130: 2.5.0.40 (Lisias) for KSP >= 1.3
+	+ Maintenance Release.
+	+ Closes Issues:
+		- [#219](https://github.com/net-lisias-ksp/TweakScale/issues/219) Apparently, OnCopy parts is misbehaving on Parts with Variants
+		- [#86](https://github.com/net-lisias-ksp/TweakScale/issues/86) When a root part is scaled, a part attached to it is displaced on the Y axis!
 * 2021-1120: 2.5.0.39 (Lisias) for KSP >= 1.3
 	+ Maintenance Release.
 	+ Closes Issues:
