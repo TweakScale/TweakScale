@@ -20,13 +20,17 @@
 	You should have received a copy of the GNU General Public License 2.0
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
-namespace TweakScale
+
+using KSPe.Annotations;
+
+namespace TweakScale.PartDB.KSP1122
 {
-    public interface IRescalable
-    {
-        void OnRescale(ScalingFactor factor);
-    }
-    public interface IRescalable<T> : IRescalable
-    {
-    }
+	public class Startup
+	{
+		[UsedImplicitly]
+		private void Start()
+		{
+			Log.force("Support for KSP 1.12.2 Version {0}", Version.Text);
+		}
+	}
 }
