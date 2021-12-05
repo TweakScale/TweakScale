@@ -1,11 +1,15 @@
 # TweakScale :: Change Log
 
+* 2021-1211: 2.4.6.7 (Lisias) for 1.3.0 <= KSP <= 1.12.2
+	+ Rollbacks (really, this time) an unfortunate merge from `/dev/orthodox` where the Localization stunt leaked again.
+* 2021-1205: 2.4.6.6 (Lisias) for 1.3.0 <= KSP <= 1.12.2
+	+ ***DITCHED*** due a mishap on the distribution files.
 * 2021-1130: 2.4.6.5 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Closes Issues:
 		- [#219](https://github.com/net-lisias-ksp/TweakScale/issues/219) Apparently, OnCopy parts is misbehaving on Parts with Variants
 		- [#86](https://github.com/net-lisias-ksp/TweakScale/issues/86) When a root part is scaled, a part attached to it is displaced on the Y axis!
 * 2021-1123: 2.4.6.4 (Lisias) for 1.3.0 <= KSP <= 1.12.2
-	+ Turns off by default (and makes hard to activate) the SteathSave due a (another) bug related to the Upgrade Pipeline.
+	+ Turns off by default (and makes hard to activate) the StealthSave due a (another) bug related to the Upgrade Pipeline.
 	+ Reverts the `KSPe.Light.TweakScale` to the previous release due a shitstorm apparently related to borked `Kernel32.dll` on some systems
 * 2021-1120: 2.4.6.3 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Closes Issues:
