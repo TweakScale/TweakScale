@@ -29,7 +29,7 @@ namespace TweakScale.PartDB.KSP18
 		[UsedImplicitly]
 		private void Start()
 		{
-			Log.force("Support for KSP 1.8.0 to 1.12.1 Version {0}", Version.Text);
+			Log.force("Support for KSP 1.8.0 to 1.12.3 Version {0}", Version.Text);
 		}
 	}
 }
