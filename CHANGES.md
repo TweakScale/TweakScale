@@ -1,5 +1,8 @@
 # TweakScale :: Changes
 
+* 2021-1215: 2.4.6.8 (Lisias) for 1.3.0 <= KSP <= 1.12.3
+	+ Raises the bar to 1.12.3
+		- Smoke Tests using the most hairy use cases suggests nothing wrong should happens. 
 * 2021-1211: 2.4.6.7 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Rollbacks (really, this time) an unfortunate merge from `/dev/orthodox` where the Localization stunt leaked again.
 * 2021-1205: 2.4.6.6 (Lisias) for 1.3.0 <= KSP <= 1.12.2
