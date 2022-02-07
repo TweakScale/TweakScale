@@ -77,11 +77,6 @@
       <Name>Scale_Redist</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\PartDB13x\PartDB13x.csproj">
-      <Project>{6B48EB58-62EF-4763-822A-1C38CF5B72EC}</Project>
-      <Name>Scale.PartDB.13x</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PartDB\" />
