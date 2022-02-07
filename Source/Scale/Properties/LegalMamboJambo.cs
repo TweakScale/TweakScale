@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of TweakScale /L
-		© 2018-2021 LisiasT
+		© 2018-2022 LisiasT
 		© 2015-2018 pellinor
 		© 2014 Gaius Godspeed and Biotronic
 
@@ -26,7 +26,7 @@ namespace TweakScale
 	public static class LegalMamboJambo
 	{
 		public const string Company = "L Aerospace/KSP Division";
-		public const string Copyright = "Copyright © 2018-2021 LisiasT";
+		public const string Copyright = "Copyright © 2018-2022 LisiasT";
 		public const string Product = "TweakScale /L";
 		public const string Trademark = "TweakScale™ by Gaius Goodspeed, Biotronic, Pellinor, LisiasT";
 	}
