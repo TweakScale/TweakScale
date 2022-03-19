@@ -346,7 +346,7 @@ namespace TweakScale
                 //
                 // What will happen if the problems start to appear on the partConfig and not in the config file is something I
                 // don't dare to imagine...
-                Log.info("NULL ConfigNode for {0} (unholy characters on the name?). Trying partConfig instead!", p.partInfo.partUrl);
+                Log.warn("NULL ConfigNode for {0} (unholy characters on the name?). Trying partConfig instead!", p.partInfo.partUrl);
                 r = p.partInfo.partConfig;
             }
             return r;
