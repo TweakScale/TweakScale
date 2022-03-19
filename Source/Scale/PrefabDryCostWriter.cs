@@ -264,6 +264,8 @@ namespace TweakScale
         {
             Log.dbg("Checking ShowStopper for {0} at {1}", p.name, p.partInfo.partUrl);
             ConfigNode part = this.GetMeThatConfigNode(p);
+            if (null == part) return "having a part without a partInfo! - see issue [#237]( https://github.com/net-lisias-ksp/TweakScale/issues/237";
+
             {
                 foreach (ConfigNode basket in part.GetNodes("MODULE"))
                 {
@@ -279,6 +281,7 @@ namespace TweakScale
                     }
                 }
             }
+
             return null;
         }
 
@@ -286,6 +289,8 @@ namespace TweakScale
         {
             Log.dbg("Checking Issue Overrule for {0} at {1}", p.name, p.partInfo.partUrl);
             ConfigNode part = this.GetMeThatConfigNode(p);
+            if (null == part) return null; // Let the this.checkForShowStoppers do the job.
+
             {
                 foreach (ConfigNode basket in part.GetNodes("MODULE"))
                 {
@@ -294,6 +299,7 @@ namespace TweakScale
                         return basket.GetValue("ISSUE_OVERRULE");
                 }
             }
+
             return null;
         }
 
@@ -301,6 +307,8 @@ namespace TweakScale
         {
             Log.dbg("Checking Hotfixes for {0} at {1}", p.name, p.partInfo.partUrl);
             ConfigNode part = this.GetMeThatConfigNode(p);
+            if (null == part) return null; // Let the this.checkForShowStoppers do the job.
+
             {
                 foreach (ConfigNode basket in part.GetNodes("MODULE"))
                 {
@@ -309,11 +317,19 @@ namespace TweakScale
                         return System.Uri.UnescapeDataString(basket.GetValue("HOTFIX"));
                 }
             }
+
             return null;
         }
 
         private ConfigNode GetMeThatConfigNode(Part p)
         {
+            AvailablePart ap = p.partInfo;
+            if (null == ap)
+            {
+                Log.warn("NULL partInfo for {0}!! Something is *really* messed up with this part!!", p.partName);
+                return null;
+            }
+
             // Check the forum for the rationale:
             //      https://forum.kerbalspaceprogram.com/index.php?/topic/7542-the-official-unoffical-quothelp-a-fellow-plugin-developerquot-thread/&do=findComment&comment=3631853
             //      https://forum.kerbalspaceprogram.com/index.php?/topic/7542-the-official-unoffical-quothelp-a-fellow-plugin-developerquot-thread/&do=findComment&comment=3631908
@@ -334,6 +350,7 @@ namespace TweakScale
                 Log.warn("NULL ConfigNode for {0} (unholy characters on the name?). Trying partConfig instead!", p.partInfo.partUrl);
                 r = p.partInfo.partConfig;
             }
+
             return r;
         }
     }
