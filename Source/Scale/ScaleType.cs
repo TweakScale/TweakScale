@@ -191,6 +191,32 @@ namespace TweakScale
             }
         }
 
+		public string ScaleNamesString
+		{
+			get
+			{
+				if (0 == this.ScaleNames.Length && 0 != this.ScaleFactors.Length)
+				{
+					string r = string.Format("{0}{1}", this.ScaleFactors[0], this.Suffix??"");
+					for (int i = 1; i < this.ScaleFactors.Length; ++i)
+						r += string.Format("; {0}{1}", this.ScaleFactors[i], this.Suffix??"");
+					return r;
+				}
+
+				if (0 != this.ScaleNames.Length)
+				{
+					string r = string.Format("{0}", this.ScaleNames[0]);
+					for (int i = 1; i < this.ScaleNames.Length; ++i)
+						r += string.Format("; {0}", this.ScaleNames[i]);
+					return r;
+				}
+
+				return "";
+			}
+		}
+
+		public string DefaultScaleString => string.Format("{0}{1}", this.DefaultScale, this.Suffix??"");
+
         public int[] ScaleNodes { get; private set; }
 
         private ScaleType()
