@@ -486,6 +486,37 @@ namespace TweakScale
 			if (null != this.scaler) this.scaler = this.scaler.Destroy();
 		}
 
+		private string _getInfo = null;
+		public override string GetInfo()
+		{
+			if (!this.active) return "Disabled.";
+			if (!this.available) return "Unavailable for user tweaking.";
+			if (null == this._getInfo)
+			{
+				if (0 == ScaleFactors.Length)
+					this._getInfo = string.Format(
+								"<b>Scale Type</b> : {0}\n"
+								+ "<b>Default Scale</b> : {1}\n"
+								+ "<b>{2}\n"
+							, this.ScaleType.Name
+							, this.ScaleType.DefaultScaleString
+							, this.ScaleType.IsFreeScale ? "Allows Free Scaling" : ""
+						);
+				else
+					this._getInfo = string.Format(
+								"<b>Scale Type</b> : {0}\n"
+								+ "<b>Default Scale</b> : {1}\n"
+								+ "<b>Scales</b> : {2}\n"
+								+ "<b>{3}\n"
+							, this.ScaleType.Name
+							, this.ScaleType.DefaultScaleString
+							, this.ScaleType.ScaleNamesString
+							, this.ScaleType.IsFreeScale ? "Allows Free Scaling" : ""
+						);
+			}
+			return this._getInfo;
+		}
+
 
 		private void OnTweakScaleChanged(BaseField field, object what)
 		{
