@@ -320,7 +320,6 @@ namespace TweakScale
 
 		#region KSP Event Handlers
 
-        [UsedImplicitly]
         public override void OnLoad(ConfigNode node)
         {
             Log.dbg("OnLoad {0}", this.InstanceID);
@@ -357,7 +356,6 @@ namespace TweakScale
 			Log.dbg("OnLoadDefaults after {0}", node.ToString());
 		}
 
-		[UsedImplicitly]
         public override void OnSave(ConfigNode node)
         {
             Log.dbg("OnSave {0}", this.InstanceID);
@@ -427,7 +425,6 @@ namespace TweakScale
 			return false;
 		}
 
-		[UsedImplicitly]
         public override void OnAwake()
         {
             Log.dbg("OnAwake {0}", this.InstanceID);
@@ -436,7 +433,6 @@ namespace TweakScale
             if (HighLogic.LoadedSceneIsEditor) this.Setup(this.part);
         }
 
-        [UsedImplicitly]
         public override void OnStart(StartState state)
         {
             if (this.FailsIntegrity()) return;
@@ -554,7 +550,7 @@ namespace TweakScale
 		}
 
         [UsedImplicitly]
-        public void Update()
+        private void Update()
         {
             Log.dbgOnce("Update {0}", this.InstanceID);
 
