@@ -338,22 +338,7 @@ namespace TweakScale
 
                 // Loading of the part from a saved craft
                 tweakScale = currentScale;
-                if (HighLogic.LoadedSceneIsEditor)
-                { 
-					// That's the problem - somewhere in the not so near past, KSP implemented a stunt called
-					// UpgradePipeline. This thing acts after the PartModule's OnLoad handler, and it injects
-					// back default values from prefab into the part on loading. This was intended to allow older
-					// savegames to be loaded on newer KSP (as it would inject default values on missing atributes
-					// present only on the new KSP version - or to reset new defaults when things changed internally),
-					// but also ended up trashing changes and atributes only available on runtime for some custom modules.
-					// So we need to check and upgrade things **before** KSP mangles them, otherwise the old values will
-					// be trashed by KSP and we will not be able to detect and fix the old data ourselves.
-                    {   // Act only on craft loadings from file.
-                        KSPe.ConfigNodeWithSteroids cn = KSPe.ConfigNodeWithSteroids.from(node);
-                        if (!this.IsPartMatchesPrefab(cn))
-                            this.FixPartScaling(node, cn);
-                    }
-                }
+                this.ExecuteMyUpgradePipeline(node);
 				this.RestoreScaleIfNeededAndUpdate();
 				this.enabled = this.active && this.IsScaled;
             }
@@ -854,34 +839,127 @@ namespace TweakScale
             return false;
         }
 
-        private bool IsPartMatchesPrefab(KSPe.ConfigNodeWithSteroids node)
-        {
+		private struct UpgradePipelineStatus
+		{
+			internal bool sameScaleType;
+			internal bool sameDefaultScale;
+		}
+
+		private UpgradePipelineStatus IsPartMatchesPrefab(KSPe.ConfigNodeWithSteroids node)
+		{
+			TweakScale prefab = this.scaler.prefab.Modules.GetModule<TweakScale>(0);
+			UpgradePipelineStatus r;
+			{
+				string scaleType = node.GetValue<string>("name", "");
+				r.sameScaleType = scaleType.Equals(prefab.ScaleType.Name);
+			}
+			{
+				float currentDefaultScale = node.GetValue<float>("defaultScale", prefab.defaultScale);
+				r.sameDefaultScale = Math.Abs(prefab.defaultScale - currentDefaultScale) < 0.001f;
+			}
+			return r;
+		}
+
+		private ConfigNode FixPartScaling(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
+		{
+			TweakScale ap = this.scaler.prefab.Modules.GetModule<TweakScale>(0);
+			string prefabSuffix = ap.ScaleType.Suffix;
+			float prefabDefaultScale = ap.ScaleType.DefaultScale;
+
+			string craftSuffix = node.GetValue("suffix", "");
+			float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
+			float craftScale = node.GetValue<float>("currentScale", prefabDefaultScale);
+
+			float craftRelativeScale = 0f;
+			if ("".Equals(craftSuffix) && 1.0f == craftDefaultScale)        // Handles normalized scaling scheme
+			{
+				craftRelativeScale = craftScale;
+			}
+			else if ("%".Equals(craftSuffix) && 100f == craftDefaultScale)  // Handles percentage scaling scheme
+			{
+				craftRelativeScale = craftScale / 100f;
+			}
+			else if ("m".Equals(prefabSuffix.ToLower()))                    // Handles Metric scaling scheme
+			{
+				craftRelativeScale = craftScale / craftDefaultScale;
+			}
+			else // In Kraken, we trust! :P
+			{
+				craftRelativeScale = craftScale / craftDefaultScale;
+			}
+
+			source.SetValue("defaultScale", prefabDefaultScale);
+			float newCurrentScale = 0f;
+			if ("".Equals(prefabSuffix) && 1.0f == prefabDefaultScale)          // Handles normalized scaling scheme
+			{
+				newCurrentScale = craftRelativeScale;
+			}
+			else if ("%".Equals(prefabSuffix) && 100f == prefabDefaultScale)    // Handles percentage scaling scheme
+			{
+				newCurrentScale = 100f * craftRelativeScale;
+			}
+			else if ("m".Equals(prefabSuffix.ToLower()))                        // Handles Metric scaling scheme
+			{
+				newCurrentScale = prefabDefaultScale * craftRelativeScale;
+			}
+			else// Sounds stupid, but sooner or later someone will try to scale things in Imperial Units. :)
+				// TODO: Cook a way to allow customizable Migrations, instead of brute forcing my way on the problem as done here.
+			{
+				newCurrentScale = prefabDefaultScale * craftRelativeScale;
+			}
+			source.SetValue("currentScale", newCurrentScale);
+
+			Log.warn("Upgrading ScaleType! Craft {0} had the part {1} scaling changed"
+						+ " from ({2}: default={3:F3}, current={4:F3})"
+						+ " to ({5}: default={6:F3}, current={7:F3})"
+					, this.scaler.part.craftID, this.InstanceID
+					, node.GetValue<string>("name", ""), craftDefaultScale, craftScale
+					, ap.name, prefabDefaultScale, newCurrentScale
+				);
+
+			return source;
+		}
+
+		private ConfigNode FixPartScalingSameType(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
+		{
 			float prefabDefaultScale = this.scaler.prefab.Modules.GetModule<TweakScale>(0).defaultScale;
-            float currentDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
-            return Math.Abs(prefabDefaultScale - currentDefaultScale) < 0.001f;
-        }
+			float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
+			float craftScale = node.GetValue<float>("currentScale", prefabDefaultScale);
+			float craftRelativeScale = craftScale / craftDefaultScale;
+			float newCurrentScale = prefabDefaultScale * craftRelativeScale;
 
-        // ConfigNodeWithSteroids is not complete yet, lots of work to do!
-        // So I had to give the source node to be fixed together the fancy one with some nice helpers,
-        // as it currently doesn't updates the node used to create it (by design, the idea is to create an
-        // "commit" command - so exception handling would be made easier.
-        private ConfigNode FixPartScaling(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
-        {
-			float prefabDefaultScale = this.scaler.prefab.Modules.GetModule<TweakScale>(0).defaultScale;
-            float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
-            float craftScale = node.GetValue<float>("currentScale", prefabDefaultScale);
-            float craftRelativeScale = craftScale / craftDefaultScale;
-            float newCurrentScale = prefabDefaultScale * craftRelativeScale;
+			source.SetValue("currentScale", newCurrentScale);
+			source.SetValue("defaultScale", prefabDefaultScale);
 
-            source.SetValue("currentScale", newCurrentScale);
-            source.SetValue("defaultScale", prefabDefaultScale);
+			Log.warn("Upgrading defaultScale! Craft {0} had the part {1} defaultScale changed from {2:F3} to {3:F3} and was rescaled to {4:F3}"
+					, this.scaler.part.craftID, this.InstanceID
+					, craftDefaultScale, prefabDefaultScale, newCurrentScale
+				);
+			return source;
+		}
 
-            Log.warn("Invalid defaultScale! Craft {0} had the part {1} defaultScale changed from {2:F3} to {3:F3} and was rescaled to {4:F3}"
-				, this.scaler.part.craftID, this.InstanceID
-                , craftDefaultScale, prefabDefaultScale, newCurrentScale
-                );
-            return source;
-        }
+		private void ExecuteMyUpgradePipeline(ConfigNode node)
+		{
+			// That's the problem - somewhere in the not so near past, KSP implemented a stunt called
+			// UpgradePipeline. This thing acts after the PartModule's OnLoad handler, and it injects
+			// back default values from prefab into the part on loading. This was intended to allow older
+			// savegames to be loaded on newer KSP (as it would inject default values on missing atributes
+			// present only on the new KSP version - or to reset new defaults when things changed internally),
+			// but also ended up trashing changes and atributes only available on runtime for some custom modules.
+			// So we need to check and upgrade things **before** KSP mangles them, otherwise the old values will
+			// be trashed by KSP and we will not be able to detect and fix the old data ourselves.
+			{
+				// ConfigNodeWithSteroids is not complete yet, lots of work to do!
+				// So I had to give the source node to be fixed together the fancy one with some nice helpers,
+				// as it currently doesn't updates the node used to create it (by design, the idea is to create an
+				// "commit" command - so exception handling would be made easier.
+				KSPe.ConfigNodeWithSteroids cn = KSPe.ConfigNodeWithSteroids.from(node);
+
+				UpgradePipelineStatus data = this.IsPartMatchesPrefab(cn);
+				if (!data.sameScaleType)                            this.FixPartScaling(node, cn);
+				if (data.sameScaleType && !data.sameDefaultScale)   this.FixPartScalingSameType(node, cn);
+			}
+		}
 
         /// <summary>
         /// Marks the right-click window as dirty (i.e. tells it to update).
