@@ -1,5 +1,16 @@
 # TweakScale :: Changes
 
+* 2022-0322: 2.4.6.9 (Lisias) for KSP >= 1.3
+	+ Removes an (now) unnecessary "gambiarra", as KSP-Recall is now fixing the mess on KSP >= 1.9 editor.
+	+ Implements a new Sanity Check against a worrisome situation where a Part is given to TweakScale **without the partInfo**!!!
+		- I don't have the slightest idea about how in hell this can happen, but I got confirmation of this problem from reliable sources.
+	+ **Finally** implementing a full-fledged "TweakScale Upgrade Pipeline", allowing run-time, on-the-fly conversions between ScaleTypes and DefaultScales.
+		- No more worries about installing or updating Add'Ons that changes the TweakScale patches.
+		- [All Tweak!!!](https://forum.kerbalspaceprogram.com/index.php?/topic/182700-111x-all-tweak-07-23rdoctober2019/) users, this one is dedicated to you! :) 
+	+ Closes Issues:
+		- [#237](https://github.com/net-lisias-ksp/TweakScale/issues/237) New Sanity Check: parts without partInfo!!!
+		- [#236](https://github.com/net-lisias-ksp/TweakScale/issues/236) Extent the Scale migration feature to allow switching ScaleTypes and DefaultScales!
+		- [#218](https://github.com/net-lisias-ksp/TweakScale/issues/218) Implement GetInfo on TweakScale's Part Module
 * 2021-1215: 2.4.6.8 (Lisias) for 1.3.0 <= KSP <= 1.12.3
 	+ Raises the bar to 1.12.3
 		- Smoke Tests using the most hairy use cases suggests nothing wrong should happens. 

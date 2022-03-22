@@ -17,15 +17,11 @@
 	+ **No bug reports** will be accepted when `TweakScaleExperimental` is active, but you can file reports telling me if the thing is working or not. :)
 		- And suggestions! Suggestions are welcome!  
 	+ **Use them at your own risk.** :)
-* KSP 1.9 is known to mangle with Attachment Points the same way it does with Resources.
-	+ This affects every Add'On that changes the Part's Attachment Node.
-	+ TweakScale is not affected, as it reworks the attachment points as needed. 
+* KSP 1.9 is known to mangle with Attachment Points the same way it does with Resources, as well a lot of glitches and problems - none of them fixed until the moment.
+	+ But all of these know is [KSP-Recall](https://forum.kerbalspaceprogram.com/index.php?/topic/192048-18/) problem. :)
+	+ KSP can't be used without KSP-Recall on affected KSP versions.
 * The FTE-1 Drain Vale (ReleaseValve - new on KSP 1.9.x) is not being properly scaled. Only the size (and Mass) are scalable, the functionality is not.
 	+ See Issue [#102](https://github.com/net-lisias-ksp/TweakScale/issues/102) for details. 
-* KSP 1.9.0 introduced a new glitch (still persisting on KSP 1.9.1, and **fixed** on KSP 1.10.0) where any change on the Part's Resources are overridden on cloning.
-	+ This affects every Add'On that changes the Part's Resource.
-	+ This misbehaviour is fixed by installing [KSP Recall](https://forum.kerbalspaceprogram.com/index.php?/topic/192048-*).
-		- Users of TweakScale on KSP 1.9.x are advised to install KSP Recall immediately. 
 * A change on the Add'On Binder demanded that only **one** `Scale_Redist.dll` be available on the whole installment.
 	+ Delete every single file called `Scale_Redist.dll` from every Add'On you have installed
 	+ Don't touch `999_Scale_Redist.dll` on the GameData. This one must stay.
