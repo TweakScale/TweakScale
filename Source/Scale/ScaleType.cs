@@ -198,7 +198,7 @@ namespace TweakScale
 				if (0 == this.ScaleNames.Length && 0 != this.ScaleFactors.Length)
 				{
 					string r = string.Format("{0}{1}", this.ScaleFactors[0], this.Suffix??"");
-					for (int i = 1; i < this.ScaleFactors.Length; ++i)
+					for (int i = 1; i < this.ScaleFactors.Length-1; ++i)    // The last ScaleFactor is not useable
 						r += string.Format("; {0}{1}", this.ScaleFactors[i], this.Suffix??"");
 					return r;
 				}
