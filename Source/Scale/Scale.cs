@@ -334,11 +334,12 @@ namespace TweakScale
             }
             else
             {
+				this.ExecuteMyUpgradePipeline(node);
+
 				this.Setup(part);
 
                 // Loading of the part from a saved craft
                 tweakScale = currentScale;
-                this.ExecuteMyUpgradePipeline(node);
 				this.RestoreScaleIfNeededAndUpdate();
 				this.enabled = this.active && this.IsScaled;
             }
@@ -497,14 +498,10 @@ namespace TweakScale
 			if (!this.available) return "Unavailable for user tweaking.";
 			if (null == this._getInfo)
 			{
-				if (0 == ScaleFactors.Length)
+				if (this.ScaleType.IsFreeScale && (1.0f == this.ScaleType.DefaultScale || 100f == this.ScaleType.DefaultScale))
 					this._getInfo = string.Format(
 								"<b>Scale Type</b> : {0}\n"
-								+ "<b>Default Scale</b> : {1}\n"
-								+ "<b>{2}\n"
 							, this.ScaleType.Name
-							, this.ScaleType.DefaultScaleString
-							, this.ScaleType.IsFreeScale ? "Allows Free Scaling" : ""
 						);
 				else
 					this._getInfo = string.Format(
@@ -894,7 +891,7 @@ namespace TweakScale
 		private ConfigNode FixPartScaling(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
 		{
 			TweakScale ap = this.scaler.prefab.Modules.GetModule<TweakScale>(0);
-			string prefabSuffix = ap.ScaleType.Suffix;
+			string prefabSuffix = ap.ScaleType.Suffix??"";
 			float prefabDefaultScale = ap.ScaleType.DefaultScale;
 
 			string craftSuffix = node.GetValue("suffix", "");
@@ -933,7 +930,7 @@ namespace TweakScale
 			{
 				newCurrentScale = prefabDefaultScale * craftRelativeScale;
 			}
-			else// Sounds stupid, but sooner or later someone will try to scale things in Imperial Units. :)
+			else// Sounds stupid, but sooner or later someone will try to scale things in Imperial Units and I need to change something here. :)
 				// TODO: Cook a way to allow customizable Migrations, instead of brute forcing my way on the problem as done here.
 			{
 				newCurrentScale = prefabDefaultScale * craftRelativeScale;
@@ -943,9 +940,9 @@ namespace TweakScale
 			Log.warn("Upgrading ScaleType! Craft {0} had the part {1} scaling changed"
 						+ " from ({2}: default={3:F3}, current={4:F3})"
 						+ " to ({5}: default={6:F3}, current={7:F3})"
-					, this.scaler.part.craftID, this.InstanceID
+					, this.part.craftID, this.InstanceID    // note: this.part.vessel.vesselName is not available yet at this point.
 					, node.GetValue<string>("name", ""), craftDefaultScale, craftScale
-					, ap.name, prefabDefaultScale, newCurrentScale
+					, ap.ScaleType.Name, prefabDefaultScale, newCurrentScale
 				);
 
 			return source;
@@ -963,10 +960,27 @@ namespace TweakScale
 			source.SetValue("defaultScale", prefabDefaultScale);
 
 			Log.warn("Upgrading defaultScale! Craft {0} had the part {1} defaultScale changed from {2:F3} to {3:F3} and was rescaled to {4:F3}"
-					, this.scaler.part.craftID, this.InstanceID
+					, this.part.craftID, this.InstanceID    // note: this.part.vessel.vesselName is not available yet at this point.
 					, craftDefaultScale, prefabDefaultScale, newCurrentScale
 				);
 			return source;
+		}
+
+		private void UpdateInternalData(KSPe.ConfigNodeWithSteroids node)
+		{
+			// I'm not sure if the original code never worked, or if something changed somewhere in the near past,
+			// but the original code that was migrating values is not working right. Tested on KSP 1.9.1.
+			//
+			// Another possibility is the original code had never worked before - however I'm reasonably sure I tested it when
+			// I wrote it at that time.
+			//
+			// In a way or another, I'm doing the job by brute force here. Worst case (on older KSP), I'm just redoing what's
+			// already done.
+
+			TweakScale ap = this.scaler.prefab.Modules.GetModule<TweakScale>(0);
+			this.defaultScale = ap.ScaleType.DefaultScale;
+			this.currentScale = node.GetValue<float>("currentScale", -1);
+			this.tweakScale = -1;   // Let someone else calculate this one.
 		}
 
 		private void ExecuteMyUpgradePipeline(ConfigNode node)
@@ -977,18 +991,24 @@ namespace TweakScale
 			// savegames to be loaded on newer KSP (as it would inject default values on missing atributes
 			// present only on the new KSP version - or to reset new defaults when things changed internally),
 			// but also ended up trashing changes and atributes only available on runtime for some custom modules.
+			//
 			// So we need to check and upgrade things **before** KSP mangles them, otherwise the old values will
 			// be trashed by KSP and we will not be able to detect and fix the old data ourselves.
 			{
 				// ConfigNodeWithSteroids is not complete yet, lots of work to do!
+				//
 				// So I had to give the source node to be fixed together the fancy one with some nice helpers,
 				// as it currently doesn't updates the node used to create it (by design, the idea is to create an
 				// "commit" command - so exception handling would be made easier.
 				KSPe.ConfigNodeWithSteroids cn = KSPe.ConfigNodeWithSteroids.from(node);
 
 				UpgradePipelineStatus data = this.IsPartMatchesPrefab(cn);
+				if (data.sameDefaultScale && data.sameScaleType)    return;
+
 				if (!data.sameScaleType)                            this.FixPartScaling(node, cn);
 				if (data.sameScaleType && !data.sameDefaultScale)   this.FixPartScalingSameType(node, cn);
+
+				this.UpdateInternalData(cn);
 			}
 		}
 
