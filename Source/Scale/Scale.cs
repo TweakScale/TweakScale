@@ -333,9 +333,9 @@ namespace TweakScale
             }
             else
             {
-				this.ExecuteMyUpgradePipeline(node);
-
 				this.Setup(part);
+
+				this.ExecuteMyUpgradePipeline(node);
 
                 // Loading of the part from a saved craft
                 tweakScale = currentScale;
