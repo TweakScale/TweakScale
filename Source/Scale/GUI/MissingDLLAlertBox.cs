@@ -32,7 +32,7 @@ There's no safe way to proceed, without the support DLLs TweakScale will not wor
 
 Missing Class: {0}";
 
-		private static readonly string AMSG = @"reinstall TweakScale from a trusted Distribution Channel (KSP will close).";
+		private static readonly string AMSG = @"reinstall TweakScale from a trusted Distribution Channel (KSP will close)";
 
 		internal static void Show(string msg) {
 			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
