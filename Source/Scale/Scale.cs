@@ -853,16 +853,14 @@ namespace TweakScale
         {
             if (this != part.Modules.GetModules<TweakScale>().First())
             {
-                enabled = false; // disable TweakScale module
+                this.DisableEverything();
                 this.is_duplicate = true; // Flags this as not persistent
-                Fields["tweakScale"].guiActiveEditor = false;
-                Fields["tweakName"].guiActiveEditor = false;
                 Log.warn("Duplicate TweakScale module on part [{0}] {1}", part.partInfo.name, part.partInfo.title);
                 return true;
             }
             if (ScaleFactors.Length == 0)
             {
-                enabled = false; // disable TweakScale module
+                this.DisableEverything();
                 Log.warn("{0}({1}) has no valid scale factors. This is probably caused by an invalid TweakScale configuration for the part.", part.name, part.partInfo.title);
                 Log.dbg(this.ToString());
                 Log.dbg(ScaleType.ToString());
@@ -870,6 +868,18 @@ namespace TweakScale
             }
             return false;
         }
+
+		private void DisableEverything()
+		{
+			enabled = false; // disable TweakScale module
+			this.active = false;
+			this.available = false;
+			Fields["tweakScale"].guiActiveEditor = false;
+			Fields["tweakName"].guiActiveEditor = false;
+			Fields["active"].guiActiveEditor = false;
+			Fields["available"].guiActiveEditor = false;
+			this.availabilityStatus = " in error!";
+		}
 
 		private struct UpgradePipelineStatus
 		{
