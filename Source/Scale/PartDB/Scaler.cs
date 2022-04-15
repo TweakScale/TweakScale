@@ -102,7 +102,7 @@ namespace TweakScale.PartDB
 			}
 		}
 
-		public bool enabled => null != this.ts && this.ts.enabled;
+		public bool enabled => null != this.ts && this.ts.enabled && this.ts.active;
 		public bool IsMine(Part part) => null != part && this.part.GetInstanceID() == part.GetInstanceID();
 
 		public float RescaleFactor => this.part.rescaleFactor / this.prefab.rescaleFactor;
