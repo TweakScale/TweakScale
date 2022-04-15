@@ -1,5 +1,9 @@
 # TweakScale :: Change Log
 
+* 2022-0415: 2.4.6.11 (Lisias) for KSP >= 1.3
+	+ Fixes a subtile and insidious problem [reported by BTAxis](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-130/&do=findComment&comment=4117283). Thanks, dude!
+	+ Closes Issues:
+		- [#244](https://github.com/net-lisias-ksp/TweakScale/issues/244) Reactivating TweakScale is disabling the scaling feature for good
 * 2022-0415: 2.5.0.43 (Lisias) for KSP >= 1.3
 	+ Fixes a subtile and insidious problem [reported by BTAxis](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-130/&do=findComment&comment=4117283). Thanks, dude!
 	+ Closes Issues:
