@@ -300,7 +300,6 @@ namespace TweakScale
 			{
 				BaseField field = Fields["active"];
 				field.guiActiveEditor = this.available;
-				field.uiControlEditor.onFieldChanged = this.OnActiveFieldChange;
 			}
 
 			Fields["availabilityStatus"].guiActiveEditor = !this.available;
@@ -308,17 +307,15 @@ namespace TweakScale
 			{
 				BaseField field = Fields["tweakScale"];
 				field.guiActiveEditor = this.active && this.available && this.isFreeScale;
-				field.uiControlEditor.onFieldChanged = this.OnFieldChange;
 			}
 
 			{
 				BaseField field = Fields["tweakName"];
 				field.guiActiveEditor = this.active && this.available && (!this.isFreeScale && this.ScaleFactors.Length > 1);
-				field.uiControlEditor.onFieldChanged = this.OnFieldChange;
 			}
 		}
 
-		#region KSP Event Handlers
+	#region KSP Event Handlers
 
         [UsedImplicitly]
         public override void OnLoad(ConfigNode node)
@@ -341,7 +338,7 @@ namespace TweakScale
                 // Loading of the part from a saved craft
                 tweakScale = currentScale;
 				this.RestoreScaleIfNeededAndUpdate();
-				this.enabled = this.active && this.IsScaled;
+				this.enabled = this.active;
             }
         }
 
@@ -391,7 +388,7 @@ namespace TweakScale
 			if (Globals.Instance.AllowStealthSave
 					&& UPGRADE_PILELINED_KSP
 					&& HighLogic.LoadedSceneIsEditor
-					&& !(this.active && this.IsScaled)
+					&& !this.IsScaled
 					&& this.IsSaveMode()
 				)
 			{
@@ -447,12 +444,18 @@ namespace TweakScale
             base.OnStart(state);
 
 			{
+				BaseField field = Fields["active"];
+				field.uiControlEditor.onFieldChanged += this.OnActiveFieldChange;
+			}
+			{
 				UI_ScaleEdit ui = (this.Fields["tweakScale"].uiControlEditor as UI_ScaleEdit);
 				ui.onFieldChanged += this.OnTweakScaleChanged;
+				ui.onFieldChanged += this.OnFieldChange;
 			}
 			{
 				UI_ChooseOption ui = (this.Fields["tweakName"].uiControlEditor as UI_ChooseOption);
 				ui.onFieldChanged += this.OnTweakScaleChanged;
+				ui.onFieldChanged += this.OnFieldChange;
 			}
 
             if (HighLogic.LoadedSceneIsEditor)
@@ -613,7 +616,8 @@ namespace TweakScale
             this.CallUpdateables();
         }
 
-#endregion
+	#endregion
+
 
 		private void ResetTweakScale()
 		{
@@ -1024,6 +1028,7 @@ namespace TweakScale
             }
         }
 
+
 		#region Interface Implementation
 
         float IPartCostModifier.GetModuleCost(float defaultCost, ModifierStagingSituation situation) // TODO: This makes any sense? What's situation anyway?
@@ -1103,7 +1108,7 @@ namespace TweakScale
 
 		internal void SetStateInternal(bool active, bool available)
 		{
-			this.active = active;
+			this.enabled = this.active = active;
 			this.available = available;
 			this.SetupWidgetsVisibility();
 			if (!this.active) this.ResetTweakScale();
