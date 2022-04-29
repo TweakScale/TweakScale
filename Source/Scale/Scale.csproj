@@ -76,15 +76,6 @@
     <Compile Include="GUI\SettingsGui.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Features\AutoScale.cs" />
-    <Compile Include="Features\ScaleChaining.cs" />
-    <Compile Include="Properties\LegalMamboJambo.cs" />
-    <Compile Include="ModuleManagerSupport.cs" />
-    <Compile Include="Scale.cs" />
-    <Compile Include="PartDB\Scaler.cs" />
-    <Compile Include="PartDB\GameEvents.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\Assembly-CSharp.dll</HintPath>
