@@ -337,7 +337,7 @@ namespace TweakScale
                 // Loading of the part from a saved craft
                 tweakScale = currentScale;
 				this.RestoreScaleIfNeededAndUpdate();
-				this.enabled = this.active;
+				this.enabled = this.IsScaled;
             }
         }
 
@@ -464,7 +464,7 @@ namespace TweakScale
             }
 
             // scale IVA overlay
-            if (HighLogic.LoadedSceneIsFlight && this.enabled && (part.internalModel != null))
+            if (HighLogic.LoadedSceneIsFlight && (null != part.internalModel) && this.IsScaled)
             {
                 _savedIvaScale = part.internalModel.transform.localScale * ScalingFactor.absolute.linear;
                 part.internalModel.transform.localScale = _savedIvaScale;
@@ -1114,7 +1114,8 @@ namespace TweakScale
 
 		internal void SetStateInternal(bool active, bool available)
 		{
-			this.enabled = this.active = active;
+			this.active = active;
+			this.enabled = this.IsScaled;
 			this.available = available;
 			this.SetupWidgetsVisibility();
 			if (!this.active) this.ResetTweakScale();
