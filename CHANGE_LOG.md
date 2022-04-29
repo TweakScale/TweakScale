@@ -1,5 +1,10 @@
 # TweakScale :: Change Log
 
+* 2022-0429: 2.4.6.12 (Lisias) for KSP >= 1.3
+	+ Fixes a not so subtle but definitively insidious problem reported by [Alexsys](https://forum.kerbalspaceprogram.com/index.php?/profile/211693-alexsys/). Thanks and sorry, dude!
+	+ Closes Issues:
+		- [#246](https://github.com/net-lisias-ksp/TweakScale/issues/246) New bug related to IVA and Cameras when TweakScale is installed
+		- [#222](https://github.com/net-lisias-ksp/TweakScale/issues/222) Update KSPe.Light for KSPe
 * 2022-0415: 2.4.6.11 (Lisias) for KSP >= 1.3
 	+ Fixes a subtile and insidious problem [reported by BTAxis](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-130/&do=findComment&comment=4117283). Thanks, dude!
 	+ Closes Issues:
