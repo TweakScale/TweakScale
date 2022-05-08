@@ -1,5 +1,9 @@
 # TweakScale :: Change Log
 
+* 2022-0508: 2.4.6.13 (Lisias) for KSP >= 1.3
+	+ Fixes a nasty bug about scaling down crewed parts, reported by [obi_243](https://forum.kerbalspaceprogram.com/index.php?/profile/221308-robi_243/) on [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/208059-tweakscale-problem/#comment-4128151). Thanks, dude!!
+	+ Closes Issues:
+		- [#247](https://github.com/net-lisias-ksp/TweakScale/issues/247) Scaling down a crewed part makes the crew go M.I.A. and the crew capacity is not restored later!
 * 2022-0429: 2.4.6.12 (Lisias) for KSP >= 1.3
 	+ Fixes a not so subtle but definitively insidious problem reported by [Alexsys](https://forum.kerbalspaceprogram.com/index.php?/profile/211693-alexsys/). Thanks and sorry, dude!
 	+ Closes Issues:
