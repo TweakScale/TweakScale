@@ -725,7 +725,7 @@ namespace TweakScale
 
 #if !CREW_SCALE_UP
             // Small safety guard.
-			if (part.CrewCapacity >= this.scaler.prefab.CrewCapacity) { return; }
+			if (part.CrewCapacity > this.scaler.prefab.CrewCapacity) part.CrewCapacity = this.scaler.prefab.CrewCapacity;
 #endif
 
             try // Preventing this thing triggering an eternal loop on the event handling!
@@ -740,7 +740,7 @@ namespace TweakScale
                 int newLen = part.CrewCapacity;
                 if (len == newLen) return;
 
-                Log.dbg("UpdateCrewManifest current {0}; new {1}", len, newLen);
+                Log.dbg("UpdateCrewManifest current {0}; new {1}; prefab {2}", len, newLen, this.scaler.prefab.CrewCapacity);
 
                 this.scaler.part.CrewCapacity  = newLen;
 #if CREW_SCALE_UP
