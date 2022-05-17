@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4A529FE9-0CA6-4EB6-8D93-9B71539012AB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PartDB19x</RootNamespace>
+    <AssemblyName>PartDB19x</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <BaseIntermediateOutputPath>..\..\obj\PartDB19x</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.9.0\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.9.0\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.9.0\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="KSPe">
+      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="..\PartDB14x\PartDB\EditorHelper.cs">
+      <Link>PartDB\EditorHelper.cs</Link>
+    </Compile>
+    <Compile Include="PartDB\VariantPartScaler19x.cs" />
+    <Compile Include="..\PartDB13x\PartDB\StandardPartScaler.cs">
+      <Link>PartDB\StandardPartScaler.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB15x\PartDB\VariantPartScaler15x.cs">
+      <Link>PartDB\VariantPartScaler15x.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB18x\PartDB\VariantPartScaler18x.cs">
+      <Link>PartDB\VariantPartScaler18x.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB14x\PartDB\VariantPartScaler.cs">
+      <Link>PartDB\VariantPartScaler.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Scale\Scale.csproj">
+      <Project>{70D38878-43DB-4F6E-8002-45ADA5391AF7}</Project>
+      <Name>Scale</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scale_Redist\Scale_Redist.csproj">
+      <Project>{2BE63D8B-350E-4EDD-959C-4B7397984364}</Project>
+      <Name>Scale_Redist</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PartDB\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

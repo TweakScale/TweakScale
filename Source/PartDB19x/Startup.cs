@@ -23,14 +23,14 @@
 
 using KSPe.Annotations;
 
-namespace TweakScale.PartDB.KSP1122
+namespace TweakScale.PartDB.KSP19x
 {
 	public class Startup
 	{
 		[UsedImplicitly]
 		private void Start()
 		{
-			Log.force("Support for KSP 1.12.2 Version {0}", Version.Text);
+			Log.force("Support for KSP 1.9.0 to 1.12.3 Version {0}", Version.Text);
 		}
 	}
 }
