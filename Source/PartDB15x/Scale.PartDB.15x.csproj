@@ -55,7 +55,6 @@
     <Compile Include="..\PartDB14x\PartDB\VariantPartScaler.cs">
       <Link>PartDB\VariantPartScaler.cs</Link>
     </Compile>
-    <Compile Include="PartDB\VariantPartScaler15x-exclusive.cs" />
     <Compile Include="..\PartDB14x\PartDB\VariantPartScaler14x.cs">
       <Link>PartDB\VariantPartScaler14x.cs</Link>
     </Compile>
