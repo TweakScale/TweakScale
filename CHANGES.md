@@ -1,5 +1,12 @@
 # TweakScale :: Changes
 
+* 2022-0415: 2.5.0.44 (Lisias) for KSP >= 1.3
+	+ Well, it's a bit embarrassing but I finally detected and fixed a regression on legacy support I inadvertently did when I removed the kludges I made on TweakScale when KSP 1.9.0 was launched.
+		- Long history made short, when I added that kludge, I broke support for [1.4.4 <= KSP <= 1.7.3] and then added another kludge to counter act the first kludge.
+		- Once I removed the 1.9.x kludge and moved it as a proper work around into KSP-Recall, I forgot to remove the second kludge...
+		- As a side effect, less Scaling Engines are needed now, so we have one less DLL to worry about.
+	+ Closes Issues:
+		- [#249](https://github.com/net-lisias-ksp/TweakScale/issues/249) Reorganize the Scaling Engines
 * 2022-0415: 2.5.0.43 (Lisias) for KSP >= 1.3
 	+ Fixes a subtile and insidious problem [reported by BTAxis](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-130/&do=findComment&comment=4117283). Thanks, dude!
 	+ Closes Issues:
