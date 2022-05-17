@@ -25,13 +25,5 @@ namespace TweakScale.PartDB
 {
 	internal partial class VariantPartScaler : StandardPartScaler
 	{
-		private readonly bool HasKSP19bug = KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.FindByVersion(1,9,0);
-
-		protected override void DoFirstUpdate()
-		{
-			base.DoFirstUpdate();
-			if (HighLogic.LoadedSceneIsEditor && HasKSP19bug)		// This is needed by (surprisingly!) KSP 1.9
-				this.MoveSurfaceAttachment(true, true);
-		}
 	}
 }

@@ -20,17 +20,18 @@
 	You should have received a copy of the GNU General Public License 2.0
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
+using System.Linq;
+using UnityEngine;
 
-using KSPe.Annotations;
-
-namespace TweakScale.PartDB.KSP1122
+namespace TweakScale.PartDB
 {
-	public class Startup
+	internal partial class VariantPartScaler : StandardPartScaler
 	{
-		[UsedImplicitly]
-		private void Start()
+		protected override void DoFirstUpdate()
 		{
-			Log.force("Support for KSP 1.12.2 to 1.12.3 Version {0}", Version.Text);
+			base.DoFirstUpdate();
+			if (HighLogic.LoadedSceneIsEditor)			// This is needed by (surprisingly!) KSP 1.9
+				this.MoveSurfaceAttachment(true, true);
 		}
 	}
 }

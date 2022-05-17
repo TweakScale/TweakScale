@@ -20,12 +20,17 @@
 	You should have received a copy of the GNU General Public License 2.0
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
-using System.Linq;
-using UnityEngine;
 
-namespace TweakScale.PartDB
+using KSPe.Annotations;
+
+namespace TweakScale.PartDB.KSP19x
 {
-	internal partial class VariantPartScaler : StandardPartScaler
+	public class Startup
 	{
+		[UsedImplicitly]
+		private void Start()
+		{
+			Log.force("Support for KSP 1.9.0 to 1.12.3 Version {0}", Version.Text);
+		}
 	}
 }
