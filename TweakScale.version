@@ -10,10 +10,10 @@
 	"CHANGE_LOG_URL": "https://raw.githubusercontent.com/net-lisias-ksp/TweakScale/master/CHANGES.md",
 
 	"NAME"		: "TweakScale Beta",
-	"URL"		: "https://raw.githubusercontent.com/net-lisias-ksp/TweakScale/dev/orthodox/TweakScale.version",
+	"URL"		: "https://raw.githubusercontent.com/net-lisias-ksp/TweakScale/dev/beta/TweakScale.version",
 	"DOWNLOAD"	: "https://github.com/net-lisias-ksp/TweakScale/issues/42",
-	"CHANGE_LOG"	: "https://github.com/net-lisias-ksp/TweakScale/blob/dev/orthodox/CHANGE_LOG.md",
-	"CHANGE_LOG_URL": "https://raw.githubusercontent.com/net-lisias-ksp/TweakScale/dev/orthodox/CHANGES.md",
+	"CHANGE_LOG"	: "https://github.com/net-lisias-ksp/TweakScale/blob/dev/beta/CHANGE_LOG.md",
+	"CHANGE_LOG_URL": "https://raw.githubusercontent.com/net-lisias-ksp/TweakScale/dev/beta/CHANGES.md",
 
 	"VERSION":{
 		"MAJOR":2,

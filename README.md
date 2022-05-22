@@ -14,7 +14,7 @@
 
 * [Source](https://github.com/net-lisias-ksp/TweakScale)
 	+ [Issue Tracker](https://github.com/net-lisias-ksp/TweakScale/issues)
-	+ [Orthodox (development) Branch](https://github.com/net-lisias-kspu/TweakScale/tree/dev/orthodox)
+	+ [beta (development) Branch](https://github.com/net-lisias-kspu/TweakScale/tree/dev/beta)
 		- " *Lasciate ogne speranza, voi ch'intrate* "
 * Documentation
 	+ [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-141-tweakscale-under-new-management/&)
