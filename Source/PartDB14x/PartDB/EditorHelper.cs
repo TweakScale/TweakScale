@@ -38,6 +38,11 @@ namespace TweakScale.PartDB
 
 		private readonly HashSet<VariantPartScaler> listeners = new HashSet<VariantPartScaler>();
 
+		private GameEventEditorVariantAppliedListener()
+		{
+			Log.dbg("GameEventEditorVariantAppliedListener was instanced.");
+		}
+
 		internal void Add(VariantPartScaler listener)
 		{
 			this.listeners.Add(listener);
@@ -51,19 +56,28 @@ namespace TweakScale.PartDB
 		[UsedImplicitly]
 		private void Awake()
 		{
+			Log.dbg("GameEventEditorVariantAppliedListener was awaken.");
 			GameEvents.onEditorVariantApplied.Add(this.EditorVariantAppliedHandler);
 		}
 
 		[UsedImplicitly]
 		private void Destroy()
 		{
+			Log.dbg("GameEventEditorVariantAppliedListener was destroyed.");
 			GameEvents.onEditorVariantApplied.Remove(this.EditorVariantAppliedHandler);
 			this.listeners.Clear();
+			instance = null;
 		}
 
 		[UsedImplicitly]
 		internal void EditorVariantAppliedHandler(Part part, PartVariant partVariant)
 		{
+			if (null == part || null == partVariant )
+			{
+				Log.dbg("part or partVariant is null! Aborting EditorVariantAppliedHandler. {0} {1}", part, partVariant);
+				return;
+			}
+			Log.dbg("Variant {0} applied to {1}::{2:X}", partVariant.DisplayName, part.name, part.GetInstanceID());
 			foreach (VariantPartScaler ps in this.listeners) if (ps.enabled && ps.IsMine(part))
 				ps.OnEditorVariantApplied(part, partVariant);
 		}
