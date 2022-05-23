@@ -37,7 +37,7 @@ namespace TweakScale.PartDB
 
 		internal PartVariant SetVariant(PartVariant partVariant)
 		{
-			Log.dbg("VariantPartScaler.SetVariant {0}", partVariant.DisplayName);
+			Log.dbg("VariantPartScaler.SetVariant from {0} to {1}", this.previousVariant.DisplayName, partVariant.DisplayName);
 
 			PartVariant r = this.previousVariant;
 			this.previousVariant = this.currentVariant;
@@ -65,10 +65,9 @@ namespace TweakScale.PartDB
 
 		internal void OnEditorVariantApplied(Part part, PartVariant partVariant)
 		{
-			Log.dbg("VariantPartScaler.OnEditorVariantApplied {0} {1}", this.ts.InstanceID, partVariant.Name);
-
 			if (!this.ts.IsScaled) return;
-			if (this.currentVariant == this.SetVariant(partVariant)) return;
+			Log.dbg("VariantPartScaler.OnEditorVariantApplied {0} {1}", this.ts.InstanceID, partVariant.Name);
+			this.SetVariant(partVariant);
 
 			// When an variant is applied, all the attachment nodes are replaced by "vanilla" ones
 			// So we need to rescale them using absolute scales.
