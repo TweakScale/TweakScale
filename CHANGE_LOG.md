@@ -1,12 +1,15 @@
 # TweakScale :: Change Log
 
-* 2022-0522: 2.4.6.14 (Lisias) for KSP >= 1.3
+* 2022-0523: 2.4.6.15 (Lisias) for KSP >= 1.3
 	+ Well, it's a bit embarrassing but I finally detected and fixed a regression on legacy support I inadvertently did when I removed the kludges I made on TweakScale when KSP 1.9.0 was launched.
 		- Long history made short, when I added that kludge, I broke support for [1.4.4 <= KSP <= 1.7.3] and then added another kludge to counter act the first kludge.
 		- Once I removed the 1.9.x kludge and moved it as a proper work around into KSP-Recall, I forgot to remove the second kludge...
 		- As a side effect, less Scaling Engines are needed now, so we have one less DLL to worry about.
+	+ Additionally, yet another stupidity was detected and fixed on handling Variants (and this one was pretty old...)
 	+ Closes Issues:
 		- [#249](https://github.com/net-lisias-ksp/TweakScale/issues/249) Reorganize the Scaling Engines
+* 2022-0522: 2.4.6.14 (Lisias) for KSP >= 1.3
+	+ ***DITCHED*** as a new released was issued in less than 24 hours.
 * 2022-0508: 2.4.6.13 (Lisias) for KSP >= 1.3
 	+ Fixes a nasty bug about scaling down crewed parts, reported by [robi_243](https://forum.kerbalspaceprogram.com/index.php?/profile/221308-robi_243/) on [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/208059-tweakscale-problem/#comment-4128151). Thanks, dude!!
 	+ Closes Issues:
