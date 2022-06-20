@@ -26,30 +26,30 @@ using KSPe.UI;
 
 namespace TweakScale.GUI
 {
-    internal class HotFixAdviseBox : CommonBox
-    {
-        private static readonly string MSG = @"There're {0} parts with hot fixes detected.
+	internal class HotFixAdviseBox : CommonBox
+	{
+		private static readonly string MSG = @"There're {0} parts with hot fixes detected.
 
 A hot fix is a patch crafted to reach the intended results by brute force to solve problems diagnosed but that cannot be fixed by normal means (as pull requesting the fix to the offending Add'On repository).
 
 It's safe to start new games and share crafts - but you can have problems by installing or removing Add'Ons, as hot fixes are usually dumb and aimed to a specific situation.";
 
-        internal static void show(int overrule_count)
-        {
-            GameObject go = new GameObject("TweakScale.AdviseBox");
-            TimedMessageBox dlg = go.AddComponent<TimedMessageBox>();
+		internal static void Show(int overrule_count, bool showMessageBox)
+		{
+			GameObject go = new GameObject("TweakScale.AdviseBox");
+			TimedMessageBox dlg = go.AddComponent<TimedMessageBox>();
 
-            GUIStyle win = createWinStyle(Color.white);
-            GUIStyle text = createTextStyle();
+			GUIStyle win = createWinStyle(Color.white);
+			GUIStyle text = createTextStyle();
 
-            if (ModuleManagerListener.shouldShowWarnings)
-                dlg.Show(
-                    "TweakScale advises", 
-                    String.Format(MSG, overrule_count),
-                    30, 0, -1,
-                    win, text
-                );
-            Log.force("\"TweakScale advises\" about overrules checks was {0}", ModuleManagerListener.shouldShowWarnings ? "displayed" : "suppressed");
-        }
-    }
+			if (showMessageBox)
+				dlg.Show(
+					"TweakScale advises",
+					String.Format(MSG, overrule_count),
+					30, 0, -1,
+					win, text
+				);
+			Log.force("\"TweakScale advises\" about hot fixes checks was {0}", showMessageBox ? "displayed" : "suppressed");
+		}
+	}
 }

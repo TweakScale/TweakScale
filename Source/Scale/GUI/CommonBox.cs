@@ -25,9 +25,9 @@ using KSPe.UI;
 
 namespace TweakScale.GUI
 {
-    internal class CommonBox : TimedMessageBox
+    public class CommonBox : TimedMessageBox
     {
-        internal static GUIStyle createWinStyle (Color titlebarColor)
+        public static GUIStyle createWinStyle (Color titlebarColor)
         {
             GUIStyle winStyle;
             {
@@ -54,7 +54,7 @@ namespace TweakScale.GUI
             return winStyle;
         }
 
-        internal static GUIStyle createTextStyle ()
+        public static GUIStyle createTextStyle ()
         {
             GUIStyle textStyle;
             {

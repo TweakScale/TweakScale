@@ -7,7 +7,7 @@ TARGETBINDIR="$TARGETDIR/Plugins"
 PROJECTSDIR="$PACKAGE/"
 VERSIONFILE="TweakScale.version"
 DLLS="Scale KSPe.Light.TweakScale"
-PD_DLLS="Scale.PartDB.13x Scale.PartDB.14x Scale.PartDB.15x Scale.PartDB.19x"
+PD_DLLS="Scale.PartDB.13x Scale.PartDB.14x Scale.PartDB.15x Scale.PartDB.19x Scale_Sanitizer"
 GD_DLLS="Scale_Redist"
 GD_PRIORITY="999"
 

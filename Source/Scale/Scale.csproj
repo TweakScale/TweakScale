@@ -42,11 +42,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScaleType.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="GUI\ShowStopperAlertBox.cs" />
-    <Compile Include="GUI\SanityCheckAlertBox.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="GUI\OverrulledAdviseBox.cs" />
-    <Compile Include="GUI\CheckFailureAlertBox.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="HotKey\Enums.cs" />
     <Compile Include="HotKey\ExtensionMethods.cs" />
@@ -55,7 +51,6 @@
     <Compile Include="HotKey\HotkeyManager.cs" />
     <Compile Include="HotKey\Tuple.cs" />
     <Compile Include="GUI\CommonBox.cs" />
-    <Compile Include="GUI\HotFixAdviseBox.cs" />
     <Compile Include="..\Configuration.cs">
       <DependentUpon>Configuration.tt</DependentUpon>
     </Compile>
@@ -65,7 +60,6 @@
     <Compile Include="Features\AutoScale.cs" />
     <Compile Include="Features\ScaleChaining.cs" />
     <Compile Include="Properties\LegalMamboJambo.cs" />
-    <Compile Include="ModuleManagerSupport.cs" />
     <Compile Include="Scale.cs" />
     <Compile Include="PartDB\Scaler.cs" />
     <Compile Include="PartDB\GameEvents.cs" />
@@ -74,6 +68,10 @@
     <Compile Include="GUI\Icons.cs" />
     <Compile Include="GUI\ToolbarSupport.cs" />
     <Compile Include="GUI\SettingsGui.cs" />
+    <Compile Include="Sanitizer\SanityCheck.cs" />
+    <Compile Include="GUI\CheckFailureAlertBox.cs" />
+    <Compile Include="ModuleManagerSupport.cs" />
+    <Compile Include="GUI\MissingSanitizerAlertBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -121,6 +119,7 @@
     <Folder Include="GUI\" />
     <Folder Include="Features\" />
     <Folder Include="PartDB\" />
+    <Folder Include="Sanitizer\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HotKey\" />

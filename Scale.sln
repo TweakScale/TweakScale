@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale.PartDB.15x", "Source\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale.PartDB.19x", "Source\PartDB19x\Scale.PartDB.19x.csproj", "{4A529FE9-0CA6-4EB6-8D93-9B71539012AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale_Sanitizer", "Source\Scale_Sanitizer\Scale_Sanitizer.csproj", "{4CEE4DED-7E41-4E59-BA16-67E655E46FEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{4A529FE9-0CA6-4EB6-8D93-9B71539012AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A529FE9-0CA6-4EB6-8D93-9B71539012AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A529FE9-0CA6-4EB6-8D93-9B71539012AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CEE4DED-7E41-4E59-BA16-67E655E46FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CEE4DED-7E41-4E59-BA16-67E655E46FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CEE4DED-7E41-4E59-BA16-67E655E46FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CEE4DED-7E41-4E59-BA16-67E655E46FEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4CEE4DED-7E41-4E59-BA16-67E655E46FEE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>TweakScale.Sanitizer</RootNamespace>
+    <AssemblyName>Scale_Sanitizer</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <BaseIntermediateOutputPath>..\..\obj\ScaleSanitizer</BaseIntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="KSPe">
+      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="KSPe.UI">
+      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Sanitizer\HotFixes.cs" />
+    <Compile Include="Sanitizer\ShowStoppers.cs" />
+    <Compile Include="Sanitizer\Overrrules.cs" />
+    <Compile Include="GUI\HotFixAdviseBox.cs" />
+    <Compile Include="GUI\OverrulledAdviseBox.cs" />
+    <Compile Include="GUI\SanityCheckAlertBox.cs" />
+    <Compile Include="GUI\ShowStopperAlertBox.cs" />
+    <Compile Include="Sanitizer\General.cs" />
+    <Compile Include="Sanitizer\Abstract.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Scale\Scale.csproj">
+      <Project>{70D38878-43DB-4F6E-8002-45ADA5391AF7}</Project>
+      <Name>Scale</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scale_Redist\Scale_Redist.csproj">
+      <Project>{2BE63D8B-350E-4EDD-959C-4B7397984364}</Project>
+      <Name>Scale_Redist</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sanitizer\" />
+    <Folder Include="GUI\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
