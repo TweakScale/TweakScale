@@ -37,6 +37,7 @@ The following file layout must be present after installation:
 					Scale.PartDB.14x.dll
 					Scale.PartDB.15x.dll
 					Scale.PartDB.18x.dll
+					Scale_Sanitizer.dll
 				KSPe.Light.TweakScale.dll
 				Scale.dll
 			[patches]
