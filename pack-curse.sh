@@ -6,15 +6,11 @@ IFS=$'\n\t'
 source ./CONFIG.inc
 
 clean() {
-	rm $FILE
+	rm -fR $FILE
 	if [ ! -d Archive ] ; then
-		rm -f Archive
 		mkdir Archive
 	fi
 }
-
-echo "Not available yet!"
-exit 1
 
 pwd=$(pwd)
 FILE=${pwd}/Archive/$PACKAGE-$VERSION${PROJECT_STATE}-CurseForge.zip

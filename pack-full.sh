@@ -6,9 +6,8 @@ IFS=$'\n\t'
 source ./CONFIG.inc
 
 clean() {
-	if [ -d Archive ] ; then
-		rm -f Archive
-	else
+	rm -fR $FILE
+	if [ ! -d Archive ] ; then
 		mkdir Archive
 	fi
 }

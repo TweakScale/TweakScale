@@ -65,7 +65,7 @@ deploy_gamedata() {
 	local DLL=$2.dll
 
 	if [ -f "./bin/Release/$DLL" ] ; then
-		cp "./bin/Release/$DLL" "./GameData/000_$DLL"
+		cp "./bin/Release/$DLL" "./GameData/${PLACE}_$DLL"
 		if [ -d "${KSP_DEV}/GameData/" ] ; then
 			cp "./bin/Release/$DLL" "${KSP_DEV/}GameData/${PLACE}_$DLL"
 		fi
