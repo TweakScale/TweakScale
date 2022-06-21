@@ -1,5 +1,14 @@
 # Module Manager Watch Dog :: Change Log
 
+* 2022-0621: 1.1.0.1 (LisiasT) for KSP >= 1.2.2
+	+ Adds a Install Checker for:
+		- The tool itself
+		- ModuleManager /L
+		- TweakScale
+	+ Closes issue:
+		- [#5](https://github.com/net-lisias-ksp/ModuleManagerWatchDog/issues/5) Cook a `GameData/*.dll` update tool 
+* 2022-0621: 1.1.0.0 (LisiasT) for KSP >= 1.2.2
+	+ ***DTICHED*** due a stupid mistake on handling pathnames... #facePalm 
 * 2021-0907: 1.0.1.1 (LisiasT) for KSP >= 1.2.2
 	+ Promoted to Release
 	+ Revamping the Redist checks, promoting modularity and selective deployment
