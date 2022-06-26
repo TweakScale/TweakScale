@@ -89,14 +89,9 @@ namespace TweakScale
 			GameEvents.onGameSceneSwitchRequested.Add(this.OnGameSceneSwitchRequested);
 		}
 
-		[UsedImplicitly]
-		private void OnDestroy()
-		{
-			GameEvents.onGameSceneSwitchRequested.Remove(this.OnGameSceneSwitchRequested);
-		}
-
 		private void OnGameSceneSwitchRequested(GameEvents.FromToAction<GameScenes, GameScenes> data) {
 			Log.detail("Switching scene from {0} to {1}.", data.from, data.to);
+			GameEvents.onGameSceneSwitchRequested.Remove(this.OnGameSceneSwitchRequested);
 			this.WriteDryCost();
 		}
 
