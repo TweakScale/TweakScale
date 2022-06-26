@@ -574,10 +574,10 @@ namespace TweakScale
 			if (!HighLogic.LoadedSceneIsEditor) return;
 			Log.dbg("OnEditorAttach {0}", this.InstanceID);
 
-            if (null == this.part.parent) return; // This should be impossible, but better safe than sorry...
-            TweakScale module = this.part.parent.GetComponent<TweakScale>();
-			if (null != module && Features.AutoScale.Enabled)
-				Features.AutoScale.Execute(module, this);
+			if (null == this.part.parent) return; // This should be impossible, but better safe than sorry...
+			TweakScale parentModule = this.part.parent.GetComponent<TweakScale>();
+			if (null != parentModule && Features.AutoScale.Enabled)
+				Features.AutoScale.Execute(parentModule, this);
 		}
 
         [UsedImplicitly]
