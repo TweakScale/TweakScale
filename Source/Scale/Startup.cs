@@ -37,9 +37,6 @@ namespace TweakScale
 			{
 				using (KSPe.Util.SystemTools.Assembly.Loader<TweakScale> a = new KSPe.Util.SystemTools.Assembly.Loader<TweakScale>())
 				{
-					if (KSPe.IO.File<TweakScale>.Asset.Exists("Scale_Sanitizer.dll"))
-						a.LoadAndStartup("Scale_Sanitizer");
-
 					if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
 						a.LoadAndStartup("Scale.PartDB.13x");
 					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 4))

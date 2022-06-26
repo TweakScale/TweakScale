@@ -21,25 +21,33 @@
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 
 using KSPe;
 using KSPe.Annotations;
 
 namespace TweakScale
 {
-    [KSPAddon(KSPAddon.Startup.MainMenu, true)]
-    internal class PrefabDryCostWriter : SingletonBehavior<PrefabDryCostWriter>
-    {
-        private static readonly int WAIT_ROUNDS = 120; // @60fps, would render 2 secs.
-        
-        internal static bool isConcluded = false;
+	[KSPAddon(KSPAddon.Startup.Instantly, true)]
+	internal class PrefabDryCostWriter : SingletonBehavior<PrefabDryCostWriter>
+	{
+		internal static bool isConcluded = false;
+		internal static readonly List<Sanitizer.SanityCheck> CHECKS_AVAILABLE = new List<Sanitizer.SanityCheck>();
 
-        [UsedImplicitly]
-        private void Start()
-        {
+		[UsedImplicitly]
+		private void Start()
+		{
+			using (KSPe.Util.SystemTools.Assembly.Loader<TweakScale> a = new KSPe.Util.SystemTools.Assembly.Loader<TweakScale>()) try
+			{
+				if (KSPe.IO.File<TweakScale>.Asset.Exists("Scale_Sanitizer.dll"))
+					a.LoadAndStartup("Scale_Sanitizer");
+			}
+			catch (System.Exception e)
+			{
+				Log.error(e.ToString());
+				GUI.MissingDLLAlertBox.Show(e.Message);
+			}
+
 			{
 				bool sane = false;
 				if (KSPe.Util.SystemTools.Assembly.Finder.ExistsByName("Scale_Sanitizer"))
@@ -78,40 +86,23 @@ namespace TweakScale
 					GUI.MissingSanitizerAlertBox.Show();
 				}
 			}
-            StartCoroutine("WriteDryCost");
-        }
+			GameEvents.onGameSceneSwitchRequested.Add(this.OnGameSceneSwitchRequested);
+		}
 
-        private IEnumerator WriteDryCost()
+		private void OnGameSceneSwitchRequested(GameEvents.FromToAction<GameScenes, GameScenes> data) {
+			Log.detail("Switching scene from {0} to {1}.", data.from, data.to);
+			this.WriteDryCost();
+		}
+
+		private void WriteDryCost()
         {
             PrefabDryCostWriter.isConcluded = false;
             Log.info("WriteDryCost: Started");
 
-            {  // Toe Stomping Fest prevention
-                for (int i = WAIT_ROUNDS; i >= 0 && null == PartLoader.LoadedPartsList; --i)
-                {
-                    yield return null;
-                    if (0 == i) Log.warn("Timeout waiting for PartLoader.LoadedPartsList!!");
-                }
-    
-    			 // I Don't know if this is needed, but since I don't know that this is not needed,
-    			 // I choose to be safe than sorry!
-                {
-                    int last_count = int.MinValue;
-                    for (int i = WAIT_ROUNDS; i >= 0; --i)
-                    {
-                        if (last_count == PartLoader.LoadedPartsList.Count) break;
-                        last_count = PartLoader.LoadedPartsList.Count;
-                        yield return null;
-                        if (0 == i) Log.warn("Timeout waiting for PartLoader.LoadedPartsList.Count!!");
-                    }
-                }
-            }
-
-            List<Sanitizer.SanityCheck> checksAvailable = new List<Sanitizer.SanityCheck>();
             {
                 IEnumerable<Type> ts = KSPe.Util.SystemTools.Type.Search.By(typeof(Sanitizer.SanityCheck));
                 foreach (Type t in ts) if (!t.IsAbstract)
-                    checksAvailable.Add((Sanitizer.SanityCheck)System.Activator.CreateInstance(t));
+                    CHECKS_AVAILABLE.Add((Sanitizer.SanityCheck)System.Activator.CreateInstance(t));
             }
 
             int total_count = 0;
@@ -120,44 +111,18 @@ namespace TweakScale
 
             foreach (AvailablePart p in PartLoader.LoadedPartsList)
             {
-                for (int i = WAIT_ROUNDS; i >= 0 && (null == p.partPrefab || null == p.partPrefab.Modules); --i)
-                {
-                    yield return null;
-                    if (0 == i) Log.error("Timeout waiting for {0}.prefab.Modules!!", p.name);
-                }
-              
                 Part prefab;
                 { 
-                    // Historically, we had problems here.
-                    // However, that co-routine stunt appears to have solved it.
-                    // But we will keep this as a ghinea-pig in the case the problem happens again.
-                    int retries = WAIT_ROUNDS;
                     bool containsTweakScale = false;
-                    Exception culprit = null;
-                    
-                    prefab = p.partPrefab; // Reaching the prefab here in the case another Mod recreates it from zero. If such hypothecical mod recreates the whole part, we're doomed no matter what.
-                    
-                    while (retries > 0)
-                    { 
-                        bool should_yield = false;
-                        try 
-                        {
-                            containsTweakScale = prefab.Modules.Contains("TweakScale"); // Yeah. This while stunt was done just to be able to do this. All the rest is plain clutter! :D 
-                            break;
-                        }
-                        catch (Exception e)
-                        {
-                            culprit = e;
-                            --retries;
-                            should_yield = true;
-                        }
-                        if (should_yield) // This stunt is needed as we can't yield from inside a try-catch!
-                            yield return null;
-                    }
 
-                    if (0 == retries)
+                    prefab = p.partPrefab; // Reaching the prefab here in the case another Mod recreates it from zero. If such hypothecical mod recreates the whole part, we're doomed no matter what.
+                    try 
                     {
-                        Log.error("Exception on {0}.prefab.Modules.Contains: {1}", p.name, culprit);
+                        containsTweakScale = prefab.Modules.Contains("TweakScale"); // Yeah. This while stunt was done just to be able to do this. All the rest is plain clutter! :D 
+                    }
+                    catch (Exception e)
+                    {
+                        Log.error("Exception on {0}.prefab.Modules.Contains: {1}", p.name, e.Message);
                         Log.detail("{0}", prefab.Modules);
                         continue;
                     }
@@ -184,13 +149,13 @@ namespace TweakScale
                     for (Sanitizer.Priority i = Sanitizer.Priority.__MIN; i < Sanitizer.Priority.__SIZE; ++i)
                     {
                         if (abort) break;
-                        foreach (Sanitizer.SanityCheck sc in checksAvailable) if (i == sc.Priority)
+                        foreach (Sanitizer.SanityCheck sc in CHECKS_AVAILABLE) if (i == sc.Priority)
                             if (abort = sc.Check(p, prefab)) break;
                     }
                 }
 
                 // Run the Show Stopper checks. It's run at last so the Sanity Checks has a chance of act before blowing it up.
-                foreach (Sanitizer.SanityCheck sc in checksAvailable) if (Sanitizer.Priority.ShowStopper == sc.Priority)
+                foreach (Sanitizer.SanityCheck sc in CHECKS_AVAILABLE) if (Sanitizer.Priority.ShowStopper == sc.Priority)
                     if (sc.Check(p, prefab)) break;
 
                 try
@@ -211,7 +176,7 @@ namespace TweakScale
                 List<string> m = new List<string>();
                 m.Add(string.Format("{0} parts found", total_count));
                 m.Add(string.Format("{0} DryCost failed", drycost_failures_count));
-                foreach (Sanitizer.SanityCheck sc in checksAvailable)
+                foreach (Sanitizer.SanityCheck sc in CHECKS_AVAILABLE)
                 {
                     unscalable_count += sc.Unscalable;
                     m.Add(sc.Summary);
@@ -221,19 +186,6 @@ namespace TweakScale
             }
 
             PrefabDryCostWriter.isConcluded = true;
-
-            {   // Shows the Error Messages (only if there's no Show Stoppers).
-                // The Dialogs should be positioned in a way that they could be all displayed at once.
-                bool showStopper = false;
-                foreach (Sanitizer.SanityCheck sc in checksAvailable) if (Sanitizer.Priority.ShowStopper == sc.Priority)
-                    // Only the first Show Stopper is emitted. There's no point on flooding the screen with more than one.
-                    if (showStopper = sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings))
-                        yield break;
-                if (!showStopper) // If a Show Stopper as emiited, nothing else matters.
-                    for (Sanitizer.Priority i = Sanitizer.Priority.Critical; i < Sanitizer.Priority.ShowStopper; ++i)
-                        foreach (Sanitizer.SanityCheck sc in checksAvailable) if (i == sc.Priority)
-                            sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings);
-            }
         }
 
         private ConfigNode GetMeThatConfigNode(Part p)
@@ -269,4 +221,26 @@ namespace TweakScale
             return r;
         }
     }
+
+	[KSPAddon(KSPAddon.Startup.MainMenu, true)]
+	internal class PrefabDryCostWriterResults : SingletonBehavior<PrefabDryCostWriterResults>
+	{
+		// Shows the Error Messages (only if there's no Show Stoppers). 
+		// The Dialogs should be positioned in a way that they could be all displayed at once.
+		[UsedImplicitly]
+		private void Start()
+		{
+			bool showStopper = false;
+			foreach (Sanitizer.SanityCheck sc in PrefabDryCostWriter.CHECKS_AVAILABLE) if (Sanitizer.Priority.ShowStopper == sc.Priority)
+				// Only the first Show Stopper is emitted. There's no point on flooding the screen with more than one.
+				if (showStopper = sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings))
+					break;
+			if (!showStopper) // If a Show Stopper as emiited, nothing else matters.
+				for (Sanitizer.Priority i = Sanitizer.Priority.__MIN; i < Sanitizer.Priority.__SIZE; ++i)
+					foreach (Sanitizer.SanityCheck sc in PrefabDryCostWriter.CHECKS_AVAILABLE) if (i == sc.Priority)
+							sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings);
+			// Free some memory:
+			PrefabDryCostWriter.CHECKS_AVAILABLE.Clear();
+		}
+	}
 }
