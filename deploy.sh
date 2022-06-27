@@ -112,3 +112,5 @@ done
 for dll in $EXT_DLLS ; do
     deploy_ext $dll
 done
+
+echo "${VERSION} Deployed into ${KSP_DEV}"
