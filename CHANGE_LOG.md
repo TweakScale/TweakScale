@@ -1,5 +1,15 @@
 # TweakScale :: Change Log
 
+* 2022-0627: 2.5.0.46 (Lisias) for KSP >= 1.3
+	+ Updates ModuleManagerWatchDog to 1.1.0.1
+	+ Better coping with Curse Installer
+	+ Fixes a brain fart of mine on the AutoScale feature.
+	+ Move the DryCostWriter and SanityChecks out of the Main Menu due Making History
+		- The thing is now executed when LOADING is phasing out, before Main Menu phase in.
+		- This will prevent the race condition I detected when the rig is heavily loaded, but whatever MH is creating on GameDatabase from now on is unchecked.
+	+ Closes Issues:
+		- [#256](https://github.com/net-lisias-ksp/TweakScale/issues/256) Move the DryCostWriter (and Sanity Checkes) out of the Main Menu startup
+		- [#255](https://github.com/net-lisias-ksp/TweakScale/issues/255) Special Deployment for Curseforge due Scale_Redist
 * 2022-0620: 2.5.0.45 (Lisias) for KSP >= 1.3
 	+ **HUGE** refactoring on the Sanity Checks, "exporting" the checks into a dedicated DLL (`Scale_Sanitizer.dll`) at the same time allowing 3rd parties to include their own checks on it.
 	+ Some extra precautions on `EditorHelper`
