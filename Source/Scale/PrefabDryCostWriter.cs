@@ -236,10 +236,14 @@ namespace TweakScale
 				// Only the first Show Stopper is emitted. There's no point on flooding the screen with more than one.
 				if (showStopper = sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings))
 					break;
-			if (!showStopper) // If a Show Stopper as emiited, nothing else matters.
+			if (!showStopper) // If a Show Stopper as emitted, nothing else matters. Otherwise, notify user about the lesser problems.
 				for (Sanitizer.Priority i = Sanitizer.Priority.__MIN; i < Sanitizer.Priority.__SIZE; ++i)
 					foreach (Sanitizer.SanityCheck sc in PrefabDryCostWriter.CHECKS_AVAILABLE) if (i == sc.Priority)
-							sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings);
+						sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings);
+		}
+
+		[UsedImplicitly]
+		private void OnDestroy() {
 			// Free some memory:
 			PrefabDryCostWriter.CHECKS_AVAILABLE.Clear();
 		}
