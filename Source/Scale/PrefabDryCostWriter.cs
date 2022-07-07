@@ -112,19 +112,17 @@ namespace TweakScale
 
             foreach (AvailablePart p in PartLoader.LoadedPartsList)
             {
-                Part prefab;
                 { 
                     bool containsTweakScale = false;
 
-                    prefab = p.partPrefab; // Reaching the prefab here in the case another Mod recreates it from zero. If such hypothecical mod recreates the whole part, we're doomed no matter what.
                     try 
                     {
-                        containsTweakScale = prefab.Modules.Contains("TweakScale"); // Yeah. This while stunt was done just to be able to do this. All the rest is plain clutter! :D 
+                        containsTweakScale = p.partPrefab.Modules.Contains("TweakScale");
                     }
                     catch (Exception e)
                     {
                         Log.error("Exception on {0}.prefab.Modules.Contains: {1}", p.name, e.Message);
-                        Log.detail("{0}", prefab.Modules);
+                        Log.detail("{0}", p.partPrefab.Modules);
                         continue;
                     }
 
@@ -135,34 +133,30 @@ namespace TweakScale
                         ++unscalable_count;
                         continue;
                     }
-
-                    // End of hack. Ugly, uh? :P
                 }
 #if DEBUG
                 {
                     Log.dbg("Found part named {0} ; title {1}:", p.name, p.title);
-                    foreach (PartModule m in prefab.Modules)
+                    foreach (PartModule m in p.partPrefab.Modules)
                         Log.dbg("\tPart {0} has module {1}", p.name, m.moduleName);
                 }
 #endif
                 {   // Run all the Sanity Checks (but Show Stoppers), priorized.
-                    bool abort = false;
                     for (Sanitizer.Priority i = Sanitizer.Priority.__MIN; i < Sanitizer.Priority.__SIZE; ++i)
                     {
-                        if (abort) break;
                         foreach (Sanitizer.SanityCheck sc in CHECKS_AVAILABLE) if (i == sc.Priority)
-                            if (abort = sc.Check(p, prefab)) break;
+                            if (sc.Check(p, p.partPrefab)) break;
                     }
                 }
 
-                // Run the Show Stopper checks. It's run at last so the Sanity Checks has a chance of act before blowing it up.
+                // Run the Show Stopper checks. It's run at last so the Sanity Checks has a chance of act before blowing everything up.
                 foreach (Sanitizer.SanityCheck sc in CHECKS_AVAILABLE) if (Sanitizer.Priority.ShowStopper == sc.Priority)
-                    if (sc.Check(p, prefab)) break;
+                    if (sc.Check(p, p.partPrefab)) continue; // If anyone of the show stopper kicks, it's game over for this part. It's the reason they are called Show Stoppers!
 
                 try
-                {   // Now we can try to calculate the DryCost.
-                    TweakScale m = prefab.Modules["TweakScale"] as TweakScale;
-                    m.OriginalCrewCapacity = prefab.CrewCapacity;
+                {   // Now we can try to calculate the DryCost. Safely.
+                    TweakScale m = p.partPrefab.Modules["TweakScale"] as TweakScale;
+                    m.OriginalCrewCapacity = p.partPrefab.CrewCapacity;
                     m.CalculateDryCostIfNeeded();
                     Log.dbg("Part {0} ({1}) has drycost {2} and OriginalCrewCapacity {3}",  p.name, p.title, m.DryCost, m.OriginalCrewCapacity);
                 }
@@ -210,7 +204,7 @@ namespace TweakScale
                 // But if that doesn't works, let's try the partConfig directly.
                 //
                 // I have reasons to believe that partConfig may not be an identical copy from the Config since Making History
-                // (but I have, by now, no hard evidences yet) - but I try first the config file nevertheless. There's no point]
+                // (but I have, by now, no hard evidences yet) - but I try first the config file nevertheless. There's no point
                 // on risking pinpointing something that cannot be found on the config file.
                 //
                 // What will happen if the problems start to appear on the partConfig and not in the config file is something I
@@ -243,7 +237,8 @@ namespace TweakScale
 		}
 
 		[UsedImplicitly]
-		private void OnDestroy() {
+		private void OnDestroy()
+		{
 			// Free some memory:
 			PrefabDryCostWriter.CHECKS_AVAILABLE.Clear();
 		}

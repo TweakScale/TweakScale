@@ -31,16 +31,17 @@ namespace TweakScale.Sanitizer
 		protected abstract bool DoCheck(AvailablePart p, Part prefab);
 		public bool Check(AvailablePart p, Part prefab)
 		{
-			Log.trace("{0} is checking {1}...", this.GetType().Name, p.name);
+			Log.trace("{0} is checking {1} ({2})...", this.GetType().Name, p.name, p.title);
 			bool r = this.DoCheck(p, prefab);
 			Log.trace("{0} was checked and it should{1} stop the chain.", p.name, r ? "" : " not");
 			return r;
-        }
+		}
 
 		public abstract bool EmmitMessageIfNeeded(bool showMessageBox);
 
-		protected Abstract() {
-			Log.detail("{0} instantiated.", this.GetType().Name);
+		protected Abstract()
+		{
+			Log.dbg("{0} instantiated.", this.GetType().Name);
 		}
 
 		protected static ConfigNode GetMeThatConfigNode(Part p)

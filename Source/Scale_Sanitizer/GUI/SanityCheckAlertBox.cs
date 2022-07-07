@@ -30,11 +30,22 @@ namespace TweakScale.GUI
 	{
 		private static readonly string MSG = @"TweakScale found {0} parts that failed sanity checks! See KSP.log for details.
 
-Parts that fails sanity check had TweakScale support withdrawn. This was necessary to prevent them to crash the game. At the present, there's no way to scale them without nasty consequences - but they can be used normally.
-
-TweakScale is working to support these parts.";
+Parts that fails sanity check had a module support withdrawn (usually TweakScale itself) to prevent them to crash the game. Other than the removed feature, they can be used normaly.
+{1}";
 
 		internal static void Show(int sanity_failures, bool showMessageBox)
+		{
+			string additionalMessage = "TweakScale is working to support these parts.";
+			show(sanity_failures, additionalMessage, showMessageBox);
+		}
+
+		internal static void Show(int sanity_failures, string supportLink, bool showMessageBox)
+		{
+			string additionalMessage = string.Format("Visit this <a href=\"{0}\">link</a> for more information!", supportLink);
+			show(sanity_failures, additionalMessage, showMessageBox);
+		}
+
+		private static void show(int sanity_failures, string additionalMessage, bool showMessageBox)
 		{
 			GameObject go = new GameObject("TweakScale.WarningBox");
 			TimedMessageBox dlg = go.AddComponent<TimedMessageBox>();
@@ -45,7 +56,7 @@ TweakScale is working to support these parts.";
 			if (showMessageBox)
 				dlg.Show(
 					"TweakScale Warning",
-					String.Format(MSG, sanity_failures),
+					String.Format(MSG, sanity_failures, "\n"+additionalMessage),
 					30, 1, -1,
 					win, text
 				);

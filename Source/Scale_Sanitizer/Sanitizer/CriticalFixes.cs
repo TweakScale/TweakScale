@@ -19,19 +19,22 @@
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TweakScale.Sanitizer
 {
-	public class General : Abstract
+	public class CriticalFixes : Abstract
 	{
 		private int failures = 0;
 		private int count = 0;
+		private int unscalable = 0;
 
 		public override Priority Priority => Priority.Critical;
 		public override int Ocurrences => this.count;
-		public override int Unscalable => this.count;
+		public override int Unscalable => this.unscalable;
 		public override int Failures => this.failures;
-		public override string Summary => string.Format("{0} checks failed", this.count);
+		public override string Summary => string.Format("{0} critical fixes failed", this.count);
 
 		protected override bool DoCheck(AvailablePart p, Part prefab)
 		{
@@ -39,23 +42,27 @@ namespace TweakScale.Sanitizer
 			{
 				string r = null;
 
-				// We check for fixable problems first, in the hope to prevent by luck a ShowStopper below.
 				// These Offending Parts never worked before, or always ends in crashing KSP, so the less worse
 				// line of action is to remove TweakScale from them in order to allow the player to at least keep
 				// playing KSP. Current savegames can break, but they were going to crash and loose everything anyway!!
-				if (null != (r = this.CheckForSanity(prefab)))
+				if (null != (r = this.CheckForSanity(p, prefab)))
 				{   // There are some known situations where TweakScale is capsizing. If such situations are detected, we just
 					// refuse to scale it. Sorry.
+					Engine.Fix.RemoveModuleFrom(p, prefab, "TweakScale");
 					Log.error("Part {0} ({1}) didn't passed the sanity check due {2}.", p.name, p.title, r);
-					Log.warn("Removing TweakScale support for {0} ({1}).", p.name, p.title);
-
-					PartModule m = prefab.Modules["TweakScale"];
-					prefab.RemoveModule(m);
-					if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.FindByVersion(1, 8, 0))
-						UnityEngine.Object.Destroy(m);  // Kill the bastard so it doesn't came back from nowhere to bite our ass!
 
 					++this.count;
+					++this.unscalable;
 					return true; // Abort the check chain for this part.
+				}
+
+				// We check for fixable problems first, in the hope to prevent by luck a ShowStopper later.
+				{
+					List<Engine.Fix.Result> fixesApplied = this.ApplyFixes(p, prefab);
+					r = string.Join("; ", fixesApplied.Select(s => s.ToProblems()).ToArray<string>());
+					Log.error("Part {0} ({1}) didn't passed the sanity check due {2}.", p.name, p.title, r);
+					if(fixesApplied.Any(s => s.IsTerminal))
+						return true;
 				}
 			}
 			catch (Exception e)
@@ -73,13 +80,13 @@ namespace TweakScale.Sanitizer
 			return r;
 		}
 
-		private string CheckForSanity(Part p)
+		private string CheckForSanity(AvailablePart p, Part prefab)
 		{
-			Log.dbg("Checking Sanity for {0} at {1}", p.name, p.partInfo.partUrl);
+			Log.dbg("Checking Sanity for {0} ({1}) at {2}", p.name, p.title, p.partUrl);
 
 			try
 			{
-				TweakScale m = p.Modules.GetModule<TweakScale>();
+				TweakScale m = prefab.Modules.GetModule<TweakScale>();
 				if (m.active && m.available && m.Fields["tweakScale"].guiActiveEditor == m.Fields["tweakName"].guiActiveEditor)
 					return "not being correctly initialized - see issue [#30]( https://github.com/net-lisias-ksp/TweakScale/issues/30 )";
 			}
@@ -88,18 +95,45 @@ namespace TweakScale.Sanitizer
 				return "having missed attributes - see issue [#30]( https://github.com/net-lisias-ksp/TweakScale/issues/30 )";
 			}
 
-			if (p.Modules.Contains("FSbuoyancy") && !p.Modules.Contains("TweakScalerFSbuoyancy"))
-				return "using FSbuoyancy module without TweakScaleCompanion for Firespitter installed - see issue [#1] from TSC_FS ( https://github.com/net-lisias-ksp/TweakScaleCompantion_FS/issues/1 )";
-
-			if (p.Modules.Contains("ModuleB9PartSwitch"))
-			{
-				if (p.Modules.Contains("FSfuelSwitch"))
-					return "having ModuleB9PartSwitch together FSfuelSwitch - see issue [#12]( https://github.com/net-lisias-ksp/TweakScale/issues/12 )";
-				if (p.Modules.Contains("ModuleFuelTanks"))
-					return "having ModuleB9PartSwitch together ModuleFuelTanks - see issue [#12]( https://github.com/net-lisias-ksp/TweakScale/issues/12 )";
-			}
-
 			return null;
+		}
+
+		private List<Engine.Fix.Result> ApplyFixes(AvailablePart p, Part prefab)
+		{
+			List<Engine.Fix.Result> fixesApplied = new List<Engine.Fix.Result>();
+			{
+				List<Engine.Fix.Job> fixes = new List<Engine.Fix.Job>();
+				{ 
+					UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
+					ConfigNode sanityNodes = urlc.config.GetNode("SANITY");
+					foreach (ConfigNode cn in sanityNodes.GetNodes("FIX"))
+					{
+						if (cn.HasValue("priority")) cn.RemoveValues("priority"); // All fixes must be executed on the Critical Priority.
+						fixes.Add(new Engine.Fix.Job(cn));
+					}
+				}
+				foreach (Engine.Fix.Job j in fixes) if (Engine.Fix.Job.Correction.RemoveTweakScaleModule == j.correction)
+				{
+					Engine.Fix.Result r = Engine.Fix.Instance.Execute(j, p, prefab);
+					if (r.CorrectionApplied)
+					{
+						++this.count;
+						++this.unscalable;
+						fixesApplied.Add(r);
+						return fixesApplied;		// We removed TweakScale from the part. There's nothing else we can do.
+					}
+				}
+				foreach (Engine.Fix.Job j in fixes) if (Engine.Fix.Job.Correction.RemoveTweakScaleModule != j.correction)
+				{
+					Engine.Fix.Result r = Engine.Fix.Instance.Execute(j, p, prefab);
+					if (r.CorrectionApplied)
+					{
+						++this.count;
+						fixesApplied.Add(r);
+					}
+				}
+			}
+			return fixesApplied;
 		}
 	}
 }

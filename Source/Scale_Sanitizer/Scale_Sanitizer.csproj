@@ -53,8 +53,10 @@
     <Compile Include="GUI\OverrulledAdviseBox.cs" />
     <Compile Include="GUI\SanityCheckAlertBox.cs" />
     <Compile Include="GUI\ShowStopperAlertBox.cs" />
-    <Compile Include="Sanitizer\General.cs" />
     <Compile Include="Sanitizer\Abstract.cs" />
+    <Compile Include="Sanitizer\CriticalFixes.cs" />
+    <Compile Include="Sanitizer\Engines\CheckEngine.cs" />
+    <Compile Include="Sanitizer\Engines\FixEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scale\Scale.csproj">
@@ -69,6 +71,7 @@
   <ItemGroup>
     <Folder Include="Sanitizer\" />
     <Folder Include="GUI\" />
+    <Folder Include="Sanitizer\Engines\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
