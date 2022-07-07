@@ -38,9 +38,9 @@ namespace TweakScale.Sanitizer
 	{
 		Priority Priority { get ; }
 		string Summary { get; }
-		int Ocurrences { get; }	// How many ocurrences of the problem was detected
+		int Ocurrences { get; }	// How many ocurrences of the problem were detected
 		int Unscalable { get; }	// From that occurrences, how many parts lost the TweakScale module
-		int Failures { get; }	// How many failures on checking the damned thing happened
+		int Failures { get; }	// How many failures (on checking the damned thing) happened
 		bool Check(AvailablePart p, Part prefab);		// Returns true if checks should stop for this part, false otherwise
 		bool EmmitMessageIfNeeded(bool showMessageBox);	// Returns true if a message was displayed (or would had)
 	}

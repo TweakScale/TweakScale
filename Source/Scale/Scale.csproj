@@ -68,7 +68,6 @@
     <Compile Include="GUI\Icons.cs" />
     <Compile Include="GUI\ToolbarSupport.cs" />
     <Compile Include="GUI\SettingsGui.cs" />
-    <Compile Include="Sanitizer\SanityCheck.cs" />
     <Compile Include="GUI\CheckFailureAlertBox.cs" />
     <Compile Include="ModuleManagerSupport.cs" />
     <Compile Include="GUI\MissingSanitizerAlertBox.cs" />
@@ -119,7 +118,6 @@
     <Folder Include="GUI\" />
     <Folder Include="Features\" />
     <Folder Include="PartDB\" />
-    <Folder Include="Sanitizer\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HotKey\" />
