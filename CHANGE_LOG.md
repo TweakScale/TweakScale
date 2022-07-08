@@ -1,6 +1,9 @@
 # TweakScale :: Change Log
 
-* 2022-0627: 2.5.0.46 (Lisias) for KSP >= 1.3
+* 2022-0708: 2.5.0.47 **BETA** (Lisias) for KSP >= 1.3 
+	+ Incepts a Fix/Check Engine to parametrize the Sanity Checks and shove them on the GameData, where they can be patcheable. Will be terribly useful for the TweakScale Companions.
+	+ Moves the Sanitizer Contract (and Interface) to Scale_Redist, so 3rd parties can implement checks without hard dependency on TweakScale.
+* 2022-0627: 2.5.0.46 **BETA** (Lisias) for KSP >= 1.3
 	+ Updates ModuleManagerWatchDog to 1.1.0.1
 	+ Better coping with Curse Installer
 	+ Fixes a brain fart of mine on the AutoScale feature.
@@ -10,7 +13,7 @@
 	+ Closes Issues:
 		- [#256](https://github.com/net-lisias-ksp/TweakScale/issues/256) Move the DryCostWriter (and Sanity Checkes) out of the Main Menu startup
 		- [#255](https://github.com/net-lisias-ksp/TweakScale/issues/255) Special Deployment for Curseforge due Scale_Redist
-* 2022-0620: 2.5.0.45 (Lisias) for KSP >= 1.3
+* 2022-0620: 2.5.0.45 **BETA** (Lisias) for KSP >= 1.3
 	+ **HUGE** refactoring on the Sanity Checks, "exporting" the checks into a dedicated DLL (`Scale_Sanitizer.dll`) at the same time allowing 3rd parties to include their own checks on it.
 	+ Some extra precautions on `EditorHelper`
 	+ Some less (useless) precautions on the Variant Support.
@@ -50,7 +53,7 @@
 	+ Fixes a subtile and insidious problem [reported by BTAxis](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-130/&do=findComment&comment=4117283). Thanks, dude!
 	+ Closes Issues:
 		- [#244](https://github.com/net-lisias-ksp/TweakScale/issues/244) Reactivating TweakScale is disabling the scaling feature for good
-* 2022-0326: 2.5.0.42 (Lisias) for KSP >= 1.3
+* 2022-0326: 2.5.0.42 **BETA** (Lisias) for KSP >= 1.3
 	+ Removes an (now) unnecessary "gambiarra", as KSP-Recall is now fixing the mess on KSP >= 1.9 editor.
 		- A small (and 3rd party safe) fraction of it remains to cover what may be a missing use-case on KSP-Recall, or a fishy code on TweakScale itself. 
 	+ Implements a new Sanity Check against a worrisome situation where a Part is given to TweakScale **without the partInfo**!!!
@@ -62,7 +65,7 @@
 		- [#237](https://github.com/net-lisias-ksp/TweakScale/issues/237) New Sanity Check: parts without partInfo!!!
 		- [#236](https://github.com/net-lisias-ksp/TweakScale/issues/236) Extent the Scale migration feature to allow switching ScaleTypes and DefaultScales!
 		- [#218](https://github.com/net-lisias-ksp/TweakScale/issues/218) Implement GetInfo on TweakScale's Part Module
-* 2022-0322: 2.5.0.41 (Lisias) for KSP >= 1.3
+* 2022-0322: 2.5.0.41 (Lisias) for KSP >= 1.3 **BETA**
 	+ ***DITCHED*** because I screwed the pooch on a merge **after testing the thing**, and ended up publishing a crappy release. :(
 		- I need some rest from dayjob. :/ 
 * 2021-1215: 2.4.6.8 (Lisias) for 1.3.0 <= KSP <= 1.12.3
@@ -76,7 +79,7 @@
 	+ Closes Issues:
 		- [#219](https://github.com/net-lisias-ksp/TweakScale/issues/219) Apparently, OnCopy parts is misbehaving on Parts with Variants
 		- [#86](https://github.com/net-lisias-ksp/TweakScale/issues/86) When a root part is scaled, a part attached to it is displaced on the Y axis!
-* 2021-1130: 2.5.0.40 (Lisias) for KSP >= 1.3
+* 2021-1130: 2.5.0.40 **BETA** (Lisias) for KSP >= 1.3
 	+ Maintenance Release.
 	+ Closes Issues:
 		- [#219](https://github.com/net-lisias-ksp/TweakScale/issues/219) Apparently, OnCopy parts is misbehaving on Parts with Variants
@@ -91,7 +94,7 @@
 		- [#197](https://github.com/net-lisias-ksp/TweakScale/issues/197) Flags (the parts attachable) are losing the attaching points when its parent is duplicated
 		- [#167](https://github.com/net-lisias-ksp/TweakScale/issues/167) Mirror Symmetry is displacing some (all?) parts when scaled
 		- [#139](https://github.com/net-lisias-ksp/TweakScale/issues/139) Scaling Part with Variants that change attachment nodes is not working as expecnted
-* 2021-1120: 2.5.0.39 (Lisias) for KSP >= 1.3
+* 2021-1120: 2.5.0.39 **BETA** (Lisias) for KSP >= 1.3
 	+ Maintenance Release.
 	+ Closes Issues:
 		- [#211](https://github.com/net-lisias-ksp/TweakScale/issues/211) Mitigate the HotKeys being hijacked by 3rd-parties
@@ -109,7 +112,7 @@
 		- [#163](https://github.com/net-lisias-ksp/TweakScale/issues/163) Radial Symmetry (when using variants) are misplacing parts.
 		- [#131](https://github.com/net-lisias-ksp/TweakScale/issues/131) Chain Scaling parts is playing havoc with the Radial Attachment Positions. 
 		- [#36](https://github.com/net-lisias-ksp/TweakScale/issues/36) [TweakScale Warning] Exception during ModulePartVariants interaction
-* 2021-0927: 2.5.0.38 (Lisias) for KSP >= 1.3
+* 2021-0927: 2.5.0.38 **BETA** (Lisias) for KSP >= 1.3
 	+ Maintenance Release.
 	+ Closes Issues:
 		- [#208](https://github.com/net-lisias-ksp/TweakScale/issues/208) Chain Scaling Parts with variants are borking when the parent part is "inverted"
@@ -130,7 +133,7 @@
 			- [TSCo_KIS](https://github.com/net-lisias-ksp/TweakScaleCompanion_KIS/releases)
 			- [TSCo_PKMC](https://github.com/net-lisias-ksp/TweakScaleCompanion_PKMC/releases)
 			- [TSCo_Visuals](https://github.com/net-lisias-ksp/TweakScaleCompanion_Visuals/releases/tag/PRERELEASE%2F0.2.0.0)  
-* 2021-0927: 2.5.0.37 (Lisias) for KSP >= 1.3
+* 2021-0927: 2.5.0.37 **BETA** (Lisias) for KSP >= 1.3
 	+ Maintenance release
 		- Declares the Ground Anchor as Experimental
 		- Updates the code base to the latest KSPe release (2.4.0.1 at this moment)

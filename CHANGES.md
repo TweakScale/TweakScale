@@ -1,6 +1,9 @@
 # TweakScale :: Changes
 
-* 2022-0627: 2.5.0.46 (Lisias) for KSP >= 1.3
+* 2022-0708: 2.5.0.47 **BETA** (Lisias) for KSP >= 1.3 
+	+ Incepts a Fix/Check Engine to parametrize the Sanity Checks and shove them on the GameData, where they can be patcheable. Will be terribly useful for the TweakScale Companions.
+	+ Moves the Sanitizer Contract (and Interface) to Scale_Redist, so 3rd parties can implement checks without hard dependency on TweakScale.
+* 2022-0627: 2.5.0.46 **BETA** (Lisias) for KSP >= 1.3
 	+ Updates ModuleManagerWatchDog to 1.1.0.1
 	+ Better coping with Curse Installer
 	+ Fixes a brain fart of mine on the AutoScale feature.
