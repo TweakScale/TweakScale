@@ -22,6 +22,8 @@
 */
 using System;
 
+using KSPe;
+
 namespace TweakScale.Sanitizer.Engine
 {
 	public class Fix : Check
@@ -36,7 +38,7 @@ namespace TweakScale.Sanitizer.Engine
 
 			public readonly Correction correction;
 
-			public Job(ConfigNode cn):base(cn)
+			public Job(ConfigNodeWithSteroids cn):base(cn)
 			{
 				string action = cn.GetValue("action");
 				if ("REMOVE_TWEAKSCALE".Equals(action)) this.correction = Correction.RemoveTweakScaleModule;
@@ -84,7 +86,7 @@ namespace TweakScale.Sanitizer.Engine
 				if (this.CorrectionApplied)	Log.detail("Corrections were applied by {0} on {1} ({2})", this.job.name, this.availablePart.name, this.availablePart.title);
 			}
 
-			public override string ToString() => this.result.ToString();
+			public string ToLog() => this.result.ToLog();
 			public string ToProblems() => this.result.ToProblems();
 		}
 

@@ -23,6 +23,8 @@
 using System;
 using System.Collections.Generic;
 
+using KSPe;
+
 namespace TweakScale.Sanitizer.Engine
 {
 	public class Check
@@ -38,16 +40,31 @@ namespace TweakScale.Sanitizer.Engine
 			public readonly string[] conflicts;
 			public readonly string[] dependencies;
 
-			public Job(ConfigNode cn)
+			public Job(ConfigNodeWithSteroids cn)
 			{
 				this.name = cn.GetValue("name");
-				this.descriptionText = cn.GetValue("description_text");
-				this.issueText = cn.GetValue("issue_text");
-				this.issueLink = System.Uri.UnescapeDataString(cn.GetValue("issue_link"));
-				this.supportLink = System.Uri.UnescapeDataString(cn.GetValue("support_link"));
+				this.descriptionText = cn.GetValue("description_text", "");
+				this.issueText = cn.GetValue("issue_text", "");
+				this.issueLink = System.Uri.UnescapeDataString(cn.GetValue("issue_link",""));
+				this.supportLink = System.Uri.UnescapeDataString(cn.GetValue("support_link",""));
 				this.module = cn.GetValue("module_affected");
 				this.conflicts = cn.GetValues("module_conflicting");
 				this.dependencies = cn.GetValues("module_dependency");
+			}
+
+			public string GetLogDescription(string defaultDesc)
+			{
+				string r = string.IsNullOrEmpty(this.descriptionText) ? defaultDesc : this.descriptionText;
+				if (!string.IsNullOrEmpty(this.issueText)) r += string.Format(". {0}", this.issueText);
+				if (!string.IsNullOrEmpty(this.issueLink)) r += string.Format("({0})" + this.issueLink);
+				return r;
+			}
+
+			public string GetScreenDescription(string defaultDesc)
+			{
+				string r = string.IsNullOrEmpty(this.descriptionText) ? defaultDesc : this.descriptionText;
+				if (!string.IsNullOrEmpty(this.supportLink)) r += string.Format(". Visit <a href=\"{0}\">this link</a> for further information", this.issueText);
+				return r;
 			}
 		}
 
@@ -58,6 +75,7 @@ namespace TweakScale.Sanitizer.Engine
 			public readonly Part prefab;
 			public string[] Conflicts { get; private set;}
 			public string[] MissingDependencies  { get; private set;}
+			public bool IsProblematic => !(0 == this.Conflicts.Length && 0 == this.MissingDependencies.Length);
 
 			public Result(Job job, AvailablePart p, Part prefab)
 			{
@@ -82,11 +100,18 @@ namespace TweakScale.Sanitizer.Engine
 				this.MissingDependencies = missing.ToArray();
 			}
 
-			public override string ToString()
+			public string ToLog()
 			{
 				if (0 != this.Conflicts.Length && 0 != this.MissingDependencies.Length)
 					return string.Format("{0} ({1}) passed the sanity check {2}", this.availablePart.name, this.availablePart.title, this.job.name);
-				return string.Format("{0} ({1}) failed the sanity check {2} due {3}", this.availablePart.name, this.availablePart.title, this.job.name, this.ToProblems());
+				return string.Format("{0} ({1}) failed the sanity check {2} due {3}", this.availablePart.name, this.availablePart.title, this.job.name, this.job.GetLogDescription(this.ToProblems()));
+			}
+
+			public string ToScreen()
+			{
+				if (0 != this.Conflicts.Length && 0 != this.MissingDependencies.Length)
+					return string.Format("{0} ({1}) passed the sanity check {2}", this.availablePart.name, this.availablePart.title, this.job.name);
+				return string.Format("{0} ({1}) failed the sanity check {2} due {3}", this.availablePart.name, this.availablePart.title, this.job.name, this.job.GetScreenDescription(this.ToProblems()));
 			}
 
 			public string ToProblems()
@@ -101,7 +126,7 @@ namespace TweakScale.Sanitizer.Engine
 			}
 
 			private string ToMissingDependencies() =>
-				string.Format("have a Conflict between {0} and {1}", this.job.module, string.Join(",", this.Conflicts));
+				string.Format("have a conflict between {0} and {1}", this.job.module, string.Join(",", this.Conflicts));
 
 			private string ToConflicts() =>
 				string.Format("{0} didn't met dependency(ies) {1}", this.job.module, string.Join(",", this.MissingDependencies));
@@ -115,7 +140,7 @@ namespace TweakScale.Sanitizer.Engine
 		{
 			Result r = new Result(job, p, part);
 			r.Execute();
-			Log.detail(r.ToString());
+			Log.detail(r.ToLog());
 			return r;
 		}
 

@@ -112,6 +112,7 @@ namespace TweakScale
 
             foreach (AvailablePart p in PartLoader.LoadedPartsList)
             {
+                Log.detail("Procesing part named {0} ; title {1}.", p.name, p.title);
                 { 
                     bool containsTweakScale = false;
 

@@ -19,10 +19,12 @@
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TweakScale.Sanitizer
 {
-	public class ShowStoppers : Abstract
+	internal class ShowStoppers : Abstract
 	{
 		private int failures = 0;
 		private int count = 0;
@@ -52,6 +54,16 @@ namespace TweakScale.Sanitizer
 					++this.count;
 					return true; // Abort the check chain for this part.
 				}
+
+				{
+					List<Engine.Check.Result> checksFailed = this.CheckIntegrity(p, prefab);
+					if(0 != checksFailed.Count)
+					{ 
+						r = string.Join("; ", checksFailed.Select(s => s.ToProblems()).ToArray<string>());
+						Log.error("**FATAL** Part {0} ({1}) has a fatal problem due {2}.", p.name, p.title, r);
+						return true;
+					}
+				}
 			}
 			catch (Exception e)
 			{
@@ -74,23 +86,48 @@ namespace TweakScale.Sanitizer
 			ConfigNode part = Abstract.GetMeThatConfigNode(p);
 			if (null == part) return "having a part without a partInfo! - see issue [#237]( https://github.com/net-lisias-ksp/TweakScale/issues/237";
 
+			foreach (ConfigNode basket in part.GetNodes("MODULE"))
 			{
-				foreach (ConfigNode basket in part.GetNodes("MODULE"))
+				string moduleName = basket.GetValue("name");
+				if ("TweakScale" != moduleName) continue;
+				if (basket.HasValue("ISSUE_OVERRULE")) continue; // TODO: Check if the issue overrule is for #34 or any other that is checked here.
+				Log.dbg("\tModule {0}", moduleName);
+				foreach (ConfigNode.Value property in basket.values)
 				{
-					string moduleName = basket.GetValue("name");
-					if ("TweakScale" != moduleName) continue;
-					if (basket.HasValue("ISSUE_OVERRULE")) continue; // TODO: Check if the issue overrule is for #34 or any other that is checked here.
-					Log.dbg("\tModule {0}", moduleName);
-					foreach (ConfigNode.Value property in basket.values)
-					{
-						Log.dbg("\t\t{0} = {1}", property.name, property.value);
-						if (1 != basket.GetValues(property.name).Length)
-							return "having duplicated properties - see issue [#34]( https://github.com/net-lisias-ksp/TweakScale/issues/34 )";
-					}
+					Log.dbg("\t\t{0} = {1}", property.name, property.value);
+					if (1 != basket.GetValues(property.name).Length)
+						return "having duplicated properties - see issue [#34]( https://github.com/net-lisias-ksp/TweakScale/issues/34 )";
 				}
 			}
 
 			return null;
+		}
+
+		private List<Engine.Check.Result> CheckIntegrity(AvailablePart p, Part prefab)
+		{
+			List<Engine.Check.Result> checksFailed = new List<Engine.Check.Result>();
+			{
+				List<Engine.Check.Job> checks = new List<Engine.Check.Job>();
+				{ 
+					UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
+					ConfigNode sanityNodes = urlc.config.GetNode("SANITY");
+					foreach (ConfigNode cn in sanityNodes.GetNodes("CHECK"))
+					{
+						if (!cn.HasValue("priority") || this.Priority.ToString().Equals(cn.GetValue("priority"))) continue;
+						checks.Add(new Engine.Check.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
+					}
+				}
+				foreach (Engine.Check.Job j in checks)
+				{
+					Engine.Check.Result r = Engine.Check.Instance.Execute(j, p, prefab);
+					if (r.IsProblematic)
+					{
+						++this.count;
+						checksFailed.Add(r);
+					}
+				}
+			}
+			return checksFailed;
 		}
 	}
 }

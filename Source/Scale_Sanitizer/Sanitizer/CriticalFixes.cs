@@ -24,7 +24,7 @@ using System.Linq;
 
 namespace TweakScale.Sanitizer
 {
-	public class CriticalFixes : Abstract
+	internal class CriticalFixes : Abstract
 	{
 		private int failures = 0;
 		private int count = 0;
@@ -109,7 +109,7 @@ namespace TweakScale.Sanitizer
 					foreach (ConfigNode cn in sanityNodes.GetNodes("FIX"))
 					{
 						if (cn.HasValue("priority")) cn.RemoveValues("priority"); // All fixes must be executed on the Critical Priority.
-						fixes.Add(new Engine.Fix.Job(cn));
+						fixes.Add(new Engine.Fix.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
 					}
 				}
 				foreach (Engine.Fix.Job j in fixes) if (Engine.Fix.Job.Correction.RemoveTweakScaleModule == j.correction)

@@ -61,6 +61,11 @@
     <Compile Include="Sanitizer\CriticalFixes.cs" />
     <Compile Include="Sanitizer\Engines\CheckEngine.cs" />
     <Compile Include="Sanitizer\Engines\FixEngine.cs" />
+    <Compile Include="Sanitizer\CheckAbstract.cs" />
+    <Compile Include="Sanitizer\CheckPriorityCritical.cs" />
+    <Compile Include="Sanitizer\CheckPriorityHigh.cs" />
+    <Compile Include="Sanitizer\CheckPriorityLow.cs" />
+    <Compile Include="Sanitizer\CheckPriorityNormal.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scale\Scale.csproj">

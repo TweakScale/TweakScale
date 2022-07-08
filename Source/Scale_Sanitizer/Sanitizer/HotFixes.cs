@@ -22,7 +22,7 @@ using System;
 
 namespace TweakScale.Sanitizer
 {
-	public class HotFixes : Abstract
+	internal class HotFixes : Abstract
 	{
 		private int failures = 0;
 		private int count = 0;
