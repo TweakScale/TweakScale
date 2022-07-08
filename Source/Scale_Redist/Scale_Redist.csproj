@@ -52,6 +52,7 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
 <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

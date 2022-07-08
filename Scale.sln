@@ -75,7 +75,7 @@ Global
 		$2.scope = text/x-csharp
 		$2.NewLineForMembersInObjectInit = False
 		$2.NewLineForMembersInAnonymousTypes = False
-		$2.NewLinesForBracesInMethods = False
+		$2.SpaceAfterControlFlowStatementKeyword = False
 		$0.TextStylePolicy = $3
 		$3.FileWidth = 132
 		$3.EolMarker = Unix

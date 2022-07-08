@@ -31,15 +31,19 @@
     <Reference Include="System" />
     <Reference Include="KSPe">
       <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\UnityEngine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="KSPe.UI">
       <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.UI.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -62,10 +66,12 @@
     <ProjectReference Include="..\Scale\Scale.csproj">
       <Project>{70D38878-43DB-4F6E-8002-45ADA5391AF7}</Project>
       <Name>Scale</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Scale_Redist\Scale_Redist.csproj">
       <Project>{2BE63D8B-350E-4EDD-959C-4B7397984364}</Project>
       <Name>Scale_Redist</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
