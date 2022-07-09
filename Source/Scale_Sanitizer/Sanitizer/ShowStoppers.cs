@@ -37,7 +37,7 @@ namespace TweakScale.Sanitizer
 
 		private readonly List<Engine.Check.Job> AVAILABLE_CHECKS = new List<Engine.Check.Job>();
 
-		internal ShowStoppers()
+		public ShowStoppers()
 		{
 			UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
 			ConfigNode sanityNodes = urlc.config.GetNode("SANITY");

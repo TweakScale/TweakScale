@@ -56,7 +56,7 @@ namespace TweakScale.Sanitizer.Engine
 			{
 				string r = string.IsNullOrEmpty(this.descriptionText) ? defaultDesc : this.descriptionText;
 				if (!string.IsNullOrEmpty(this.issueText)) r += string.Format(". {0}", this.issueText);
-				if (!string.IsNullOrEmpty(this.issueLink)) r += string.Format("({0})" + this.issueLink);
+				if (!string.IsNullOrEmpty(this.issueLink)) r += string.Format("({0})", this.issueLink);
 				return r;
 			}
 

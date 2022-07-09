@@ -40,10 +40,10 @@ namespace TweakScale.Sanitizer.Engine
 
 			public Job(ConfigNodeWithSteroids cn):base(cn)
 			{
-				string action = cn.GetValue("action");
-				if ("REMOVE_TWEAKSCALE".Equals(action)) this.correction = Correction.RemoveTweakScaleModule;
-				else if ("REMOVE_OFFENDING".Equals(action)) this.correction = Correction.RemoveOffendingModule;
-				else throw new ArgumentException(string.Format("Action {0} not recognized!", action));
+				string correction = cn.GetValue("correction");
+				if ("REMOVE_TWEAKSCALE".Equals(correction)) this.correction = Correction.RemoveTweakScaleModule;
+				else if ("REMOVE_OFFENDING".Equals(correction)) this.correction = Correction.RemoveOffendingModule;
+				else throw new ArgumentException(string.Format("Correction {0} not recognized!", correction));
 			}
 		}
 

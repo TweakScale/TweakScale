@@ -38,13 +38,15 @@ namespace TweakScale.Sanitizer
 
 		private readonly List<Engine.Fix.Job> AVAILABLE_FIXES = new List<Engine.Fix.Job>();
 
-		internal CriticalFixes()
+		public CriticalFixes()
 		{
 			UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
 			ConfigNode sanityNodes = urlc.config.GetNode("SANITY");
 			foreach (ConfigNode cn in sanityNodes.GetNodes("FIX"))
 			{
-				if (cn.HasValue("priority")) cn.RemoveValues("priority"); // All fixes must be executed on the Critical Priority.
+				// All fixes must be executed on the Critical Priority.
+				if (cn.HasValue("priority")) cn.RemoveValues("priority");
+				cn.SetValue("priority", Priority.Critical.ToString());
 				AVAILABLE_FIXES.Add(new Engine.Fix.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
 			}
 		}
