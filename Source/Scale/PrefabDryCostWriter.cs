@@ -26,13 +26,14 @@ using System.Collections.Generic;
 using KSPe;
 using KSPe.Annotations;
 
+using SEngine = TweakScale.Sanitizer.Engine;
+
 namespace TweakScale
 {
 	[KSPAddon(KSPAddon.Startup.Instantly, true)]
 	internal class PrefabDryCostWriter : SingletonBehavior<PrefabDryCostWriter>
 	{
 		internal static bool isConcluded = false;
-		internal static readonly List<Sanitizer.SanityCheck> CHECKS_AVAILABLE = new List<Sanitizer.SanityCheck>();
 
 		[UsedImplicitly]
 		private void Start()
@@ -100,12 +101,6 @@ namespace TweakScale
             PrefabDryCostWriter.isConcluded = false;
             Log.info("WriteDryCost: Started");
 
-            {
-                IEnumerable<Type> ts = KSPe.Util.SystemTools.Type.Search.By(typeof(Sanitizer.SanityCheck));
-                foreach (Type t in ts) if (!t.IsAbstract)
-                    CHECKS_AVAILABLE.Add((Sanitizer.SanityCheck)System.Activator.CreateInstance(t));
-            }
-
             int total_count = 0;
             int drycost_failures_count = 0;
             int unscalable_count = 0;
@@ -142,18 +137,7 @@ namespace TweakScale
                         Log.dbg("\tPart {0} has module {1}", p.name, m.moduleName);
                 }
 #endif
-                {   // Run all the Sanity Checks (but Show Stoppers), priorized.
-                    for (Sanitizer.Priority i = Sanitizer.Priority.__MIN; i < Sanitizer.Priority.__SIZE; ++i)
-                    {
-                        foreach (Sanitizer.SanityCheck sc in CHECKS_AVAILABLE) if (i == sc.Priority)
-                            if (sc.Check(p, p.partPrefab)) break;
-                    }
-                }
-
-                // Run the Show Stopper checks. It's run at last so the Sanity Checks has a chance of act before blowing everything up.
-                foreach (Sanitizer.SanityCheck sc in CHECKS_AVAILABLE) if (Sanitizer.Priority.ShowStopper == sc.Priority)
-                    if (sc.Check(p, p.partPrefab)) continue; // If anyone of the show stopper kicks, it's game over for this part. It's the reason they are called Show Stoppers!
-
+                SEngine.Instance.Check(p);
                 try
                 {   // Now we can try to calculate the DryCost. Safely.
                     TweakScale m = p.partPrefab.Modules["TweakScale"] as TweakScale;
@@ -172,12 +156,7 @@ namespace TweakScale
                 List<string> m = new List<string>();
                 m.Add(string.Format("{0} parts found", total_count));
                 m.Add(string.Format("{0} DryCost failed", drycost_failures_count));
-                foreach (Sanitizer.SanityCheck sc in CHECKS_AVAILABLE)
-                {
-                    unscalable_count += sc.Unscalable;
-                    m.Add(sc.Summary);
-                }
-                m.Add(string.Format("{0} unscalable parts", unscalable_count));
+                m.AddRange(SEngine.Instance.GetSummary(unscalable_count));
                 Log.info("WriteDryCost Concluded : {0}.", string.Join("; ", m.ToArray()));
             }
 
@@ -217,31 +196,4 @@ namespace TweakScale
             return r;
         }
     }
-
-	[KSPAddon(KSPAddon.Startup.MainMenu, true)]
-	internal class PrefabDryCostWriterResults : SingletonBehavior<PrefabDryCostWriterResults>
-	{
-		// Shows the Error Messages (only if there's no Show Stoppers). 
-		// The Dialogs should be positioned in a way that they could be all displayed at once.
-		[UsedImplicitly]
-		private void Start()
-		{
-			bool showStopper = false;
-			foreach (Sanitizer.SanityCheck sc in PrefabDryCostWriter.CHECKS_AVAILABLE) if (Sanitizer.Priority.ShowStopper == sc.Priority)
-				// Only the first Show Stopper is emitted. There's no point on flooding the screen with more than one.
-				if (showStopper = sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings))
-					break;
-			if (!showStopper) // If a Show Stopper as emitted, nothing else matters. Otherwise, notify user about the lesser problems.
-				for (Sanitizer.Priority i = Sanitizer.Priority.__MIN; i < Sanitizer.Priority.__SIZE; ++i)
-					foreach (Sanitizer.SanityCheck sc in PrefabDryCostWriter.CHECKS_AVAILABLE) if (i == sc.Priority)
-						sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings);
-		}
-
-		[UsedImplicitly]
-		private void OnDestroy()
-		{
-			// Free some memory:
-			PrefabDryCostWriter.CHECKS_AVAILABLE.Clear();
-		}
-	}
 }

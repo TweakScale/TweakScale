@@ -71,6 +71,7 @@
     <Compile Include="GUI\CheckFailureAlertBox.cs" />
     <Compile Include="ModuleManagerSupport.cs" />
     <Compile Include="GUI\MissingSanitizerAlertBox.cs" />
+    <Compile Include="Sanitizer\Engine.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -118,6 +119,7 @@
     <Folder Include="GUI\" />
     <Folder Include="Features\" />
     <Folder Include="PartDB\" />
+    <Folder Include="Sanitizer\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HotKey\" />

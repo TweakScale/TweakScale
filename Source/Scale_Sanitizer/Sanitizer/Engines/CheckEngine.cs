@@ -25,7 +25,7 @@ using System.Collections.Generic;
 
 using KSPe;
 
-namespace TweakScale.Sanitizer.Engine
+namespace TweakScale.Sanitizer.Engines
 {
 	public class Check
 	{
@@ -88,7 +88,7 @@ namespace TweakScale.Sanitizer.Engine
 			{
 				List<string> conflicts = new List<string>();
 				List<string> missing = new List<string>();
-				if(this.prefab.Modules.Contains("TweakScale"))    // Better safe than sorry. Someone eventually will call this without TweakScale installed!
+				if(this.prefab.Modules.Contains(this.job.module))	// The potentially offended module is installed? Otherwise we have nothing to do.
 				{
 					foreach(string module in this.job.conflicts) if(this.prefab.Modules.Contains(module))
 						conflicts.Add(module);
@@ -102,16 +102,16 @@ namespace TweakScale.Sanitizer.Engine
 
 			public string ToLog()
 			{
-				if (0 != this.Conflicts.Length && 0 != this.MissingDependencies.Length)
-					return string.Format("{0} ({1}) passed the sanity check {2}", this.availablePart.name, this.availablePart.title, this.job.name);
-				return string.Format("{0} ({1}) failed the sanity check {2} due {3}", this.availablePart.name, this.availablePart.title, this.job.name, this.job.GetLogDescription(this.ToProblems()));
+				if (this.IsProblematic)
+					return string.Format("{0} ({1}) failed the sanity check {2} due {3}", this.availablePart.name, this.availablePart.title, this.job.name, this.job.GetLogDescription(this.ToProblems()));
+				return string.Format("{0} ({1}) passed the sanity check {2}", this.availablePart.name, this.availablePart.title, this.job.name);
 			}
 
 			public string ToScreen()
 			{
-				if (0 != this.Conflicts.Length && 0 != this.MissingDependencies.Length)
-					return string.Format("{0} ({1}) passed the sanity check {2}", this.availablePart.name, this.availablePart.title, this.job.name);
-				return string.Format("{0} ({1}) failed the sanity check {2} due {3}", this.availablePart.name, this.availablePart.title, this.job.name, this.job.GetScreenDescription(this.ToProblems()));
+				if (this.IsProblematic)
+					return string.Format("{0} ({1}) failed the sanity check {2} due {3}", this.availablePart.name, this.availablePart.title, this.job.name, this.job.GetScreenDescription(this.ToProblems()));
+				return string.Format("{0} ({1}) passed the sanity check {2}", this.availablePart.name, this.availablePart.title, this.job.name);
 			}
 
 			public string ToProblems()

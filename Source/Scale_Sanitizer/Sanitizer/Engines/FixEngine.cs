@@ -24,7 +24,7 @@ using System;
 
 using KSPe;
 
-namespace TweakScale.Sanitizer.Engine
+namespace TweakScale.Sanitizer.Engines
 {
 	public class Fix : Check
 	{
@@ -32,8 +32,8 @@ namespace TweakScale.Sanitizer.Engine
 		{
 			public enum Correction
 			{
-				RemoveTweakScaleModule,	// Terminal Task
-				RemoveOffendingModule
+				RemoveOffendedModule,	// Terminal Task
+				RemoveOffendingModules
 			}
 
 			public readonly Correction correction;
@@ -41,8 +41,8 @@ namespace TweakScale.Sanitizer.Engine
 			public Job(ConfigNodeWithSteroids cn):base(cn)
 			{
 				string correction = cn.GetValue("correction");
-				if ("REMOVE_TWEAKSCALE".Equals(correction)) this.correction = Correction.RemoveTweakScaleModule;
-				else if ("REMOVE_OFFENDING".Equals(correction)) this.correction = Correction.RemoveOffendingModule;
+				if ("REMOVE_OFFENDED".Equals(correction)) this.correction = Correction.RemoveOffendedModule;
+				else if ("REMOVE_OFFENDING".Equals(correction)) this.correction = Correction.RemoveOffendingModules;
 				else throw new ArgumentException(string.Format("Correction {0} not recognized!", correction));
 			}
 		}
@@ -56,7 +56,7 @@ namespace TweakScale.Sanitizer.Engine
 			public string[] Conflicts => this.result.Conflicts;
 			public string[] MissingDependencies => this.result.MissingDependencies;
 			public bool CorrectionApplied { get; private set;}
-			public bool IsTerminal => this.CorrectionApplied && Job.Correction.RemoveTweakScaleModule == job.correction;
+			public bool IsTerminal => this.CorrectionApplied && Job.Correction.RemoveOffendedModule == job.correction;
 
 			public Result(Check.Result r)
 			{
@@ -66,15 +66,15 @@ namespace TweakScale.Sanitizer.Engine
 			public void Execute()
 			{
 				this.CorrectionApplied = false;
-				if (0 == this.Conflicts.Length || 0 == this.MissingDependencies.Length) return;
+				if (!this.result.IsProblematic) return;
 
 				switch(job.correction)
 				{
-					case Job.Correction.RemoveTweakScaleModule:
+					case Job.Correction.RemoveOffendedModule:
 						RemoveModuleFrom(this.availablePart, this.prefab, "TweakScale");
 						this.CorrectionApplied = true;
 						break;
-					case Job.Correction.RemoveOffendingModule:
+					case Job.Correction.RemoveOffendingModules:
 						if (0 != this.result.MissingDependencies.Length) throw new InvalidOperationException(string.Format("Can't fix {0} as it miss the folliowing dependencies {1}!", this.prefab.partName, this.MissingDependencies));
 						this.CorrectionApplied = 0 != this.Conflicts.Length;
 						foreach (string m in this.Conflicts)

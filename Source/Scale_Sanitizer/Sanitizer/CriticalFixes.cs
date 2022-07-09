@@ -34,9 +34,10 @@ namespace TweakScale.Sanitizer
 		public override int Ocurrences => this.count;
 		public override int Unscalable => this.unscalable;
 		public override int Failures => this.failures;
-		public override string Summary => string.Format("{0} critical fixes failed", this.count);
+		public override string Summary => string.Format("{0} critical fixes applied", this.count);
 
-		private readonly List<Engine.Fix.Job> AVAILABLE_FIXES = new List<Engine.Fix.Job>();
+		private readonly List<Engines.Fix.Job> AVAILABLE_FIXES = new List<Engines.Fix.Job>();
+		public override bool HasRules => 0 != this.AVAILABLE_FIXES.Count;
 
 		public CriticalFixes()
 		{
@@ -47,8 +48,9 @@ namespace TweakScale.Sanitizer
 				// All fixes must be executed on the Critical Priority.
 				if (cn.HasValue("priority")) cn.RemoveValues("priority");
 				cn.SetValue("priority", Priority.Critical.ToString());
-				AVAILABLE_FIXES.Add(new Engine.Fix.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
+				AVAILABLE_FIXES.Add(new Engines.Fix.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
 			}
+			Log.dbg("{0} has {1} available fixes.", this.Priority, this.AVAILABLE_FIXES.Count);
 		}
 
 		protected override bool DoCheck(AvailablePart p, Part prefab)
@@ -63,7 +65,7 @@ namespace TweakScale.Sanitizer
 				if (null != (r = this.CheckForSanity(p, prefab)))
 				{   // There are some known situations where TweakScale is capsizing. If such situations are detected, we just
 					// refuse to scale it. Sorry.
-					Engine.Fix.RemoveModuleFrom(p, prefab, "TweakScale");
+					Engines.Fix.RemoveModuleFrom(p, prefab, "TweakScale");
 					Log.error("Part {0} ({1}) didn't passed the sanity check due {2}.", p.name, p.title, r);
 
 					++this.count;
@@ -73,7 +75,7 @@ namespace TweakScale.Sanitizer
 
 				// We check for fixable problems first, in the hope to prevent by luck a ShowStopper later.
 				{
-					List<Engine.Fix.Result> fixesApplied = this.ApplyFixes(p, prefab);
+					List<Engines.Fix.Result> fixesApplied = this.ApplyFixes(p, prefab);
 					r = string.Join("; ", fixesApplied.Select(s => s.ToProblems()).ToArray<string>());
 					Log.error("Part {0} ({1}) didn't passed the sanity check due {2}.", p.name, p.title, r);
 					if(fixesApplied.Any(s => s.IsTerminal))
@@ -113,12 +115,12 @@ namespace TweakScale.Sanitizer
 			return null;
 		}
 
-		private List<Engine.Fix.Result> ApplyFixes(AvailablePart p, Part prefab)
+		private List<Engines.Fix.Result> ApplyFixes(AvailablePart p, Part prefab)
 		{
-			List<Engine.Fix.Result> fixesApplied = new List<Engine.Fix.Result>();
-			foreach (Engine.Fix.Job j in AVAILABLE_FIXES) if (Engine.Fix.Job.Correction.RemoveTweakScaleModule == j.correction)
+			List<Engines.Fix.Result> fixesApplied = new List<Engines.Fix.Result>();
+			foreach (Engines.Fix.Job j in AVAILABLE_FIXES) if (Engines.Fix.Job.Correction.RemoveOffendedModule == j.correction)
 			{
-				Engine.Fix.Result r = Engine.Fix.Instance.Execute(j, p, prefab);
+				Engines.Fix.Result r = Engines.Fix.Instance.Execute(j, p, prefab);
 				if (r.CorrectionApplied)
 				{
 					++this.count;
@@ -127,9 +129,9 @@ namespace TweakScale.Sanitizer
 					return fixesApplied;		// We removed TweakScale from the part. There's nothing else we can do.
 				}
 			}
-			foreach (Engine.Fix.Job j in AVAILABLE_FIXES) if (Engine.Fix.Job.Correction.RemoveTweakScaleModule != j.correction)
+			foreach (Engines.Fix.Job j in AVAILABLE_FIXES) if (Engines.Fix.Job.Correction.RemoveOffendedModule != j.correction)
 			{
-				Engine.Fix.Result r = Engine.Fix.Instance.Execute(j, p, prefab);
+				Engines.Fix.Result r = Engines.Fix.Instance.Execute(j, p, prefab);
 				if (r.CorrectionApplied)
 				{
 					++this.count;

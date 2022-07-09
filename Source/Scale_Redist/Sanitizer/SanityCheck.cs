@@ -31,12 +31,12 @@ namespace TweakScale.Sanitizer
 		Normal = 666,
 		Low = 999,
 		__SIZE = 1000,	// Placeholder. NOT TO BE USED
-		__MIN = 0		// Placeholder. NOT TO BE USED
 	}
 
 	public interface SanityCheck
 	{
 		Priority Priority { get ; }
+		bool HasRules { get ; }
 		string Summary { get; }
 		int Ocurrences { get; }	// How many ocurrences of the problem were detected
 		int Unscalable { get; }	// From that occurrences, how many parts lost the TweakScale module

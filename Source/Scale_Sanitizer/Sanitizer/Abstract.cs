@@ -18,11 +18,13 @@
 	You should have received a copy of the GNU General Public License 2.0
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
+
 namespace TweakScale.Sanitizer
 {
 	public abstract class Abstract : SanityCheck
 	{
 		public abstract Priority Priority { get; }
+		public abstract bool HasRules { get ; }
 		public abstract string Summary { get; }
 		public abstract int Ocurrences { get; }
 		public abstract int Unscalable { get; }

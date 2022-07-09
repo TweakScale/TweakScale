@@ -32,6 +32,7 @@ namespace TweakScale.Sanitizer
 		public override int Unscalable => 0;
 		public override int Failures => this.failures;
 		public override string Summary => string.Format("{0} parts with issues overruled", this.count);
+		public override bool HasRules => true;
 
 		protected override bool DoCheck(AvailablePart p, Part prefab)
 		{

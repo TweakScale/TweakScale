@@ -36,7 +36,8 @@ namespace TweakScale.Sanitizer
 		public override int Failures => this.failures;
 		public override string Summary => string.Format("{0} {1} checks failed", this.count, this.Priority.ToString());
 
-		private readonly List<Engine.Check.Job> AVAILABLE_CHECKS = new List<Engine.Check.Job>();
+		private readonly List<Engines.Check.Job> AVAILABLE_CHECKS = new List<Engines.Check.Job>();
+		public override bool HasRules => 0 != this.AVAILABLE_CHECKS.Count;
 
 		protected AbstractCheck(Priority priority)
 		{
@@ -45,9 +46,10 @@ namespace TweakScale.Sanitizer
 			ConfigNode sanityNodes = urlc.config.GetNode("SANITY");
 			foreach (ConfigNode cn in sanityNodes.GetNodes("CHECK"))
 			{
-				if (!cn.HasValue("priority") || this.priority.ToString().Equals(cn.GetValue("priority"))) continue;
-				AVAILABLE_CHECKS.Add(new Engine.Check.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
+				if (!cn.HasValue("priority") || !this.priority.ToString().Equals(cn.GetValue("priority"))) continue;
+				AVAILABLE_CHECKS.Add(new Engines.Check.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
 			}
+			Log.dbg("{0} has {1} available checks.", this.priority, this.AVAILABLE_CHECKS.Count);
 		}
 
 		protected override bool DoCheck(AvailablePart p, Part prefab)
@@ -55,7 +57,7 @@ namespace TweakScale.Sanitizer
 			string r;
 			try
 			{
-				List<Engine.Check.Result> checksFailed = this.CheckIntegrity(p, prefab);
+				List<Engines.Check.Result> checksFailed = this.CheckIntegrity(p, prefab);
 				r = string.Join("; ", checksFailed.Select(s => s.ToProblems()).ToArray<string>());
 				Log.error("Part {0} ({1}) didn't passed the sanity check due {2}.", p.name, p.title, r);
 				return false;	// Non Show Stoppers checks are not meant to halt the process chain. They are warnings.
@@ -75,12 +77,12 @@ namespace TweakScale.Sanitizer
 			return r;
 		}
 
-		private List<Engine.Check.Result> CheckIntegrity(AvailablePart p, Part prefab)
+		private List<Engines.Check.Result> CheckIntegrity(AvailablePart p, Part prefab)
 		{
-			List<Engine.Check.Result> checksFailed = new List<Engine.Check.Result>();
-			foreach (Engine.Check.Job j in AVAILABLE_CHECKS)
+			List<Engines.Check.Result> checksFailed = new List<Engines.Check.Result>();
+			foreach (Engines.Check.Job j in AVAILABLE_CHECKS)
 			{
-				Engine.Check.Result r = Engine.Check.Instance.Execute(j, p, prefab);
+				Engines.Check.Result r = Engines.Check.Instance.Execute(j, p, prefab);
 				if (r.IsProblematic)
 				{
 					++this.count;
