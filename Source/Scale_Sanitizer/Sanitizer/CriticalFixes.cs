@@ -36,6 +36,19 @@ namespace TweakScale.Sanitizer
 		public override int Failures => this.failures;
 		public override string Summary => string.Format("{0} critical fixes failed", this.count);
 
+		private readonly List<Engine.Fix.Job> AVAILABLE_FIXES = new List<Engine.Fix.Job>();
+
+		internal CriticalFixes()
+		{
+			UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
+			ConfigNode sanityNodes = urlc.config.GetNode("SANITY");
+			foreach (ConfigNode cn in sanityNodes.GetNodes("FIX"))
+			{
+				if (cn.HasValue("priority")) cn.RemoveValues("priority"); // All fixes must be executed on the Critical Priority.
+				AVAILABLE_FIXES.Add(new Engine.Fix.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
+			}
+		}
+
 		protected override bool DoCheck(AvailablePart p, Part prefab)
 		{
 			try
@@ -101,36 +114,24 @@ namespace TweakScale.Sanitizer
 		private List<Engine.Fix.Result> ApplyFixes(AvailablePart p, Part prefab)
 		{
 			List<Engine.Fix.Result> fixesApplied = new List<Engine.Fix.Result>();
+			foreach (Engine.Fix.Job j in AVAILABLE_FIXES) if (Engine.Fix.Job.Correction.RemoveTweakScaleModule == j.correction)
 			{
-				List<Engine.Fix.Job> fixes = new List<Engine.Fix.Job>();
-				{ 
-					UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
-					ConfigNode sanityNodes = urlc.config.GetNode("SANITY");
-					foreach (ConfigNode cn in sanityNodes.GetNodes("FIX"))
-					{
-						if (cn.HasValue("priority")) cn.RemoveValues("priority"); // All fixes must be executed on the Critical Priority.
-						fixes.Add(new Engine.Fix.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
-					}
-				}
-				foreach (Engine.Fix.Job j in fixes) if (Engine.Fix.Job.Correction.RemoveTweakScaleModule == j.correction)
+				Engine.Fix.Result r = Engine.Fix.Instance.Execute(j, p, prefab);
+				if (r.CorrectionApplied)
 				{
-					Engine.Fix.Result r = Engine.Fix.Instance.Execute(j, p, prefab);
-					if (r.CorrectionApplied)
-					{
-						++this.count;
-						++this.unscalable;
-						fixesApplied.Add(r);
-						return fixesApplied;		// We removed TweakScale from the part. There's nothing else we can do.
-					}
+					++this.count;
+					++this.unscalable;
+					fixesApplied.Add(r);
+					return fixesApplied;		// We removed TweakScale from the part. There's nothing else we can do.
 				}
-				foreach (Engine.Fix.Job j in fixes) if (Engine.Fix.Job.Correction.RemoveTweakScaleModule != j.correction)
+			}
+			foreach (Engine.Fix.Job j in AVAILABLE_FIXES) if (Engine.Fix.Job.Correction.RemoveTweakScaleModule != j.correction)
+			{
+				Engine.Fix.Result r = Engine.Fix.Instance.Execute(j, p, prefab);
+				if (r.CorrectionApplied)
 				{
-					Engine.Fix.Result r = Engine.Fix.Instance.Execute(j, p, prefab);
-					if (r.CorrectionApplied)
-					{
-						++this.count;
-						fixesApplied.Add(r);
-					}
+					++this.count;
+					fixesApplied.Add(r);
 				}
 			}
 			return fixesApplied;
