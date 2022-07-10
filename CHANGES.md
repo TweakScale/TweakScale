@@ -1,5 +1,16 @@
 # TweakScale :: Changes
 
+* 2022-0710: 2.5.0.48 **BETA** (Lisias) for KSP >= 1.3 
+	+ Bug fixes and improvements on the features implemented on the last pre-release.
+	+ Adds new FIXes and CHECKs for known problems
+		- Blue Dog Design Bureau
+		- Tantares
+		- Configurable Containers 
+	+ Closes Issues:
+		- [#260](https://github.com/net-lisias-ksp/TweakScale/issues/260) Preventing Configurable Containers from being used without proper Companion Support
+		- [#258](https://github.com/net-lisias-ksp/TweakScale/issues/258) TASK: Code a withdraw list of Parts, patchable by ModuleManager
+		- [#34](https://github.com/net-lisias-ksp/TweakScale/issues/34) Sanity Check: duplicated properties Support page
+		- [#31](https://github.com/net-lisias-ksp/TweakScale/issues/31) Preventing being ran over by other mods
 * 2022-0708: 2.5.0.47 **BETA** (Lisias) for KSP >= 1.3 
 	+ Incepts a Fix/Check Engine to parametrize the Sanity Checks and shove them on the GameData, where they can be patcheable. Will be terribly useful for the TweakScale Companions.
 	+ Moves the Sanitizer Contract (and Interface) to Scale_Redist, so 3rd parties can implement checks without hard dependency on TweakScale.
