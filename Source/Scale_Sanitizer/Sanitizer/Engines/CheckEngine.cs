@@ -22,6 +22,7 @@
 */
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 using KSPe;
 
@@ -40,6 +41,13 @@ namespace TweakScale.Sanitizer.Engines
 			public readonly string[] conflicts;
 			public readonly string[] dependencies;
 
+			public readonly string[] conflictsPartUrlPrefix;
+			public readonly Regex[] conflictsPartUrlRx;
+
+			public readonly string[] conflictsPartName;
+			public readonly Regex[] conflictsPartNameRx;
+
+
 			public Job(ConfigNodeWithSteroids cn)
 			{
 				this.name = cn.GetValue("name");
@@ -50,6 +58,24 @@ namespace TweakScale.Sanitizer.Engines
 				this.module = cn.GetValue("module_affected");
 				this.conflicts = cn.GetValues("module_conflicting");
 				this.dependencies = cn.GetValues("module_dependency");
+
+				this.conflictsPartUrlPrefix = cn.GetValues("parturl_conflict_prefix");
+				{
+					string[] sa = cn.GetValues("parturl_conflict_regex");
+					List<Regex> r = new List<Regex>();
+					foreach(string s in sa)
+						r.Add(new Regex(s));
+					this.conflictsPartUrlRx = r.ToArray();
+				}
+
+				this.conflictsPartName = cn.GetValues("partname_conflict");
+				{
+					string[] sa = cn.GetValues("partname_conflict_regex");
+					List<Regex> r = new List<Regex>();
+					foreach(string s in sa)
+						r.Add(new Regex(s));
+					this.conflictsPartNameRx = r.ToArray();
+				}
 			}
 
 			public string GetLogDescription(string defaultDesc)
@@ -90,14 +116,41 @@ namespace TweakScale.Sanitizer.Engines
 				List<string> missing = new List<string>();
 				if(this.prefab.Modules.Contains(this.job.module))	// The potentially offended module is installed? Otherwise we have nothing to do.
 				{
+					foreach(string module in this.job.dependencies) if(!this.prefab.Modules.Contains(module))
+						missing.Add(module);
+
 					foreach(string module in this.job.conflicts) if(this.prefab.Modules.Contains(module))
 						conflicts.Add(module);
 
-					foreach(string module in this.job.dependencies) if(!this.prefab.Modules.Contains(module))
-						missing.Add(module);
+					this.checkPartUrl(conflicts);
+					this.checkPartName(conflicts);
 				}
 				this.Conflicts = conflicts.ToArray();
 				this.MissingDependencies = missing.ToArray();
+			}
+
+			private void checkPartUrl(List<string> conflicts)
+			{
+				string partUrl = this.availablePart.partUrl;
+				foreach(Regex rx in this.job.conflictsPartUrlRx)
+				{
+					MatchCollection m = rx.Matches(partUrl);
+					if(0 != m.Count) conflicts.Add(partUrl);
+				}
+				foreach(string s in this.job.conflictsPartUrlPrefix) if(partUrl.StartsWith(s))
+					conflicts.Add(partUrl);
+			}
+
+			private void checkPartName(List<string> conflicts)
+			{
+				string partName = this.availablePart.name;
+				foreach(Regex rx in this.job.conflictsPartNameRx)
+				{
+					MatchCollection m = rx.Matches(partName);
+					if(0 != m.Count) conflicts.Add(partName);
+				}
+				foreach(string s in this.job.conflictsPartUrlPrefix) if(partName.StartsWith(s))
+					conflicts.Add(partName);
 			}
 
 			public string ToLog()
