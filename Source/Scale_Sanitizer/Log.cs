@@ -8,7 +8,7 @@
  				copies of this license document, and changing it is allowed as long
 				as the name is changed.
 
-	THIE FILE is distributed in the hope that it will be useful,
+	THIS FILE is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */

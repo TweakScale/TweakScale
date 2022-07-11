@@ -51,6 +51,9 @@ namespace TweakScale
 		// as the module will be injected back on loading when needed.
 		private static readonly bool UPGRADE_PILELINED_KSP = KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.GetVersion(1,4,0);
 
+		[KSPField(isPersistant = true, guiActiveEditor = false)]
+		public string type = "";
+
 		/// <summary>
 		/// Tells if TweakScale is active or not. When inactiva, it will be completely uselees, as it was not installed on this part at all
 		/// </summary>
@@ -330,9 +333,8 @@ namespace TweakScale
             }
             else
             {
-				this.Setup(part);
-
 				this.ExecuteMyUpgradePipeline(node);
+				this.Setup(part);
 
                 // Loading of the part from a saved craft
                 tweakScale = currentScale;
@@ -885,11 +887,10 @@ namespace TweakScale
 
 		private UpgradePipelineStatus IsPartMatchesPrefab(KSPe.ConfigNodeWithSteroids node)
 		{
-			TweakScale prefab = this.scaler.prefab.Modules.GetModule<TweakScale>(0);
+			TweakScale prefab = this.part.partInfo.partPrefab.Modules.GetModule<TweakScale>(0);
 			UpgradePipelineStatus r;
 			{
-				string scaleType = node.GetValue<string>("name", "");
-				r.sameScaleType = scaleType.Equals(prefab.ScaleType.Name);
+				r.sameScaleType = this.type.Equals(prefab.type);
 			}
 			{
 				float currentDefaultScale = node.GetValue<float>("defaultScale", prefab.defaultScale);
@@ -900,9 +901,9 @@ namespace TweakScale
 
 		private ConfigNode FixPartScaling(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
 		{
-			TweakScale ap = this.scaler.prefab.Modules.GetModule<TweakScale>(0);
-			string prefabSuffix = ap.ScaleType.Suffix??"";
-			float prefabDefaultScale = ap.ScaleType.DefaultScale;
+			TweakScale prefab = this.part.partInfo.partPrefab.Modules.GetModule<TweakScale>(0);
+			string prefabSuffix = prefab.ScaleType.Suffix??"";
+			float prefabDefaultScale = prefab.ScaleType.DefaultScale;
 
 			string craftSuffix = node.GetValue("suffix", "");
 			float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
@@ -951,8 +952,8 @@ namespace TweakScale
 						+ " from ({2}: default={3:F3}, current={4:F3})"
 						+ " to ({5}: default={6:F3}, current={7:F3})"
 					, this.part.craftID, this.InstanceID    // note: this.part.vessel.vesselName is not available yet at this point.
-					, node.GetValue<string>("name", ""), craftDefaultScale, craftScale
-					, ap.ScaleType.Name, prefabDefaultScale, newCurrentScale
+					, this.type, craftDefaultScale, craftScale
+					, prefab.type, prefabDefaultScale, newCurrentScale
 				);
 
 			return source;
@@ -974,23 +975,6 @@ namespace TweakScale
 					, craftDefaultScale, prefabDefaultScale, newCurrentScale
 				);
 			return source;
-		}
-
-		private void UpdateInternalData(KSPe.ConfigNodeWithSteroids node)
-		{
-			// I'm not sure if the original code never worked, or if something changed somewhere in the near past,
-			// but the original code that was migrating values is not working right. Tested on KSP 1.9.1.
-			//
-			// Another possibility is the original code had never worked before - however I'm reasonably sure I tested it when
-			// I wrote it at that time.
-			//
-			// In a way or another, I'm doing the job by brute force here. Worst case (on older KSP), I'm just redoing what's
-			// already done.
-
-			TweakScale ap = this.scaler.prefab.Modules.GetModule<TweakScale>(0);
-			this.defaultScale = ap.ScaleType.DefaultScale;
-			this.currentScale = node.GetValue<float>("currentScale", -1);
-			this.tweakScale = -1;   // Let someone else calculate this one.
 		}
 
 		private void ExecuteMyUpgradePipeline(ConfigNode node)
@@ -1017,8 +1001,6 @@ namespace TweakScale
 
 				if (!data.sameScaleType)                            this.FixPartScaling(node, cn);
 				if (data.sameScaleType && !data.sameDefaultScale)   this.FixPartScalingSameType(node, cn);
-
-				this.UpdateInternalData(cn);
 			}
 		}
 
