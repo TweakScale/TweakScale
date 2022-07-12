@@ -708,7 +708,7 @@ namespace TweakScale
 
         private void SetupCrewManifest()
         {
-            // Restores the original Crew Capacity, as the Pregab is mangled.
+			// Restores the original Crew Capacity, as the Prefab can be mangled if the CrewScaling stunt is activated.
 			this.scaler.part.CrewCapacity = this.OriginalCrewCapacity;
 
             VesselCrewManifest vcm = ShipConstruction.ShipManifest;
