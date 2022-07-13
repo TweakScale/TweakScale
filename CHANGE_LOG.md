@@ -1,5 +1,10 @@
 # TweakScale :: Change Log
 
+* 2022-0713: 2.4.6.16 (Lisias) for KSP >= 1.3
+	+ Mitigates an undesired collateral effect from the symlink handling on C#'s runtime on MacOS and Linux.
+		- Updates KSPe.Light to 2.4.1.21
+		- Preload the TweakScale's toolbar Icons on the Space Center scene, where mysteriously they are loaded without nasty delays.
+		- Thanks for the [heads up](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-ksp-130-tweakscale-under-lisias-management-24615-2022-0523/&do=findComment&comment=4153928), [revuwution](https://forum.kerbalspaceprogram.com/index.php?/profile/213676-revuwution/)!
 * 2022-0523: 2.4.6.15 (Lisias) for KSP >= 1.3
 	+ Well, it's a bit embarrassing but I finally detected and fixed a regression on legacy support I inadvertently did when I removed the kludges I made on TweakScale when KSP 1.9.0 was launched.
 		- Long history made short, when I added that kludge, I broke support for [1.4.4 <= KSP <= 1.7.3] and then added another kludge to counter act the first kludge.
