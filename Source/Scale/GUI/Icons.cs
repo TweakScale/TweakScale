@@ -20,6 +20,8 @@
 	You should have received a copy of the GNU General Public License 2.0
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
+using KSPe.Annotations;
+
 using UnityEngine;
 using H = KSPe.IO.Hierarchy<TweakScale.Startup>;
 using T = KSPe.Util.Image.Texture2D;
@@ -40,5 +42,19 @@ namespace TweakScale.GUI
 
 		private static Texture2D _ScaleUnsupported = null;
 		internal static Texture2D ScaleUnsupported = _ScaleUnsupported ?? (_ScaleUnsupported = T.LoadFromFile(H.GAMEDATA.Solve("PluginData", ICONSDIR, "Scale_Unsupported")));
+	}
+
+	[KSPAddon(KSPAddon.Startup.SpaceCentre, true)]
+	internal class IconPreloader : MonoBehaviour
+	{
+		[UsedImplicitly]
+		private void Start()
+		{   // Preload the icons on Space Center to avoid halting the Editor at first entry.
+			Log.force("BLAH");
+			Icons.ScaleOn.GetInstanceID();
+			Icons.ScaleOff.GetInstanceID();
+			Icons.ScaleAuto.GetInstanceID();
+			Icons.ScaleUnsupported.GetInstanceID();
+		}
 	}
 }
