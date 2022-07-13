@@ -1,5 +1,10 @@
 # TweakScale :: Change Log
 
+* 2022-0713: 2.4.6.16 (Lisias) for KSP >= 1.3
+	+ Mitigates an undesired collateral effect from the symlink handling on C#'s runtime on MacOS and Linux.
+		- Updates KSPe.Light to 2.4.1.21
+		- Preload the TweakScale's toolbar Icons on the Space Center scene, where mysteriously they are loaded without nasty delays.
+		- Thanks for the [heads up](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-ksp-130-tweakscale-under-lisias-management-24615-2022-0523/&do=findComment&comment=4153928), [revuwution](https://forum.kerbalspaceprogram.com/index.php?/profile/213676-revuwution/)!
 * 2022-0710: 2.5.0.48 **BETA** (Lisias) for KSP >= 1.3 
 	+ Bug fixes and improvements on the features implemented on the last pre-release.
 	+ Adds new FIXes and CHECKs for known problems
