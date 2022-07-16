@@ -1,5 +1,13 @@
 # TweakScale :: Change Log
 
+* 2022-0716: 2.5.0.49 **BETA** (Lisias) for KSP >= 1.3 
+	+ Mitigates an undesired collateral effect from the symlink handling on C#'s runtime on MacOS and Linux.
+		- Updates KSPe.Light to 2.4.1.21
+		- Preload the TweakScale's toolbar Icons on the Space Center scene, where mysteriously they are loaded without nasty delays.
+	+ Closes or Rework Issues:
+		- [#187](https://github.com/net-lisias-ksp/TweakScale/issues/187) Check and implement all Modules left behind up to 1.3.1
+		- [#184](https://github.com/net-lisias-ksp/TweakScale/issues/184) Scale some unsupported parts on EXPERIMENTAL status
+		- [#46](https://github.com/net-lisias-ksp/TweakScale/issues/46) Feasibility Studies for Serenity 
 * 2022-0713: 2.4.6.16 (Lisias) for KSP >= 1.3
 	+ Mitigates an undesired collateral effect from the symlink handling on C#'s runtime on MacOS and Linux.
 		- Updates KSPe.Light to 2.4.1.21
