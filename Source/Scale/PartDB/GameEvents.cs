@@ -33,6 +33,7 @@ namespace TweakScale.PartDB
 			if (null != instance) return instance;
 			GameObject ob = new GameObject();
 			instance = ob.AddComponent<GameEventGameSceneSwitchListener>();
+			DontDestroyOnLoad(ob);
 			return instance;
 		} }
 
