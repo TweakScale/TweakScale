@@ -63,7 +63,7 @@ namespace TweakScale
 				KSPe.Util.Compatibility.Check<Startup>(typeof(Version), typeof(Configuration));
 				KSPe.Util.Installation.Check<Startup>("Scale", "TweakScale", null, true);
 
-				if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.FindByVersion(1, 9, 0))
+				if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.FindByVersion(1, 4, 3))
 				{
 					Type calledType = Type.GetType("KSP_Recall.Version, KSP-Recall", false, false);
 					if (null == calledType)
