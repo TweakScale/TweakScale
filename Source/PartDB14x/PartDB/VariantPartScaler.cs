@@ -71,7 +71,7 @@ namespace TweakScale.PartDB
 
 			// When an variant is applied, all the attachment nodes are replaced by "vanilla" ones
 			// So we need to rescale them using absolute scales.
-			this.MoveAttachmentNodes(false, true);
+			this.MoveAttachmentNodes(true, true);
 
 			// And since the super's Move code doesn't works right when you are "scaling back" a part, we need to
 			// "fix" them now.
