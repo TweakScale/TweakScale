@@ -75,10 +75,17 @@ namespace TweakScale.PartDB
 
 			// And since the super's Move code doesn't works right when you are "scaling back" a part, we need to
 			// "fix" them now.
-			this.MoveParts();
+			// this.MoveParts();
 
 			this.OnChange();
 		}
+#if false
+		// This whole section of code is now useless once KSP-Recall is in charge of preventing Editor from screwing up with us.
+		//
+		// As a matter of fact, this whole code was **never** really necessary - in the end, I was just playing
+		// a tug-of-war with Editor, redoing things unnecessarily
+		//
+		// I expect to have "fixed" a lot of problems by removing this krapload of code!!!
 
 		protected override AttachNode[] FindBaseNodesWithSameId(AttachNode node)
 		{
@@ -175,5 +182,6 @@ namespace TweakScale.PartDB
 
 			return attachingNodes;
 		}
+#endif
 	}
 }
