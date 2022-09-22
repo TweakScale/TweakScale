@@ -26,11 +26,11 @@ namespace TweakScale.GUI
 {
     internal static class ShowStopperAlertBox
     {
-        private static readonly string MSG = @"Unfortunately TweakScale found {0} **FATAL** issue(s) on your KSP installment! This probably will corrupt your savagames sooner or later!
+        private const string MSG = @"TweakScale found {0} **FATAL** issue(s) with your KSP install! This will probably corrupt your saves!
 
-The KSP.log is listing every compromised part(s) on your installment, look for lines with '[TweakScale] ERROR: **FATAL**' on the log line. Be aware that the parts being reported are not the culprits, but the Screaming Victims. There's no possible automated fix for these.";
+Your KSP.log lists every problematic part in your install; look for lines containing '[TweakScale] ERROR: **FATAL**'. Note that these parts are not the culprits, but innocent victims. No automated fix is possible for these problems.";
 
-        private static readonly string AMSG = @"call for help on the TweakScale thread on the Forum (KSP will close). We will help you on diagnosing the Add'On that is troubling you. Publish your KSP.log on some file share service and mention it on the post";
+        private const string AMSG = @"close KSP, then ask for help with diagnosing the problem mod on the TweakScale forum thread. Please upload your KSP.log to a file share service and share a link to it in your post";
 
         internal static void Show(int failure_count)
         {
@@ -39,7 +39,7 @@ The KSP.log is listing every compromised part(s) on your installment, look for l
                 AMSG,
                 () => { Application.OpenURL("https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*"); Application.Quit(); }
             );
-            Log.force("\"Houston, we have a Problem!\" about show stoppers on patching was displayed");
+            Log.force("\"Houston, we have a problem!\" about show stoppers on patching was displayed");
         }
     }
 }

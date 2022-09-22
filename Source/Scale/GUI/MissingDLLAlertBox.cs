@@ -26,13 +26,13 @@ namespace TweakScale.GUI
 {
 	internal static class MissingDLLAlertBox
 	{
-		private static readonly string MSG = @"Unfortunately TweakScale didn't found needed DLLs.
+		private static readonly string MSG = @"TweakScale is not installed correctly! Some of its required support DLL files are missing.
 
-There's no safe way to proceed, without the support DLLs TweakScale will not work properly, and your craft files and savegames will be corrupted for sure!!
+There is no safe way to proceed; without these files, TweakScale will not work properly, and your saves and craft files will be corrupted!
 
-Missing Class: {0}";
+Missing class: {0}";
 
-		private static readonly string AMSG = @"reinstall TweakScale from a trusted Distribution Channel (KSP will close)";
+		private static readonly string AMSG = @"close KSP, then reinstall TweakScale";
 
 		internal static void Show(string msg) {
 			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
@@ -40,7 +40,7 @@ Missing Class: {0}";
 				AMSG,
 				() => { Application.Quit(); }
 			);
-			Log.force("\"Houston, we have a Problem!\" about Missing DLLs was displayed");
+			Log.force("\"Houston, we have a problem!\" about missing DLLs was displayed");
 		}
 	}
 }

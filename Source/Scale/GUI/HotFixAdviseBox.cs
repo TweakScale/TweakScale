@@ -28,13 +28,13 @@ namespace TweakScale.GUI
 {
     internal class HotFixAdviseBox : CommonBox
     {
-        private static readonly string MSG = @"There're {0} parts with hot fixes detected.
+        private const string MSG = @"TweakScale has applied hot fixes to {0} parts.
 
-A hot fix is a patch crafted to reach the intended results by brute force to solve problems diagnosed but that cannot be fixed by normal means (as pull requesting the fix to the offending Add'On repository).
+These parts have known problems with TweakScale, so TweakScale has applied patches to fix them.
 
-It's safe to start new games and share crafts - but you can have problems by installing or removing Add'Ons, as hot fixes are usually dumb and aimed to a specific situation.";
+It's safe to start new saves and share crafts, but you may have problems if you install or remove mods.";
 
-        internal static void show(int overrule_count)
+        internal static void show(int hotfix_count)
         {
             GameObject go = new GameObject("TweakScale.AdviseBox");
             TimedMessageBox dlg = go.AddComponent<TimedMessageBox>();
@@ -44,12 +44,12 @@ It's safe to start new games and share crafts - but you can have problems by ins
 
             if (ModuleManagerListener.shouldShowWarnings)
                 dlg.Show(
-                    "TweakScale advises", 
-                    String.Format(MSG, overrule_count),
+                    "TweakScale advises",
+                    String.Format(MSG, hotfix_count),
                     30, 0, -1,
                     win, text
                 );
-            Log.force("\"TweakScale advises\" about overrules checks was {0}", ModuleManagerListener.shouldShowWarnings ? "displayed" : "suppressed");
+            Log.force("\"TweakScale advises\" about hot fixes was {0}", ModuleManagerListener.shouldShowWarnings ? "displayed" : "suppressed");
         }
     }
 }
