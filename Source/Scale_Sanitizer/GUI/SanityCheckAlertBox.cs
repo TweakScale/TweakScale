@@ -30,7 +30,7 @@ namespace TweakScale.GUI
 	{
 		private static readonly string MSG = @"TweakScale found {0} parts that failed sanity checks! See KSP.log for details.
 
-Parts that fails sanity check had a module support withdrawn (usually TweakScale itself) to prevent them to crash the game. Other than the removed feature, they can be used normaly.
+Parts that fails the sanity checks had a module support withdrawn (usually TweakScale itself) to prevent them to crashing the game. Other than the removed feature, nothing else changes and they can be used normaly.
 {1}";
 
 		internal static void Show(int sanity_failures, bool showMessageBox)
@@ -55,12 +55,12 @@ Parts that fails sanity check had a module support withdrawn (usually TweakScale
 
 			if (showMessageBox)
 				dlg.Show(
-					"TweakScale Warning",
+					"TweakScale warning",
 					String.Format(MSG, sanity_failures, "\n"+additionalMessage),
 					30, 1, -1,
 					win, text
 				);
-			Log.force("\"TweakScale Warning\" about sanity checks was {0}", showMessageBox ? "displayed" : "suppressed");
+			Log.force("\"TweakScale warning\" about sanity checks was {0}", showMessageBox ? "displayed" : "suppressed");
 		}
 	}
 }

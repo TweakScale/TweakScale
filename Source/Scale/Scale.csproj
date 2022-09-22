@@ -43,6 +43,7 @@
     <Compile Include="ScaleType.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="GUI\CheckFailureAlertBox.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="HotKey\Enums.cs" />
     <Compile Include="HotKey\ExtensionMethods.cs" />

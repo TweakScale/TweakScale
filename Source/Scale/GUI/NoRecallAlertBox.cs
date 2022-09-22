@@ -28,9 +28,9 @@ namespace TweakScale.GUI
     {
         private static readonly string MSG = @"KSP Recall was not found!
 
-On KSP 1.9.x and 1.11.x KSP Recall **is needed** to fix problems on Resources and Recovering Funds (not only on TweakScale, it only happens that TweakScale is the first known victim of the problem).";
+On KSP 1.9.x and 1.11.x, KSP Recall **is required** to fix problems with resources and recovering funds. Note that these problems can affect mods other than TweakScale.";
 
-        private static readonly string AMSG = @"download KSP Recall from the Forum's page (KSP will close)";
+        private static readonly string AMSG = @"close KSP and open KSP Recall's forum page, then download and install KSP Recall";
 
         internal static void Show()
         {
@@ -39,7 +39,7 @@ On KSP 1.9.x and 1.11.x KSP Recall **is needed** to fix problems on Resources an
                 AMSG,
                 () => { Application.OpenURL("https://forum.kerbalspaceprogram.com/index.php?/topic/192048-*"); Application.Quit(); }
             );
-            Log.force("\"Houston, we have a Problem!\" about KSP-Recall was displayed");
+            Log.force("\"Houston, we have a problem!\" about KSP-Recall was displayed");
         }
     }
 }

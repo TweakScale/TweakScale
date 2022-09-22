@@ -66,7 +66,7 @@ namespace TweakScale.Sanitizer
 		public override bool EmmitMessageIfNeeded(bool showMessageBox)
 		{
 			bool r = this.count > 0;
-			if (r) GUI.OverrulledAdviseBox.Show(this.count, showMessageBox);
+			if (r) GUI.OverruledAdviseBox.Show(this.count, showMessageBox);
 			return r;
 		}
 

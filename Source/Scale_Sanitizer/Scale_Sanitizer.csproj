@@ -54,7 +54,7 @@
     <Compile Include="Sanitizer\ShowStoppers.cs" />
     <Compile Include="Sanitizer\Overrrules.cs" />
     <Compile Include="GUI\HotFixAdviseBox.cs" />
-    <Compile Include="GUI\OverrulledAdviseBox.cs" />
+    <Compile Include="GUI\OverruledAdviseBox.cs" />
     <Compile Include="GUI\SanityCheckAlertBox.cs" />
     <Compile Include="GUI\ShowStopperAlertBox.cs" />
     <Compile Include="Sanitizer\Abstract.cs" />
