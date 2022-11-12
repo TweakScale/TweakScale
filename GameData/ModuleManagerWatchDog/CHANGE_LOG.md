@@ -1,5 +1,11 @@
 # Module Manager Watch Dog :: Change Log
 
+* 2022-1112: 1.1.0.3 (LisiasT) for KSP >= 1.2.2
+	+ Makes the thing survivable if KSP starts with the `pwd` set to anywhere but the `KSPUtil.ApplicationRootPath`.
+	+ Closes issue:
+		- [#6](https://github.com/net-lisias-ksp/ModuleManagerWatchDog/issues/6) Resurrect the multiple ModuleManager DLLs check for KSP 1.12.x 
+* 2022-0719: 1.1.0.2 (LisiasT) for KSP >= 1.2.2
+	+ Fixes a mishap while updating the target DLL.
 * 2022-0621: 1.1.0.1 (LisiasT) for KSP >= 1.2.2
 	+ Adds a Install Checker for:
 		- The tool itself
