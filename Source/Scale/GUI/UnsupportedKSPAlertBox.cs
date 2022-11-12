@@ -33,21 +33,21 @@ It's not certain that it will not work fine, it's **NOT KNOWN** and if anything 
 
 Please proceed with caution - use S.A.V.E. just in case.";
 
-        internal static void Show(string currentVersion)
-        {
-            GameObject go = new GameObject("TweakScale.AdviseBox");
-            TimedMessageBox dlg = go.AddComponent<TimedMessageBox>();
+		internal static void Show(string currentVersion)
+		{
+			GameObject go = new GameObject("TweakScale.AdviseBox");
+			TimedMessageBox dlg = go.AddComponent<TimedMessageBox>();
 
-            GUIStyle win = createWinStyle(Color.white);
-            GUIStyle text = createTextStyle();
+			GUIStyle win = createWinStyle(Color.white);
+			GUIStyle text = createTextStyle();
 
-            dlg.Show(
-                "TweakScale advises", 
-                string.Format(MSG, currentVersion),
-                30, 0, 0,
-                win, text
-            );
-            Log.force("\"TweakScale advises\" about KSP was displayed.");
-        }
-    }
+			dlg.Show(
+				"TweakScale advises",
+				string.Format(MSG, currentVersion),
+				30, 0, 0,
+				win, text
+			);
+			Log.force("\"TweakScale advises\" about KSP was displayed.");
+		}
+	}
 }
