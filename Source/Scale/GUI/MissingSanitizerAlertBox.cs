@@ -41,7 +41,7 @@ Proceed at your own risk. TweakScale's maintainer will <B>NOT</B> accept bug rep
 					AMSG,
 					() => { Application.Quit(); }
 				);
-			Log.force("\"Houston, we have a Problem!\" about Missing Sanitizer was {0}", ModuleManagerListener.shouldShowWarnings ? "displayed" : "suppressed");
+			Log.force("\"Houston, we have a problem!\" about missing Scale_Sanitizer was {0}", ModuleManagerListener.shouldShowWarnings ? "displayed" : "suppressed");
 		}
 	}
 }
