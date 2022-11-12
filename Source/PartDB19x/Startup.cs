@@ -30,7 +30,8 @@ namespace TweakScale.PartDB.KSP19x
 		[UsedImplicitly]
 		private void Start()
 		{
-			Log.force("Support for KSP 1.9.0 to 1.12.3 Version {0}", Version.Text);
+			KSPe.Util.KSP.Version last = KSPe.Util.KSP.PUBLISHED_VERSIONS[KSPe.Util.KSP.PUBLISHED_VERSIONS.Length-1];
+			Log.force("Support for KSP 1.9.0 to {0} Version {1}", last.ToString(), Version.Text);
 		}
 	}
 }
