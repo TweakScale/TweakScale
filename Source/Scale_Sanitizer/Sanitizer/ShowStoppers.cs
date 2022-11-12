@@ -72,7 +72,7 @@ namespace TweakScale.Sanitizer
 
 				{
 					List<Engines.Check.Result> checksFailed = this.CheckIntegrity(p, prefab);
-					if(0 != checksFailed.Count)
+					if (0 != checksFailed.Count)
 					{ 
 						r = string.Join("; ", checksFailed.Select(s => s.ToProblems()).ToArray<string>());
 						Log.error("**FATAL** Part {0} ({1}) has a fatal problem due {2}.", p.name, p.title, r);

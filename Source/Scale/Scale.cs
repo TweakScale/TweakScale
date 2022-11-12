@@ -351,8 +351,8 @@ namespace TweakScale
 		private void OnLoadDefaults(ConfigNode node)
 		{
 			Log.dbg("OnLoadDefaults before {0}", node.ToString());
-			if(!node.HasValue("active")) node.AddValue("active", this.active);
-			if(!node.HasValue("available")) node.AddValue("available", this.available);
+			if (!node.HasValue("active")) node.AddValue("active", this.active);
+			if (!node.HasValue("available")) node.AddValue("available", this.available);
 			Log.dbg("OnLoadDefaults after {0}", node.ToString());
 		}
 

@@ -62,10 +62,10 @@ namespace TweakScale.Sanitizer
 		private Engine()
 		{
 			IEnumerable<Type> ts = KSPe.Util.SystemTools.Type.Search.By(typeof(SanityCheck));
-			foreach(Type t in ts) if(!t.IsAbstract)
+			foreach(Type t in ts) if (!t.IsAbstract)
 			{
 				SanityCheck sc = (SanityCheck)System.Activator.CreateInstance(t);
-				if(sc.HasRules) CHECKS_AVAILABLE.Add(sc);
+				if (sc.HasRules) CHECKS_AVAILABLE.Add(sc);
 			}
 		}
 		internal void Destroy()
@@ -93,13 +93,13 @@ namespace TweakScale.Sanitizer
 		{
 			{	// Run all the Sanity Checks (but Show Stoppers), priorized.
 				for(Priority i = 0; i < Priority.__SIZE; ++i)
-					foreach(SanityCheck sc in CHECKS_AVAILABLE) if(i == sc.Priority)
-						if(sc.Check(ap, ap.partPrefab)) break;
+					foreach(SanityCheck sc in CHECKS_AVAILABLE) if (i == sc.Priority)
+						if (sc.Check(ap, ap.partPrefab)) break;
 			}
 
 			// Run the Show Stopper checks. It's run at last so the Sanity Checks has a chance of act before blowing everything up.
-			foreach(SanityCheck sc in CHECKS_AVAILABLE) if(Priority.ShowStopper == sc.Priority)
-				if(sc.Check(ap, ap.partPrefab)) continue; // If anyone of the show stopper kicks, it's game over for this part. It's the reason they are called Show Stoppers!
+			foreach(SanityCheck sc in CHECKS_AVAILABLE) if (Priority.ShowStopper == sc.Priority)
+				if (sc.Check(ap, ap.partPrefab)) continue; // If anyone of the show stopper kicks, it's game over for this part. It's the reason they are called Show Stoppers!
 
 		}
 	}

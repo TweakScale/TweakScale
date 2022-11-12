@@ -78,7 +78,7 @@ namespace TweakScale.Sanitizer
 					List<Engines.Fix.Result> fixesApplied = this.ApplyFixes(p, prefab);
 					r = string.Join("; ", fixesApplied.Select(s => s.ToProblems()).ToArray<string>());
 					Log.error("Part {0} ({1}) didn't passed the sanity check due {2}.", p.name, p.title, r);
-					if(fixesApplied.Any(s => s.IsTerminal))
+					if (fixesApplied.Any(s => s.IsTerminal))
 						return true;
 				}
 			}

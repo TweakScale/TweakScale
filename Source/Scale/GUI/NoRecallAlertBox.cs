@@ -24,22 +24,22 @@ using UnityEngine;
 
 namespace TweakScale.GUI
 {
-    internal static class NoRecallAlertBox
-    {
-        private static readonly string MSG = @"KSP Recall was not found!
+	internal static class NoRecallAlertBox
+	{
+		private static readonly string MSG = @"KSP Recall was not found!
 
 On KSP 1.9.x and 1.11.x, KSP Recall **is required** to fix problems with resources and recovering funds. Note that these problems can affect mods other than TweakScale.";
 
-        private static readonly string AMSG = @"close KSP and open KSP Recall's forum page, then download and install KSP Recall";
+		private static readonly string AMSG = @"close KSP and open KSP Recall's forum page, then download and install KSP Recall";
 
-        internal static void Show()
-        {
-            KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
-                MSG,
-                AMSG,
-                () => { Application.OpenURL("https://forum.kerbalspaceprogram.com/index.php?/topic/192048-*"); Application.Quit(); }
-            );
-            Log.force("\"Houston, we have a problem!\" about KSP-Recall was displayed");
-        }
-    }
+		internal static void Show()
+		{
+			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
+				MSG,
+				AMSG,
+				() => { Application.OpenURL("https://forum.kerbalspaceprogram.com/index.php?/topic/192048-*"); Application.Quit(); }
+			);
+			Log.force("\"Houston, we have a problem!\" about KSP-Recall was displayed");
+		}
+	}
 }

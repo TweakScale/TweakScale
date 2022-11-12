@@ -33,21 +33,21 @@ It is NOT KNOWN whether it will work correctly.
 
 If you choose to continue running KSP, your saves may be unrecoverably corrupted, even if it seems to be working. Make back-ups now! You may find the S.A.V.E mod helpful for this.";
 
-        internal static void Show(string currentVersion)
-        {
-            GameObject go = new GameObject("TweakScale.AdviseBox");
-            TimedMessageBox dlg = go.AddComponent<TimedMessageBox>();
+		internal static void Show(string currentVersion)
+		{
+			GameObject go = new GameObject("TweakScale.AdviseBox");
+			TimedMessageBox dlg = go.AddComponent<TimedMessageBox>();
 
-            GUIStyle win = createWinStyle(Color.white);
-            GUIStyle text = createTextStyle();
+			GUIStyle win = createWinStyle(Color.white);
+			GUIStyle text = createTextStyle();
 
-            dlg.Show(
-                "TweakScale advises", 
-                string.Format(MSG, currentVersion),
-                30, 0, 0,
-                win, text
-            );
-            Log.force("\"TweakScale advises\" about KSP was displayed.");
-        }
-    }
+			dlg.Show(
+				"TweakScale advises",
+				string.Format(MSG, currentVersion),
+				30, 0, 0,
+				win, text
+			);
+			Log.force("\"TweakScale advises\" about KSP was displayed.");
+		}
+	}
 }

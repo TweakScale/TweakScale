@@ -114,12 +114,12 @@ namespace TweakScale.Sanitizer.Engines
 			{
 				List<string> conflicts = new List<string>();
 				List<string> missing = new List<string>();
-				if(this.prefab.Modules.Contains(this.job.module))	// The potentially offended module is installed? Otherwise we have nothing to do.
+				if (this.prefab.Modules.Contains(this.job.module))	// The potentially offended module is installed? Otherwise we have nothing to do.
 				{
-					foreach(string module in this.job.dependencies) if(!this.prefab.Modules.Contains(module))
+					foreach(string module in this.job.dependencies) if (!this.prefab.Modules.Contains(module))
 						missing.Add(module);
 
-					foreach(string module in this.job.conflicts) if(this.prefab.Modules.Contains(module))
+					foreach(string module in this.job.conflicts) if (this.prefab.Modules.Contains(module))
 						conflicts.Add(module);
 
 					this.checkPartUrl(conflicts);
@@ -135,9 +135,9 @@ namespace TweakScale.Sanitizer.Engines
 				foreach(Regex rx in this.job.conflictsPartUrlRx)
 				{
 					MatchCollection m = rx.Matches(partUrl);
-					if(0 != m.Count) conflicts.Add(partUrl);
+					if (0 != m.Count) conflicts.Add(partUrl);
 				}
-				foreach(string s in this.job.conflictsPartUrlPrefix) if(partUrl.StartsWith(s))
+				foreach(string s in this.job.conflictsPartUrlPrefix) if (partUrl.StartsWith(s))
 					conflicts.Add(partUrl);
 			}
 
@@ -147,9 +147,9 @@ namespace TweakScale.Sanitizer.Engines
 				foreach(Regex rx in this.job.conflictsPartNameRx)
 				{
 					MatchCollection m = rx.Matches(partName);
-					if(0 != m.Count) conflicts.Add(partName);
+					if (0 != m.Count) conflicts.Add(partName);
 				}
-				foreach(string s in this.job.conflictsPartUrlPrefix) if(partName.StartsWith(s))
+				foreach(string s in this.job.conflictsPartUrlPrefix) if (partName.StartsWith(s))
 					conflicts.Add(partName);
 			}
 
