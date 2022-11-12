@@ -57,7 +57,7 @@ namespace TweakScale
 			catch (ReflectionTypeLoadException e)
 			{
 				Log.error(e.ToString());
-				var sb = new StringBuilder();
+				StringBuilder sb = new StringBuilder();
 				foreach (Exception loaderExc in e.LoaderExceptions)
 				{
 					if (loaderExc != null)
