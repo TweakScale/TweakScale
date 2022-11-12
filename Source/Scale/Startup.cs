@@ -21,6 +21,8 @@
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
+using System.Text;
+using System.Reflection;
 using UnityEngine;
 using KSPe.Annotations;
 
@@ -51,6 +53,19 @@ namespace TweakScale
 				KSPe.Util.SystemTools.Type.Finder.FindByQualifiedName("TweakScale.PartDB.StandardPartScaler");
 				if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
 					KSPe.Util.SystemTools.Type.Finder.FindByQualifiedName("TweakScale.PartDB.VariantPartScaler");
+			}
+			catch (ReflectionTypeLoadException e)
+			{
+				Log.error(e.ToString());
+				StringBuilder sb = new StringBuilder();
+				foreach (Exception loaderExc in e.LoaderExceptions)
+				{
+					if (loaderExc != null)
+					{
+						sb.AppendLine(loaderExc.Message);
+					}
+				}
+				GUI.MissingDLLAlertBox.Show(sb.ToString());
 			}
 			catch (System.Exception e)
 			{

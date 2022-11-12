@@ -26,15 +26,15 @@ using KSPe.UI;
 
 namespace TweakScale.GUI
 {
-	internal class HotFixAdviseBox : CommonBox
+	internal class OverruledAdviseBox : CommonBox
 	{
-		private static readonly string MSG = @"TweakScale has applied hot fixes to {0} parts.
+		private static readonly string MSG = @"TweakScale has applied overrules to {0} parts.
 
 These parts have known problems with TweakScale, so TweakScale has applied patches to fix them.
 
-It's safe to start new saves and share crafts, but you may have problems if you install or remove mods.";
+Do not start a new save or share crafts, as overruled parts make your vessels non-standard and unsafe to share. Use them only to keep exising saves going.";
 
-		internal static void show(int hotfix_count)
+		internal static void show(int overrule_count)
 		{
 			GameObject go = new GameObject("TweakScale.AdviseBox");
 			TimedMessageBox dlg = go.AddComponent<TimedMessageBox>();
@@ -45,11 +45,11 @@ It's safe to start new saves and share crafts, but you may have problems if you 
 			if (ModuleManagerListener.shouldShowWarnings)
 				dlg.Show(
 					"TweakScale advises",
-					String.Format(MSG, hotfix_count),
+					String.Format(MSG, overrule_count),
 					30, 0, -1,
 					win, text
 				);
-			Log.force("\"TweakScale advises\" about hot fixes was {0}", ModuleManagerListener.shouldShowWarnings ? "displayed" : "suppressed");
+			Log.force("\"TweakScale advises\" about overrules was {0}", ModuleManagerListener.shouldShowWarnings ? "displayed" : "suppressed");
 		}
 	}
 }

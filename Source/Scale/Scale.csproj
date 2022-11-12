@@ -45,7 +45,7 @@
     <Compile Include="GUI\ShowStopperAlertBox.cs" />
     <Compile Include="GUI\SanityCheckAlertBox.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="GUI\OverrulledAdviseBox.cs" />
+    <Compile Include="GUI\OverruledAdviseBox.cs" />
     <Compile Include="GUI\CheckFailureAlertBox.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="HotKey\Enums.cs" />
