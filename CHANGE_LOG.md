@@ -3,15 +3,12 @@
 * 2022-1113: 2.4.6.17 (Lisias) for KSP >= 1.3
 	+ (Finally) Solves a long standing scaling problem related to Stock Buoyancy.
 	+ Solves the problem related to retrieving/storing Science from scaled Pods.
-	+ Makes some error messages easier to understand, as well fixes some pathnames to be useable on Windows. Thanks, [@Hebarusan](https://githu
-b.com/HebaruSan)!
+	+ Makes some error messages easier to understand, as well fixes some pathnames to be useable on Windows. Thanks, [@Hebarusan](https://github.com/HebaruSan)!
 	+ Updates KSPe.Light to 2.4.1.23
 		- (Hopefully) Mitigates KSP being fired up with the wrong `pwd` - not that KSP will behave as expected, but at least I will not take the blame for it.
 	+ Closes Issues:
 		- [#268](https://github.com/net-lisias-ksp/TweakScale/issues/268) Misbehaviour related to Taking Data from a Pod when it's scaled.
 		- [#252](https://github.com/net-lisias-ksp/TweakScale/issues/252) Scale the Buoyance so the scaled parts has a similar floating capabilities as the original.
-* 2022-1112: 2.4.6.17 (Lisias) for KSP >= 1.3
-	+ 
 * 2022-0713: 2.4.6.16 (Lisias) for KSP >= 1.3
 	+ Mitigates an undesired collateral effect from the symlink handling on C#'s runtime on MacOS and Linux.
 		- Updates KSPe.Light to 2.4.1.21
