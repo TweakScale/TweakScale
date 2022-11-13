@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# see http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -euo pipefail
+IFS=$'\n\t'
 source ./CONFIG.inc
 
 clean() {
@@ -8,7 +11,7 @@ clean() {
 	find ./bin -name "$DLL" -delete
 	find ./obj -name "$DLL" -delete
 	rm -f "./GameData/$DLL"
-	rm -R -f "./GameData/$TARGETBINDIR"
+	rm -f "./GameData/$TARGETBINDIR/$DLL"
 	rm -f "$LIB/$DLL"
 	rm -f "${KSP_DEV}/GameData/$DLL"
 	rm -f "${KSP_DEV}/GameData/$TARGETBINDIR/$DLL"
@@ -16,12 +19,10 @@ clean() {
 
 VERSIONFILE=$PACKAGE.version
 
-rm -fR "./bin"
-rm -fR "./obj"
-rm -f "./GameData/$TARGETDIR/*.version"
+rm -f "./GameData/$TARGETDIR/$VERSIONFILE"
 rm -f "./GameData/$TARGETDIR/CHANGE_LOG.md"
 rm -f "./GameData/$TARGETDIR/README.md"
-rm -f "./GameData/$TARGETDIR/*.LICENSE"
-for dll in Scale 999_Scale_Redist Scale_TweakableEverything ; do
+rm -f "./GameData/$TARGETDIR/LICENSE*"
+for dll in $DLLS ; do
     clean $dll
 done
