@@ -1,5 +1,7 @@
 # TweakScale :: Change Log
 
+* 2022-1116: 2.4.6.18 (Lisias) for KSP >= 1.3
+	+ A weird merge error was detected (mysteriously, **only on Windows**! MacOS at least was not affected!!) and fixed.
 * 2022-1113: 2.4.6.17r2 (Lisias) for KSP >= 1.3
 	+ (Finally) Solves a long standing scaling problem related to Stock Buoyancy.
 	+ Solves the problem related to retrieving/storing Science from scaled Pods.
