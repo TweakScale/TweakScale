@@ -41,9 +41,8 @@
       <HintPath>..\..\..\..\..\..\LIB\managed\1.9.0\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="KSPe">
-      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="KSPe.Light.TweakScale">
+      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.Light.TweakScale.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
