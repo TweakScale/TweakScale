@@ -118,7 +118,7 @@ namespace TweakScale
         /// <summary>
         /// Cached scale vector, we need this because the game regularly reverts the scaling of the IVA overlay
         /// </summary>
-        private Vector3 _savedIvaScale;
+        private Vector3 savedIvaScale = Vector3.zero;
 
         /// <summary>
         /// The exponentValue by which the part is scaled by default. When destination part uses MODEL { scale = ... }, this will be different from (1,1,1).
@@ -467,13 +467,7 @@ namespace TweakScale
                 }
             }
 
-            // scale IVA overlay
-            if (HighLogic.LoadedSceneIsFlight && (null != part.internalModel) && this.IsScaled)
-            {
-                _savedIvaScale = part.internalModel.transform.localScale * ScalingFactor.absolute.linear;
-                part.internalModel.transform.localScale = _savedIvaScale;
-                part.internalModel.transform.hasChanged = true;
-            }
+			if (this.IsIVAScalable()) this.ScaleIVA();
         }
 
 		public override void OnCopy(PartModule partModule)
@@ -602,18 +596,11 @@ namespace TweakScale
 				if (this.IsScaled) this.scaler.CopyUpdate();
 			}
 
-			if (HighLogic.LoadedSceneIsFlight)
-            {
-                // flight scene frequently nukes our OnStart resize some time later
-                if ((part.internalModel != null) && (part.internalModel.transform.localScale != _savedIvaScale))
-                {
-                    part.internalModel.transform.localScale = _savedIvaScale;
-                    part.internalModel.transform.hasChanged = true;
-                }
-            }
+			// flight scene frequently nukes our OnStart resize some time later
+			if(this.IsIVAScalable()) this.RestoreIVAScaling();
 
-            // FixMe: This is being called every single Frame. We really need to do it? This wastes CPU cycles...
-            this.CallUpdateables();
+			// FixMe: This is being called every single Frame. We really need to do it? This wastes CPU cycles...
+			this.CallUpdateables();
         }
 
 	#endregion
@@ -844,6 +831,22 @@ namespace TweakScale
             if (m.antennaCombinable) { str += " (Combinable)"; }
             m.powerText = str;
         }
+
+		// scale IVA overlay
+		protected void ScaleIVA()
+		{
+			this.savedIvaScale = part.internalModel.transform.localScale * ScalingFactor.absolute.linear;
+			this.RestoreIVAScaling();
+		}
+		protected void RestoreIVAScaling()
+		{
+			if(this.savedIvaScale.IsZero()) return;
+			if(this.savedIvaScale == part.internalModel.transform.localScale) return;
+
+			part.internalModel.transform.localScale = this.savedIvaScale;
+			part.internalModel.transform.hasChanged = true;
+		}
+		protected bool IsIVAScalable() => (HighLogic.LoadedSceneIsFlight && (null != this.part.internalModel) && this.IsScaled);
 
 		/// <summary>
 		/// Disable TweakScale module if something is wrong.
