@@ -1117,6 +1117,13 @@ namespace TweakScale
 				p.FindModuleImplementing<TweakScale>().SetStateInternal(active, available);
 		}
 
+		// Helper to a 3rd party be able to force a complete rescaling.
+		// It's up to the caller to prevent an infinit loop, do not call this inside a TweakScale message handler!
+		public void Rescale()
+		{
+			this.RestoreScaleIfNeededAndUpdate();
+		}
+
 		#endregion
 
 		internal void SetStateInternal(bool active, bool available)
