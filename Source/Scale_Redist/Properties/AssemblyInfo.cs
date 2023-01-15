@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("L Aerospace/KSP Division")]
 [assembly: AssemblyProduct("TweakScale /L Redistributable")]
-[assembly: AssemblyCopyright("Copyright © 2018-2022 LisiasT")]
+[assembly: AssemblyCopyright("Copyright © 2018-2023 LisiasT")]
 [assembly: AssemblyTrademark("TweakScale™ by Gaius Goodspeed, Biotronic, Pellinor, LisiasT")]
 [assembly: AssemblyCulture("")]
 
