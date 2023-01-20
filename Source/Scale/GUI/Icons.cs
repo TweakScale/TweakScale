@@ -50,7 +50,6 @@ namespace TweakScale.GUI
 		[UsedImplicitly]
 		private void Start()
 		{   // Preload the icons on Space Center to avoid halting the Editor at first entry.
-			Log.force("BLAH");
 			Icons.ScaleOn.GetInstanceID();
 			Icons.ScaleOff.GetInstanceID();
 			Icons.ScaleAuto.GetInstanceID();
