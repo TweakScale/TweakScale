@@ -467,7 +467,7 @@ namespace TweakScale
                 }
             }
 
-			if (this.IsIVAScalable()) this.ScaleIVA();
+			if (this.IsIVAScalable) this.ScaleIVA();
         }
 
 		public override void OnCopy(PartModule partModule)
@@ -597,7 +597,7 @@ namespace TweakScale
 			}
 
 			// flight scene frequently nukes our OnStart resize some time later
-			if(this.IsIVAScalable()) this.RestoreIVAScaling();
+			if(this.IsIVAScalable) this.RestoreIVAScaling();
 
 			// FixMe: This is being called every single Frame. We really need to do it? This wastes CPU cycles...
 			this.CallUpdateables();
@@ -846,7 +846,7 @@ namespace TweakScale
 			part.internalModel.transform.localScale = this.savedIvaScale;
 			part.internalModel.transform.hasChanged = true;
 		}
-		protected bool IsIVAScalable() => (HighLogic.LoadedSceneIsFlight && (null != this.part.internalModel) && this.IsScaled);
+		protected bool IsIVAScalable => (HighLogic.LoadedSceneIsFlight && (null != this.part.internalModel) && this.IsScaled);
 
 		/// <summary>
 		/// Disable TweakScale module if something is wrong.
