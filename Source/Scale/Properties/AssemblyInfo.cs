@@ -34,6 +34,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion(TweakScale.Version.Number)]
 [assembly: AssemblyFileVersion(TweakScale.Version.Number)]
 [assembly: KSPAssembly("Scale", TweakScale.Version.major, TweakScale.Version.minor)]
-// [assembly: KSPAssemblyDependency("Scale_Redist", 1, 0)] KSP 1.12.2 screwed up the Dependency Check
+// [assembly: KSPAssemblyDependency("Scale_Redist", 2, 5)] KSP 1.12.2 screwed up the Dependency Check
 [assembly: KSPAssemblyDependency("KSPe", 2, 4)]
 [assembly: KSPAssemblyDependency("KSPe.UI", 2, 4)]
