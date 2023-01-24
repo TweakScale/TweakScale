@@ -1,4 +1,4 @@
-﻿/*
+/*
 	This file is part of TweakScale /L
 		© 2018-2023 LisiasT
 		© 2015-2018 pellinor
