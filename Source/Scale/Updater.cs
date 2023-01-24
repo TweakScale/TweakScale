@@ -57,9 +57,7 @@ namespace TweakScale
     {
         public override void OnStart()
         {
-			Type[] genericRescalable = Tools.GetAllTypes()
-                .Where(IsGenericRescalable)
-                .ToArray();
+			IEnumerable<Type> genericRescalable = KSPe.Util.SystemTools.Type.Search.By(typeof(IRescalable));
 
             foreach (Type gen in genericRescalable)
             {
@@ -153,11 +151,6 @@ namespace TweakScale
         }
     }
 
-    internal interface IUpdateable
-    {
-        void OnUpdate();
-    }
-    
     internal class EmitterUpdater : IRescalable, IUpdateable
     {
         private struct EmitterData
