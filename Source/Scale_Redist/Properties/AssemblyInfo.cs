@@ -38,5 +38,5 @@ using System.Runtime.InteropServices;
 // It does not depend on KSP and has not been touched since biotronic wrote it.
 // So its version should stay at 1.0, to make clear that other mods do not need to compile against a new version
 // (pellinor)
-[assembly: AssemblyVersion("1.1")]
+[assembly: AssemblyVersion("2.5")]
 [assembly: AssemblyFileVersion(TweakScale.Version.Number)]
