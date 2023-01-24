@@ -1121,7 +1121,7 @@ namespace TweakScale
 		// It's up to the caller to prevent an infinit loop, do not call this inside a TweakScale message handler!
 		public void Rescale()
 		{
-			this.RestoreScaleIfNeededAndUpdate();
+			this.ScaleAndUpdate();
 		}
 
 		#endregion
