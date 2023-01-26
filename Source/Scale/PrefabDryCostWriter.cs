@@ -93,6 +93,7 @@ namespace TweakScale
 		private void OnGameSceneSwitchRequested(GameEvents.FromToAction<GameScenes, GameScenes> data) {
 			Log.detail("Switching scene from {0} to {1}.", data.from, data.to);
 			GameEvents.onGameSceneSwitchRequested.Remove(this.OnGameSceneSwitchRequested);
+			Updater.Registry.Init();
 			this.WriteDryCost();
 		}
 
@@ -141,9 +142,8 @@ namespace TweakScale
                 try
                 {   // Now we can try to calculate the DryCost. Safely.
                     TweakScale m = p.partPrefab.Modules["TweakScale"] as TweakScale;
-                    m.OriginalCrewCapacity = p.partPrefab.CrewCapacity;
                     m.CalculateDryCostIfNeeded();
-                    Log.dbg("Part {0} ({1}) has drycost {2} and OriginalCrewCapacity {3}",  p.name, p.title, m.DryCost, m.OriginalCrewCapacity);
+                    Log.dbg("Part {0} ({1}) has drycost {2} and OriginalCrewCapacity {3}",  p.name, p.title, m.DryCost, p.partPrefab.CrewCapacity);
                 }
                 catch (Exception e)
                 {

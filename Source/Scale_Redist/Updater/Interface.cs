@@ -20,28 +20,36 @@
 	You should have received a copy of the GNU General Public License 2.0
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
+
 namespace TweakScale
 {
-
 	/// <summary>
-	/// A shortcut for <c>IRescalable&lt;Part&gt;</c>
+	/// For Rescaling the <c>Part</c> itself or some of its attributes. It's usually better to avoid using this one when possible, as it will be injected on every part of the craft no matter what.
+	///
+	/// There's no guarantee about the order in which you will be called, other than after the <c>IPriorityRescalable</c> and before <c>ISecondaryRescalable</c> ones.
 	/// </summary>
 	public interface IRescalable
 	{
 		void OnRescale(ScalingFactor factor);
 	}
 	/// <summary>
+	/// A <c>IRescalable</c> for a specific <c>PartModule</c>.
+	///
+	/// Should be used instead of the <c>Part</c> counterpart when possible, as it will be injected only whem the target <c>PartModule</c> is present.
+	/// 
 	/// Prefferable method to support TweakScale.
-	/// There's no guarantee about the order in which you will be called, other than after the <c>IPriorityRescalable</c> and before <c>ISecondaryRescalable</c>.
 	/// </summary>
 	public interface IRescalable<T> : IRescalable { }
 
 	/// <summary>
-	/// A shortcut for <c>IPriorityRescalable&lt;Part&gt;</c>
+	/// For Priority Rescaling the <c>Part</c> itself or some of its attributes. Usually should not be used by 3rd Parties, unless they are sure the Rescalers implemented on Stock
+	/// will not cause conflicts with the new code.
+	///
+	/// There's no way to tell of the Stock Priority Rescaling will be called after or before yours.
 	/// </summary>
 	public interface IPriorityRescalable : IRescalable { }
 	/// <summary>
-	/// Priority Scalling Support.
+	/// Priority Rescaling Support.
 	/// You should probably avoid this one, and if you think you need it, you <u><b>should not</b></u> access any of the `this.part` properties
 	/// as there's no guarantee that they are already scaled.
 	/// The reason for this IRescalable variant is to allow custom's PART scallers in the future.
@@ -53,14 +61,14 @@ namespace TweakScale
 	/// </summary>
 	public interface ISecondaryRescalable : IRescalable { }
 	/// <summary>
-	/// Secondary Scalling Support.
+	/// Secondary Rescaling Support.
 	/// For scaling non physical atributes, as visuals (emitters) or anything that should be called <b>only</b> after all physical attributes
 	/// were already scalled.
 	/// </summary>
 	public interface ISecondaryRescalable<T> : IPriorityRescalable { }
 
 	/// <summary>
-	/// For Scallers that need to be reworked on every single Unity's Update.
+	/// For Rescallers that need to be reworked on every single Unity's Update.
 	/// </summary>
 	public interface IUpdateable
 	{

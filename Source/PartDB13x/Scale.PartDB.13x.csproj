@@ -46,6 +46,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="PartDB\StandardPartScaler.cs" />
+    <Compile Include="Updater\Generic.cs" />
+    <Compile Include="Updater\IVA.cs" />
+    <Compile Include="Updater\Emmiter.cs" />
+    <Compile Include="Updater\ModuleDataTransmitter.cs" />
+    <Compile Include="Updater\CrewManifest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scale\Scale.csproj">
