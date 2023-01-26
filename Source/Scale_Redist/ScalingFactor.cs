@@ -59,6 +59,11 @@ namespace TweakScale
             {
                 _linear = factor;
             }
+
+			public override string ToString()
+			{
+				return string.Format("{0}(linear:{1}; quad:{2}; cubic:{3})", this.GetType().Name, this.linear, this.quadratic, this.cubic);
+			}
         }
 
         FactorSet _absolute;
@@ -104,5 +109,11 @@ namespace TweakScale
             _relative = new FactorSet(rel);
             _index = idx;
         }
+
+		public override string ToString()
+		{
+			return string.Format("{0}(i:{1}; absolute:{2}; relative:{3})", this.GetType().Name, this._index, this._absolute, this._relative);
+		}
+
     }
 }
