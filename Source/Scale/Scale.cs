@@ -45,7 +45,7 @@ namespace TweakScale
 		}
 	}
 
-	public class TweakScale : PartModule, IPartCostModifier, IPartMassModifier
+	public class TweakScale : PartModule, IPartCostModifier, IPartMassModifier, IDisposable
 	{
 		// Checks if the running KSP has the Upgrade Pipeline feature, so TweakScale can omit itself from craft files when not used,
 		// as the module will be injected back on loading when needed.
@@ -480,10 +480,7 @@ namespace TweakScale
 		{
 			Log.dbg("OnDestroy {0}", this._InstanceID); // Something bad is happening inside KSP guts before this being called,
 														// so I had to cache the InstanceID because the part's data are inconsistent at this point.
-
-			if (this.wasOnEditorAttachAdded) this.part.OnEditorAttach -= this.OnEditorAttach;
-			if (this.wasOnEditorShipModifiedAdded) GameEvents.onEditorShipModified.Remove(this.OnEditorShipModified);
-			if (null != this.scaler) this.scaler = this.scaler.Destroy();
+			(this as IDisposable).Dispose();
 		}
 
 		private string _getInfo = null;
@@ -1021,6 +1018,18 @@ namespace TweakScale
 
 
 		#region Interface Implementation
+
+		void IDisposable.Dispose()
+		{
+			if (null != this.scaler) (this.scaler as IDisposable).Dispose();
+			this.scaler = null;
+
+			if (this.wasOnEditorShipModifiedAdded) GameEvents.onEditorShipModified.Remove(this.OnEditorShipModified);
+			this.wasOnEditorShipModifiedAdded = false;
+
+			if (this.wasOnEditorAttachAdded) this.part.OnEditorAttach -= this.OnEditorAttach;
+			this.wasOnEditorAttachAdded = false;
+		}
 
         float IPartCostModifier.GetModuleCost(float defaultCost, ModifierStagingSituation situation) // TODO: This makes any sense? What's situation anyway?
         {

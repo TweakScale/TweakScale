@@ -21,12 +21,11 @@
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace TweakScale.PartDB
 {
-	public class Scaler
+	public class Scaler : IDisposable
 	{
 		public readonly Part part;
 		protected TweakScale ts;
@@ -136,8 +135,8 @@ namespace TweakScale.PartDB
 		internal void Scale()			{ this.DoScale(); }
 		internal void Restore()			{ this.DoRestore(); }
 
-		internal Scaler Destroy() { return this.DestroyYourself(); }
-		protected virtual Scaler DestroyYourself() {
+		void IDisposable.Dispose()		{ this.DestroyMyself(); }
+		protected virtual Scaler DestroyMyself() {
 			Log.dbg("{0}.Destroy {1} ", this.GetType().Name, (null!=this.ts) ? this.ts.InstanceID : "<no TweakScale instance>");
 			GameEventGameSceneSwitchListener.Instance.Remove(this);
 			return null;
