@@ -43,10 +43,10 @@ namespace TweakScale.PartDB
 			return r;
 		}
 
-		protected override Scaler DestroyYourself()
+		protected override Scaler DestroyMyself()
 		{
 			GameEventEditorVariantAppliedListener.Instance.Remove(this);
-			return base.DestroyYourself();
+			return base.DestroyMyself();
 		}
 
 		protected override void OnEditorIn()
