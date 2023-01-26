@@ -24,232 +24,131 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using UnityEngine;
 
-namespace TweakScale
+namespace TweakScale.Updater
 {
-    public abstract class RescalableRegistratorAddon : MonoBehaviour
-    {
-        private static bool _loadedInScene;
+	public class AbstractWithLog : Abstract
+	{
+		public AbstractWithLog(Part part) : base(part)
+		{
+			Log.dbg("{0} Ctor {1}", this.GetType().FullName, this.InstanceID);
+		}
 
-        public void Start()
-        {
-            if (_loadedInScene)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            _loadedInScene = true;
-            OnStart();
-        }
+		public AbstractWithLog(PartModule partModule) : base(partModule)
+		{
+			Log.dbg("{0} Ctor {1}", this.GetType().FullName, this.InstanceID);
+		}
 
-        public abstract void OnStart();
+		private string _InstanceID = null;
+		public string InstanceID => this._InstanceID ?? (this._InstanceID = string.Format("{0}:{1:X}", this.part.name, this.part.GetInstanceID()));
+	}
 
-        public void Update()
-        {
-            _loadedInScene = false;
-            Destroy(gameObject);
-        }
-    }
-
-    [KSPAddon(KSPAddon.Startup.Instantly, true)]
-    public class TweakScaleRegister : RescalableRegistratorAddon
-    {
-        public override void OnStart()
-        {
+	internal static class Registry
+	{
+		public static void Init()
+		{
+			Log.detail("TweakScale.Updater.Registry.Init()");
 			IEnumerable<Type> genericRescalable = KSPe.Util.SystemTools.Type.Search.By(typeof(IRescalable));
 
-            foreach (Type gen in genericRescalable)
-            {
-				Type t = gen.GetInterfaces()
-                    .First(a => a.IsGenericType &&
-                    a.GetGenericTypeDefinition() == typeof(IRescalable<>));
+			foreach(Type gen in genericRescalable)
+			{
+				Log.dbg("TweakScale.Updater.Registry.Init {0}", gen);
+				if (IsGenericRescalable(gen))
+				{
+					Type t = gen.GetInterfaces()
+						.First(a => a.IsGenericType &&
+						a.GetGenericTypeDefinition() == typeof(IRescalable<>));
 
-                RegisterGenericRescalable(gen, t.GetGenericArguments()[0]);
-            }
-        }
+					RegisterGenericRescalable(gen, t.GetGenericArguments()[0]);
+				}
+				else
+				{
+					RegisterRescalable(gen);
+				}
+			}
+		}
 
-        private static void RegisterGenericRescalable(Type resc, Type arg)
-        {
+		private static void RegisterGenericRescalable(Type resc, Type arg)
+		{
 			ConstructorInfo c = resc.GetConstructor(new[] { arg });
-            if (c == null)
-                return;
-            Func<PartModule, IRescalable> creator = pm => (IRescalable)c.Invoke(new object[] { pm });
+			if (c == null) return;
+			Log.dbg("TweakScale.Updater.Registry.RegisterGenericRescalable {0}, {1}", resc, arg);
 
-            TweakScaleUpdater.RegisterUpdater(arg, creator);
-        }
+			IRescalable creator(PartModule pm) => (IRescalable)c.Invoke(new object[] { pm });
+			Factory.RegisterUpdater(arg, creator);
+		}
 
-        private static bool IsGenericRescalable(Type t)
-        {
-            return !t.IsGenericType && t.GetInterfaces()
-                .Any(a => a.IsGenericType &&
-                a.GetGenericTypeDefinition() == typeof(IRescalable<>));
-        }
-    }
+		private static void RegisterRescalable(Type resc)
+		{
+			ConstructorInfo c = resc.GetConstructor(new[] { typeof(Part) });
+			if (c == null) return;
 
-    internal static class TweakScaleUpdater
-    {
-        // Every kind of updater is registered here, and the correct kind of updater is created for each PartModule.
-        private static readonly Dictionary<Type, Func<PartModule, IRescalable>> Ctors = new Dictionary<Type, Func<PartModule, IRescalable>>();
+			Log.dbg("TweakScale.Updater.Registry.RegisterGenericRescalable {0}", resc);
 
-        /// <summary>
-        /// Registers an updater for partmodules of type <paramref name="pm"/>.
-        /// </summary>
-        /// <param name="pm">Type of the PartModule type to update.</param>
-        /// <param name="creator">A function that creates an updater for this PartModule type.</param>
-        public static void RegisterUpdater(Type pm, Func<PartModule, IRescalable> creator)
-        {
-            Ctors[pm] = creator;
-        }
+			IRescalable creator(Part part) => (IRescalable)c.Invoke(new object[] { part });
+			Factory.RegisterUpdater(creator);
+		}
 
-        // Creates an updater for each modules attached to destination part.
-        public static IEnumerable<IRescalable> CreateUpdaters(Part part)
-        {
-			IEnumerable<IRescalable> myUpdaters = part
-                .Modules.Cast<PartModule>()
-                .Select(CreateUpdater)
-                .Where(updater => updater != null);
-            foreach (IRescalable updater in myUpdaters)
-            {
-                yield return updater;
-            }
-            yield return new TSGenericUpdater(part);
-            yield return new EmitterUpdater(part);
-        }
+		private static bool IsGenericRescalable(Type t)
+		{
+			return !t.IsGenericType && t.GetInterfaces()
+				.Any(a => a.IsGenericType &&
+				a.GetGenericTypeDefinition() == typeof(IRescalable<>));
+		}
+	}
 
-        private static IRescalable CreateUpdater(PartModule module)
-        {
-            // ReSharper disable once SuspiciousTypeConversion.Global
-            if (module is IRescalable updater)
-            {
-                return updater;
-            }
-            return Ctors.ContainsKey(module.GetType()) ? Ctors[module.GetType()](module) : null;
-        }
-    }
+	internal static class Factory
+	{
+		// Every kind of updater is registered here, and the correct kind of updater is created for each PartModule.
+		private static readonly Dictionary<Type, Func<PartModule, IRescalable>> partModuleCtors = new Dictionary<Type, Func<PartModule, IRescalable>>();
+		// And here go the Part Updaters
+		private static readonly List<Func<Part, IRescalable>> partCtors = new List<Func<Part, IRescalable>>();
 
-    /// <summary>
-    /// This class updates mmpfxField and properties that are mentioned in TWEAKSCALEEXPONENTS blocks in .cfgs.
-    /// It does this by looking up the mmpfxField or property by name through reflection, and scales the exponentValue stored in the base part (i.e. prefab).
-    /// </summary>
-    internal class TSGenericUpdater : IRescalable
-    {
-        private readonly Part _part;
-        private readonly Part _basePart;
-        private readonly TweakScale _ts;
+		/// <summary>
+		/// Registers an updater for partmodules of type <paramref name="pm"/>.
+		/// </summary>
+		/// <param name="pm">Type of the PartModule type to update.</param>
+		/// <param name="creator">A function that creates an updater for this PartModule type.</param>
+		public static void RegisterUpdater(Type pm, Func<PartModule, IRescalable> creator)
+		{
+			partModuleCtors[pm] = creator;
+		}
 
-        public TSGenericUpdater(Part part)
-        {
-            _part = part;
-            _basePart = PartLoader.getPartInfoByName(part.partInfo.name).partPrefab;
-            _ts = part.Modules.OfType<TweakScale>().First();
-        }
+		/// <summary>
+		/// Registers an updater for parts..
+		/// </summary>
+		/// <param name="pm">Type of the PartModule type to update.</param>
+		/// <param name="creator">A function that creates an updater for this PartModule type.</param>
+		public static void RegisterUpdater(Func<Part, IRescalable> creator)
+		{
+			partCtors.Add(creator);
+		}
 
-        public void OnRescale(ScalingFactor factor)
-        {
-            ScaleExponents.UpdateObject(_part, _basePart, _ts.ScaleType.Exponents, factor);
-        }
-    }
+		// Creates an updater for each modules attached to destination part.
+		public static IEnumerable<IRescalable> CreateUpdaters(Part part)
+		{
+			{
+				IEnumerable<IRescalable> updaters = part
+					.Modules.Cast<PartModule>()
+					.Select(CreateUpdater)
+					.Where(updater => updater != null);
+				foreach(IRescalable updater in updaters)
+					yield return updater;
+			}
+			{
+				foreach(Func<Part, IRescalable> updater in partCtors)
+					yield return updater(part);
+			}
+		}
 
-    internal class EmitterUpdater : IRescalable, IUpdateable
-    {
-        private struct EmitterData
-        {
-            public readonly float MinSize, MaxSize, Shape1D;
-            public readonly Vector2 Shape2D;
-            public readonly Vector3 Shape3D, LocalVelocity, Force;
-
-            public EmitterData(KSPParticleEmitter pe)
-            {
-                MinSize = pe.minSize;
-                MaxSize = pe.maxSize;
-                LocalVelocity = pe.localVelocity;
-                Shape1D = pe.shape1D;
-                Shape2D = pe.shape2D;
-                Shape3D = pe.shape3D;
-                Force = pe.force;
-            }
-        }
-
-        readonly Part _part;
-        readonly TweakScale _ts;
-        bool _rescale = true;
-        readonly Dictionary<KSPParticleEmitter, EmitterData> _scales = new Dictionary<KSPParticleEmitter, EmitterData>();
-
-        public EmitterUpdater(Part part)
-        {
-            _part = part;
-            _ts = part.Modules.OfType<TweakScale>().First();
-        }
-
-        public void OnRescale(ScalingFactor factor)
-        {
-            _rescale = true;
-        }
-
-        private static FieldInfo _mmpFxField;
-        private static FieldInfo _mpFxField;
-
-        private void UpdateParticleEmitter(KSPParticleEmitter pe)
-        {
-            if (pe == null)
-            {
-                return;
-            }
-			ScalingFactor factor = _ts.ScalingFactor;
-
-            if (!_scales.ContainsKey(pe))
-            {
-                _scales[pe] = new EmitterData(pe);
-            }
-			EmitterData ed = _scales[pe];
-
-            pe.minSize = ed.MinSize * factor.absolute.linear;
-            pe.maxSize = ed.MaxSize * factor.absolute.linear;
-            pe.shape1D = ed.Shape1D * factor.absolute.linear;
-            pe.shape2D = ed.Shape2D * factor.absolute.linear;
-            pe.shape3D = ed.Shape3D * factor.absolute.linear;
-
-            pe.force = ed.Force * factor.absolute.linear;
-
-            pe.localVelocity = ed.LocalVelocity * factor.absolute.linear;
-        }
-
-        private static void GetFieldInfos()
-        {
-            if (_mmpFxField == null)
-                _mmpFxField = typeof(ModelMultiParticleFX).GetNonPublicFieldByType<List<KSPParticleEmitter>>();
-            if (_mpFxField == null)
-                _mpFxField = typeof(ModelParticleFX).GetNonPublicFieldByType<KSPParticleEmitter>();
-        }
-
-        public void OnUpdate()
-        {
-            if (!_rescale)
-                return;
-            GetFieldInfos();
-
-			EffectBehaviour[] fxn = _part.GetComponents<EffectBehaviour>();
-            _rescale = fxn.Length != 0;
-            foreach (EffectBehaviour fx in fxn)
-            {
-                if (fx is ModelMultiParticleFX)
-                {
-                    if (!(_mmpFxField.GetValue(fx) is List<KSPParticleEmitter> p))
-                        continue;
-                    foreach (KSPParticleEmitter pe in p)
-                    {
-                        UpdateParticleEmitter(pe);
-                    }
-                    _rescale = false;
-                }
-                else if (fx is ModelParticleFX)
-                {
-					KSPParticleEmitter pe = _mpFxField.GetValue(fx) as KSPParticleEmitter;
-                    UpdateParticleEmitter(pe);
-                    _rescale = false;
-                }
-            }
-        }
-    }
+		private static IRescalable CreateUpdater(PartModule module)
+		{
+			// ReSharper disable once SuspiciousTypeConversion.Global
+			if(module is IRescalable updater)
+			{
+				return updater;
+			}
+			return partModuleCtors.ContainsKey(module.GetType()) ? partModuleCtors[module.GetType()](module) : null;
+		}
+	}
 }

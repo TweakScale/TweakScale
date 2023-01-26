@@ -26,6 +26,7 @@ using System.Reflection;
 using UnityEngine;
 
 using KSPe.Annotations;
+using System.Collections.Generic;
 
 namespace TweakScale
 {
@@ -119,11 +120,6 @@ namespace TweakScale
 		internal PartDB.Scaler scaler;
 
         /// <summary>
-        /// Cached scale vector, we need this because the game regularly reverts the scaling of the IVA overlay
-        /// </summary>
-        private Vector3 savedIvaScale = Vector3.zero;
-
-        /// <summary>
         /// The exponentValue by which the part is scaled by default. When destination part uses MODEL { scale = ... }, this will be different from (1,1,1).
         /// </summary>
         [KSPField(isPersistant = true)]
@@ -132,24 +128,18 @@ namespace TweakScale
         private bool _firstUpdate = true;
         private bool _firstUpdateAfterCopy = false;
         private bool is_duplicate = false;
-        public bool scaleMass = true;
 
-        /// <summary>
-        /// Updaters for different PartModules.
-        /// </summary>
-        private IRescalable[] _updaters = new IRescalable[0];
+		// Rescalables (and Updateables) for different PartModules.
+		private IPriorityRescalable[] priorityRescalables = new IPriorityRescalable[0];
+		private ISecondaryRescalable[] secondaryRescalables = new ISecondaryRescalable[0];
+		private IRescalable[] rescalables = new IRescalable[0];
+		private IUpdateable[] updateables = new IUpdateable[0];
 
         /// <summary>
         /// Cost of unscaled, empty part.
         /// </summary>
         [KSPField(isPersistant = true)]
         public float DryCost = 0f;  // Default value, so missing DryCost from the Config will be calculated by the PrefabCostWriter.
-
-        /// <summary>
-        /// Original Crew Capacity
-        /// </summary>
-        [KSPField(isPersistant = true)]
-        public int OriginalCrewCapacity;
 
         /// <summary>
         /// Flag to tell TweakScale to plain ignore the part's resources on the costs calculation.
@@ -177,19 +167,17 @@ namespace TweakScale
         /// </summary>
         public ScalingFactor ScalingFactor => new ScalingFactor(tweakScale / defaultScale, tweakScale / currentScale, isFreeScale ? -1 : tweakName);
 
-        protected virtual void SetupPrefab(Part prefabPart)
-        {
-            Log.dbg("SetupPrefab {0}", this.InstanceID);
+		protected virtual void SetupPrefab(Part prefabPart)
+		{
+			Log.dbg("SetupPrefab {0}", this.InstanceID);
 			ConfigNode PartNode = GameDatabase.Instance.GetConfigs("PART").FirstOrDefault(c => c.name.Replace('_', '.') == part.name).config;
 			ConfigNode ModuleNode = PartNode.GetNodes("MODULE").FirstOrDefault(n => n.GetValue("name") == moduleName);
 
-            this.ScaleType = new ScaleType(ModuleNode);
-            this.SetupFromConfig(ScaleType);
-			this.scaler = PartDB.Scaler.Create(prefabPart, this.part, ScaleType);
-            tweakScale = currentScale = defaultScale;
-
-            tfInterface = Type.GetType("TestFlightCore.TestFlightInterface, TestFlightCore", false);
-        }
+			this.ScaleType = new ScaleType(KSPe.ConfigNodeWithSteroids.from(ModuleNode));
+			this.SetupFromConfig(ScaleType);
+			this.scaler = PartDB.Scaler.Create(prefabPart, this.part, this.ScaleType);
+			tweakScale = currentScale = defaultScale;
+		}
 
         /// <summary>
         /// Sets up values from ScaleType, creates updaters, and sets up initial values.
@@ -198,29 +186,28 @@ namespace TweakScale
         {
             this.Setup(this.part);
         }
-        protected virtual void Setup(Part part)
-        {
-            Log.dbg("Setup {0}", this.InstanceID);
+		protected virtual void Setup(Part part)
+		{
+			Log.dbg("Setup {0}", this.InstanceID);
 
-            {
-                Part prefab = part.partInfo.partPrefab;
-                ScaleType = (prefab.Modules["TweakScale"] as TweakScale).ScaleType;
-                SetupFromConfig(ScaleType);
-				this.scaler = PartDB.Scaler.Create(prefab, part, ScaleType, this);     // This need to be reworked. I calling this twice. :(
+			{
+				Part prefab = this.part.partInfo.partPrefab;
+				this.ScaleType = (prefab.Modules["TweakScale"] as TweakScale).ScaleType;
+				this.SetupFromConfig(ScaleType);
+				this.scaler = PartDB.Scaler.Create(prefab, this.part, this.ScaleType, this);     // This need to be reworked. I calling this twice. :(
 
-                part.OnEditorAttach += OnEditorAttach;
-                this.wasOnEditorAttachAdded = true;
-            }
+				this.part.OnEditorAttach += OnEditorAttach;
+				this.wasOnEditorAttachAdded = true;
+			}
 
-            _updaters = TweakScaleUpdater.CreateUpdaters(part).ToArray();
-            this.SetupCrewManifest();
+			this.buildUpdaterLists();
 
-            if (!isFreeScale && ScaleFactors.Length != 0)
-            {
-                tweakName = Tools.ClosestIndex(tweakScale, ScaleFactors);
-                tweakScale = ScaleFactors[tweakName];
-            }
-        }
+			if (!this.isFreeScale && 0 != this.ScaleFactors.Length)
+			{
+				this.tweakName = Tools.ClosestIndex(tweakScale, ScaleFactors);
+				this.tweakScale = ScaleFactors[tweakName];
+			}
+		}
 
         internal void RestoreScaleIfNeededAndUpdate()
         {
@@ -464,8 +451,6 @@ namespace TweakScale
                     this.wasOnEditorShipModifiedAdded = true;
                 }
             }
-
-			if (this.IsIVAScalable) this.ScaleIVA();
         }
 
 		public override void OnCopy(PartModule partModule)
@@ -554,9 +539,6 @@ namespace TweakScale
 			//only run the following block in the editor; it updates the crew-assignment GUI
 			if (!HighLogic.LoadedSceneIsEditor) return;
 			Log.dbg("OnEditorShipModified {0}", this.InstanceID);
-
-			if (HighLogic.LoadedSceneIsEditor) 
-				this.UpdateCrewManifest(); 
 		}
 
 		private bool wasOnEditorAttachAdded = false;
@@ -591,12 +573,9 @@ namespace TweakScale
 				if (this.IsScaled) this.scaler.CopyUpdate();
 			}
 
-			// flight scene frequently nukes our OnStart resize some time later
-			if(this.IsIVAScalable) this.RestoreIVAScaling();
-
-			// FixMe: This is being called every single Frame. We really need to do it? This wastes CPU cycles...
+			// Call all Scalers than needs to be updated on every Update!
 			this.CallUpdateables();
-        }
+		}
 
 	#endregion
 
@@ -607,69 +586,71 @@ namespace TweakScale
 			this.HandlenTweakScaleChanged();
 		}
 
-        private void CallUpdaters()
-        {
-            // two passes, to depend less on the order of this list
-            {
-                int len = _updaters.Length;
-                for (int i = 0; i < len; i++) {
-                    // first apply the exponents
-                    IRescalable updater = _updaters [i];
-                    if (updater is TSGenericUpdater) {
-                        float oldMass = part.mass;  // Why resetting the mass? What happens if I write a updater for the Mass?
-                                                    // I suspect I found the source of some mass related idiossyncrasies - todo: INVESTIGATE
-                        try {
-                            updater.OnRescale(ScalingFactor);
-                        } catch (Exception e) {
-                            Log.error("Exception on rescale while TSGenericUpdater: {0}", e);
-                        } finally {
-                            part.mass = oldMass; // make sure we leave this in a clean state
-                        }
-                    }
-                }
-            }
+		private void CallUpdaters()
+		{
+			// three passes, to depend less on the order of this list
+			{
+				int len = this.priorityRescalables.Length;
+				for (int i = 0; i < len; i++)
+				{
+					IRescalable rescalable = this.priorityRescalables[i];
 
-            // Why this code was here? We already registered it on the EditorOnChange. Perhaps for older KSP?
-            //if (_prefabPart.CrewCapacity > 0 && HighLogic.LoadedSceneIsEditor)
-            //    UpdateCrewManifest();
+					float oldMass = part.mass;  // Why resetting the mass? What happens if I write a updater for the Mass?
+												// I suspect I found the source of some mass related idiossyncrasies - todo: INVESTIGATE
+					try
+					{
+						rescalable.OnRescale(this.ScalingFactor);
+					}
+					catch(Exception e)
+					{
+						Log.error(e, "Exception on rescale while IPriorityRescalable: {0}", e.Message);
+					}
+					finally
+					{
+						part.mass = oldMass; // make sure we leave this in a clean state
+					}
+				}
+			}
+			{
+				int len = this.rescalables.Length;
+				for (int i = 0; i < len; i++)
+				{
+					IRescalable rescalable = this.rescalables[i];
+					try
+					{
+						rescalable.OnRescale(this.ScalingFactor);
+					}
+					catch(Exception e)
+					{
+						Log.error(e, "Exception on rescale while ¬IRescalable: {0}", e.Message);
+					}
+				}
+			}
+			{
+				int len = this.secondaryRescalables.Length;
+				for (int i = 0; i < len; i++)
+				{
+					IRescalable rescalable = this.secondaryRescalables[i];
+					try
+					{
+						rescalable.OnRescale(ScalingFactor);
+					}
+					catch(Exception e)
+					{
+						Log.error(e, "Exception on rescale while ¬ISecondaryRescalable: {0}", e.Message);
+					}
+				}
+			}
+		}
 
-            if (part.Modules.Contains("ModuleDataTransmitter"))
-                UpdateAntennaPowerDisplay();
+		private void CallUpdateables()
+		{
+			int len = this.updateables.Length;
+			for (int i = 0; i < len; i++)
+				this.updateables[i].OnUpdate();
+		}
 
-            // MFT support
-            UpdateMftModule();
-
-            // TF support
-            updateTestFlight();
-
-            {
-                int len = _updaters.Length;
-                for (int i = 0; i < len; i++) {
-                    IRescalable updater = _updaters [i];
-                    // then call other updaters (emitters, other mods)
-                    if (updater is TSGenericUpdater)
-                        continue;
-
-                    try {
-                        updater.OnRescale(ScalingFactor);
-                    } catch (Exception e) {
-                        Log.error("Exception on rescale while ¬TSGenericUpdater: {0}", e);
-                    }
-                }
-            }
-        }
-
-        private void CallUpdateables()
-        {
-            int len = _updaters.Length;
-            for (int i = 0; i < len; i++)
-            {
-                if (_updaters[i] is IUpdateable)
-                    (_updaters[i] as IUpdateable).OnUpdate();
-            }
-        }
-
-        private void NotifyListeners(bool fireShipModified = true)
+		private void NotifyListeners(bool fireShipModified = true)
         {
             // Problem: We don't have the slightest idea if the OnPartScaleChanged was already handled or not.
             // If it didn't, this event may induce Recall to cache the part's resource before he could finish his business.
@@ -689,159 +670,6 @@ namespace TweakScale
             Log.dbg("Notify the World we changed the ship.");
             if (fireShipModified) GameEvents.onEditorShipModified.Fire(EditorLogic.fetch.ship);
         }
-
-        private void SetupCrewManifest()
-        {
-			// Restores the original Crew Capacity, as the Prefab can be mangled if the CrewScaling stunt is activated.
-			this.scaler.part.CrewCapacity = this.OriginalCrewCapacity;
-
-            VesselCrewManifest vcm = ShipConstruction.ShipManifest;
-            if (vcm == null) { return; }
-            PartCrewManifest pcm = vcm.GetPartCrewManifest(part.craftID);
-            if (pcm == null) { return; }
-
-			if (pcm.partCrew.Length != this.scaler.part.CrewCapacity)
-				this.SetCrewManifestSize(pcm, this.scaler.part.CrewCapacity);
-        }
-
-        //only run the following block in the editor; it updates the crew-assignment GUI
-        private void UpdateCrewManifest()
-        {
-            Log.dbg("UpdateCrewManifest {0}", this.InstanceID);
-
-#if !CREW_SCALE_UP
-            // Small safety guard.
-			if (part.CrewCapacity > this.scaler.prefab.CrewCapacity) part.CrewCapacity = this.scaler.prefab.CrewCapacity;
-#endif
-
-            try // Preventing this thing triggering an eternal loop on the event handling!
-            {
-                VesselCrewManifest vcm = ShipConstruction.ShipManifest;
-                if (vcm == null) return;
-                PartCrewManifest pcm = vcm.GetPartCrewManifest(part.craftID);
-                if (pcm == null) return;
-
-                int len = pcm.partCrew.Length;
-                //int newLen = Math.Min(part.CrewCapacity, _prefabPart.CrewCapacity);
-                int newLen = part.CrewCapacity;
-                if (len == newLen) return;
-
-                Log.dbg("UpdateCrewManifest current {0}; new {1}; prefab {2}", len, newLen, this.scaler.prefab.CrewCapacity);
-
-                this.scaler.part.CrewCapacity  = newLen;
-#if CREW_SCALE_UP
-    #if PREFAB_SCALE_HACK
-                // Workaround to try to force KSP to accept bigger crew manifests at editting time, as apparently it only respects the prefab's value, bluntly ignoring the part's data!
-				this.scaler.prefab.CrewCapacity = Math.Max(this.scaler.prefab.CrewCapacity, this.scaler.part.CrewCapacity);
-    #endif
-#else
-				this.scaler.part.CrewCapacity = Math.Min(this.scaler.part.CrewCapacity, this.scaler.prefab.CrewCapacity);
-#endif
-                if (EditorLogic.fetch.editorScreen == EditorScreen.Crew)
-                    EditorLogic.fetch.SelectPanelParts();
-
-                this.SetCrewManifestSize(pcm, newLen);
-
-                ShipConstruction.ShipManifest.SetPartManifest(part.craftID, pcm);
-            }
-            catch (Exception e)
-            {
-                Log.error(e, this);
-            }
-        }
-
-        private void SetCrewManifestSize(PartCrewManifest pcm, int crewCapacity)
-        {
-            string[] newpartCrew = new string[crewCapacity];
-            {
-                for (int i = 0; i < newpartCrew.Length; ++i)
-                    newpartCrew[i] = string.Empty;
-
-                int SIZE = Math.Min(pcm.partCrew.Length, newpartCrew.Length);
-                for (int i = 0; i < SIZE; ++i)
-                    newpartCrew[i] = pcm.partCrew[i];
-
-                for (int i = SIZE; i < pcm.partCrew.Length; ++i)
-                    pcm.RemoveCrewFromSeat(i);
-            }
-            pcm.partCrew = newpartCrew;
-        }
-
-        private void UpdateMftModule()
-        {
-            try
-            {
-                if (this.scaler.prefab.Modules.Contains("ModuleFuelTanks"))
-                {
-                    scaleMass = false;
-					PartModule m = this.scaler.prefab.Modules["ModuleFuelTanks"];
-                    FieldInfo fieldInfo = m.GetType().GetField("totalVolume", BindingFlags.Public | BindingFlags.Instance);
-                    if (fieldInfo != null)
-                    {
-                        double oldVol = (double)fieldInfo.GetValue(m) * 0.001d;
-						BaseEventDetails data = new BaseEventDetails(BaseEventDetails.Sender.USER);
-                        data.Set<string>("volName", "Tankage");
-                        data.Set<double>("newTotalVolume", oldVol * ScalingFactor.absolute.cubic);
-                        part.SendEvent("OnPartVolumeChanged", data, 0);
-                    }
-                    else Log.warn("MFT interaction failed (fieldinfo=null)");
-                }
-            }
-            catch (Exception e)
-            {
-                Log.warn("Exception during MFT interaction" + e.ToString());
-            }
-        }
-
-        public static Type tfInterface = null;
-		private static readonly BindingFlags tBindingFlags = BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Static;
-        private void updateTestFlight()
-        {
-            if (null == tfInterface) return;
-            string _name = "scale";
-            string value = ScalingFactor.absolute.linear.ToString();
-            string owner = "TweakScale";
-
-			bool valueAdded = (bool)tfInterface.InvokeMember("AddInteropValue", tBindingFlags, null, null, new System.Object[] { part, _name, value, owner });
-            Log.dbg("TF: valueAdded={0}, value={1}", valueAdded, value);
-        }
-
-        private void UpdateAntennaPowerDisplay()
-        {
-			ModuleDataTransmitter m = part.Modules["ModuleDataTransmitter"] as ModuleDataTransmitter;
-            double p = m.antennaPower / 1000;
-            Char suffix = 'k';
-            if (p >= 1000)
-            {
-                p /= 1000f;
-                suffix = 'M';
-                if (p >= 1000)
-                {
-                    p /= 1000;
-                    suffix = 'G';
-                }
-            }
-            p = Math.Round(p, 2);
-            string str = p.ToString() + suffix;
-            if (m.antennaCombinable) { str += " (Combinable)"; }
-            m.powerText = str;
-        }
-
-		// scale IVA overlay
-		protected void ScaleIVA()
-		{
-			this.savedIvaScale = part.internalModel.transform.localScale * ScalingFactor.absolute.linear;
-			this.RestoreIVAScaling();
-		}
-		protected void RestoreIVAScaling()
-		{
-			if(this.savedIvaScale.IsZero()) return;
-			if(this.savedIvaScale == part.internalModel.transform.localScale) return;
-
-			part.internalModel.transform.localScale = this.savedIvaScale;
-			part.internalModel.transform.hasChanged = true;
-		}
-		protected bool IsIVAScalable => (HighLogic.LoadedSceneIsFlight && (null != this.part.internalModel) && this.IsScaled);
 
 		/// <summary>
 		/// Disable TweakScale module if something is wrong.
@@ -1021,6 +849,8 @@ namespace TweakScale
 
 		void IDisposable.Dispose()
 		{
+			this.destroyUpdaterLists();
+
 			if (null != this.scaler) (this.scaler as IDisposable).Dispose();
 			this.scaler = null;
 
@@ -1046,7 +876,7 @@ namespace TweakScale
 
         float IPartMassModifier.GetModuleMass(float defaultMass, ModifierStagingSituation situation)
         {
-            if (IsScaled && scaleMass)
+            if (IsScaled)
 				return this.scaler.prefab.mass * (MassScale - 1f);
             else
               return 0;
@@ -1178,6 +1008,59 @@ namespace TweakScale
 
         #endregion
 
+		private void buildUpdaterLists()
+		{
+			List<IPriorityRescalable> priorityList = new List<IPriorityRescalable>();
+			List<IRescalable> normalList = new List<IRescalable>();
+			List<ISecondaryRescalable> secondaryList = new List<ISecondaryRescalable>();
+			List<IUpdateable> updateableList = new List<IUpdateable>();
+			foreach (object o in Updater.Factory.CreateUpdaters(part))
+			{
+				if (null == o) continue;
+				if (o is IPriorityRescalable) priorityList.Add((IPriorityRescalable)o);
+				else if (o is ISecondaryRescalable) secondaryList.Add((ISecondaryRescalable)o);
+				else if (o is IRescalable) normalList.Add((IRescalable)o);
+				if (o is IUpdateable) updateableList.Add((IUpdateable)o);
+			}
+			this.priorityRescalables = priorityList.ToArray();
+			this.rescalables = normalList.ToArray();
+			this.secondaryRescalables = secondaryList.ToArray();
+			this.updateables = updateableList.ToArray();
+
+			Log.dbg("Setup found {0} Priority; {1} Rescalablke; {2} Secondary; {3} Updateable in {4}"
+					, this.priorityRescalables.Length
+					, this.rescalables.Length
+					, this.secondaryRescalables.Length
+					, this.updateables.Length
+					, this.InstanceID
+				);
+		}
+
+		/// <summary>
+		/// Prevents memory leaks and makes the GC's life easier by guaranteing there's no circular links between the
+		/// Updaters and Scale objetcs.
+		/// Complex Updaters should implement IDisposable and implement themselves the same safeties.
+		/// </summary>
+		private void destroyUpdaterLists()
+		{
+			if (null == this.updateables) return;
+
+			foreach (object o in this.updateables)
+				if (o is IDisposable oo) oo.Dispose();
+			this.updateables = null;
+
+			foreach (object o in this.secondaryRescalables)
+				if (o is IDisposable oo) oo.Dispose();
+			this.secondaryRescalables = null;
+
+			foreach (object o in this.rescalables)
+				if (o is IDisposable oo) oo.Dispose();
+			this.rescalables = null;
+
+			foreach (object o in this.priorityRescalables)
+				if (o is IDisposable oo) oo.Dispose();
+			this.priorityRescalables = null;
+		}
 
 		// This was borking on OnDestroy, so I decided to cache the information and save a NRE there.
 		private string _InstanceID = null;

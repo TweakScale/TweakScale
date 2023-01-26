@@ -62,6 +62,21 @@
     <Compile Include="..\PartDB14x\PartDB\VariantPartScaler.cs">
       <Link>PartDB\VariantPartScaler.cs</Link>
     </Compile>
+    <Compile Include="..\PartDB13x\Updater\Generic.cs">
+      <Link>Updater\Generic.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB13x\Updater\IVA.cs">
+      <Link>Updater\IVA.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB13x\Updater\Emmiter.cs">
+      <Link>Updater\Emmiter.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB13x\Updater\ModuleDataTransmitter.cs">
+      <Link>Updater\ModuleDataTransmitter.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB13x\Updater\CrewManifest.cs">
+      <Link>Updater\CrewManifest.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scale\Scale.csproj">

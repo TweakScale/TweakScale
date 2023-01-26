@@ -22,21 +22,32 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("01c8d239-4233-4a83-ae50-3e1a12cff502")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-
-// this is the API definition of TweakScale.
-// Other mods can include this in their distribution and compile against it without depending on a TweakScale version.
-// It does not depend on KSP and has not been touched since biotronic wrote it.
-// So its version should stay at 1.0, to make clear that other mods do not need to compile against a new version
-// (pellinor)
-[assembly: AssemblyVersion("2.5")]
+/*
+ * This is the API definition of TweakScale.
+ * 
+ * Originally, other mods could include this in their distribution and compile against it without depending on a TweakScale version,
+ * but having more than one copy of the ScaleRedist (or any other Assembly) is known to cause performance issues on KSP < 1.8, and to
+ * plain cause problems on KSP >= 1.8.
+ * 
+ * So from now on, only one copy should exist on the GameData's root.
+ *
+ * Change History:
+ *	* 1.2
+ *		+ Added Priorizable IRescaler and IRescaler<> alternatives:
+ *			- IPriorityRescalable & IPriorityRescalable<> for Recalers that should have precedence on everything else
+ *			- ISecondaryRescalable & ISecondaryRescalable<> for Recalers that should be executed after everything else
+ *		+ Added IUpdateable
+ *			- To be implemented by Rescalers that need to be called on every OnUpdate
+ *		+ Added TweakScale.Updater.Abstract class
+ *			- An optional template to be used by Custom Rescalers
+ *			- TweakScale's default ones use it.
+ *	* 1.1
+ *		+ Added ISanityCheck
+ *			- Interface to allow implementing Custom Sanity Checks to be called by TweakScale automatically.
+ *		+ Dependency on the KSP's Assembly-CSharp was added.
+ *	* 1.0
+ *		+ Original Interfaces from Biotronic times.
+ *			- IRescalable & IRescalable<>
+ */
+[assembly: AssemblyVersion("1.2")]
 [assembly: AssemblyFileVersion(TweakScale.Version.Number)]
