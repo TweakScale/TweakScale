@@ -20,7 +20,6 @@
 	You should have received a copy of the GNU General Public License 2.0
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
-using System;
 namespace TweakScale.Sanitizer
 {
 	public enum Priority
@@ -33,7 +32,7 @@ namespace TweakScale.Sanitizer
 		__SIZE = 1000,	// Placeholder. NOT TO BE USED
 	}
 
-	public interface SanityCheck
+	public interface ISanityCheck
 	{
 		Priority Priority { get ; }
 		bool HasRules { get ; }

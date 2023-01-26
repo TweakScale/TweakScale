@@ -21,7 +21,7 @@
 
 namespace TweakScale.Sanitizer
 {
-	public abstract class Abstract : SanityCheck
+	public abstract class Abstract : ISanityCheck
 	{
 		public abstract Priority Priority { get; }
 		public abstract bool HasRules { get ; }

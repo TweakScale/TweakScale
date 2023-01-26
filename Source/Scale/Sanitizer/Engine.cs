@@ -34,13 +34,13 @@ namespace TweakScale.Sanitizer
 		private void Start()
 		{
 			bool showStopper = false;
-			foreach (Sanitizer.SanityCheck sc in Engine.Instance.CHECKS_AVAILABLE) if (Sanitizer.Priority.ShowStopper == sc.Priority)
+			foreach (Sanitizer.ISanityCheck sc in Engine.Instance.CHECKS_AVAILABLE) if (Sanitizer.Priority.ShowStopper == sc.Priority)
 				// Only the first Show Stopper is emitted. There's no point on flooding the screen with more than one.
 				if (showStopper = sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings))
 					break;
 			if (!showStopper) // If a Show Stopper as emitted, nothing else matters. Otherwise, notify user about the lesser problems.
 				for (Priority i = 0; i < Priority.__SIZE; ++i)
-					foreach (SanityCheck sc in Engine.Instance.CHECKS_AVAILABLE) if (i == sc.Priority)
+					foreach (ISanityCheck sc in Engine.Instance.CHECKS_AVAILABLE) if (i == sc.Priority)
 						sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings);
 		}
 
@@ -57,14 +57,14 @@ namespace TweakScale.Sanitizer
 		private static Engine INSTANCE;
 		internal static Engine Instance => INSTANCE??(INSTANCE = new Engine());
 
-		internal readonly List<SanityCheck> CHECKS_AVAILABLE = new List<SanityCheck>();
+		internal readonly List<ISanityCheck> CHECKS_AVAILABLE = new List<ISanityCheck>();
 
 		private Engine()
 		{
-			IEnumerable<Type> ts = KSPe.Util.SystemTools.Type.Search.By(typeof(SanityCheck));
+			IEnumerable<Type> ts = KSPe.Util.SystemTools.Type.Search.By(typeof(ISanityCheck));
 			foreach(Type t in ts) if (!t.IsAbstract)
 			{
-				SanityCheck sc = (SanityCheck)System.Activator.CreateInstance(t);
+				ISanityCheck sc = (ISanityCheck)System.Activator.CreateInstance(t);
 				if (sc.HasRules) CHECKS_AVAILABLE.Add(sc);
 			}
 		}
@@ -78,7 +78,7 @@ namespace TweakScale.Sanitizer
 		{
 			List<string> m = new List<string>();
 			int failure_count = 0;
-			foreach(Sanitizer.SanityCheck sc in Engine.Instance.CHECKS_AVAILABLE)
+			foreach(Sanitizer.ISanityCheck sc in Engine.Instance.CHECKS_AVAILABLE)
 			{
 				unscalable_count += sc.Unscalable;
 				failure_count += sc.Failures;
@@ -93,12 +93,12 @@ namespace TweakScale.Sanitizer
 		{
 			{	// Run all the Sanity Checks (but Show Stoppers), priorized.
 				for(Priority i = 0; i < Priority.__SIZE; ++i)
-					foreach(SanityCheck sc in CHECKS_AVAILABLE) if (i == sc.Priority)
+					foreach(ISanityCheck sc in CHECKS_AVAILABLE) if (i == sc.Priority)
 						if (sc.Check(ap, ap.partPrefab)) break;
 			}
 
 			// Run the Show Stopper checks. It's run at last so the Sanity Checks has a chance of act before blowing everything up.
-			foreach(SanityCheck sc in CHECKS_AVAILABLE) if (Priority.ShowStopper == sc.Priority)
+			foreach(ISanityCheck sc in CHECKS_AVAILABLE) if (Priority.ShowStopper == sc.Priority)
 				if (sc.Check(ap, ap.partPrefab)) continue; // If anyone of the show stopper kicks, it's game over for this part. It's the reason they are called Show Stoppers!
 
 		}
