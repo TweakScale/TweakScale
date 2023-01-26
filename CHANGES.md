@@ -1,5 +1,11 @@
 # TweakScale :: Changes
 
+* 2023-0126: 2.4.6.20 (Lisias) for KSP >= 1.3
+	+ ***MOAR bug fixes!***
+	+ Updates KSPe.Light with yet ***moar*** bug fixes.
+	+ Closes Issues:
+		- [#261](https://github.com/net-lisias-ksp/TweakScale/issues/261) Misbehaviour (again) while scaling parts with VARIANT
+		- [#238](https://github.com/net-lisias-ksp/TweakScale/issues/238) TweakScale is failing to consistently resize the Attachment Node's sizes.
 * 2023-0115: 2.4.6.19 (Lisias) for KSP >= 1.3
 	+ Bug fixes.
 	+ States compatibility to KSP 1.12.5
