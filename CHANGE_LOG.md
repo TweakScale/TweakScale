@@ -1,5 +1,19 @@
 # TweakScale :: Change Log
 
+* 2023-0126: 2.4.6.20 (Lisias) for KSP >= 1.3
+	+ ***MOAR bug fixes!***
+	+ Updates KSPe.Light with yet ***moar*** bug fixes.
+	+ Closes Issues:
+		- [#261](https://github.com/net-lisias-ksp/TweakScale/issues/261) Misbehaviour (again) while scaling parts with VARIANT
+		- [#238](https://github.com/net-lisias-ksp/TweakScale/issues/238) TweakScale is failing to consistently resize the Attachment Node's sizes.
+* 2023-0115: 2.4.6.19 (Lisias) for KSP >= 1.3
+	+ Bug fixes.
+	+ States compatibility to KSP 1.12.5
+	+ Updates KSPe.Light with bug fixes and 1.12.5 support.
+	+ Closes Issues:
+		- [#246](https://github.com/net-lisias-ksp/TweakScale/issues/246) New bug related to IVA and Cameras when TweakScale is installed.
+* 2022-1116: 2.4.6.18 (Lisias) for KSP >= 1.3
+	+ A merge error was detected, affecting the KSP dependencies checks, and fixed.
 * 2022-1113: 2.4.6.17r2 (Lisias) for KSP >= 1.3
 	+ (Finally) Solves a long standing scaling problem related to Stock Buoyancy.
 	+ Solves the problem related to retrieving/storing Science from scaled Pods.
