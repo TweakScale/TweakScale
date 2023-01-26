@@ -439,7 +439,7 @@ namespace TweakScale
 
             foreach (ModulesAndExponents modExp in modulesAndExponents)
             {
-                Log.detail("modExP: {0} {1}", (modExp.Prefab as PartModule).moduleName, modExp.Prefab.GetType());
+				Log.dbg("modExP: {0} {1}", (modExp.Prefab as PartModule).moduleName, modExp.Prefab.GetType());
                 modExp.Exponents.UpdateFields(modExp.Current, modExp.Prefab, factor, part);
             }
         }

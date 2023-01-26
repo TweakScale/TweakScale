@@ -1181,7 +1181,7 @@ namespace TweakScale
 
 		// This was borking on OnDestroy, so I decided to cache the information and save a NRE there.
 		private string _InstanceID = null;
-		public string InstanceID => this._InstanceID = string.Format("{0}:{1:X}", this.part.name, this.part.GetInstanceID());
+		public string InstanceID => this._InstanceID ?? (this._InstanceID = string.Format("{0}:{1:X}", this.part.name, this.part.GetInstanceID()));
 
         public override string ToString()
         {
