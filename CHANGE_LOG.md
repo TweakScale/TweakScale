@@ -11,7 +11,7 @@
 		- [#280](https://github.com/net-lisias-ksp/TweakScale/issues/280) **UNDO** the :FOR[TWEAKSCALE] on Default TweakScale Patching...
 		- [#279](https://github.com/net-lisias-ksp/TweakScale/issues/279) Über refactoring on `IRescalable`
 		- [#276](https://github.com/net-lisias-ksp/TweakScale/issues/276) Update Scale_Redist Version to 1.2
-		- [#195](https://github.com/net-lisias-ksp/TweakScale/issues/195) Remove the stub CFG files for deprecated patches #195
+		- [#195](https://github.com/net-lisias-ksp/TweakScale/issues/195) Remove the stub CFG files for deprecated patches
 * 2023-0126: 2.4.6.20 (Lisias) for KSP >= 1.3
 	+ ***MOAR bug fixes!***
 	+ Updates KSPe.Light with yet ***moar*** bug fixes.
