@@ -1,5 +1,17 @@
 # TweakScale :: Change Log
 
+* 2023-0126: 2.5.0.50 **BETA** (Lisias) for KSP >= 1.3 
+	+ Catches up with the main stream
+		- [#268](https://github.com/net-lisias-ksp/TweakScale/issues/268) Misbehaviour related to Taking Data from a Pod when it's scaled.
+		- [#261](https://github.com/net-lisias-ksp/TweakScale/issues/261) Misbehaviour (again) while scaling parts with VARIANT
+		- [#252](https://github.com/net-lisias-ksp/TweakScale/issues/252) Scale the Buoyance so the scaled parts has a similar floating capabilities as the original.
+		- [#246](https://github.com/net-lisias-ksp/TweakScale/issues/246) New bug related to IVA and Cameras when TweakScale is installed.
+		- [#238](https://github.com/net-lisias-ksp/TweakScale/issues/238) TweakScale is failing to consistently resize the Attachment Node's sizes.
+	+ Closes 2.5 specific Issues:
+		- [#280](https://github.com/net-lisias-ksp/TweakScale/issues/280) **UNDO** the :FOR[TWEAKSCALE] on Default TweakScale Patching...
+		- [#279](https://github.com/net-lisias-ksp/TweakScale/issues/279) Über refactoring on `IRescalable`
+		- [#276](https://github.com/net-lisias-ksp/TweakScale/issues/276) Update Scale_Redist Version to 1.2
+		- [#195](https://github.com/net-lisias-ksp/TweakScale/issues/195) Remove the stub CFG files for deprecated patches #195
 * 2023-0126: 2.4.6.20 (Lisias) for KSP >= 1.3
 	+ ***MOAR bug fixes!***
 	+ Updates KSPe.Light with yet ***moar*** bug fixes.
