@@ -519,20 +519,20 @@ namespace TweakScale
 		private void OnTweakScaleChanged(BaseField field, object what)
 		{
 			Log.dbg("OnTweakScaleChanged {0}", this.InstanceID);
-			this.HandlenTweakScaleChanged();
-		}
-
-		private void HandlenTweakScaleChanged()
-		{
 			this.OnTweakScaleChanged();
-			foreach (Part p in this.part.symmetryCounterparts)
-				p.FindModuleImplementing<TweakScale>().OnTweakScaleChanged();
 		}
 
 		/// <summary>
 		/// Scale has changed!
 		/// </summary>
 		internal void OnTweakScaleChanged()
+		{
+			this.HandleTweakScaleChanged();
+			foreach (Part p in this.part.symmetryCounterparts)
+				p.FindModuleImplementing<TweakScale>().HandleTweakScaleChanged();
+		}
+
+		private void HandleTweakScaleChanged()
         {
             if (!isFreeScale)
             {
@@ -609,7 +609,7 @@ namespace TweakScale
 		private void ResetTweakScale()
 		{
 			this.tweakScale = this.defaultScale;
-			this.HandlenTweakScaleChanged();
+			this.OnTweakScaleChanged();
 		}
 
         private void CallUpdaters()
