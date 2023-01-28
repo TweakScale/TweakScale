@@ -1,11 +1,20 @@
 # TweakScale :: Change Log
 
-* 2023-0126: 2.4.6.20 (Lisias) for KSP >= 1.3
-	+ ***MOAR bug fixes!***
+* 2023-0128: 2.4.6.21 (Lisias) for KSP >= 1.3
+	+ ***MOAR moar bug fixes!***
+		- An unfortunate merge ended up leaking a development only dependency into mainstream.
 	+ Updates KSPe.Light with yet ***moar*** bug fixes.
-	+ Closes Issues:
+		- And linking the damned thing to it this time. 
+	+ Fixes a bug on the Auto & Chain Scale
+		- They "forgot" to propagate the changes into the symmetric counter parts
+	+ WARNING: A new Editor bug plaguing KSP since 1.11.x was found and not worked around yet on code! (save and load the craft to fix the issue while editing it)
+		- [#283](https://github.com/net-lisias-ksp/TweakScale/issues/283) New screw up from KSP 1.11.0 Editor was revealed by the 2.4.6.20 release
+	+ (Properly) Closes Issues:
+		- [#282](https://github.com/net-lisias-ksp/TweakScale/issues/282) Auto Scale are not sending KSP-Recall the OnPartResourcesChanged event 
 		- [#261](https://github.com/net-lisias-ksp/TweakScale/issues/261) Misbehaviour (again) while scaling parts with VARIANT
 		- [#238](https://github.com/net-lisias-ksp/TweakScale/issues/238) TweakScale is failing to consistently resize the Attachment Node's sizes.
+* 2023-0126: 2.4.6.20 (Lisias) for KSP >= 1.3
+	+ ***WITHDRAWN*** due a pretty stupid mistake on a merge.
 * 2023-0115: 2.4.6.19 (Lisias) for KSP >= 1.3
 	+ Bug fixes.
 	+ States compatibility to KSP 1.12.5
