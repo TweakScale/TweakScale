@@ -731,50 +731,35 @@ namespace TweakScale
 
 		private ConfigNode FixPartScaling(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
 		{
-			Log.dbg("FixPartScaling \n{0}\n======\n{1}", source, node);
+			Log.dbg("FixPartScaling {0}", source);
+
 			TweakScale prefab = this.part.partInfo.partPrefab.Modules.GetModule<TweakScale>(0);
 			string prefabSuffix = prefab.ScaleType.Suffix??"";
 			float prefabDefaultScale = prefab.ScaleType.DefaultScale;
 
-			string craftSuffix = node.GetValue("suffix", "");
 			float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
 			float craftScale = node.GetValue<float>("currentScale", prefabDefaultScale);
 
-			float craftRelativeScale = 0f;
-			if ("".Equals(craftSuffix) && 1.0f == craftDefaultScale)        // Handles normalized scaling scheme
-			{
-				craftRelativeScale = craftScale;
-			}
-			else if ("%".Equals(craftSuffix) && 100f == craftDefaultScale)  // Handles percentage scaling scheme
-			{
-				craftRelativeScale = craftScale / 100f;
-			}
-			else if ("m".Equals(prefabSuffix.ToLower()))                    // Handles Metric scaling scheme
-			{
-				craftRelativeScale = craftScale / craftDefaultScale;
-			}
-			else // In Kraken, we trust! :P
-			{
-				craftRelativeScale = craftScale / craftDefaultScale;
-			}
-
+			float craftRelativeScale = craftScale / craftDefaultScale;
 			source.SetValue("defaultScale", prefabDefaultScale);
+
 			float newCurrentScale = 0f;
-			if ("".Equals(prefabSuffix) && 1.0f == prefabDefaultScale)          // Handles normalized scaling scheme
-			{
-				newCurrentScale = craftRelativeScale;
-			}
-			else if ("%".Equals(prefabSuffix) && 100f == prefabDefaultScale)    // Handles percentage scaling scheme
+			if ("%".Equals(prefabSuffix) && 100f == prefabDefaultScale)			// Handles percentage scaling scheme
 			{
 				newCurrentScale = 100f * craftRelativeScale;
 			}
-			else if ("m".Equals(prefabSuffix.ToLower()))                        // Handles Metric scaling scheme
+			else if ("".Equals(prefabSuffix) && 1.0f == prefabDefaultScale)		// Handles normalized scaling scheme
+			{
+				newCurrentScale = craftRelativeScale;
+			}
+			else if ("m".Equals(prefabSuffix.ToLower()))								// Handles Metric scaling scheme
 			{
 				newCurrentScale = prefabDefaultScale * craftRelativeScale;
 			}
 			else// Sounds stupid, but sooner or later someone will try to scale things in Imperial Units and I need to change something here. :)
 				// TODO: Cook a way to allow customizable Migrations, instead of brute forcing my way on the problem as done here.
 			{
+				Log.warn("Unrecognized Measuring Unit on scaling scheme for {0} used by {1}.", prefab.ScaleType, this.part);
 				newCurrentScale = prefabDefaultScale * craftRelativeScale;
 			}
 			source.SetValue("currentScale", newCurrentScale);
@@ -792,7 +777,7 @@ namespace TweakScale
 
 		private ConfigNode FixPartScalingSameType(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
 		{
-			Log.dbg("FixPartScalingSameType \n{0}\n======\n{1}", source, node);
+			Log.dbg("FixPartScalingSameType \n", source, node);
 
 			float prefabDefaultScale = this.scaler.prefab.Modules.GetModule<TweakScale>(0).defaultScale;
 			float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
