@@ -347,6 +347,8 @@ namespace TweakScale
         {
             Log.dbg("OnSave {0}", this.InstanceID);
 
+			this.type = this.ScaleType.Name;
+
             if (this.is_duplicate)
             {   // Hack to prevent duplicated entries (and duplicated modules) persisting on the craft file
                 node.SetValue("name", "TweakScaleRogueDuplicate", 
@@ -729,6 +731,7 @@ namespace TweakScale
 
 		private ConfigNode FixPartScaling(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
 		{
+			Log.dbg("FixPartScaling \n{0}\n======\n{1}", source, node);
 			TweakScale prefab = this.part.partInfo.partPrefab.Modules.GetModule<TweakScale>(0);
 			string prefabSuffix = prefab.ScaleType.Suffix??"";
 			float prefabDefaultScale = prefab.ScaleType.DefaultScale;
@@ -789,6 +792,8 @@ namespace TweakScale
 
 		private ConfigNode FixPartScalingSameType(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
 		{
+			Log.dbg("FixPartScalingSameType \n{0}\n======\n{1}", source, node);
+
 			float prefabDefaultScale = this.scaler.prefab.Modules.GetModule<TweakScale>(0).defaultScale;
 			float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
 			float craftScale = node.GetValue<float>("currentScale", prefabDefaultScale);
