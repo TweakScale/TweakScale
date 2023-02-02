@@ -669,7 +669,7 @@ namespace TweakScale
             Log.dbg("send scaling part message");
             this.NotifyPartScaleChanged();
 
-            Log.dbg("Notify the World we changed the ship.");
+            Log.dbg("Notify the World we changed the ship ? {0}", fireShipModified);
             if (fireShipModified) GameEvents.onEditorShipModified.Fire(EditorLogic.fetch.ship);
         }
 
@@ -720,7 +720,7 @@ namespace TweakScale
 			TweakScale prefab = this.part.partInfo.partPrefab.Modules.GetModule<TweakScale>(0);
 			UpgradePipelineStatus r;
 			{
-				r.sameScaleType = this.type.Equals(prefab.type);
+				r.sameScaleType = prefab.ScaleType.Name.Equals(this.type);
 			}
 			{
 				float currentDefaultScale = node.GetValue<float>("defaultScale", prefab.defaultScale);
