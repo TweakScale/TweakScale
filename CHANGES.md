@@ -1,5 +1,8 @@
 # TweakScale :: Changes
 
+* 2023-0202: 2.5.0.51 **BETA** (Lisias) for KSP >= 1.3 
+	+ More robust ScaleType Migration Code.
+		- Indirectly related to issue [#285](https://github.com/net-lisias-ksp/TweakScale/issues/285), as the Beta branch **does not** presented the misbehaviour.
 * 2023-0126: 2.5.0.50 **BETA** (Lisias) for KSP >= 1.3 
 	+ Catches up with the main stream
 		- [#268](https://github.com/net-lisias-ksp/TweakScale/issues/268) Misbehaviour related to Taking Data from a Pod when it's scaled.
