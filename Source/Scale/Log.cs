@@ -72,6 +72,11 @@ namespace TweakScale
 			log.error(msg, @params);
 		}
 
+		public static void error(Exception e, string msg, params object[] @params)
+		{
+			log.error(e, msg, @params);
+		}
+
 		[ConditionalAttribute("DEBUG")]
 		public static void dbg(string msg, params object[] @params)
 		{
