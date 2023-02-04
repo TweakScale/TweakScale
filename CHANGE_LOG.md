@@ -1,8 +1,13 @@
 # TweakScale :: Change Log
 
-* 2023-0202: 2.5.0.51 **BETA** (Lisias) for KSP >= 1.3 
+* 2023-0204: 2.5.0.52 **BETA** (Lisias) for KSP >= 1.3 
+	+ Fixes a lame mistake I let pass through on .51 
 	+ More robust ScaleType Migration Code.
 		- Indirectly related to issue [#285](https://github.com/net-lisias-ksp/TweakScale/issues/285), as the Beta branch **does not** presented the misbehaviour.
+	+ Closes issues:
+		- [#287](https://github.com/net-lisias-ksp/TweakScale/issues/286) Misunderstanding (?) on how `PartModule.OnLoad(ConfigNode)` really works.		- [#286](https://github.com/net-lisias-ksp/TweakScale/issues/286) `PartModule.OnLoad` **is not** called with `node` as null on Flight Scene!
+* 2023-0202: 2.5.0.51 **BETA** (Lisias) for KSP >= 1.3 
+	+ ***WITHDRAWN***
 * 2023-0126: 2.5.0.50 **BETA** (Lisias) for KSP >= 1.3 
 	+ Catches up with the main stream
 		- [#268](https://github.com/net-lisias-ksp/TweakScale/issues/268) Misbehaviour related to Taking Data from a Pod when it's scaled.
