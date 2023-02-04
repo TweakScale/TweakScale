@@ -186,14 +186,14 @@ namespace TweakScale
         {
             this.Setup(this.part);
         }
-		protected virtual void Setup(Part part)
+		protected virtual void Setup(Part part, UpgradePipelineStatus status = null)
 		{
-			Log.dbg("Setup {0}", this.InstanceID);
+			Log.dbg("Setup {0} {1}", this.InstanceID, status);
 
 			{
 				Part prefab = this.part.partInfo.partPrefab;
 				this.ScaleType = (prefab.Modules["TweakScale"] as TweakScale).ScaleType;
-				this.SetupFromConfig(ScaleType);
+				this.SetupFromConfig(ScaleType, status);
 				this.scaler = PartDB.Scaler.Create(prefab, this.part, this.ScaleType, this);     // This need to be reworked. I calling this twice. :(
 
 				this.part.OnEditorAttach += OnEditorAttach;
@@ -247,22 +247,23 @@ namespace TweakScale
         /// Loads settings from <paramref name="scaleType"/>.
         /// </summary>
         /// <param name="scaleType">The settings to use.</param>
-        private void SetupFromConfig(ScaleType scaleType)
+        private void SetupFromConfig(ScaleType scaleType, UpgradePipelineStatus status = null)
         {
-            Log.dbg("SetupFromConfig for {0}", this.part.name);
+			Log.dbg("SetupFromConfig for {0} : {1}, {2}. {3}", this.part.name, defaultScale, currentScale, tweakScale);
             if (ScaleType == null) Log.error("Scaletype==null! part={0}", part.name);
 
             isFreeScale = scaleType.IsFreeScale;
-            if (-1 == defaultScale)
-                defaultScale = scaleType.DefaultScale;
+            if (-1 == defaultScale || null != status)
+                defaultScale = status?.newDefaultScale??scaleType.DefaultScale;
 
-            if (-1 == currentScale)
+            if (-1 == currentScale || null != status)
                 currentScale = defaultScale;
 
-            if (-1 == tweakScale)
-                tweakScale = currentScale;
+            if (-1 == tweakScale || null != status)
+                tweakScale = status?.newCurrentScale??currentScale;
 
             this.SetupWidgets(scaleType);
+			Log.dbg("SetupFromConfig for {0} : {1}, {2}, {3} FINAL", this.part.name, defaultScale, currentScale, tweakScale);
         }
 
 		private void SetupWidgets(ScaleType scaleType)
@@ -311,17 +312,17 @@ namespace TweakScale
         {
             Log.dbg("OnLoad {0}", this.InstanceID);
 
-            base.OnLoad(node);
-
             if (null == part.partInfo)
             {
+				base.OnLoad(node);
                 // Loading of the prefab from the part config
                 this.SetupPrefab(part);
             }
             else
             {
-				this.ExecuteMyUpgradePipeline(node);
-				this.Setup(part);
+				UpgradePipelineStatus status = this.ExecuteMyUpgradePipeline(node);
+				base.OnLoad(node);
+				this.Setup(part, status);
 
                 // Loading of the part from a saved craft
                 tweakScale = currentScale;
@@ -709,17 +710,31 @@ namespace TweakScale
 			this.availabilityStatus = " in error!";
 		}
 
-		private struct UpgradePipelineStatus
+		// Note to myself: struts are passed **BY VALUE** on methods!
+		// Objects are passed by reference.
+		protected class UpgradePipelineStatus
 		{
 			internal bool sameScaleType;
 			internal bool sameDefaultScale;
 			internal TweakScale prefab;
+
+			internal float newDefaultScale;
+			internal float newCurrentScale;
+
+			public override string ToString()
+			{
+				return string.Format("{0}{{sameScaleType:{1}, sameDefaultScale:{2}, newDefaultScale:{3}, newCurrentScale:{4}}}",
+						this.GetType().Name,
+						sameScaleType, sameDefaultScale,
+						newDefaultScale, newCurrentScale
+					);
+			}
 		}
 
 		private UpgradePipelineStatus IsPartMatchesPrefab(KSPe.ConfigNodeWithSteroids node)
 		{
 			TweakScale prefab = this.part.partInfo.partPrefab.Modules.GetModule<TweakScale>(0);
-			UpgradePipelineStatus r;
+			UpgradePipelineStatus r = new UpgradePipelineStatus();
 			r.prefab = prefab;
 			r.sameScaleType = prefab.ScaleType.Name.Equals(this.type);
 			{
@@ -731,44 +746,46 @@ namespace TweakScale
 
 		private ConfigNode FixPartScaling(UpgradePipelineStatus status, ConfigNode source, KSPe.ConfigNodeWithSteroids node)
 		{
-			Log.dbg("FixPartScaling {0}", source);
+			Log.dbg("FixPartScaling");
 
-			string prefabSuffix = status.prefab.ScaleType.Suffix??"";
-			float prefabDefaultScale = status.prefab.ScaleType.DefaultScale;
+			source.SetValue("type", status.prefab.type);
 
-			float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
-			float craftScale = node.GetValue<float>("currentScale", prefabDefaultScale);
+			status.newDefaultScale = status.prefab.ScaleType.DefaultScale;
+			source.SetValue("defaultScale", status.newDefaultScale);
+
+			float craftDefaultScale = node.GetValue<float>("defaultScale", status.newDefaultScale);
+			float craftScale = node.GetValue<float>("currentScale", status.newDefaultScale);
 
 			float craftRelativeScale = craftScale / craftDefaultScale;
-			source.SetValue("defaultScale", prefabDefaultScale);
 
-			float newCurrentScale = 0f;
-			if ("%".Equals(prefabSuffix) && 100f == prefabDefaultScale)			// Handles percentage scaling scheme
+			string prefabSuffix = status.prefab.ScaleType.Suffix??"";
+			Log.dbg("FixPartScaling os using suffix [{0}]", prefabSuffix);
+			if ("%".Equals(prefabSuffix) && 100f == status.newDefaultScale)			// Handles percentage scaling scheme
 			{
-				newCurrentScale = 100f * craftRelativeScale;
+				status.newCurrentScale = 100f * craftRelativeScale;
 			}
-			else if ("".Equals(prefabSuffix) && 1.0f == prefabDefaultScale)		// Handles normalized scaling scheme
+			else if ("".Equals(prefabSuffix) && 1.0f == status.newDefaultScale)		// Handles normalized scaling scheme
 			{
-				newCurrentScale = craftRelativeScale;
+				status.newCurrentScale = craftRelativeScale;
 			}
 			else if ("m".Equals(prefabSuffix.ToLower()))								// Handles Metric scaling scheme
 			{
-				newCurrentScale = prefabDefaultScale * craftRelativeScale;
+				status.newCurrentScale = status.newDefaultScale * craftRelativeScale;
 			}
 			else// Sounds stupid, but sooner or later someone will try to scale things in Imperial Units and I need to change something here. :)
 				// TODO: Cook a way to allow customizable Migrations, instead of brute forcing my way on the problem as done here.
 			{
 				Log.warn("Unrecognized Measuring Unit on scaling scheme for {0} used by {1}.", status.prefab.ScaleType, this.part);
-				newCurrentScale = prefabDefaultScale * craftRelativeScale;
+				status.newCurrentScale = status.newDefaultScale * craftRelativeScale;
 			}
-			source.SetValue("currentScale", newCurrentScale);
+			source.SetValue("currentScale", status.newCurrentScale);
 
 			Log.warn("Upgrading ScaleType! Craft {0} had the part {1} scaling changed"
 						+ " from ({2}: default={3:F3}, current={4:F3})"
 						+ " to ({5}: default={6:F3}, current={7:F3})"
 					, this.part.craftID, this.InstanceID    // note: this.part.vessel.vesselName is not available yet at this point.
 					, this.type, craftDefaultScale, craftScale
-					, status.prefab.type, prefabDefaultScale, newCurrentScale
+					, status.prefab.type, status.newDefaultScale, status.newCurrentScale
 				);
 
 			return source;
@@ -776,26 +793,29 @@ namespace TweakScale
 
 		private ConfigNode FixPartScalingSameType(UpgradePipelineStatus status, ConfigNode source, KSPe.ConfigNodeWithSteroids node)
 		{
-			Log.dbg("FixPartScalingSameType {0}", source);
+			Log.dbg("FixPartScalingSameType");
 
-			float prefabDefaultScale = status.prefab.defaultScale;
-			float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
-			float craftScale = node.GetValue<float>("currentScale", prefabDefaultScale);
+			status.newDefaultScale = status.prefab.defaultScale;
+			float craftDefaultScale = node.GetValue<float>("defaultScale", status.newDefaultScale);
+			float craftScale = node.GetValue<float>("currentScale", status.newDefaultScale);
 			float craftRelativeScale = craftScale / craftDefaultScale;
-			float newCurrentScale = prefabDefaultScale * craftRelativeScale;
+			status.newCurrentScale = status.newDefaultScale * craftRelativeScale;
 
-			source.SetValue("currentScale", newCurrentScale);
-			source.SetValue("defaultScale", prefabDefaultScale);
+			source.SetValue("currentScale", status.newCurrentScale);
+			source.SetValue("defaultScale", status.newDefaultScale);
 
 			Log.warn("Upgrading defaultScale! Craft {0} had the part {1} defaultScale changed from {2:F3} to {3:F3} and was rescaled to {4:F3}"
 					, this.part.craftID, this.InstanceID    // note: this.part.vessel.vesselName is not available yet at this point.
-					, craftDefaultScale, prefabDefaultScale, newCurrentScale
+					, craftDefaultScale, status.newDefaultScale, status.newCurrentScale
 				);
 			return source;
 		}
 
-		private void ExecuteMyUpgradePipeline(ConfigNode node)
+		private UpgradePipelineStatus ExecuteMyUpgradePipeline(ConfigNode node)
 		{
+			Log.dbg("ExecuteMyUpgradePipeline before {0}", node);
+			UpgradePipelineStatus r = null;
+
 			// That's the problem - somewhere in the not so near past, KSP implemented a stunt called
 			// UpgradePipeline. This thing acts after the PartModule's OnLoad handler, and it injects
 			// back default values from prefab into the part on loading. This was intended to allow older
@@ -814,11 +834,15 @@ namespace TweakScale
 				KSPe.ConfigNodeWithSteroids cn = KSPe.ConfigNodeWithSteroids.from(node);
 
 				UpgradePipelineStatus data = this.IsPartMatchesPrefab(cn);
-				if (data.sameDefaultScale && data.sameScaleType)    return;
+				if (data.sameDefaultScale && data.sameScaleType)    return null;
 
 				if (!data.sameScaleType)                            this.FixPartScaling(data, node, cn);
 				if (data.sameScaleType && !data.sameDefaultScale)   this.FixPartScalingSameType(data, node, cn);
+
+				r = data;
 			}
+			Log.dbg("ExecuteMyUpgradePipeline after {0}", node);
+			return r;
 		}
 
         /// <summary>
