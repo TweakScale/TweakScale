@@ -5,7 +5,8 @@
 	+ More robust ScaleType Migration Code.
 		- Indirectly related to issue [#285](https://github.com/net-lisias-ksp/TweakScale/issues/285), as the Beta branch **does not** presented the misbehaviour.
 	+ Closes issues:
-		- [#287](https://github.com/net-lisias-ksp/TweakScale/issues/286) Misunderstanding (?) on how `PartModule.OnLoad(ConfigNode)` really works.		- [#286](https://github.com/net-lisias-ksp/TweakScale/issues/286) `PartModule.OnLoad` **is not** called with `node` as null on Flight Scene!
+		- [#287](https://github.com/net-lisias-ksp/TweakScale/issues/286) Misunderstanding (?) on how `PartModule.OnLoad(ConfigNode)` really works.
+		- [#286](https://github.com/net-lisias-ksp/TweakScale/issues/286) `PartModule.OnLoad` **is not** called with `node` as null on Flight Scene!
 * 2023-0202: 2.5.0.51 **BETA** (Lisias) for KSP >= 1.3 
 	+ ***WITHDRAWN***
 * 2023-0126: 2.5.0.50 **BETA** (Lisias) for KSP >= 1.3 
@@ -20,6 +21,19 @@
 		- [#279](https://github.com/net-lisias-ksp/TweakScale/issues/279) Über refactoring on `IRescalable`
 		- [#276](https://github.com/net-lisias-ksp/TweakScale/issues/276) Update Scale_Redist Version to 1.2
 		- [#195](https://github.com/net-lisias-ksp/TweakScale/issues/195) Remove the stub CFG files for deprecated patches
+* 2023-0128: 2.4.6.21 (Lisias) for KSP >= 1.3
+	+ ***MOAR moar bug fixes!***
+		- An unfortunate merge ended up leaking a development only dependency into mainstream.
+	+ Updates KSPe.Light with yet ***moar*** bug fixes.
+		- And linking the damned thing to it this time. 
+	+ Fixes a bug on the Auto & Chain Scale
+		- They "forgot" to propagate the changes into the symmetric counter parts
+	+ WARNING: A new Editor bug plaguing KSP since 1.11.x was found and not worked around yet on code! (save and load the craft to fix the issue while editing it)
+		- [#283](https://github.com/net-lisias-ksp/TweakScale/issues/283) New screw up from KSP 1.11.0 Editor was revealed by the 2.4.6.20 release
+	+ (Properly) Closes Issues:
+		- [#282](https://github.com/net-lisias-ksp/TweakScale/issues/282) Auto Scale are not sending KSP-Recall the OnPartResourcesChanged event 
+		- [#261](https://github.com/net-lisias-ksp/TweakScale/issues/261) Misbehaviour (again) while scaling parts with VARIANT
+		- [#238](https://github.com/net-lisias-ksp/TweakScale/issues/238) TweakScale is failing to consistently resize the Attachment Node's sizes.
 * 2023-0126: 2.4.6.20 (Lisias) for KSP >= 1.3
 	+ ***MOAR bug fixes!***
 	+ Updates KSPe.Light with yet ***moar*** bug fixes.
