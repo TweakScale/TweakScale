@@ -713,15 +713,15 @@ namespace TweakScale
 		{
 			internal bool sameScaleType;
 			internal bool sameDefaultScale;
+			internal TweakScale prefab;
 		}
 
 		private UpgradePipelineStatus IsPartMatchesPrefab(KSPe.ConfigNodeWithSteroids node)
 		{
 			TweakScale prefab = this.part.partInfo.partPrefab.Modules.GetModule<TweakScale>(0);
 			UpgradePipelineStatus r;
-			{
-				r.sameScaleType = prefab.ScaleType.Name.Equals(this.type);
-			}
+			r.prefab = prefab;
+			r.sameScaleType = prefab.ScaleType.Name.Equals(this.type);
 			{
 				float currentDefaultScale = node.GetValue<float>("defaultScale", prefab.defaultScale);
 				r.sameDefaultScale = Math.Abs(prefab.defaultScale - currentDefaultScale) < 0.001f;
@@ -729,13 +729,12 @@ namespace TweakScale
 			return r;
 		}
 
-		private ConfigNode FixPartScaling(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
+		private ConfigNode FixPartScaling(UpgradePipelineStatus status, ConfigNode source, KSPe.ConfigNodeWithSteroids node)
 		{
 			Log.dbg("FixPartScaling {0}", source);
 
-			TweakScale prefab = this.part.partInfo.partPrefab.Modules.GetModule<TweakScale>(0);
-			string prefabSuffix = prefab.ScaleType.Suffix??"";
-			float prefabDefaultScale = prefab.ScaleType.DefaultScale;
+			string prefabSuffix = status.prefab.ScaleType.Suffix??"";
+			float prefabDefaultScale = status.prefab.ScaleType.DefaultScale;
 
 			float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
 			float craftScale = node.GetValue<float>("currentScale", prefabDefaultScale);
@@ -759,7 +758,7 @@ namespace TweakScale
 			else// Sounds stupid, but sooner or later someone will try to scale things in Imperial Units and I need to change something here. :)
 				// TODO: Cook a way to allow customizable Migrations, instead of brute forcing my way on the problem as done here.
 			{
-				Log.warn("Unrecognized Measuring Unit on scaling scheme for {0} used by {1}.", prefab.ScaleType, this.part);
+				Log.warn("Unrecognized Measuring Unit on scaling scheme for {0} used by {1}.", status.prefab.ScaleType, this.part);
 				newCurrentScale = prefabDefaultScale * craftRelativeScale;
 			}
 			source.SetValue("currentScale", newCurrentScale);
@@ -769,17 +768,17 @@ namespace TweakScale
 						+ " to ({5}: default={6:F3}, current={7:F3})"
 					, this.part.craftID, this.InstanceID    // note: this.part.vessel.vesselName is not available yet at this point.
 					, this.type, craftDefaultScale, craftScale
-					, prefab.type, prefabDefaultScale, newCurrentScale
+					, status.prefab.type, prefabDefaultScale, newCurrentScale
 				);
 
 			return source;
 		}
 
-		private ConfigNode FixPartScalingSameType(ConfigNode source, KSPe.ConfigNodeWithSteroids node)
+		private ConfigNode FixPartScalingSameType(UpgradePipelineStatus status, ConfigNode source, KSPe.ConfigNodeWithSteroids node)
 		{
-			Log.dbg("FixPartScalingSameType \n", source, node);
+			Log.dbg("FixPartScalingSameType {0}", source);
 
-			float prefabDefaultScale = this.scaler.prefab.Modules.GetModule<TweakScale>(0).defaultScale;
+			float prefabDefaultScale = status.prefab.defaultScale;
 			float craftDefaultScale = node.GetValue<float>("defaultScale", prefabDefaultScale);
 			float craftScale = node.GetValue<float>("currentScale", prefabDefaultScale);
 			float craftRelativeScale = craftScale / craftDefaultScale;
@@ -817,8 +816,8 @@ namespace TweakScale
 				UpgradePipelineStatus data = this.IsPartMatchesPrefab(cn);
 				if (data.sameDefaultScale && data.sameScaleType)    return;
 
-				if (!data.sameScaleType)                            this.FixPartScaling(node, cn);
-				if (data.sameScaleType && !data.sameDefaultScale)   this.FixPartScalingSameType(node, cn);
+				if (!data.sameScaleType)                            this.FixPartScaling(data, node, cn);
+				if (data.sameScaleType && !data.sameDefaultScale)   this.FixPartScalingSameType(data, node, cn);
 			}
 		}
 
