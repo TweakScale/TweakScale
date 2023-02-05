@@ -1,5 +1,14 @@
 # TweakScale :: Change Log
 
+* 2023-0205: 2.4.6.22 (Lisias) for KSP >= 1.3
+	+ I **DON'T KNOW** why I had to release this one. I don't know what had broken, I don't know why the changes needed to be made to make things thigh again "solved" the problem.
+		- I know **what**, I know **where**. But I don't know **why**. 
+		- Things that were working on March 2022 just stopped working - **on the same test beds** they worked before.
+	+ Works issues:
+		- [#287](https://github.com/net-lisias-ksp/TweakScale/issues/287) Misunderstanding (?) on how PartModule.OnLoad(ConfigNode) really works
+		- [#286](https://github.com/net-lisias-ksp/TweakScale/issues/286) PartModule.OnLoad **is not** called with node as null on Flight Scene!
+	+ (Dis)Honorable mention:
+		- [#288](https://github.com/net-lisias-ksp/TweakScale/issues/288) Carnage on crafts from very old TweakScale versions.
 * 2023-0204: 2.5.0.52 **BETA** (Lisias) for KSP >= 1.3 
 	+ Fixes a lame mistake I let pass through on .51 
 	+ More robust ScaleType Migration Code.
