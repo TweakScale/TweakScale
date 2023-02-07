@@ -159,7 +159,7 @@ namespace TweakScale
         /// </summary>
         public ScaleType ScaleType { get; private set; }
 
-        public bool IsScaled => this.active && (Math.Abs(currentScale / defaultScale - 1f) > 1e-5f);
+        public bool IsScaled => this.active && !this.is_duplicate && (Math.Abs(currentScale / defaultScale - 1f) > 1e-5f);
         private bool IsChanged => this.active && currentScale != (isFreeScale ? tweakScale : ScaleFactors [tweakName]);
 
         /// <summary>
@@ -348,13 +348,19 @@ namespace TweakScale
         {
             Log.dbg("OnSave {0}", this.InstanceID);
 
-            if (this.is_duplicate)
-            {   // Hack to prevent duplicated entries (and duplicated modules) persisting on the craft file
-                node.SetValue("name", "TweakScaleRogueDuplicate", 
-                    "Programatically tainted due duplicity. Only one single instance above should exist, usually the first one. ",
-                    false);
-                Log.warn("Part {0} has a Rogue Duplicated TweakScale!", part.name);
-            }
+			if (this.is_duplicate)
+			{	// Hack to prevent duplicated entries (and duplicated modules) persisting on the craft file
+				Log.warn("Part {0} has a Rogue Duplicated TweakScale!", part.name);
+				node.SetValue("name", "TweakScaleRogueDuplicate",
+					"Programatically tainted due duplicity. Only one single instance above should exist, usually the first one. ",
+					false);
+				node.SetValue("isEnabled", "false",
+					"Programatically disabled",	// In the unlikelly event that someone thinks it's a good idea to create a 
+					false);						// `TweakScaleRogueDuplicate` module to screw with me. :)
+				this.type = "Rogue";
+				base.OnSave(node);
+				return;
+			}
 
 			// Preventing saving the TweakScale module data on the craft file when TweakScale is not active neither in use for this
 			// part.
