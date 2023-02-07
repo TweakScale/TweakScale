@@ -348,8 +348,6 @@ namespace TweakScale
         {
             Log.dbg("OnSave {0}", this.InstanceID);
 
-			this.type = this.ScaleType.Name;
-
             if (this.is_duplicate)
             {   // Hack to prevent duplicated entries (and duplicated modules) persisting on the craft file
                 node.SetValue("name", "TweakScaleRogueDuplicate", 
@@ -396,6 +394,8 @@ namespace TweakScale
 								// by KSP downto KSP 1.4.0. Perhaps due UpgradePipeline?
 				return; // Let's think different... (yep, it worked).
 			}
+
+			this.type = this.ScaleType?.Name??"NULL"; // Broken TweakScale modules doesn't have the `this.ScaleType` initialised!
 
 			base.OnSave(node);
 		}
