@@ -1,5 +1,10 @@
 # TweakScale :: Change Log
 
+* 2023-0207: 2.5.0.53 **BETA** (Lisias) for KSP >= 1.3 
+	+ Catches up with the mainstream.
+	+ Closes Issues:
+		- [#290](https://github.com/net-lisias-ksp/TweakScale/issues/290) Regression on handling the TweakScaleRogueDuplicate patching problem.
+		- [#289](https://github.com/net-lisias-ksp/TweakScale/issues/289) Yet another unexpected Misbehaviour, this time on `PartModule.OnSave`.
 * 2023-0206: 2.4.6.23 (Lisias) for KSP >= 1.3
 	+ The fix for the *ScaleType Migration Code* on 2.4.6.22 ended up creating a new bug on the `TweakScaleRogueDuplicate` security feature, leading KSP rigs infected with this problem to crash when trying to save the game.
 		- My bad. Really Sorry.
