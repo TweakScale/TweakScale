@@ -1,5 +1,8 @@
 # TweakScale :: Change Log
 
+* 2023-0212: 2.5.0.54 **BETA** (Lisias) for KSP >= 1.3 
+	+ Removes deprecated calls to `KSPe` from the codebase
+		- (shame on me, these things are deprecated for months!)
 * 2023-0207: 2.5.0.53 **BETA** (Lisias) for KSP >= 1.3 
 	+ Catches up with the mainstream.
 	+ Closes Issues:
