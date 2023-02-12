@@ -76,7 +76,7 @@ namespace TweakScale.PartDB
 
 		private static Scaler FindAndCreate(string name, Part prefab, Part part, ScaleType scaleType, TweakScale ts) {
 			string qualifiedName = "TweakScale.PartDB." + name;
-			Type type = KSPe.Util.SystemTools.TypeFinder.FindByQualifiedName(qualifiedName);
+			Type type = KSPe.Util.SystemTools.Type.Find.ByQualifiedName(qualifiedName);
 			return (Scaler)Activator.CreateInstance(type, prefab, part, scaleType, ts);
 		}
 
