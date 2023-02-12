@@ -51,9 +51,9 @@ namespace TweakScale
 
 			{
 				bool sane = false;
-				if (KSPe.Util.SystemTools.Assembly.Finder.ExistsByName("Scale_Sanitizer"))
+				if (KSPe.Util.SystemTools.Assembly.Exists.ByName("Scale_Sanitizer"))
 				{
-					System.Reflection.Assembly asm = KSPe.Util.SystemTools.Assembly.Finder.FindByName("Scale_Sanitizer");
+					System.Reflection.Assembly asm = KSPe.Util.SystemTools.Assembly.Find.ByName("Scale_Sanitizer");
 					System.Diagnostics.FileVersionInfo myVersionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(this.GetType().Assembly.Location);
 					System.Diagnostics.FileVersionInfo hisVersionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(asm.Location);
 
