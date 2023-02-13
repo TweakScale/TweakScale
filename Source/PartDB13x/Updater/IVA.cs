@@ -20,6 +20,8 @@
 	You should have received a copy of the GNU General Public License 2.0
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
+using System;
+
 using UnityEngine;
 
 namespace TweakScale.Updater
@@ -35,7 +37,8 @@ namespace TweakScale.Updater
 		/// </summary>
 		private Vector3 savedIvaScale = Vector3.zero;
 
-		public IVA(Part part) : base(part) { }
+		public IVA(Part part) : base(part)	{ GameEvents.onVesselSwitching.Add(this.OnVesselSwitching); }
+		~IVA()								{ GameEvents.onVesselSwitching.Remove(this.OnVesselSwitching); }
 
 		// scale IVA overlay
 		void IRescalable.OnRescale(ScalingFactor factor)
@@ -65,18 +68,35 @@ namespace TweakScale.Updater
 						this.state = (1f == this.currentFactor || this.originalIvaScale == this.savedIvaScale) ? 0 : 3;
 						break;
 				case 3: // scaled
+						//this.ScaleIVA();
+						this.state = 4;
+						break;
+				case 4: // Keep th scaling
 						// flight scene frequently nukes our OnStart resize some time later
 						this.RestoreIVAScaling();
 						break;
+				case 5: // Lost focus
+						this.state = 0;
+						break;
 			}
-
 		}
 
 		protected void RestoreIVAScaling()
 		{
 			if (this.savedIvaScale == this.part.internalModel.transform.localScale) return;
+			this.ScaleIVA();
+		}
+
+		protected void ScaleIVA()
+		{
 			part.internalModel.transform.localScale = this.savedIvaScale;
 			part.internalModel.transform.hasChanged = true;
+		}
+
+		private void OnVesselSwitching(Vessel from, Vessel to)
+		{
+			if (from.GetInstanceID() == this.part.vessel.GetInstanceID()) this.state = 5;
+			else if (to.GetInstanceID() == this.part.vessel.GetInstanceID()) this.state = 1;
 		}
 	}
 }
