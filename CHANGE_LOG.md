@@ -1,8 +1,11 @@
 # TweakScale :: Change Log
 
-* 2023-0212: 2.5.0.54 **BETA** (Lisias) for KSP >= 1.3 
+* 2023-0212: 2.5.0.55 **BETA** (Lisias) for KSP >= 1.3 
+	+ Implements a missing use case when scaling IVAs and switching vessels. 
 	+ Removes deprecated calls to `KSPe` from the codebase
 		- (shame on me, these things are deprecated for months!)
+* 2023-0212: 2.5.0.54 **BETA** (Lisias) for KSP >= 1.3 
+	+ **WITHDRAWN** as a new release were made in less than 24 hours. 
 * 2023-0207: 2.5.0.53 **BETA** (Lisias) for KSP >= 1.3 
 	+ Catches up with the mainstream.
 	+ Closes Issues:
