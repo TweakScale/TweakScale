@@ -95,8 +95,8 @@ namespace TweakScale.Updater
 
 		private void OnVesselSwitching(Vessel from, Vessel to)
 		{
-			if (from.GetInstanceID() == this.part.vessel.GetInstanceID()) this.state = 5;
-			else if (to.GetInstanceID() == this.part.vessel.GetInstanceID()) this.state = 1;
+			if (null != from && from.GetInstanceID() == this.part.vessel.GetInstanceID()) this.state = 5;
+			else if (null != to && to.GetInstanceID() == this.part.vessel.GetInstanceID()) this.state = 1;
 		}
 	}
 }
