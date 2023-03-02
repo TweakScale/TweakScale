@@ -87,6 +87,8 @@
     <Compile Include="Scale.cs" />
     <Compile Include="PartDB\Scaler.cs" />
     <Compile Include="PartDB\GameEvents.cs" />
+    <Compile Include="GUI\FaultyInstallationAlertBox.cs" />
+    <Compile Include="GUI\MissingCompanionAlertBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
