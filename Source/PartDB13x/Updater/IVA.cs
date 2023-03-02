@@ -37,8 +37,12 @@ namespace TweakScale.Updater
 		/// </summary>
 		private Vector3 savedIvaScale = Vector3.zero;
 
-		public IVA(Part part) : base(part)	{ GameEvents.onVesselSwitching.Add(this.OnVesselSwitching); }
-		~IVA()								{ GameEvents.onVesselSwitching.Remove(this.OnVesselSwitching); }
+		public IVA(Part part) : base(part)
+		{
+			if (HighLogic.LoadedSceneIsFlight && null != this.part.vessel)
+				GameEvents.onVesselSwitching.Add(this.OnVesselSwitching);
+		}
+		~IVA()	{ GameEvents.onVesselSwitching.Remove(this.OnVesselSwitching); }
 
 		// scale IVA overlay
 		void IRescalable.OnRescale(ScalingFactor factor)
