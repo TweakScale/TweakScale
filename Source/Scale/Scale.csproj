@@ -73,6 +73,8 @@
     <Compile Include="ModuleManagerSupport.cs" />
     <Compile Include="GUI\MissingSanitizerAlertBox.cs" />
     <Compile Include="Sanitizer\Engine.cs" />
+    <Compile Include="GUI\FaultyInstallationAlertBox.cs" />
+    <Compile Include="GUI\MissingCompanionAlertBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

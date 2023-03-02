@@ -25,12 +25,20 @@ using System.Text;
 using System.Reflection;
 using UnityEngine;
 using KSPe.Annotations;
+using System.Security.Cryptography;
+
+using ASSET = KSPe.IO.Asset<TweakScale.Startup>;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TweakScale
 {
 	[KSPAddon(KSPAddon.Startup.Instantly, true)]
 	internal class Startup : MonoBehaviour
 	{
+		internal static readonly Dictionary<string,string> COMPANIONS_AVAILABLE = new Dictionary<string, string>();
+		internal static readonly HashSet<string> COMPANIONS_INSTALLED = new HashSet<string>();
+
 		[UsedImplicitly]
 		private void Start() {
 			Log.force("Version {0}", Version.Text);
@@ -99,6 +107,90 @@ namespace TweakScale
 				Log.error(e.ToShortMessage());
 				KSPe.Common.Dialogs.ShowStopperAlertBox.Show(e);
 			}
+
+			try
+			{
+				this.ensureCompanionDataIntegrity();
+				this.readCompanionData();
+				HashSet<string> needed = new HashSet<string>();
+				using (System.IO.StreamReader reader = ASSET.StreamReader.CreateFor(ADDONS_FILE))
+				{
+					string[] headers = reader.ReadLine().Split('\t');
+					while (!reader.EndOfStream)
+					{
+						string[] data = reader.ReadLine().Split('\t');
+						string dir = data[0].Replace("GameData::", "").Replace("::", KSPe.IO.Path.DirectorySeparatorStr);
+						string addon = data[1];
+						string companion = data[2];
+						if (KSPe.IO.Directory.Exists(
+								KSPe.IO.Hierarchy.GAMEDATA.Solve(dir)
+							))
+						{
+							if(!COMPANIONS_INSTALLED.Contains(companion))
+							{
+								Log.warn("{0} is installed, but the respective Companion {1} is not!", addon, companion);
+								needed.Add(COMPANIONS_AVAILABLE[companion]);
+							}
+						}
+					}
+				}
+				if (0 != needed.Count)
+					GUI.MissingCompanionAlertBox.Show(needed.ToArray());
+			}
+			catch (Exception e)
+			{
+				KSPe.Common.Dialogs.ShowStopperAlertBox.Show(e.Message, "Close KSP and Reinstall TweakScale", () => { Application.Quit(); });
+			}
 		}
+
+		private void ensureCompanionDataIntegrity()
+		{
+			byte[] hashvalue;
+			using (SHA512 sha = SHA512.Create())
+			{
+				using (System.IO.FileStream fs = ASSET.FileStream.CreateFor(KSPe.IO.FileMode.Open, ADDONS_FILE))
+				{
+					hashvalue = sha.ComputeHash(fs);
+				}
+				if (!ADDONS_SHA.SequenceEqual(hashvalue))
+					throw new System.IO.FileNotFoundException("Could not read the TweakScale Companion definition files.");
+			}
+
+			using (SHA512 sha = SHA512.Create())
+			{
+				using (System.IO.FileStream fs = ASSET.FileStream.CreateFor(KSPe.IO.FileMode.Open, COMPANIONS_FILE))
+				{
+					hashvalue = sha.ComputeHash(fs);
+				}
+				if (!COMPANIONS_SHA.SequenceEqual(hashvalue))
+					throw new System.IO.FileNotFoundException("Could not read the TweakScale Companion definition files.");
+			}
+		}
+
+		private void readCompanionData()
+		{
+			using (System.IO.StreamReader reader = ASSET.StreamReader.CreateFor(COMPANIONS_FILE))
+			{
+				string[] headers = reader.ReadLine().Split('\t');
+				while (!reader.EndOfStream)
+				{
+					string[] data = reader.ReadLine().Split('\t');
+					string dir = data[2].Replace("GameDatabase::", "").Replace("::", KSPe.IO.Path.DirectorySeparatorStr);
+					COMPANIONS_AVAILABLE.Add(data[0], data[1]);
+					if (KSPe.IO.Directory.Exists(
+							KSPe.IO.Hierarchy.GAMEDATA.Solve(dir)
+						))
+					{
+						COMPANIONS_INSTALLED.Add(data[0]);
+						Log.detail("{0} is installed.", data[1]);
+					}
+				}
+			}
+		}
+
+		private const string	ADDONS_FILE = "AddOns-v1_0.csv";
+		private readonly byte[] ADDONS_SHA = new byte[] {36, 52, 20, 166, 60, 107, 36, 166, 132, 203, 33, 187, 64, 170, 3, 67, 228, 72, 36, 82, 0, 183, 40, 48, 206, 0, 179, 6, 248, 128, 107, 211, 229, 196, 107, 100, 55, 196, 203, 71, 110, 251, 137, 212, 77, 142, 139, 54, 186, 86, 146, 105, 39, 87, 23, 24, 77, 243, 72, 101, 74, 40, 82, 120};
+		private const string	COMPANIONS_FILE = "Companions-v1_0.csv";
+		private readonly byte[] COMPANIONS_SHA = new byte[] {198, 40, 206, 135, 60, 0, 10, 174, 236, 101, 197, 106, 74, 131, 238, 163, 40, 133, 133, 42, 112, 61, 193, 145, 9, 45, 139, 49, 135, 62, 173, 204, 33, 103, 6, 106, 232, 60, 35, 167, 166, 88, 248, 21, 147, 43, 182, 100, 86, 108, 123, 213, 113, 133, 238, 133, 118, 48, 22, 153, 19, 207, 17, 231};
 	}
 }
