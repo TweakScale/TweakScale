@@ -40,7 +40,7 @@ Missing class: {0}";
 				AMSG,
 				() => { Application.Quit(); }
 			);
-			Log.force("\"Houston, we have a problem!\" about missing DLLs was displayed");
+			Log.force("\"Houston, we have a problem!\" about missing DLLs was displayed. Missing class: {0}", msg);
 		}
 	}
 }
