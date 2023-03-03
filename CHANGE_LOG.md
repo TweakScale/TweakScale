@@ -1,5 +1,9 @@
 # TweakScale :: Change Log
 
+* 2023-0304: 2.5.0.56 **BETA** (Lisias) for KSP >= 1.3
+	+ I finally diagnosed and fixed a pretty stupid mistake on new `TweakScale.Updater.IVA`
+	+ A Checker for the need specific TweakScale Companions was added.
+		- Your `GameData` is checked for 3rd party add'ons currently supported by a Companion and a Dialog Box is displayed listing the ones you need to install.  
 * 2023-0303: 2.4.6.24 (Lisias) for KSP >= 1.3
 	+ A Checker for the need specific TweakScale Companions was added.
 		- Your `GameData` is checked for 3rd party add'ons currently supported by a Companion and a Dialog Box is displayed listing the ones you need to install.  
