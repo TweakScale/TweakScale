@@ -1,9 +1,11 @@
 # TweakScale :: Changes
 
-* 2023-0304: 2.5.0.56 **BETA** (Lisias) for KSP >= 1.3
+* 2023-0304: 2.5.0.57 **BETA** (Lisias) for KSP >= 1.3
 	+ I finally diagnosed and fixed a pretty stupid mistake on new `TweakScale.Updater.IVA`
 	+ A Checker for the need specific TweakScale Companions was added.
 		- Your `GameData` is checked for 3rd party add'ons currently supported by a Companion and a Dialog Box is displayed listing the ones you need to install.  
+* 2023-0304: 2.5.0.56 **BETA** (Lisias) for KSP >= 1.3
+	+ ***WITHDRAWN*** due a lame mistake on the configuration files. 
 * 2023-0212: 2.5.0.55 **BETA** (Lisias) for KSP >= 1.3 
 	+ Implements a missing use case when scaling IVAs and switching vessels. 
 	+ Removes deprecated calls to `KSPe` from the codebase
