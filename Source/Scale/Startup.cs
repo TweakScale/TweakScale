@@ -124,6 +124,8 @@ namespace TweakScale
 			}
 			catch (Exception e)
 			{
+				// TODO: THis is too harsh, if we reach here the problem is on TweakScale, not on the user's GameData!
+				// Better message needed!
 				KSPe.Common.Dialogs.ShowStopperAlertBox.Show(e.Message, "Close KSP and Reinstall TweakScale", () => { Application.Quit(); });
 			}
 		}
