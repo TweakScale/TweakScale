@@ -1,8 +1,12 @@
 # TweakScale :: Changes
 
-* 2023-0303: 2.4.6.24 (Lisias) for KSP >= 1.3
+* 2023-0304: 2.4.6.25 (Lisias) for KSP >= 1.3
 	+ A Checker for the need specific TweakScale Companions was added.
-		- Your `GameData` is checked for 3rd party add'ons currently supported by a Companion and a Dialog Box is displayed listing the ones you need to install.  
+		- Your `GameData` is checked for 3rd party add'ons currently supported by a Companion and a Dialog Box is displayed listing the ones you need to install.
+	+ Some mistakes on the configuration files were fixed.
+		- Thanks to [zangonoid](https://forum.kerbalspaceprogram.com/index.php?/profile/144919-zangonoid/) for the heads up!
+* 2023-0303: 2.4.6.24 (Lisias) for KSP >= 1.3
+	+ ***WITHDRAWN*** due a lame mistake on the configuration files.
 * 2023-0206: 2.4.6.23 (Lisias) for KSP >= 1.3
 	+ The fix for the *ScaleType Migration Code* on 2.4.6.22 ended up creating a new bug on the `TweakScaleRogueDuplicate` security feature, leading KSP rigs infected with this problem to crash when trying to save the game.
 		- My bad. Really sorry.
