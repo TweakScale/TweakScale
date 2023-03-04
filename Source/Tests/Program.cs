@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Tests.Checks;
+
 namespace Tests
 {
 	class MainClass
@@ -14,6 +16,9 @@ namespace Tests
 			EscapeDataString("https://ksp.lisias.net/add-ons/TweakScale/Support/SanityChecks/Configurable-Containers-Needs-Companion");
 			EscapeDataString("https://ksp.lisias.net/add-ons/TweakScale/Support/SanityChecks/BlueDog_DB-Needs-Companion");
 			EscapeDataString("https://ksp.lisias.net/add-ons/TweakScale/Support/SanityChecks/Tantares-Needs-Companion");
+
+			CompanionCheck.createDataIntegrity();
+			CompanionCheck.checkDataConsistency();
 		}
 
 		private static void EscapeDataString(string v) {

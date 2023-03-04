@@ -5,8 +5,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scalers", "Scalers", "{A498
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale_TweakableEverything", "Source\Scale_TweakableEverything\Scale_TweakableEverything.csproj", "{1E379ED8-DB42-4FC1-B7F5-BF9A9A4F3B2E}"
 EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Tests", "Source\Tests\Tests.csproj", "{093219BE-6F7F-41F8-BC2F-949F4ED1D805}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale_Sanitizer", "Source\Scale_Sanitizer\Scale_Sanitizer.csproj", "{4CEE4DED-7E41-4E59-BA16-67E655E46FEE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale_Redist", "Source\Scale_Redist\Scale_Redist.csproj", "{2BE63D8B-350E-4EDD-959C-4B7397984364}"
@@ -21,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale.PartDB.14x", "Source\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale.PartDB.13x", "Source\PartDB13x\Scale.PartDB.13x.csproj", "{6B48EB58-62EF-4763-822A-1C38CF5B72EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Source\Tests\Tests.csproj", "{2C63C91A-4715-4FAD-8515-0B81D420E308}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,9 +31,6 @@ Global
 		{1E379ED8-DB42-4FC1-B7F5-BF9A9A4F3B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E379ED8-DB42-4FC1-B7F5-BF9A9A4F3B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E379ED8-DB42-4FC1-B7F5-BF9A9A4F3B2E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{093219BE-6F7F-41F8-BC2F-949F4ED1D805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{093219BE-6F7F-41F8-BC2F-949F4ED1D805}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{093219BE-6F7F-41F8-BC2F-949F4ED1D805}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CEE4DED-7E41-4E59-BA16-67E655E46FEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4CEE4DED-7E41-4E59-BA16-67E655E46FEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CEE4DED-7E41-4E59-BA16-67E655E46FEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -62,6 +59,9 @@ Global
 		{6B48EB58-62EF-4763-822A-1C38CF5B72EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B48EB58-62EF-4763-822A-1C38CF5B72EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B48EB58-62EF-4763-822A-1C38CF5B72EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C63C91A-4715-4FAD-8515-0B81D420E308}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C63C91A-4715-4FAD-8515-0B81D420E308}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C63C91A-4715-4FAD-8515-0B81D420E308}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
