@@ -1,42 +1,45 @@
 # TweakScale :: Changes
 
-* 2023-0304: 2.5.0.57 **BETA** (Lisias) for KSP >= 1.3
+* 2023-0313: 2.5.0.58 **BETA** (Lisias) for KSP >= 1.3
 	+ I finally diagnosed and fixed a pretty stupid mistake on new `TweakScale.Updater.IVA`
 	+ A Checker for the need specific TweakScale Companions was added.
 		- Your `GameData` is checked for 3rd party add'ons currently supported by a Companion and a Dialog Box is displayed listing the ones you need to install.  
-* 2023-0304: 2.5.0.56 **BETA** (Lisias) for KSP >= 1.3
-	+ ***WITHDRAWN*** due a lame mistake on the configuration files. 
-* 2023-0212: 2.5.0.55 **BETA** (Lisias) for KSP >= 1.3 
 	+ Implements a missing use case when scaling IVAs and switching vessels. 
 	+ Removes deprecated calls to `KSPe` from the codebase
 		- (shame on me, these things are deprecated for months!)
-* 2023-0212: 2.5.0.54 **BETA** (Lisias) for KSP >= 1.3 
-	+ **WITHDRAWN** as a new release were made in less than 24 hours. 
-* 2023-0207: 2.5.0.53 **BETA** (Lisias) for KSP >= 1.3 
-	+ Catches up with the mainstream.
-	+ Closes Issues:
-		- [#290](https://github.com/net-lisias-ksp/TweakScale/issues/290) Regression on handling the TweakScaleRogueDuplicate patching problem.
-		- [#289](https://github.com/net-lisias-ksp/TweakScale/issues/289) Yet another unexpected Misbehaviour, this time on `PartModule.OnSave`.
-* 2023-0204: 2.5.0.52 **BETA** (Lisias) for KSP >= 1.3 
-	+ Fixes a lame mistake I let pass through on .51 
 	+ More robust ScaleType Migration Code.
 		- Indirectly related to issue [#285](https://github.com/net-lisias-ksp/TweakScale/issues/285), as the Beta branch **does not** presented the misbehaviour.
-	+ Closes issues:
-		- [#287](https://github.com/net-lisias-ksp/TweakScale/issues/286) Misunderstanding (?) on how `PartModule.OnLoad(ConfigNode)` really works.		- [#286](https://github.com/net-lisias-ksp/TweakScale/issues/286) `PartModule.OnLoad` **is not** called with `node` as null on Flight Scene!
-* 2023-0202: 2.5.0.51 **BETA** (Lisias) for KSP >= 1.3 
-	+ ***WITHDRAWN***
-* 2023-0126: 2.5.0.50 **BETA** (Lisias) for KSP >= 1.3 
 	+ Catches up with the main stream
 		- [#268](https://github.com/net-lisias-ksp/TweakScale/issues/268) Misbehaviour related to Taking Data from a Pod when it's scaled.
 		- [#261](https://github.com/net-lisias-ksp/TweakScale/issues/261) Misbehaviour (again) while scaling parts with VARIANT
 		- [#252](https://github.com/net-lisias-ksp/TweakScale/issues/252) Scale the Buoyance so the scaled parts has a similar floating capabilities as the original.
 		- [#246](https://github.com/net-lisias-ksp/TweakScale/issues/246) New bug related to IVA and Cameras when TweakScale is installed.
 		- [#238](https://github.com/net-lisias-ksp/TweakScale/issues/238) TweakScale is failing to consistently resize the Attachment Node's sizes.
-	+ Closes 2.5 specific Issues:
+	+ Closes Issues:
+		- [#290](https://github.com/net-lisias-ksp/TweakScale/issues/290) Regression on handling the TweakScaleRogueDuplicate patching problem.
+		- [#289](https://github.com/net-lisias-ksp/TweakScale/issues/289) Yet another unexpected Misbehaviour, this time on `PartModule.OnSave`.
+		- [#287](https://github.com/net-lisias-ksp/TweakScale/issues/286) Misunderstanding (?) on how `PartModule.OnLoad(ConfigNode)` really works.
+		- [#286](https://github.com/net-lisias-ksp/TweakScale/issues/286) `PartModule.OnLoad` **is not** called with `node` as null on Flight Scene!
 		- [#280](https://github.com/net-lisias-ksp/TweakScale/issues/280) **UNDO** the :FOR[TWEAKSCALE] on Default TweakScale Patching...
 		- [#279](https://github.com/net-lisias-ksp/TweakScale/issues/279) Über refactoring on `IRescalable`
 		- [#276](https://github.com/net-lisias-ksp/TweakScale/issues/276) Update Scale_Redist Version to 1.2
-		- [#195](https://github.com/net-lisias-ksp/TweakScale/issues/195) Remove the stub CFG files for deprecated patches #195
+		- [#195](https://github.com/net-lisias-ksp/TweakScale/issues/195) Remove the stub CFG files for deprecated patches
+* 2023-0304: 2.5.0.57 **BETA** (Lisias) for KSP >= 1.3
+	+ ***DITCHED***
+* 2023-0304: 2.5.0.56 **BETA** (Lisias) for KSP >= 1.3
+	+ ***WITHDRAWN*** due a lame mistake on the configuration files. 
+* 2023-0212: 2.5.0.55 **BETA** (Lisias) for KSP >= 1.3 
+	+ ***DITCHED***
+* 2023-0212: 2.5.0.54 **BETA** (Lisias) for KSP >= 1.3 
+	+ **WITHDRAWN** as a new release were made in less than 24 hours. 
+* 2023-0207: 2.5.0.53 **BETA** (Lisias) for KSP >= 1.3 
+	+ ***DITCHED***
+* 2023-0204: 2.5.0.52 **BETA** (Lisias) for KSP >= 1.3 
+	+ ***DITCHED***
+* 2023-0202: 2.5.0.51 **BETA** (Lisias) for KSP >= 1.3 
+	+ ***WITHDRAWN***
+* 2023-0126: 2.5.0.50 **BETA** (Lisias) for KSP >= 1.3 
+	+ ***WITHDRAWN***
 * 2022-0716: 2.5.0.49 **BETA** (Lisias) for KSP >= 1.3 
 	+ Mitigates an undesired collateral effect from the symlink handling on C#'s runtime on MacOS and Linux.
 		- Updates KSPe.Light to 2.4.1.21
