@@ -37,7 +37,7 @@ The KSP.log is listing every compromised part(s) on your installment, look for l
 			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
 				string.Format(MSG, failure_count),
 				AMSG,
-				() => { Application.OpenURL("https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*"); Application.Quit(); }
+				() => { Application.OpenURL("https://ksp.lisias.net/add-ons/TweakScale/Support/SanityChecks/"); Application.Quit(); }
 			);
 			Log.force("\"Houston, we have a Problem!\" about show stoppers on patching was displayed");
 		}
