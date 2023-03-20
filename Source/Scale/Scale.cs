@@ -228,6 +228,7 @@ namespace TweakScale
 
         internal void RescaleAndUpdate()
         {
+			Log.dbg("RescaleAndUpdate for {0} : {1}, {2}. {3}", this.part.name, defaultScale, currentScale, tweakScale);
 			this.scaler.Restore();
             try {
                 this.CallUpdaters();
@@ -545,8 +546,7 @@ namespace TweakScale
 		[UsedImplicitly]
 		private void OnEditorShipModified(ShipConstruct ship)
 		{
-			//only run the following block in the editor; it updates the crew-assignment GUI
-			if (!HighLogic.LoadedSceneIsEditor) return;
+			if (!HighLogic.LoadedSceneIsEditor && this.IsScaled) return;
 			Log.dbg("OnEditorShipModified {0}", this.InstanceID);
 		}
 
@@ -554,8 +554,7 @@ namespace TweakScale
 		[UsedImplicitly]
 		private void OnEditorAttach()
 		{
-			//only run the following block in the editor; it updates the crew-assignment GUI
-			if (!HighLogic.LoadedSceneIsEditor) return;
+			if (!(HighLogic.LoadedSceneIsEditor && this.IsScaled)) return;
 			Log.dbg("OnEditorAttach {0}", this.InstanceID);
 
 			if (null == this.part.parent) return; // This should be impossible, but better safe than sorry...
