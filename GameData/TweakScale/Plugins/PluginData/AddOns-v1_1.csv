@@ -1,0 +1,44 @@
+addon_dir	addon_name	companion	a.k.a	download_url	home_url	mandatory
+GameData::KIS	Kerbal Inventory System (KIS)	TweakScaleCompanion_KIS	KIS	https://www.curseforge.com/kerbal/ksp-mods/kerbal-inventory-system-kis	https://forum.kerbalspaceprogram.com/index.php?/topic/149848-*/	0
+GameData::ReStock	ReStock	TweakScaleCompanion_ReStockPlus	ReStock	https://github.com/PorktoberRevolution/ReStocked/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/182679-*/	0
+GameData::ReStockPlus	ReStock+	TweakScaleCompanion_ReStockPlus	ReStock+	https://github.com/PorktoberRevolution/ReStocked/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/182679-*/	0
+GameData::ReStockRigidLegs	ReStock Rigid Legs	TweakScaleCompanion_ReStockPlus	RestockRigidLegs	https://github.com/PorktoberRevolution/ReStocked/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/182679-*/	0
+GameData::FarFutureTechnologies	Far Future Technologies	TweakScaleCompanion_PKMC	FFT	https://github.com/post-kerbin-mining-corporation/FarFutureTechnologies/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/199070-*/	0
+GameData::NearFutureAeronautics	Near Future Aeronautics	TweakScaleCompanion_PKMC	NFA	https://github.com/ChrisAdderley/NearFutureAeronautics/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/155465-*/	0
+GameData::NearFutureConstruction	Near Future Construction	TweakScaleCompanion_PKMC	NFC	https://github.com/post-kerbin-mining-corporation/NearFutureConstruction/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/155465-*/	0
+GameData::NearFutureElectrical	Near Future Electrical	TweakScaleCompanion_PKMC	NFE	https://github.com/post-kerbin-mining-corporation/NearFutureElectrical/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/155465-*/	0
+GameData::NearFutureExploration	Near Future Exploration	TweakScaleCompanion_PKMC	NFEX	https://github.com/ChrisAdderley/NearFutureExploration/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/155465-*/	0
+GameData::NearFutureLaunchVehicles	Near Future Launch Vehicles	TweakScaleCompanion_PKMC	NFLV	https://github.com/ChrisAdderley/NearFutureLaunchVehicles/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/155465-*/	0
+GameData::NearFuturePropulsion	Near Future Propulsion	TweakScaleCompanion_PKMC	NFPR	https://github.com/post-kerbin-mining-corporation/NearFuturePropulsion/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/155465-*/	0
+GameData::NearFutureSpacecraft	Near Future Spacecraft	TweakScaleCompanion_PKMC	NFSC	https://github.com/ChrisAdderley/NearFutureSpacecraft/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/155465-*/	0
+GameData::NearFutureSolar	Near Future Solar	TweakScaleCompanion_PKMC	NFS	https://github.com/post-kerbin-mining-corporation/NearFutureSolar/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/155465-*/	0
+GameData::StationPartsExpansionRedux	Stockalike Station Parts Expansion Redux	TweakScaleCompanion_PKMC	SSPXR	https://github.com/post-kerbin-mining-corporation/StationPartsExpansionRedux/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/170211-*/	0
+GameData::LShipPartsModern	Large Boat Parts Pack	TweakScaleCompanion_SMCE		https://spacedock.info/mod/167/Large%20Boat%20Parts%20Pack#changelog	http://forum.kerbalspaceprogram.com/index.php?/topic/155992-*/	1
+GameData::LShipPartsRequired	Large Boat Parts Pack	TweakScaleCompanion_SMCE		https://spacedock.info/mod/167/Large%20Boat%20Parts%20Pack#changelog	http://forum.kerbalspaceprogram.com/index.php?/topic/155992-*/	1
+GameData::LShipPartsWW2	Large Boat Parts Pack	TweakScaleCompanion_SMCE		https://spacedock.info/mod/167/Large%20Boat%20Parts%20Pack#changelog	http://forum.kerbalspaceprogram.com/index.php?/topic/155992-*/	0
+GameData::Firespitter	Firespitter	TweakScaleCompanion_FS	FS	https://forum.kerbalspaceprogram.com/index.php?/topic/22583-*/	https://github.com/snjo/Firespitter	1
+GameData::FirespitterExtended	Firespitter Extended	TweakScaleCompanion_FS	FSX	https://forum.kerbalspaceprogram.com/index.php?/topic/184773-*/	https://spacedock.info/mod/2156/Firespitter%20Extended#changelog	1
+GameData::AirplanePlus	Airplane Plus	TweakScaleCompanion_APP	APP			0
+GameData::ArcAerospace	Arc Aerospace	TweakScaleCompanion_Multipass		https://drive.google.com/open?id=0B3KjWA5ZuxhrZmcydDhseE0xVzQ	https://forum.kerbalspaceprogram.com/index.php?/topic/165224-13-*/	0
+GameData::MechJeb2	Mech Jeb	TweakScaleCompanion_Multipass	MJ2	https://www.curseforge.com/kerbal/ksp-mods/mechjeb	https://forum.kerbalspaceprogram.com/index.php?/topic/154834-*/	0
+GameData::TarsierSpaceTech	Tarsier Space Technologies	TweakScaleCompanion_Multipass	TST	https://www.curseforge.com/kerbal/ksp-mods/tarsier-space-technology-continued	https://forum.kerbalspaceprogram.com/index.php?/topic/154853-*/	0
+GameData::HabitatPack	Porkjet’s Habitat Pack	TweakScaleCompanion_LivingStyle	HabPack	https://github.com/linuxgurugamer/Tokamak-Refurbished-Parts	https://forum.kerbalspaceprogram.com/index.php?/topic/58534-*/	0
+GameData::TokamakIndustries	Tokamak Refurbished Parts 	TweakScaleCompanion_LivingStyle	Tokamak	https://github.com/linuxgurugamer/Tokamak-Refurbished-Parts	https://forum.kerbalspaceprogram.com/index.php?/topic/163166-*/	0
+GameData::HabPack	HabTech	TweakScaleCompanion_LivingStyle	HabTech	https://github.com/LouisB3/HabTech-Classic/	https://forum.kerbalspaceprogram.com/index.php?/topic/133501-*/	0
+GameData::HabPack2	HabTech2	TweakScaleCompanion_LivingStyle	HabTech2	https://github.com/benjee10/HabTech2	https://forum.kerbalspaceprogram.com/index.php?/topic/133501-*/	0
+GameData::StationPartsExpansion	Stockalike Station Parts Expansion	TweakScaleCompanion_LivingStyle	SSPX	https://github.com/ChrisAdderley/StationPartsExpansion	https://forum.kerbalspaceprogram.com/index.php?/topic/155480-*/	0
+GameData::OPT	Orbital Portal Technologies Classic	TweakScaleCompanion_OPT	OPT	https://www.curseforge.com/kerbal/ksp-mods/opt-space-plane-parts-v2-0	https://forum.kerbalspaceprogram.com/index.php?/topic/87956-*/	0
+GameData::OPT	Orbital Portal Technologies Continued	TweakScaleCompanion_OPT	OPT	https://github.com/StoneBlue/OPT_Streamlined/releases/	https://forum.kerbalspaceprogram.com/index.php?/topic/196187-*/	0
+GameData::OPT_Legacy	Orbital Portal Technologies Legacy Parts	TweakScaleCompanion_OPT	OPT	https://github.com/StoneBlue/OPT_Streamlined/releases/	https://forum.kerbalspaceprogram.com/index.php?/topic/173833-*/	0
+GameData::CxAerospace	CxAerospace Station Parts	TweakScaleCompanion_LivingStyle	CXA	https://spacedock.info/mod/64/CxAerospace:%20Station%20Parts%20Pack	https://forum.kerbalspaceprogram.com/index.php?/topic/138910-*/	0
+GameData::NeistAir	Neist Airliner Parts	TweakScaleCompanion_NAP	NAP	https://github.com/neistridlar/Neist-Airliner-Parts/	https://forum.kerbalspaceprogram.com/index.php?/topic/174152-*/	0
+GameData::TestFlight	Test Flight	TweakScaleCompanion_Frameworks		https://github.com/KSP-RO/TestFlight/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/99043-*/	0
+GameData::CryoTanks	Cryo Tanks	TweakScaleCompanion_Frameworks		https://github.com/post-kerbin-mining-corporation/CryoTanks/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/195042-*/	0
+GameData::SpaceDust	Space Dust	TweakScaleCompanion_Frameworks		https://github.com/post-kerbin-mining-corporation/SpaceDust/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/197723-*/	0
+GameData::SystemHeat	System Heat	TweakScaleCompanion_Frameworks		https://github.com/post-kerbin-mining-corporation/SystemHeat/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/193909-*/	0
+GameData::Waterfall	Waterfall FX	TweakScaleCompanion_Frameworks		https://github.com/post-kerbin-mining-corporation/Waterfall/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/196309-*/	0
+GameData::RealEnginesPack	Real Engines	TweakScaleCompanion_Rockets		https://spacedock.info/mod/1212/RealEngines	https://forum.kerbalspaceprogram.com/index.php?/topic/154624-*/	0
+GameData::UniversalStorage	Universal Storage	TweakScaleCompanion_US	US	https://spacedock.info/mod/329/Universal%20Storage#changelog	https://forum.kerbalspaceprogram.com/index.php?/topic/68043-*/	0
+GameData::UniversalStorage2	Universal Storage II	TweakScaleCompanion_US	US2	https://spacedock.info/mod/1933/Universal%20Storage%20II#changelog	https://forum.kerbalspaceprogram.com/index.php?/topic/177385-*/	0
+GameData::RealFuels	Real Fuels	TweakScaleCompanion_FuelSwitches		https://github.com/NathanKell/ModularFuelSystem/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/58236-*/	1
+GameData::ModularFujelTanks	Modular Fuel Tanks	TweakScaleCompanion_FuelSwitches	MFT	http://taniwha.org/~bill/ModularFuelTanks_v5.13.1.zip	https://forum.kerbalspaceprogram.com/index.php?/topic/58235-*/	1

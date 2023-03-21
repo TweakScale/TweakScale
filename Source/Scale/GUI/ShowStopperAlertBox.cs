@@ -32,7 +32,7 @@ The KSP.log is listing every compromised part(s) on your installment, look for l
 
 		private static readonly string AMSG = @"call for help on the TweakScale thread on the Forum (KSP will close). We will help you on diagnosing the Add'On that is troubling you. Publish your KSP.log on some file share service and mention it on the post";
 
-		internal static void Show(int failure_count, bool showMessageBox)
+		internal static void Show(int failure_count)
 		{
 			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
 				string.Format(MSG, failure_count),

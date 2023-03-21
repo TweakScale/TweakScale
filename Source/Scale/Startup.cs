@@ -23,19 +23,12 @@
 using System;
 using UnityEngine;
 using KSPe.Annotations;
-using System.Security.Cryptography;
-
-using System.Collections.Generic;
-using System.Linq;
 
 namespace TweakScale
 {
 	[KSPAddon(KSPAddon.Startup.Instantly, true)]
 	internal class Startup : MonoBehaviour
 	{
-		internal static readonly Dictionary<string,string> COMPANIONS_AVAILABLE = new Dictionary<string, string>();
-		internal static readonly HashSet<string> COMPANIONS_INSTALLED = new HashSet<string>();
-
 		[UsedImplicitly]
 		private void Start() {
 			Log.force("Version {0}", Version.Text);
@@ -55,9 +48,9 @@ namespace TweakScale
 				}
 
 				// Check if the needed Classes are available...
-				KSPe.Util.SystemTools.Type.Finder.FindByQualifiedName("TweakScale.PartDB.StandardPartScaler");
+				KSPe.Util.SystemTools.Type.Find.ByQualifiedName("TweakScale.PartDB.StandardPartScaler");
 				if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
-					KSPe.Util.SystemTools.Type.Finder.FindByQualifiedName("TweakScale.PartDB.VariantPartScaler");
+					KSPe.Util.SystemTools.Type.Find.ByQualifiedName("TweakScale.PartDB.VariantPartScaler");
 			}
 			catch (System.Exception e)
 			{
@@ -80,7 +73,7 @@ namespace TweakScale
 					}
 				}
 
-				if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1, 12, 5))
+				if (KSPe.Util.KSP.Version.Current > KSPe.Util.KSP.Version.FindByVersion(1, 12, 4))
 				{
 					GUI.UnsupportedKSPAdviseBox.Show(KSPe.Util.KSP.Version.Current.ToString());
 					return;
@@ -94,99 +87,36 @@ namespace TweakScale
 
 			try
 			{
-				this.ensureCompanionDataIntegrity();
-				this.readCompanionData();
-				HashSet<string> needed = new HashSet<string>();
-				using (System.IO.StreamReader reader = this.GetStreamReader(ADDONS_FILE))
-				{
-					string[] headers = reader.ReadLine().Split('\t');
-					while (!reader.EndOfStream)
-					{
-						string[] data = reader.ReadLine().Split('\t');
-						string dir = data[0].Replace("GameData::", "").Replace("::", KSPe.IO.Path.DirectorySeparatorStr);
-						string addon = data[1];
-						string companion = data[2];
-						if (KSPe.IO.Directory.Exists(
-								KSPe.IO.Hierarchy.GAMEDATA.Solve(dir)
-							))
-						{
-							if(!COMPANIONS_INSTALLED.Contains(companion))
-							{
-								Log.warn("{0} is installed, but the respective Companion {1} is not!", addon, companion);
-								needed.Add(COMPANIONS_AVAILABLE[companion]);
-							}
-						}
-					}
-				}
-				if (0 != needed.Count)
-					GUI.MissingCompanionAlertBox.Show(needed.ToArray());
+				CompanionSupport cs = new CompanionSupport();
+				cs.Execute();
+			}
+			catch (CompanionSupport.MandatoryCompanions e)
+			{
+				GUI.MissingCompanionFatalError.Show(e.companions);
+			}
+			catch (CompanionSupport.NeededCompanions e)
+			{
+				MainMenu.E = e;
 			}
 			catch (Exception e)
 			{
+				// TODO: This is too harsh, if we reach here the problem is on TweakScale, not on the user's GameData!
+				// Better message needed!
 				KSPe.Common.Dialogs.ShowStopperAlertBox.Show(e.Message, "Close KSP and Reinstall TweakScale", () => { Application.Quit(); });
 			}
 		}
+	}
 
-		private void ensureCompanionDataIntegrity()
+	[KSPAddon(KSPAddon.Startup.MainMenu, true)]
+	internal class MainMenu : MonoBehaviour
+	{
+		internal static CompanionSupport.NeededCompanions E = null;
+		[UsedImplicitly]
+		private void Start()
 		{
-			byte[] hashvalue;
-			using (SHA512 sha = SHA512.Create())
-			{
-				using (System.IO.FileStream fs = this.GetFileStream(ADDONS_FILE))
-				{
-					hashvalue = sha.ComputeHash(fs);
-				}
-				if (!ADDONS_SHA.SequenceEqual(hashvalue))
-					throw new System.IO.FileNotFoundException("Could not read the TweakScale Companion definition files.");
-			}
-
-			using (SHA512 sha = SHA512.Create())
-			{
-				using (System.IO.FileStream fs = this.GetFileStream(COMPANIONS_FILE))
-				{
-					hashvalue = sha.ComputeHash(fs);
-				}
-				if (!COMPANIONS_SHA.SequenceEqual(hashvalue))
-					throw new System.IO.FileNotFoundException("Could not read the TweakScale Companion definition files.");
-			}
+			if (null != E)
+				GUI.MissingCompanionAdviseBox.Show(E.companions);
+			E = null;
 		}
-
-		private void readCompanionData()
-		{
-			using (System.IO.StreamReader reader = this.GetStreamReader(COMPANIONS_FILE))
-			{
-				string[] headers = reader.ReadLine().Split('\t');
-				while (!reader.EndOfStream)
-				{
-					string[] data = reader.ReadLine().Split('\t');
-					string dir = data[2].Replace("GameDatabase::", "").Replace("::", KSPe.IO.Path.DirectorySeparatorStr);
-					COMPANIONS_AVAILABLE.Add(data[0], data[1]);
-					if (KSPe.IO.Directory.Exists(
-							KSPe.IO.Hierarchy.GAMEDATA.Solve(dir)
-						))
-					{
-						COMPANIONS_INSTALLED.Add(data[0]);
-						Log.detail("{0} is installed.", data[1]);
-					}
-				}
-			}
-		}
-
-		private System.IO.StreamReader GetStreamReader(string filename)
-		{
-			string pathname = KSPe.IO.Hierarchy<Startup>.GAMEDATA.Solve("Plugins", "PluginData", filename);
-			return new System.IO.StreamReader(pathname);
-		}
-
-		private System.IO.FileStream GetFileStream(string filename)
-		{
-			string pathname = KSPe.IO.Hierarchy<Startup>.GAMEDATA.Solve("Plugins", "PluginData", filename);
-			return new System.IO.FileStream(pathname, System.IO.FileMode.Open);
-		}
-
-		private const string	ADDONS_FILE = "AddOns-v1_0.csv";
-		private readonly byte[] ADDONS_SHA = new byte[] {36, 52, 20, 166, 60, 107, 36, 166, 132, 203, 33, 187, 64, 170, 3, 67, 228, 72, 36, 82, 0, 183, 40, 48, 206, 0, 179, 6, 248, 128, 107, 211, 229, 196, 107, 100, 55, 196, 203, 71, 110, 251, 137, 212, 77, 142, 139, 54, 186, 86, 146, 105, 39, 87, 23, 24, 77, 243, 72, 101, 74, 40, 82, 120 };
-		private const string	COMPANIONS_FILE = "Companions-v1_0.csv";
-		private readonly byte[] COMPANIONS_SHA = new byte[] {142, 244, 92, 105, 232, 140, 238, 136, 23, 152, 190, 20, 194, 167, 168, 172, 94, 237, 133, 168, 45, 122, 76, 102, 135, 146, 71, 180, 128, 194, 86, 191, 216, 32, 85, 30, 52, 232, 124, 157, 213, 170, 107, 185, 230, 78, 2, 208, 35, 168, 248, 229, 34, 114, 188, 197, 216, 48, 124, 182, 113, 34, 96, 161 };
 	}
 }
