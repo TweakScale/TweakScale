@@ -26,13 +26,13 @@ using UnityEngine;
 
 namespace TweakScale.GUI
 {
-	internal static class MissingCompanionAlertBox
+	internal static class MissingCompanionFatalError 
 	{
 		private static readonly string MSG = @"Supported 3rd parties were found, but the respective Companion weren't.
 
-Installing such companions will bring you the full power of TweakScale, please install the following Companions:
-{0}
+The following Companions **NEED** to be installed, as the targets Add'Ons they support are known to play havoc with TweakScale and they fix or workaroud the known problems:
 
+{0}
 Alternatively, you may want to install the ÜberPaket with everything and the kitchen's sink included!";
 
 		private static readonly string AMSG = @"close KSP, then install the Companion(s)";
@@ -45,9 +45,9 @@ Alternatively, you may want to install the ÜberPaket with everything and the ki
 			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
 				string.Format(MSG, msg),
 				AMSG,
-				() => { Application.OpenURL("https://github.com/net-lisias-ksp/TweakScaleCompanion/releases"); Application.Quit(); }
+				() => { KSPe.Util.UrlTools.OpenURL("https://github.com/net-lisias-ksp/TweakScaleCompanion/releases"); }
 			);
-			Log.force("\"Houston, we have a problem!\" about the need to install the following Companions {0}", msg);
+			Log.force("\"Houston, we have a problem!\" about the need to install the following Companions {0}:", string.Join(", ", companions));
 		}
 	}
 }

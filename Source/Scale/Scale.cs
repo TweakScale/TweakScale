@@ -159,9 +159,6 @@ namespace TweakScale
         /// </summary>
         public ScaleType ScaleType { get; private set; }
 
-        public bool IsScaled => this.active && !this.is_duplicate && (Math.Abs(currentScale / defaultScale - 1f) > 1e-5f);
-        private bool IsChanged => this.active && currentScale != (isFreeScale ? tweakScale : ScaleFactors [tweakName]);
-
         /// <summary>
         /// The current scaling factor.
         /// </summary>
@@ -909,6 +906,9 @@ namespace TweakScale
 
 
 		#region Public Interface
+
+		public bool IsScaled => this.active && !this.is_duplicate && (Math.Abs(currentScale / defaultScale - 1f) > 1e-5f);
+		public bool IsChanged => this.active && currentScale != (isFreeScale ? tweakScale : ScaleFactors[tweakName]);
 
 		//
 		// These are meant for use with an unloaded part (so you only have the persistent data

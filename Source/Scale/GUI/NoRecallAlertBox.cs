@@ -37,7 +37,7 @@ For this KSP version, KSP Recall **is required** to fix problems on Resources an
 			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
 				MSG,
 				AMSG,
-				() => { Application.OpenURL("https://ksp.lisias.net/add-ons/KSP-Recall/Support"); Application.Quit(); }
+				() => { KSPe.Util.UrlTools.OpenURL("https://ksp.lisias.net/add-ons/KSP-Recall/Support"); }
 			);
 			Log.force("\"Houston, we have a Problem!\" about KSP-Recall was displayed");
 		}

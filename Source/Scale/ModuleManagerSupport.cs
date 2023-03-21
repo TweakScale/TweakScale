@@ -28,11 +28,10 @@ namespace TweakScale
 	[KSPAddon(KSPAddon.Startup.Instantly, true)]
 	internal class ModuleManagerListener : MonoBehaviour
 	{
-		internal static bool shouldShowWarnings = true;
+		internal static bool shouldShowWarnings => !KSPe.Util.ModuleManagerTools.IsLoadedFromCache;
 
 		[UsedImplicitly]
 		public static void ModuleManagerPostLoad() {
-			shouldShowWarnings = !KSPe.Util.ModuleManagerTools.IsLoadedFromCache;
 			Log.detail("ModuleManagerPostLoad handled! shouldShowWarnings is {0}", shouldShowWarnings);
 		}
 	}

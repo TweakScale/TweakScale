@@ -31,7 +31,7 @@ namespace TweakScale.GUI
 
 It's not certain that it will not work fine, it's **NOT KNOWN** and if anything goes wrong, KSP will inject bad information on your savegames corrupting parts with TwekScale.
 
-Please proceed with caution - use S.A.V.E. just in case.";
+Please proceed with caution - backup anything valuable in your savegames.";
 
 		internal static void Show(string currentVersion)
 		{

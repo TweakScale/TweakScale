@@ -9,7 +9,7 @@ namespace Tests.Checks
 	{
 		internal static readonly Dictionary<string,string> COMPANIONS_AVAILABLE = new Dictionary<string, string>();
 
-		private const string ADDONS_FILE = "/Users/lisias/Workspaces/KSP/GIT/net-lisias/ksp/TweakScale/GameData/TweakScale/Plugins/PluginData/AddOns-v1_0.csv";
+		private const string ADDONS_FILE = "/Users/lisias/Workspaces/KSP/GIT/net-lisias/ksp/TweakScale/GameData/TweakScale/Plugins/PluginData/AddOns-v1_1.csv";
 		private const string COMPANIONS_FILE = "/Users/lisias/Workspaces/KSP/GIT/net-lisias/ksp/TweakScale/GameData/TweakScale/Plugins/PluginData/Companions-v1_0.csv";
 
 		internal static void createDataIntegrity()
@@ -21,7 +21,8 @@ namespace Tests.Checks
 				{
 					hashvalue = sha.ComputeHash(fs);
 				}
-				Console.WriteLine(string.Format("ADDONS_FILE : new byte[] {{{0}}};", toString(hashvalue)));
+				Console.WriteLine(string.Format("private const string	ADDONS_FILE = \"AddOns-v1_1.csv\";"));
+				Console.WriteLine(string.Format("private readonly byte[] ADDONS_SHA = new byte[] {{{0}}};", toString(hashvalue)));
 			}
 
 			using (SHA512 sha = SHA512.Create())
@@ -30,7 +31,8 @@ namespace Tests.Checks
 				{
 					hashvalue = sha.ComputeHash(fs);
 				}
-				Console.WriteLine(string.Format("COMPANIONS_FILE : new byte[] {{{0}}};", toString(hashvalue)));
+				Console.WriteLine(string.Format("private const string	COMPANIONS_FILE = \"Companions-v1_0.csv\";"));
+				Console.WriteLine(string.Format("private readonly byte[] COMPANIONS_SHA = new byte[] {{{0}}};", toString(hashvalue)));
 			}
 		}
 

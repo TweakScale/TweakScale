@@ -22,16 +22,17 @@
 */
 using System;
 using KSPe;
+using DATA = KSPe.IO.Data<TweakScale.Globals>;
 
 namespace TweakScale
 {
 	public class Globals
 	{
 		private static Globals INSTANCE = null;
-
 		public static Globals Instance => INSTANCE ?? (INSTANCE = new Globals());
 
 		public readonly bool AllowStealthSave;
+		public readonly DateTime LastCompanionMessage;
 
 		private Globals()
 		{

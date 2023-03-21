@@ -73,7 +73,9 @@
     <Compile Include="GUI\MissingSanitizerAlertBox.cs" />
     <Compile Include="Sanitizer\Engine.cs" />
     <Compile Include="GUI\FaultyInstallationAlertBox.cs" />
-    <Compile Include="GUI\MissingCompanionAlertBox.cs" />
+    <Compile Include="GUI\MissingCompanionFatalError.cs" />
+    <Compile Include="GUI\MissingCompanionAdviseBox.cs" />
+    <Compile Include="CompanionSupport.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -101,6 +103,9 @@
     <Reference Include="KSPe.UI">
       <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.UI.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="KSPe.External">
+      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.External.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
