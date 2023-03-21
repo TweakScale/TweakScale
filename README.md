@@ -7,14 +7,8 @@
 
 ## In a Hurry
 
-* [Source](https://github.com/net-lisias-ksp/TweakScale)
-	+ [Issue Tracker](https://github.com/net-lisias-ksp/TweakScale/issues)
-	+ [Orthodox (development) Branch](https://github.com/net-lisias-kspu/TweakScale/tree/dev/orthodox)
-	+ [Heterodox Branch](https://github.com/net-lisias-kspu/TweakScale/tree/dev/heterodox)
-		- " *Lasciate ogne speranza, voi ch'intrate* "
 * Documentation
-	+ [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-141-tweakscale-under-new-management/&)
-	+ [Homepage](http://ksp.lisias.net/add-ons/TweakScale) on L Aerospace KSP Division
+	+ [Homepage](http://ksp.lisias.net/add-ons/TweakScale/) on L Aerospace
 	+ [Project's README](https://github.com/net-lisias-ksp/TweakScale/blob/master/README.md)
 	+ [Install Instructions](https://github.com/net-lisias-ksp/TweakScale/blob/master/INSTALL.md)
 	+ [Change Log](./CHANGE_LOG.md)
@@ -23,10 +17,17 @@
 * Official Distribution Sites:
 	+ [CurseForge](https://kerbal.curseforge.com/projects/tweakscale)
 	+ [SpaceDock](https://spacedock.info/mod/127/TweakScale)
-	+ [Homepage](http://ksp.lisias.net/add-ons/TweakScale) on L Aerospace
-	+ [Source and Binaries](https://github.com/net-lisias-ksp/TweakScale) on GitHub.
 	+ [Latest Release](https://github.com/net-lisias-ksp/TweakScale/releases)
-		- [Binaries](https://github.com/net-lisias-ksp/TweakScale/Archive)
+		- [Archive](https://github.com/net-lisias-ksp/TweakScale/tree/Archive)
+* Support
+	+ [Homepage](http://ksp.lisias.net/add-ons/TweakScale/Support/) on L Aerospace
+	+ [Reddit](https://www.reddit.com/r/TweakScale/)
+	+ [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*/)
+	+ [Discussions on Github](https://github.com/net-lisias-ksp/TweakScale/discussions/categories/support)
+* [Source](https://github.com/net-lisias-ksp/TweakScale)
+	+ [Issue Tracker](https://github.com/net-lisias-ksp/TweakScale/issues)
+	+ [beta (development) Branch](https://github.com/net-lisias-ksp/TweakScale/tree/dev/beta)
+		- " *Lasciate ogne speranza, voi ch'intrate* "
 
 
 ## Description
@@ -38,8 +39,6 @@ TweakScale lets you change the size of a part. Not just that, but it will figure
 TweakScale uses Swamp-Ig's KSPAPIExtensions and Module Manager.
 
 ### Notes
-
-From Version 1.5.0.1, KSPAPIExtensions.dll should no longer reside in GameData, but in Gamedata/TweakScale/Plugins. If you have a KSPAPIExtensions.dll in your Gamedata/ folder, please delete it.
 
 Please add TweakScale to your mod!
 If you are a mod author and you want to bundle TweakScale with your mod, please do! A few notes:
