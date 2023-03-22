@@ -1,5 +1,7 @@
 # TweakScale :: Changes
 
+* 2023-0321: 2.4.7.0 (Lisias) for KSP >= 1.3
+	+ Better TweakScale Companion checkings.
 * 2023-0304: 2.4.6.25 (Lisias) for KSP >= 1.3
 	+ A Checker for the need specific TweakScale Companions was added.
 		- Your `GameData` is checked for 3rd party add'ons currently supported by a Companion and a Dialog Box is displayed listing the ones you need to install.
