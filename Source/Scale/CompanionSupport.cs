@@ -31,19 +31,19 @@ namespace TweakScale
 {
 	internal class CompanionSupport
 	{
-		internal class MandatoryCompanions : Exception
+		internal class MandatoryCompanionsException : Exception
 		{
 			internal readonly string[] companions;
-			internal MandatoryCompanions(HashSet<string> companions)
+			internal MandatoryCompanionsException(HashSet<string> companions)
 			{
 				this.companions = companions.ToArray<string>();
 			}
 		}
 
-		internal class NeededCompanions : Exception
+		internal class NeededCompanionsException : Exception
 		{
 			internal readonly string[] companions;
-			internal NeededCompanions(HashSet<string> companions)
+			internal NeededCompanionsException(HashSet<string> companions)
 			{
 				this.companions = companions.ToArray<string>();
 			}
@@ -99,8 +99,8 @@ namespace TweakScale
 				}
 			}
 
-			if (0 != mandatory.Count)	throw new MandatoryCompanions(mandatory);
-			else if (0 != needed.Count)	throw new NeededCompanions(needed);
+			if (0 != mandatory.Count)	throw new MandatoryCompanionsException(mandatory);
+			else if (0 != needed.Count)	throw new NeededCompanionsException(needed);
 		}
 
 		private bool checkCompanionPresenseAndAge()
@@ -164,8 +164,8 @@ namespace TweakScale
 							KSPe.IO.Hierarchy.GAMEDATA.Solve(dir)
 						))
 					{
-						COMPANIONS_INSTALLED.Add(data[0]);
-						Log.detail("{0} is installed.", data[1]);
+						COMPANIONS_INSTALLED.Add(name);
+						Log.detail("{0} is installed.", friendly_name);
 					}
 				}
 			}

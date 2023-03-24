@@ -28,6 +28,7 @@ namespace TweakScale.GUI
 {
 	internal static class MissingCompanionFatalError 
 	{
+		private const string URL = "https://github.com/net-lisias-ksp/TweakScaleCompanion/releases";
 		private static readonly string MSG = @"Supported 3rd parties were found, but the respective Companion weren't.
 
 The following Companions **NEED** to be installed, as the targets Add'Ons they support are known to play havoc with TweakScale and they fix or workaroud the known problems:
@@ -45,7 +46,7 @@ Alternatively, you may want to install the ÜberPaket with everything and the ki
 			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
 				string.Format(MSG, msg),
 				AMSG,
-				() => { KSPe.Util.UrlTools.OpenURL("https://github.com/net-lisias-ksp/TweakScaleCompanion/releases"); }
+				() => { KSPe.Util.UrlTools.OpenURL(URL); }
 			);
 			Log.force("\"Houston, we have a problem!\" about the need to install the following Companions {0}:", string.Join(", ", companions));
 		}
