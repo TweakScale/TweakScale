@@ -40,6 +40,15 @@ namespace TweakScale
 			}
 		}
 
+		internal class DeprecatedCompanionsException : Exception
+		{
+			internal readonly Dictionary<string,string> companions;
+			internal DeprecatedCompanionsException(Dictionary<string,string> companions)
+			{
+				this.companions = companions;
+			}
+		}
+
 		internal class NeededCompanionsException : Exception
 		{
 			internal readonly string[] companions;
@@ -56,6 +65,7 @@ namespace TweakScale
 
 		private readonly Dictionary<string,string> COMPANIONS_AVAILABLE = new Dictionary<string, string>();
 		private readonly HashSet<string> COMPANIONS_INSTALLED = new HashSet<string>();
+		private readonly Dictionary<string,string> DEPRECATED_FOUND = new Dictionary<string,string>();
 		private readonly bool shouldRun;
 
 		internal CompanionSupport()
@@ -71,6 +81,9 @@ namespace TweakScale
 		internal void Execute()
 		{
 			if (!this.shouldRun) return;
+
+			if (0 != DEPRECATED_FOUND.Count)
+				throw new DeprecatedCompanionsException(DEPRECATED_FOUND);
 
 			HashSet<string> needed = new HashSet<string>();
 			HashSet<string> mandatory = new HashSet<string>();
@@ -158,6 +171,16 @@ namespace TweakScale
 					string status = data[5];
 
 					if ("unreleased".Equals(status)) continue;
+
+					if ("deprecated".Equals(status) && KSPe.IO.Directory.Exists(
+							KSPe.IO.Hierarchy.GAMEDATA.Solve(dir)
+						))
+					{
+						COMPANIONS_INSTALLED.Add(name);
+						Log.error("Deprecated {0} was found! You need to remove this directory: {1}", friendly_name, dir);
+						DEPRECATED_FOUND[name] = dir;
+						continue;
+					}
 
 					COMPANIONS_AVAILABLE.Add(name, friendly_name);
 					if (KSPe.IO.Directory.Exists(

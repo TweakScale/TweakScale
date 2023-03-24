@@ -90,6 +90,10 @@ namespace TweakScale
 				CompanionSupport cs = new CompanionSupport();
 				cs.Execute();
 			}
+			catch (CompanionSupport.DeprecatedCompanionsException e)
+			{
+				GUI.DeprecatedCompanionFatalError.Show(e.companions);
+			}
 			catch (CompanionSupport.MandatoryCompanionsException e)
 			{
 				GUI.MissingCompanionFatalError.Show(e.companions);
