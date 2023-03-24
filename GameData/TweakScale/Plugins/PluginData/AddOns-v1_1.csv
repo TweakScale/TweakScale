@@ -1,5 +1,5 @@
 addon_dir	addon_name	companion	a.k.a	download_url	home_url	mandatory
-GameData::KIS	Kerbal Inventory System (KIS)	TweakScaleCompanion_KIS	KIS	https://www.curseforge.com/kerbal/ksp-mods/kerbal-inventory-system-kis	https://forum.kerbalspaceprogram.com/index.php?/topic/149848-*/	0
+GameData::KIS	Kerbal Inventory System (KIS)	TweakScaleCompanion_KIAS	KIS	https://www.curseforge.com/kerbal/ksp-mods/kerbal-inventory-system-kis	https://forum.kerbalspaceprogram.com/index.php?/topic/149848-*/	0
 GameData::ReStock	ReStock	TweakScaleCompanion_ReStockPlus	ReStock	https://github.com/PorktoberRevolution/ReStocked/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/182679-*/	0
 GameData::ReStockPlus	ReStock+	TweakScaleCompanion_ReStockPlus	ReStock+	https://github.com/PorktoberRevolution/ReStocked/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/182679-*/	0
 GameData::ReStockRigidLegs	ReStock Rigid Legs	TweakScaleCompanion_ReStockPlus	RestockRigidLegs	https://github.com/PorktoberRevolution/ReStocked/releases	https://forum.kerbalspaceprogram.com/index.php?/topic/182679-*/	0
