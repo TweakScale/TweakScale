@@ -90,11 +90,15 @@ namespace TweakScale
 				CompanionSupport cs = new CompanionSupport();
 				cs.Execute();
 			}
-			catch (CompanionSupport.MandatoryCompanions e)
+			catch (CompanionSupport.DeprecatedCompanionsException e)
+			{
+				GUI.DeprecatedCompanionFatalError.Show(e.companions);
+			}
+			catch (CompanionSupport.MandatoryCompanionsException e)
 			{
 				GUI.MissingCompanionFatalError.Show(e.companions);
 			}
-			catch (CompanionSupport.NeededCompanions e)
+			catch (CompanionSupport.NeededCompanionsException e)
 			{
 				MainMenu.E = e;
 			}
@@ -110,7 +114,7 @@ namespace TweakScale
 	[KSPAddon(KSPAddon.Startup.MainMenu, true)]
 	internal class MainMenu : MonoBehaviour
 	{
-		internal static CompanionSupport.NeededCompanions E = null;
+		internal static CompanionSupport.NeededCompanionsException E = null;
 		[UsedImplicitly]
 		private void Start()
 		{

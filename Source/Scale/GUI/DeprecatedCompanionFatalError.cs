@@ -20,35 +20,38 @@
 	You should have received a copy of the GNU General Public License 2.0
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
+using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 using UnityEngine;
 
 namespace TweakScale.GUI
 {
-	internal static class MissingCompanionFatalError 
+	internal static class DeprecatedCompanionFatalError 
 	{
 		private const string URL = "https://github.com/net-lisias-ksp/TweakScaleCompanion/releases";
-		private static readonly string MSG = @"Supported 3rd parties were found, but the respective Companion weren't.
 
-The following Companions **NEED** to be installed, as the targets Add'Ons they support are known to play havoc with TweakScale and they fix or workaroud the known problems:
+		private static readonly string MSG = @"Deprecated Companion(s) was(were) found!
+
+The following Companion(s) **NEED** to be removed, having this(these) oldies lingering around is detrimental to KSP's health:
 
 {0}
-Alternatively, you may want to install the ÜberPaket with everything and the kitchen's sink included!";
+Alternatively, you may want to remove everything under `GameData/TweakScaleCompanion` and install the lastest ÜberPaket with everything and the kitchen's sink included!";
 
-		private static readonly string AMSG = @"close KSP, then install the Companion(s)";
+		private static readonly string AMSG = @"close KSP, remove and then reinstall the mentioned Companion(s)";
 
-		internal static void Show(string[] companions) {
+		internal static void Show(Dictionary<string,string> companions) {
 			StringBuilder sb = new StringBuilder();
-			foreach (string s in companions)
-				sb.Append(string.Format("* {0} \n", s));
+			foreach (KeyValuePair<string, string> p in companions)
+				sb.Append(string.Format("* {0} on {1}\n", p.Key, p.Value));
 			string msg = sb.ToString();
 			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
 				string.Format(MSG, msg),
 				AMSG,
 				() => { KSPe.Util.UrlTools.OpenURL(URL); }
 			);
-			Log.force("\"Houston, we have a problem!\" about the need to install the following Companions {0}:", string.Join(", ", companions));
+			Log.force("\"Houston, we have a problem!\" about the deprecated Companions found {0}:", string.Join(", ", companions.Keys.ToArray()));
 		}
 	}
 }

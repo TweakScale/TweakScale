@@ -91,6 +91,7 @@
     <Compile Include="GUI\MissingCompanionFatalError.cs" />
     <Compile Include="GUI\MissingCompanionAdviseBox.cs" />
     <Compile Include="CompanionSupport.cs" />
+    <Compile Include="GUI\DeprecatedCompanionFatalError.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

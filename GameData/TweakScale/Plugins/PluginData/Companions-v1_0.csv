@@ -1,19 +1,25 @@
-name	friendly_name	install_dir	download_url	ckan_name	status
+name	friendly_name	install_dir	download_url	[empty]	status
 TweakScaleCompanion_APP	TweakScale Companion for Airplane Plus	GameDatabase::TweakScaleCompanion::APP	https://github.com/net-lisias-ksp/TweakScaleCompanion_APP/releases		beta
 TweakScaleCompanion_ChitChat	TweakScale Companion Chit Chat	GameDatabase::TweakScaleCompanion::ChitChat	https://github.com/net-lisias-ksp/TweakScaleCompanion_ChitChat/releases		unreleased
 TweakScaleCompanion_FitAndHealth	TweakScale Companion Fitness & Health	GameDatabase::TweakScaleCompanion::FitAndHealth	https://github.com/net-lisias-ksp/TweakScaleCompanion_FitAndHealth/releases		unreleased
 TweakScaleCompanion_FS	TweakScale Companion for Firespitter	GameDatabase::TweakScaleCompanion::FS	https://github.com/net-lisias-ksp/TweakScaleCompanion_FS/releases		stable
-TweakScaleCompanion_KIS	TweakScale Companion for KIS	GameDatabase::TweakScaleCompanion::KIS	https://github.com/net-lisias-ksp/TweakScaleCompanion_KIS/releases		stable
+TweakScaleCompanion_KIAS	TweakScale Companion for Kerbal Inventory & Attachment Systems	GameDatabase::TweakScaleCompanion::KIAS	https://github.com/net-lisias-ksp/TweakScaleCompanion_KIAS/releases		stable
 TweakScaleCompanion_Legacy	TweakScale Companion Legacy	GameDatabase::TweakScaleCompanion::Legacy	https://github.com/net-lisias-ksp/TweakScaleCompanion_Legacy/releases		unreleased
 TweakScaleCompanion_LivingStyle	TweakScale Companion Living Style	GameDatabase::TweakScaleCompanion::LivingStyle	https://github.com/net-lisias-ksp/TweakScaleCompanion_LivingStyle/releases		beta
 TweakScaleCompanion_MFT	TweakScale Companion for Modular Fuel Tanks	GameDatabase::TweakScaleCompanion::MFT	https://github.com/net-lisias-ksp/TweakScaleCompanion_MFT/releases		unreleased
 TweakScaleCompanion_Multipass	TweakScale Companion Multipass	GameDatabase::TweakScaleCompanion::Multipass	https://github.com/net-lisias-ksp/TweakScaleCompanion_Multipass/releases		beta
 TweakScaleCompanion_NAP	TweakScale Companion for Neist Airliner	GameDatabase::TweakScaleCompanion::NAP	https://github.com/net-lisias-ksp/TweakScaleCompanion_NAP/releases		beta
 TweakScaleCompanion_OPT	TweakScale Companion for OPT	GameDatabase::TweakScaleCompanion::OPT	https://github.com/net-lisias-ksp/TweakScaleCompanion_OPT/releases		alpha
-TweakScaleCompanion_ReStockPlus	TweakScale Companion for ReStockPlus	GameDatabase::TweakScaleCompanion::ReStockPlus	https://github.com/net-lisias-ksp/TweakScaleCompanion_ReStockPlus/releases	TweakScaleCompanion-ReStockPlus	stable
+TweakScaleCompanion_ReStockPlus	TweakScale Companion for ReStockPlus	GameDatabase::TweakScaleCompanion::ReStockPlus	https://github.com/net-lisias-ksp/TweakScaleCompanion_ReStockPlus/releases		stable
 TweakScaleCompanion_Rockets	TweakScale Companion Rockets	GameDatabase::TweakScaleCompanion::Rockets	https://github.com/net-lisias-ksp/TweakScaleCompanion_Rockets/releases		beta
 TweakScaleCompanion_SMCE	TweakScale Companion SMCE (SpannerMonkey)	GameDatabase::TweakScaleCompanion::SMCE	https://github.com/net-lisias-ksp/TweakScaleCompanion_SMCE/releases		beta
 TweakScaleCompanion_Frameworks	TweakScale Companion Frameworks	GameDatabase::TweakScaleCompanion::Frameworks	https://github.com/net-lisias-ksp/TweakScaleCompanion_Frameworks/releases		beta
 TweakScaleCompanion_PKMC	TweakScale Companion PKMC	GameDatabase::TweakScaleCompanion::PKMC	https://github.com/net-lisias-ksp/TweakScaleCompanion_PKMC/releases		stable
 TweakScaleCompanion_US	TweakScale Companion for Universal Storage	GameDatabase::TweakScaleCompanion::US	https://github.com/net-lisias-ksp/TweakScaleCompanion_US/releases		unreleased
 TweakScaleCompanion_FuelSwitches	TweakScale Companion for Fuel Switches	GameDatabase::TweakScaleCompanion::FuelSwitches	https://github.com/net-lisias-ksp/TweakScaleCompanion_FuelSwitches/releases		unreleased
+TweakScaleCompanion_KIS	TweakScale Companion for Kerbal Inventory System (KIS)	GameDatabase::TweakScaleCompanion::KIS	https://github.com/net-lisias-ksp/TweakScaleCompanion_KIAS/releases		deprecated
+TweakScaleCompanion_NF	TweakScale Companion for Near Future	GameDatabase::TweakScaleCompanion::NF	https://github.com/net-lisias-ksp/TweakScaleCompanion_PKMC/releases		deprecated
+TweakScaleCompanion_NFS	TweakScale Companion for Near Future Solar	GameDatabase::TweakScaleCompanion::NFS	https://github.com/net-lisias-ksp/TweakScaleCompanion_PKMC/releases		deprecated
+TweakScaleCompanion_Visuals	TweakScale Companion for Visuals Add’Ons	GameDatabase::TweakScaleCompanion::Visuals	https://github.com/net-lisias-ksp/TweakScaleCompanion_Frameworks/releases		deprecated
+TweakScaleCompanion_EyeCandies	TweakScale Companion for Eye Candies Add’Ons	GameDatabase::TweakScaleCompanion::EyeCandies	https://github.com/net-lisias-ksp/TweakScaleCompanion_Frameworks/releases		deprecated
+TweakScaleCompanion_APlus	TweakScale Companion for Airplane Plus (old release)	GameDatabase::TweakScaleCompanion::APlus	https://github.com/net-lisias-ksp/TweakScaleCompanion_APP/releases		deprecated

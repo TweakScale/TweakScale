@@ -31,19 +31,28 @@ namespace TweakScale
 {
 	internal class CompanionSupport
 	{
-		internal class MandatoryCompanions : Exception
+		internal class MandatoryCompanionsException : Exception
 		{
 			internal readonly string[] companions;
-			internal MandatoryCompanions(HashSet<string> companions)
+			internal MandatoryCompanionsException(HashSet<string> companions)
 			{
 				this.companions = companions.ToArray<string>();
 			}
 		}
 
-		internal class NeededCompanions : Exception
+		internal class DeprecatedCompanionsException : Exception
+		{
+			internal readonly Dictionary<string,string> companions;
+			internal DeprecatedCompanionsException(Dictionary<string,string> companions)
+			{
+				this.companions = companions;
+			}
+		}
+
+		internal class NeededCompanionsException : Exception
 		{
 			internal readonly string[] companions;
-			internal NeededCompanions(HashSet<string> companions)
+			internal NeededCompanionsException(HashSet<string> companions)
 			{
 				this.companions = companions.ToArray<string>();
 			}
@@ -51,13 +60,14 @@ namespace TweakScale
 
 		private const string    ADDONS_FILENAME = "AddOns-v1_1.csv";
 		private readonly string ADDONS_FILE_PATH = HIERARCHY.GAMEDATA.Solve("Plugins", "PluginData", ADDONS_FILENAME);
-		private readonly byte[] ADDONS_SHA = new byte[] {201, 248, 76, 226, 223, 157, 113, 98, 126, 91, 35, 56, 127, 82, 100, 201, 196, 47, 105, 44, 41, 94, 197, 136, 138, 80, 126, 147, 96, 209, 227, 212, 123, 91, 77, 20, 57, 202, 38, 62, 209, 62, 94, 63, 93, 125, 45, 90, 231, 159, 45, 198, 93, 77, 150, 53, 251, 28, 220, 84, 164, 119, 171, 164, };
+		private readonly byte[] ADDONS_SHA = new byte[] {143, 1, 6, 134, 112, 118, 6, 41, 153, 202, 123, 146, 69, 134, 25, 251, 123, 78, 246, 11, 24, 88, 181, 221, 162, 127, 28, 10, 240, 67, 45, 137, 171, 200, 2, 242, 109, 101, 248, 68, 144, 105, 54, 95, 220, 161, 49, 89, 40, 182, 87, 140, 96, 192, 200, 98, 116, 147, 147, 86, 117, 159, 64, 150, };
 		private const string    COMPANIONS_FILENAME = "Companions-v1_0.csv";
 		private readonly string COMPANIONS_FILE_PATH = HIERARCHY.GAMEDATA.Solve("Plugins", "PluginData", COMPANIONS_FILENAME);
-		private readonly byte[] COMPANIONS_SHA = new byte[] {188, 10, 151, 173, 205, 109, 182, 12, 255, 157, 57, 233, 99, 39, 74, 236, 137, 135, 56, 27, 21, 99, 165, 201, 158, 70, 178, 70, 170, 160, 119, 44, 179, 247, 112, 241, 183, 28, 112, 160, 65, 164, 35, 28, 7, 179, 181, 86, 249, 137, 79, 40, 253, 49, 121, 156, 106, 178, 151, 14, 125, 3, 208, 136, };
+		private readonly byte[] COMPANIONS_SHA = new byte[] {242, 7, 50, 149, 126, 122, 52, 18, 43, 97, 142, 16, 135, 125, 36, 125, 230, 154, 25, 182, 197, 241, 29, 192, 187, 18, 61, 0, 201, 248, 162, 0, 205, 74, 135, 41, 201, 192, 153, 153, 105, 21, 4, 214, 66, 199, 101, 60, 112, 86, 56, 161, 10, 69, 68, 171, 225, 13, 128, 47, 70, 0, 40, 15, };
 
 		private readonly Dictionary<string,string> COMPANIONS_AVAILABLE = new Dictionary<string, string>();
 		private readonly HashSet<string> COMPANIONS_INSTALLED = new HashSet<string>();
+		private readonly Dictionary<string,string> DEPRECATED_FOUND = new Dictionary<string,string>();
 		private readonly bool shouldRun;
 
 		internal CompanionSupport()
@@ -73,6 +83,9 @@ namespace TweakScale
 		internal void Execute()
 		{
 			if (!this.shouldRun) return;
+
+			if (0 != DEPRECATED_FOUND.Count)
+				throw new DeprecatedCompanionsException(DEPRECATED_FOUND);
 
 			HashSet<string> needed = new HashSet<string>();
 			HashSet<string> mandatory = new HashSet<string>();
@@ -101,8 +114,8 @@ namespace TweakScale
 				}
 			}
 
-			if (0 != mandatory.Count)	throw new MandatoryCompanions(mandatory);
-			else if (0 != needed.Count)	throw new NeededCompanions(needed);
+			if (0 != mandatory.Count)	throw new MandatoryCompanionsException(mandatory);
+			else if (0 != needed.Count)	throw new NeededCompanionsException(needed);
 		}
 
 		private bool checkCompanionPresenseAndAge()
@@ -161,13 +174,23 @@ namespace TweakScale
 
 					if ("unreleased".Equals(status)) continue;
 
+					if ("deprecated".Equals(status) && KSPe.IO.Directory.Exists(
+							KSPe.IO.Hierarchy.GAMEDATA.Solve(dir)
+						))
+					{
+						COMPANIONS_INSTALLED.Add(name);
+						Log.error("Deprecated {0} was found! You need to remove this directory: {1}", friendly_name, dir);
+						DEPRECATED_FOUND[name] = dir;
+						continue;
+					}
+
 					COMPANIONS_AVAILABLE.Add(name, friendly_name);
 					if (KSPe.IO.Directory.Exists(
 							KSPe.IO.Hierarchy.GAMEDATA.Solve(dir)
 						))
 					{
-						COMPANIONS_INSTALLED.Add(data[0]);
-						Log.detail("{0} is installed.", data[1]);
+						COMPANIONS_INSTALLED.Add(name);
+						Log.detail("{0} is installed.", friendly_name);
 					}
 				}
 			}

@@ -26,6 +26,7 @@ namespace TweakScale.GUI
 {
 	internal static class NoRecallAlertBox
 	{
+		private const string URL = "https://ksp.lisias.net/add-ons/KSP-Recall/Support";
 		private static readonly string MSG = @"KSP Recall was not found!
 
 For this KSP version, KSP Recall **is required** to fix problems on Resources and Recovering Funds (not only on TweakScale, it only happens that TweakScale is the first known victim of the problem).";
@@ -37,7 +38,7 @@ For this KSP version, KSP Recall **is required** to fix problems on Resources an
 			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
 				MSG,
 				AMSG,
-				() => { KSPe.Util.UrlTools.OpenURL("https://ksp.lisias.net/add-ons/KSP-Recall/Support"); }
+				() => { KSPe.Util.UrlTools.OpenURL(URL); }
 			);
 			Log.force("\"Houston, we have a Problem!\" about KSP-Recall was displayed");
 		}
