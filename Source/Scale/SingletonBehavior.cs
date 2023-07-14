@@ -41,5 +41,11 @@ namespace TweakScale
 			Log.dbg("SingletonBehavior.Awake");
 			instance = (T)this;
 		}
+
+		[UsedImplicitly]
+		protected void OnDestroy()
+		{
+			instance = null;
+		}
 	}
 }
