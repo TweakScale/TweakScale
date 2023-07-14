@@ -46,6 +46,7 @@ TweakScale uses Swamp-Ig's KSPAPIExtensions and Module Manager.
 ### Notes
 
 Please add TweakScale to your mod!
+
 If you are a mod author and you want to bundle TweakScale with your mod, please do! A few notes:
 
 * Please place your TweakScale .cfgs in your mod's folder, not in the TweakScale folder. This way users can delete TweakScale and install a new version without breaking your mod.
@@ -80,17 +81,44 @@ TweakScale correctly changes fuel volumes on tanks using Modular Fuel Tanks and 
 Fission reactors, antimatter reactors and antimatter-initiated reactors are not yet supported. (Awaiting better formulae for those and the Vista engine)
 
 ### How to Use
-First add a part that's the wrong size:
+First add a part that's the wrong size:  
 ![NxMyyTK.png](./PR_material/img/NxMyyTK.png)
 
-Right click:
+Right click:  
 ![BBw1x4M.png](./PR_material/img/BBw1x4M.png)
 
-See how it says 3.75m? Well, the command capsule is 2.5m, so let's change it. You do this by pressing the << >> buttons or dragging the slider.
+See how it says 3.75m? Well, the command capsule is 2.5m, so let's change it. You do this by pressing the << >> buttons or dragging the slider.  
 ![LCEiPHP.png](./PR_material/img/LCEiPHP.png)
 
-See how well it fits?
+See how well it fits?  
 ![fAF2xsT.png](./PR_material/img/fAF2xsT.png)
+
+There's a Settings Menu on Editor, accessible by an Icon on the Toolbar:  
+![](./Docs/Manual/Settings.Dialog.png)
+
+You can activate or deactivate the following TweakScale Features:
+
+* **Auto Scale**
+	+ Automatically scales the attaching part to the Scaling used by the part where it attaches.
+	+ Can also be triggered by `Ctrl-L` 
+* **Chain Scale**
+	+ Propagates the scaling of the part into all the parts attached into it (i.e., its "subtree")
+	+ Can also be triggered by `Ctrl-K`
+
+The Toolbar's Icon reflects the current TweakScale's state for situation awareness:
+ 
+| Icon                                                             | Meaning                                                  |
+|:----------------------------------------------------------------:|:--------------------------------------------------------:|
+|![](./GameData/TweakScale/PluginData/Icons/Scale_On.png)          | TweakScale is operating without any features active      |
+|![](./GameData/TweakScale/PluginData/Icons/Scale_Auto.png)        | TweakScale is operating with at least one feature active |
+|![](./GameData/TweakScale/PluginData/Icons/Scale_Unsupported.png) | The last selected Part has no TweakScale Support         |
+
+On the General section, you have the following Settings:
+
+* **Reset the Settings on New/Load Craft**
+	+ Disables all features every time you enter the Editor, creates a New Craft or Load one.
+	+ Aims to prevent you from forgetting the features active, potentially hindering your editing.
+	+ Can be disable, and so TweakScale will keep the settings on these events. 
 
 
 ### Examples
