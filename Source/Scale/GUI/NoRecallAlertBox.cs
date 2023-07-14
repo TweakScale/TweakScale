@@ -35,7 +35,7 @@ For this KSP version, KSP Recall **is required** to fix problems on Resources an
 
 		internal static void Show()
 		{
-			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
+			KSPe.Common.Dialogs.ShowStopperErrorBox.Show(
 				MSG,
 				AMSG,
 				() => { KSPe.Util.UrlTools.OpenURL(URL); }

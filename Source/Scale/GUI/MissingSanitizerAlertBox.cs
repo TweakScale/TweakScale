@@ -36,7 +36,7 @@ Proceed at your own risk. TweakScale's maintainer will <B>NOT</B> accept bug rep
 
 		internal static void Show() {
 			if (ModuleManagerListener.shouldShowWarnings)
-				KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
+				KSPe.Common.Dialogs.ShowStopperErrorBox.Show(
 					MSG,
 					AMSG,
 					() => { Application.Quit(); }

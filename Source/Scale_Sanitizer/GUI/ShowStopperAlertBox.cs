@@ -34,7 +34,7 @@ The KSP.log is listing every compromised part(s) on your installment, look for l
 
 		internal static void Show(int failure_count, bool showMessageBox)
 		{
-			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
+			KSPe.Common.Dialogs.ShowStopperErrorBox.Show(
 				string.Format(MSG, failure_count),
 				AMSG,
 				() => { Application.OpenURL("https://ksp.lisias.net/add-ons/TweakScale/Support/SanityChecks/"); Application.Quit(); }

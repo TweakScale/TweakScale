@@ -25,6 +25,7 @@ using System.Collections.Generic;
 
 using KSPe;
 using KSPe.Annotations;
+using Err = KSPe.Common.Dialogs.ErrorHandling;
 
 using SEngine = TweakScale.Sanitizer.Engine;
 

@@ -35,7 +35,7 @@ Missing Class: {0}";
 		private static readonly string AMSG = @"reinstall TweakScale from a trusted Distribution Channel (KSP will close)";
 
 		internal static void Show(string msg) {
-			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
+			KSPe.Common.Dialogs.ShowStopperErrorBox.Show(
 				string.Format(MSG, msg),
 				AMSG,
 				() => { Application.Quit(); }
