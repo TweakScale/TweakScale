@@ -45,8 +45,9 @@ namespace TweakScale.Sanitizer
 		}
 
 		[UsedImplicitly]
-		private void OnDestroy()
+		new protected void OnDestroy()
 		{
+			base.OnDestroy();
 			// Free some memory:
 			Engine.Instance.Destroy();
 		}
