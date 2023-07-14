@@ -25,6 +25,8 @@ using UnityEngine;
 using KSP.IO;
 using KSPe.Annotations;
 
+using DATA = KSPe.IO.Data<TweakScale.Globals>;
+
 namespace TweakScale
 {
 	[KSPAddon(KSPAddon.Startup.MainMenu, true)]
@@ -42,7 +44,7 @@ namespace TweakScale
 			base.Awake();
 			DontDestroyOnLoad(this);
 
-			_config = PluginConfiguration.CreateForType<TweakScale>();
+			_config = DATA.PluginConfiguration.CreateForType<TweakScale>();
 		}
 
 		public PluginConfiguration Config => _config;
