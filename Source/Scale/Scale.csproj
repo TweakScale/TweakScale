@@ -92,6 +92,8 @@
     <Compile Include="GUI\MissingCompanionAdviseBox.cs" />
     <Compile Include="CompanionSupport.cs" />
     <Compile Include="GUI\DeprecatedCompanionFatalError.cs" />
+    <Compile Include="Features\ResetOnNew.cs" />
+    <Compile Include="EditorHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -36,10 +36,12 @@ namespace TweakScale
 		{
 			Features.AutoScale.Init();
 			Features.ScaleChaining.Init();
+			Features.ResetOnNew.Init();
 		}
 
 		private void OnDestroy()
 		{
+			Features.ResetOnNew.DeInit();
 			Features.ScaleChaining.DeInit();
 			Features.AutoScale.DeInit();
 		}

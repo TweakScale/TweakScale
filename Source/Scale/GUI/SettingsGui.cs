@@ -47,6 +47,7 @@ namespace TweakScale.GUI
 
 		private bool autoScaleActive = Features.AutoScale.Active;
 		private bool scaleChaining = Features.AutoScale.Active;
+		private bool resetOnNew = Features.ResetOnNew.Active;
 
 		[UsedImplicitly]
 		private void Awake() {
@@ -90,11 +91,13 @@ namespace TweakScale.GUI
 		private void ApplySettings() {
 			Features.AutoScale.Active = this.autoScaleActive;
 			Features.ScaleChaining.Active = this.scaleChaining;
+			Features.ResetOnNew.Active = this.resetOnNew;
 		}
 
 		private void ReadSettings() {
 			this.autoScaleActive = Features.AutoScale.Active;
 			this.scaleChaining = Features.ScaleChaining.Active;
+			this.resetOnNew = Features.ResetOnNew.Active;
 		}
 
 		private void mainGUI(int windowID) {
@@ -118,6 +121,12 @@ namespace TweakScale.GUI
 
 			GUILayout.BeginHorizontal(GUILayout.ExpandWidth(false));
 			this.scaleChaining = GUILayout.Toggle(this.scaleChaining, "Enable Chain Scale");
+			GUILayout.EndHorizontal();
+			GUILayout.EndVertical();
+
+			GUILayout.BeginVertical("General", new GUIStyle(UGUI.skin.window));
+			GUILayout.BeginHorizontal(GUILayout.ExpandWidth(false));
+			this.resetOnNew = GUILayout.Toggle(this.resetOnNew, "Reset the Settings on New/Load Craft");
 			GUILayout.EndHorizontal();
 			GUILayout.EndVertical();
 
