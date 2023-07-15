@@ -4,6 +4,14 @@
 	+ Long history made short, this KSP's bug is triggered by a DLL falling to be loaded due a faulty or missing dependency, a situation that breaks some code inside the `Assembly Loader/Resolver` and from that point **EVERYTHING** borks being loaded no matter what.
 	+ Since TweakScale can't tell the difference from a bogus problem from a real one, it ends up displaying [this message](https://user-images.githubusercontent.com/17166550/142723300-b02210f1-9e1e-4486-bbab-7bae744c8538.png) to you as it was TweakScale installment the problem.
 	+ A full essay about how to fix this problem is available on [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-130/&do=findComment&comment=4056719).
+* A new (old) bug on KSP's Editor was diagnosed on KSP 1.11.0 and forward: when scaling parts with resources under symmetry, only the original part have the resources scaled correctly.
+	+ Apparently, Editor since KSP 1.11.0 is overwriting the cloned parts new attributes by some reason.
+	+ Saving and Loading the craft, or just launching it proved to be a viable Work Around, at least using Stock parts.
+	+ https://github.com/TweakScale/TweakScale/issues/283
+* A new (pretty old) bug on TweakScale was diagnosed, affecting KSP since at least 1.3.0 (probably everything older too): after certain transformations, all the clones of that part get this positions screwed by TweakScale on scaling.
+	+ It's a missed use case on TweakScale, this one is not on KSP's shouders.
+	+ A viable work around is to replace the cloned part with a new one from the Part's Palette, as this will reset the attachment attributes that get "mangled" by continuously transforming the parts. 
+	+ https://github.com/TweakScale/TweakScale/issues/297
 * As from 2.4.4.0 (and 2.5.0.x from Experimental Releases), TweakScale is now **double licensed** under the [SKP 1.0](https://ksp.lisias.net/SKL-1_0.txt) and [GPL 2.0](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
 	+ All the previous releases until 2.4.3.21 are still licensed under the WTFPL license.
 	+ All artefacts on the Extras directory are still licensed under the WTFPL.
