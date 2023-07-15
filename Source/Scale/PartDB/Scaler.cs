@@ -134,6 +134,7 @@ namespace TweakScale.PartDB
 		internal void CopyUpdate()		{ this.DoCopyUpdate(); }
 		internal void Scale()			{ this.DoScale(); }
 		internal void Restore()			{ this.DoRestore(); }
+		internal void OnClone()			{ this.DoClone(); }
 
 		void IDisposable.Dispose()		{ this.DestroyMyself(); }
 		protected virtual Scaler DestroyMyself() {
@@ -155,6 +156,7 @@ namespace TweakScale.PartDB
 		protected virtual void DoRestore()		{ Log.dbg("{0}.Restore for {0}", this.GetType().Name, this.ts.InstanceID); }
 		protected virtual void DoFirstUpdate()	{ Log.dbg("{0}.FirstUpdate for {0}", this.GetType().Name, this.ts.InstanceID); }
 		protected virtual void DoCopyUpdate()	{ Log.dbg("{0}.DoCopyUpdate", this.GetType().Name); }
+		protected virtual void DoClone()		{ Log.dbg("{0}.DoClone for {0}", this.GetType().Name, this.ts.InstanceID); }
 		protected virtual void OnChange()		{ Log.dbg("{0}.OnChange", this.GetType().Name); } 
 		protected virtual void ScalePartModelTransform()		{ Log.dbg("{0}.ScalePartModelTransform", this.GetType().Name); }
 		protected virtual void ScaleDragCubes(bool absolute)	{ Log.dbg("{0}.ScalePartModelTransform", this.GetType().Name); }

@@ -55,6 +55,13 @@ namespace TweakScale.PartDB
 				this.ScalePart(false, true);							// This was originally shoved on Update() for KSP 1.2 on commit 09d7744
 		}
 
+		protected override void DoClone()
+		{
+			base.DoClone();
+			Log.dbg("orgPos, attPos, attPos0 {0} {1} {2}", this.part.orgPos, this.part.attPos, this.part.attPos0);
+			Log.dbg("orgRot, attRotation, attRotation0 {0} {1} {2}", this.part.orgRot, this.part.attRotation, this.part.attRotation0);
+		}
+
 		/// <summary>
 		/// Moves <paramref name="node"/> to reflect the new scale. If <paramref name="movePart"/> is true, also moves attached parts.
 		/// </summary>
