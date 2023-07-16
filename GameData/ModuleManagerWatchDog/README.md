@@ -32,7 +32,7 @@ A Watch Dog for Module Manager.
 **Warren Bennis**
 - - - 
 
-Module Manager is a Watch Dog to monitor Module Manager, preventing known (and unsolved) bugs on KSP 1.8 and newer that affects it.
+`MMWD` is a Watch Dog to monitor Module Manager, preventing known (and unsolved) bugs on KSP 1.8 and newer that affects it.
 
 Additional services for updating specific DLLs on `GameData.` are now part of the solution, making it useful even for KSP <= 1.7.3 .
 
