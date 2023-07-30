@@ -63,5 +63,5 @@ A important change is due to happen on 2.5.0.x to protect my SAS and to help me 
 
 ## *status quo*
 
-The (current) schedule [is here](https://github.com/net-lisias-ksp/TweakScale/milestones).
+The (current) schedule [is here](https://github.com/TweakScale/TweakScale/milestones).
 

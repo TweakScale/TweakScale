@@ -9,9 +9,9 @@ Release 2.4.3.5 is available for downloading, with the following changes:
 	+ Internal routines updated to understand Unity 2019. 
 		- KSP 1.8 Ready, baby! ;)
 * Issues Fixed:
-	+ [#26](https://github.com/net-lisias-ksp/TweakScale/issues/26) Document the patches
-	+ [#69](https://github.com/net-lisias-ksp/TweakScale/issues/69) Act on deprecated or misplaced patches
-	+ [#76](https://github.com/net-lisias-ksp/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
+	+ [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
+	+ [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
+	+ [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
 
 See [OP](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*) for the links.
 
@@ -80,7 +80,7 @@ TweakScale stills "mangles further" affected crafts and savegames with some badl
 
 As usual, this version still drops support in runtime for some problematic parts. Any savegame with such problematic parts scaled will have them "descaled". This is not a really big problem as your game was going to crash sooner or later anyway - but if you plan to return to such savegame later when TweakScale will fully support that parts again, it's better to backup your savegames!
 
-Keep an eye on the [Known Issues](https://github.com/net-lisias-ksp/TweakScale/blob/master/KNOWN_ISSUES.md) file.
+Keep an eye on the [Known Issues](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) file.
 
 — — — — —
 

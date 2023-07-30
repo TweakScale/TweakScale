@@ -28,7 +28,7 @@ namespace TweakScale.GUI
 {
 	internal static class MissingCompanionFatalError 
 	{
-		private const string URL = "https://github.com/net-lisias-ksp/TweakScaleCompanion/releases";
+		private const string URL = "https://github.com/TweakScale/Companion/releases";
 		private static readonly string MSG = @"Supported 3rd parties were found, but the respective Companion weren't.
 
 The following Companions **NEED** to be installed, as the targets Add'Ons they support are known to play havoc with TweakScale and they fix or workaroud the known problems:

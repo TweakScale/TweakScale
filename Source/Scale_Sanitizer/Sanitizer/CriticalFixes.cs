@@ -105,11 +105,11 @@ namespace TweakScale.Sanitizer
 			{
 				TweakScale m = prefab.Modules.GetModule<TweakScale>();
 				if (m.active && m.available && m.Fields["tweakScale"].guiActiveEditor == m.Fields["tweakName"].guiActiveEditor)
-					return "not being correctly initialized - see issue [#30]( https://github.com/net-lisias-ksp/TweakScale/issues/30 )";
+					return "not being correctly initialized - see issue [#30]( https://github.com/TweakScale/TweakScale/issues/30 )";
 			}
 			catch (System.NullReferenceException)
 			{
-				return "having missed attributes - see issue [#30]( https://github.com/net-lisias-ksp/TweakScale/issues/30 )";
+				return "having missed attributes - see issue [#30]( https://github.com/TweakScale/TweakScale/issues/30 )";
 			}
 
 			return null;

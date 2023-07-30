@@ -48,9 +48,9 @@ namespace TweakScale.Sanitizer
 				// save the World, just the savegames. :)
 				if (null != (r = this.CheckForOverrules(prefab)))
 				{   // This is for detect and log the Breaking Parts patches.
-					// See issue [#56]( https://github.com/net-lisias-ksp/TweakScale/issues/56 ) for details.
+					// See issue [#56]( https://github.com/TweakScale/TweakScale/issues/56 ) for details.
 					// This is **FAR** from a good measure, but it's the only viable.
-					Log.warn("Part {0} ({1}) has the issue(s) overrule(s) {2}. See [#56]( https://github.com/net-lisias-ksp/TweakScale/issues/56 ) for details.", p.name, p.title, r);
+					Log.warn("Part {0} ({1}) has the issue(s) overrule(s) {2}. See [#56]( https://github.com/TweakScale/TweakScale/issues/56 ) for details.", p.name, p.title, r);
 					++this.count;
 					return true; // Abort the check chain for this part.
 				}

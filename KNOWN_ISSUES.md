@@ -29,7 +29,7 @@
 	+ But all of these know is [KSP-Recall](https://forum.kerbalspaceprogram.com/index.php?/topic/192048-18/) problem. :)
 	+ KSP can't be used without KSP-Recall on affected KSP versions.
 * The FTE-1 Drain Vale (ReleaseValve - new on KSP 1.9.x) is not being properly scaled. Only the size (and Mass) are scalable, the functionality is not.
-	+ See Issue [#102](https://github.com/net-lisias-ksp/TweakScale/issues/102) for details. 
+	+ See Issue [#102](https://github.com/TweakScale/TweakScale/issues/102) for details. 
 * A change on the Add'On Binder demanded that only **one** `Scale_Redist.dll` be available on the whole installment.
 	+ Delete every single file called `Scale_Redist.dll` from every Add'On you have installed
 	+ Don't touch `999_Scale_Redist.dll` on the GameData. This one must stay.
@@ -37,14 +37,14 @@
 	+ It's **strongly** advised to do not use TweakScale on 1.8.0
 	+ But nothing bad will happens, other than a hard time trying to use the PAWs.
 * A new and definitively destructive *"Unholly Interactions Between Modules"*, or as it's fondly known by its friends, **Kraken Food**, was found due some old or badly written patches ends up injecting TweakScale properties **twice** on the Node.
-	+ This is particularly nasty as it corrupts a previously working GameDatabase that infects your savegames with corrupted part info. Once a new Add'On is installed, or the bad one is uninstalled, suddenly all your savegames with the old, corrupted part info became broken. See details on the [Issue #34](https://github.com/net-lisias-ksp/TweakScale/issues/34).
+	+ This is particularly nasty as it corrupts a previously working GameDatabase that infects your savegames with corrupted part info. Once a new Add'On is installed, or the bad one is uninstalled, suddenly all your savegames with the old, corrupted part info became broken. See details on the [Issue #34](https://github.com/TweakScale/TweakScale/issues/34).
 	+ This was considered **FATAL** as previously perfectly fine parts became corrupted by installing a rogue Patch, that can so be uninstalled later ruining savegames. By that reason, a very scaring warning are being issue in the Main Menu when the problem is detected.
 * There's a crashing situation when using TweakScale and [Classic Infernal Robotics](https://github.com/MagicSmokeIndustries/InfernalRobotics).
 	+ IR parts scaled down to "Small -" (small minus, the smallest of them) crashes the game when the craft is unpacked.
 	+ Apparently quitting immediately KSP, restarting, reloading the game and recovering the vessel from the Track Station is enough to salvage the savegame - but more tests are needed to be sure of that.
 	+ Related issues:
-		- [#39](https://github.com/net-lisias-ksp/TweakScale/issues/39) Game Crash when scaling some third party parts to the minimum
-		- [#40](https://github.com/net-lisias-ksp/TweakScale/issues/40) Feasibility Study for a runtime Sanity Check for issue #39
+		- [#39](https://github.com/TweakScale/TweakScale/issues/39) Game Crash when scaling some third party parts to the minimum
+		- [#40](https://github.com/TweakScale/TweakScale/issues/40) Feasibility Study for a runtime Sanity Check for issue #39
 	+ TweakScale advises all IR users to update to [Infernal Robotics/Next](https://github.com/meirumeiru/InfernalRobotics) where this issue was solved.
 * There's a potentially destructive problem happening due *"Unholly Interactions Between Modules"*, or as it's fondly known by its friends, **Kraken Food**. :)
 	+ Due events absolutely beyond the TweakScale scope of actions,  some parts are being injected with more than one instance of TweakScale. This usually happens by faulty MM patches, but in the end this can happens by code or even by editing MM's cache.
@@ -59,7 +59,7 @@
 	+ The proposed mitigation measure is to backup your savegames, try TweakScale 2.4.x and then decide if the damages (if any, only a few parts are affected) are bigger than the risks - but then, make **hourly** backups of your savegames as one the misbehaviour is triggered, your savegame can be doomed and forever leading to crashes.
 	+ The Maintainer is terribly sorry for the mess (my savegames gone *kaput* too), but it's the less evil of the available choices.
 	+ Related issues:
-		- [#15](https://github.com/net-lisias-ksp/TweakScale/issues/15) Prevent B9PartSwitch to be handled when another Part Switch is active
+		- [#15](https://github.com/TweakScale/TweakScale/issues/15) Prevent B9PartSwitch to be handled when another Part Switch is active
 
 - - -
 

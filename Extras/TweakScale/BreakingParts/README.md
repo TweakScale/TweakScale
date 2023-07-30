@@ -1,6 +1,6 @@
 # TweakScale :: Breaking Parts
 
-On Release [2.4.3](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-14-tweakscale-under-lisias-management-2430-2019-0608/page/16/&tab=comments#comment-3614866) a new Sanity Check intended to prevent yet another [issue](https://github.com/net-lisias-ksp/TweakScale/issues/34) .
+On Release [2.4.3](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-14-tweakscale-under-lisias-management-2430-2019-0608/page/16/&tab=comments#comment-3614866) a new Sanity Check intended to prevent yet another [issue](https://github.com/TweakScale/TweakScale/issues/34) .
 
 It was found that the game was being plagued by this problem from some time now as a lot of reports were issued due the Alert Message Box triggered when such problems are detected.
 

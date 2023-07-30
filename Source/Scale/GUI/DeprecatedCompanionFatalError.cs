@@ -30,7 +30,7 @@ namespace TweakScale.GUI
 {
 	internal static class DeprecatedCompanionFatalError 
 	{
-		private const string URL = "https://github.com/net-lisias-ksp/TweakScaleCompanion/releases";
+		private const string URL = "https://github.com/TweakScale/Companion/releases";
 
 		private static readonly string MSG = @"Deprecated Companion(s) was(were) found!
 

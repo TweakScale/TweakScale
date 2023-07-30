@@ -99,7 +99,7 @@ namespace TweakScale.Sanitizer
 		{
 			Log.dbg("Checking ShowStopper for {0} at {1}", p.name, p.partInfo.partUrl);
 			ConfigNode part = Abstract.GetMeThatConfigNode(p);
-			if (null == part) return "having a part without a partInfo! - see issue [#237]( https://github.com/net-lisias-ksp/TweakScale/issues/237";
+			if (null == part) return "having a part without a partInfo! - see issue [#237]( https://github.com/TweakScale/TweakScale/issues/237";
 
 			foreach (ConfigNode basket in part.GetNodes("MODULE"))
 			{
@@ -111,7 +111,7 @@ namespace TweakScale.Sanitizer
 				{
 					Log.dbg("\t\t{0} = {1}", property.name, property.value);
 					if (1 != basket.GetValues(property.name).Length)
-						return "having duplicated properties - see issue [#34]( https://github.com/net-lisias-ksp/TweakScale/issues/34 )";
+						return "having duplicated properties - see issue [#34]( https://github.com/TweakScale/TweakScale/issues/34 )";
 				}
 			}
 

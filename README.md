@@ -14,24 +14,24 @@
 
 * Documentation
 	+ [Homepage](http://ksp.lisias.net/add-ons/TweakScale/) on L Aerospace
-	+ [Project's README](https://github.com/net-lisias-ksp/TweakScale/blob/master/README.md)
-	+ [Install Instructions](https://github.com/net-lisias-ksp/TweakScale/blob/master/INSTALL.md)
+	+ [Project's README](https://github.com/TweakScale/TweakScale/blob/master/README.md)
+	+ [Install Instructions](https://github.com/TweakScale/TweakScale/blob/master/INSTALL.md)
 	+ [Change Log](./CHANGE_LOG.md)
 	+ [Known Issues](./KNOWN_ISSUES.md)
-	+ [Road Map](https://github.com/net-lisias-ksp/TweakScale/blob/master/ROAD_MAP.md)
+	+ [Road Map](https://github.com/TweakScale/TweakScale/blob/master/ROAD_MAP.md)
 * Official Distribution Sites:
 	+ [CurseForge](https://kerbal.curseforge.com/projects/tweakscale)
 	+ [SpaceDock](https://spacedock.info/mod/127/TweakScale)
-	+ [Latest Release](https://github.com/net-lisias-ksp/TweakScale/releases)
-		- [Archive](https://github.com/net-lisias-ksp/TweakScale/tree/Archive)
+	+ [Latest Release](https://github.com/TweakScale/TweakScale/releases)
+		- [Archive](https://github.com/TweakScale/TweakScale/tree/Archive)
 * Support
 	+ [Homepage](http://ksp.lisias.net/add-ons/TweakScale/Support/) on L Aerospace
 	+ [Reddit](https://www.reddit.com/r/TweakScale/)
 	+ [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-*/)
-	+ [Discussions on Github](https://github.com/net-lisias-ksp/TweakScale/discussions/categories/support)
-* [Source](https://github.com/net-lisias-ksp/TweakScale)
-	+ [Issue Tracker](https://github.com/net-lisias-ksp/TweakScale/issues)
-	+ [beta (development) Branch](https://github.com/net-lisias-ksp/TweakScale/tree/dev/beta)
+	+ [Discussions on Github](https://github.com/TweakScale/TweakScale/discussions/categories/support)
+* [Source](https://github.com/TweakScale/TweakScale)
+	+ [Issue Tracker](https://github.com/TweakScale/TweakScale/issues)
+	+ [beta (development) Branch](https://github.com/TweakScale/TweakScale/tree/dev/beta)
 		- " *Lasciate ogne speranza, voi ch'intrate* "
 
 
