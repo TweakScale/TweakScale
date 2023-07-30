@@ -45,6 +45,7 @@ namespace TweakScale
 		[UsedImplicitly]
 		protected void OnDestroy()
 		{
+			Log.dbg("SingletonBehavior.OnDestroy: {0}", this.GetType().Name);
 			instance = null;
 		}
 	}
