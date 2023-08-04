@@ -176,6 +176,9 @@ namespace TweakScale
         /// </summary>
         public ScalingFactor ScalingFactor => new ScalingFactor(tweakScale / defaultScale, tweakScale / currentScale, isFreeScale ? -1 : tweakName);
 
+		private delegate void UpdateDelegate();
+		private UpdateDelegate UpdateCurrent;
+
         protected virtual void SetupPrefab(Part prefabPart)
         {
             Log.dbg("SetupPrefab {0}", this.InstanceID);
@@ -586,32 +589,65 @@ namespace TweakScale
 				Features.AutoScale.Execute(module, this);
 		}
 
-        [UsedImplicitly]
-        public void Update()
-        {
-            Log.dbgOnce("Update {0}", this.InstanceID);
+		#endregion
 
-            if (_firstUpdate)
-            {
-                _firstUpdate = false;
-                if (this.FailsIntegrity()) return;
-				if (this.IsScaled) this.scaler.FirstUpdate();
-            }
 
-			if (_firstUpdateAfterCopy)
+		#region Unity's Update Stuff
+
+		[UsedImplicitly] private void OnEnable() => GameEvents.onGameSceneLoadRequested.Add(this.OnGameSceneLoadRequested);
+		[UsedImplicitly] private void OnDisable() => GameEvents.onGameSceneLoadRequested.Remove(this.OnGameSceneLoadRequested);
+		[UsedImplicitly] private void Start() => this.UpdateUpdateDelegate(HighLogic.LoadedScene);
+		private void OnGameSceneLoadRequested(GameScenes scene) => this.UpdateUpdateDelegate(scene);
+
+		private void UpdateUpdateDelegate(GameScenes scene)
+		{
+			switch(scene)
 			{
-				this._firstUpdateAfterCopy = false;
-				if (this.IsScaled) this.scaler.CopyUpdate();
+				case GameScenes.EDITOR:
+				case GameScenes.FLIGHT:
+					if (this._firstUpdate)					this.UpdateCurrent = this.UpdateFirst;
+					else if (this._firstUpdateAfterCopy)	this.UpdateCurrent = this.UpdateFirstAfterCopy;
+					else									this.UpdateCurrent = this.UpdateNormal;
+					break;
+				default:
+					this.UpdateCurrent = this.UpdateDummy;
+					break;
 			}
+		}
 
+		[UsedImplicitly]
+		private void Update()
+		{
+			Log.dbgOnce("Update {0}", this.InstanceID);
+			this.UpdateCurrent();
+		}
+
+		private void UpdateDummy() { }
+		private void UpdateFirst()
+		{
+			_firstUpdate = false;
+			if (this.FailsIntegrity()) return;
+			if (this.IsScaled) this.scaler.FirstUpdate();
+			this.UpdateNormal();
+			this.UpdateUpdateDelegate(HighLogic.LoadedScene);
+		}
+		private void UpdateFirstAfterCopy()
+		{
+			this._firstUpdateAfterCopy = false;
+			if (this.IsScaled) this.scaler.CopyUpdate();
+			this.UpdateNormal();
+			this.UpdateUpdateDelegate(HighLogic.LoadedScene);
+		}
+		private void UpdateNormal()
+		{
 			// flight scene frequently nukes our OnStart resize some time later
 			if(this.IsIVAScalable) this.RestoreIVAScaling();
 
-			// FixMe: This is being called every single Frame. We really need to do it? This wastes CPU cycles...
+			// Call all Scalers than needs to be updated on every Update!
 			this.CallUpdateables();
-        }
+		}
 
-	#endregion
+		#endregion
 
 
 		private void ResetTweakScale()
