@@ -1,5 +1,22 @@
 # TweakScale :: Changes
 
+* 2023-0803: 2.5.0.60 **BETA** (Lisias) for KSP >= 1.3
+	+ Adds a hotfix for mispatchings adding `FSFuelSwitch` and `B9PS` on the same part on the `Extras` folder.
+	+ Remove deprecated KSPe calls.
+	+ TweakScale's runtime configuration file is now on the `<KSP_ROOT>PluginData` directory, and not on `GameData` anymore.
+		- Not more polluting cloud backups with transitory data. 
+	+ Cumulative catch up from the `legacy` branch.
+	+ For the record, some work for [#297](https://github.com/TweakScale/TweakScale/issues/297) was done, but the thing ended up being postponed. Whoever, probing the solution's scaffolding on the field will make my task easier when I finally tackle this crap down. 
+	+ Updates MMWD to 1.1.1.1
+		- User will need to manually remove the `<KSP_ROOT>/GameData/666_ModuleManagerWatchDog.dll` file due a major screwup of mine on handling file updates on Windows.
+		- Hopefully this will not happen again.
+	+ Backport the Unity's `Update` Life Cycle fix from [Aviation Lights #4](https://github.com/net-lisias-ksp/AviationLights/issues/4)
+		- Hopefully preventing some shitstorm on users running KSP on Hybrid CPUs (P-Cores, E-Cores, that crap).
+	+ Closes Issues:
+		- [#308](https://github.com/TweakScale/TweakScale/issues/308) Insidious NRE on changing scenes 
+		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant
+	+ Related Issues:
+		- [Aviation Lights #4](https://github.com/net-lisias-ksp/AviationLights/issues/4) Aviation Lights *may* be involved on a weird bug report on Forum
 * 2023-0324: 2.5.0.59 **BETA** (Lisias) for KSP >= 1.3
 	+ Updates the Companions' definition file to mark KIS (and some others) deprecated add'ons as... deprecated!
 		- Thanks for the [heads up](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-ksp-130-tweakscale-under-lisias-management-24625-2023-0304/&do=findComment&comment=4264686), [@ngx](https://forum.kerbalspaceprogram.com/index.php?/profile/184821-ngx/)!

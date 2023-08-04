@@ -36,8 +36,8 @@ using System.Runtime.InteropServices;
 [assembly: KSPAssembly("Scale", TweakScale.Version.major, TweakScale.Version.minor)]
 // [assembly: KSPAssemblyDependency("Scale_Redist", 2, 5)] KSP 1.12.2 screwed up the Dependency Check
 #if USE_KSPE
-[assembly: KSPAssemblyDependency("KSPe", 2, 4)]
-[assembly: KSPAssemblyDependency("KSPe.UI", 2, 4)]
+[assembly: KSPAssemblyDependency("KSPe", 2, 5)]
+[assembly: KSPAssemblyDependency("KSPe.UI", 2, 5)]
 #else
-[assembly: KSPAssemblyDependency("KSPe.Light.TweakScale", 2, 4)]
+[assembly: KSPAssemblyDependency("KSPe.Light.TweakScale", 2, 5)]
 #endif
