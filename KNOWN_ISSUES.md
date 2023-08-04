@@ -1,5 +1,16 @@
 # TweakScale :: Known Issues
 
+* There's a long standing issue on TweakScale about scaling `ModuleEnginesFX`'s plumes - some engines' plumes is just not scaled, while others scaled pretty badly. It's something that never worked right on TweakScale, and it will only be really fixed on TweakScale 2.5 (when this thing goes gold)
+	+ The best workaround (and also the reason I'm dragging my feet on this) is to use SmokeScreen or Waterfall.
+		- For SmokeScreen (works on all KSP versions), you need:
+			- [SmokeScreen](https://forum.kerbalspaceprogram.com/topic/64987-18x-110x-smokescreen-2814-extended-fx-plugin-18-april-2020/) itself.
+			- [Real Plumes](https://forum.kerbalspaceprogram.com/topic/188033-ksp112x-realplume-stock-v408-realplume-v1332-25jun2021/) (to enable SmokeScreen on Stock parts)
+				- Additional Part Sets and Add'Ons may need specialised support not included on Real Plumes. 
+		- For Waterfall, you need:
+			- [Waterfall](https://forum.kerbalspaceprogram.com/topic/196309-112x-waterfall-a-framework-for-continuous-mesh-driven-engine-effects-aug-2/) itself.
+			- [StockWaterfallEffects](https://forum.kerbalspaceprogram.com/topic/200334-112x-stock-waterfall-effects-swe-a-waterfall-config-set-for-realistic-rocket-exhaust-plumes-for-the-stock-engines/) (to enable SmokeScreen on Stock parts)
+				- Additional Part Sets and Add'Ons may need specialised support not included on Real Plumes.
+	+ https://github.com/TweakScale/TweakScale/issues/27 
 * There's a nasty and annoying bug **ON KSP's `Assembly Loader/Resolver`** that it's playing havoc to TweakScale lately.
 	+ Long history made short, this KSP's bug is triggered by a DLL falling to be loaded due a faulty or missing dependency, a situation that breaks some code inside the `Assembly Loader/Resolver` and from that point **EVERYTHING** borks being loaded no matter what.
 	+ Since TweakScale can't tell the difference from a bogus problem from a real one, it ends up displaying [this message](https://user-images.githubusercontent.com/17166550/142723300-b02210f1-9e1e-4486-bbab-7bae744c8538.png) to you as it was TweakScale installment the problem.
