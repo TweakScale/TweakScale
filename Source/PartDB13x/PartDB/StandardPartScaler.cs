@@ -35,7 +35,7 @@ namespace TweakScale.PartDB
 		protected override void DoScale()
 		{
 			base.DoScale();
-			this.ScalePart(true, false);
+			this.ScalePart(true, true);
 			this.ScaleDragCubes(false);
 			this.OnChange();
 		}
