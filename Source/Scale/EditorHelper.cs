@@ -34,9 +34,8 @@ namespace TweakScale
 		[UsedImplicitly]
 		new private void Awake()
 		{
-			base.Awake();
+			base.Awake(); DontDestroyOnLoad(this);
 			Log.dbg("GameEventEditorListener was awaken.");
-			GameEvents.onGameSceneLoadRequested.Add(this.OnGameSceneLoadRequested);
 			GameEvents.onEditorLoad.Add(this.OnEditorLoad);
 			GameEvents.onEditorNewShipDialogDismiss.Add(this.OnEditorNewShipDialogDismiss);
 		}
@@ -49,7 +48,6 @@ namespace TweakScale
 			GameEvents.onEditorLoad.Remove(this.OnEditorLoad);
 		}
 
-		private void OnGameSceneLoadRequested(GameScenes data) { if (GameScenes.FLIGHT.Equals(data)) this.ResetOnNew(); }
 		private void OnEditorLoad(ShipConstruct shipConstruct, CraftBrowserDialog.LoadType loadType) => ResetOnNew();
 		private void OnEditorNewShipDialogDismiss() => this.ResetOnNew();
 
