@@ -601,6 +601,12 @@ namespace TweakScale
 
 		private void UpdateUpdateDelegate(GameScenes scene)
 		{
+			if (this.FailsIntegrity())
+			{
+				Log.warn("Part {0} failed integrity check and the scaling was deactivated. Savegame and craft file should survive, but at runtime the scaling will not work.", this.InstanceID);
+				this.UpdateCurrent = this.UpdateDummy;
+				return;
+			}
 			switch(scene)
 			{
 				case GameScenes.EDITOR:
@@ -626,7 +632,6 @@ namespace TweakScale
 		private void UpdateFirst()
 		{
 			_firstUpdate = false;
-			if (this.FailsIntegrity()) return;
 			if (this.IsScaled) this.scaler.FirstUpdate();
 			this.UpdateNormal();
 			this.UpdateUpdateDelegate(HighLogic.LoadedScene);
