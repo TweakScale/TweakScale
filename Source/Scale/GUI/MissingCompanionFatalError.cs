@@ -43,7 +43,7 @@ Alternatively, you may want to install the ÜberPaket with everything and the ki
 			foreach (string s in companions)
 				sb.Append(string.Format("* {0} \n", s));
 			string msg = sb.ToString();
-			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
+			KSPe.Common.Dialogs.ShowStopperErrorBox.Show(
 				string.Format(MSG, msg),
 				AMSG,
 				() => { KSPe.Util.UrlTools.OpenURL(URL); }

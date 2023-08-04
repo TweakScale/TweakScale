@@ -46,7 +46,7 @@ Alternatively, you may want to remove everything under `GameData/TweakScaleCompa
 			foreach (KeyValuePair<string, string> p in companions)
 				sb.Append(string.Format("* {0} on {1}\n", p.Key, p.Value));
 			string msg = sb.ToString();
-			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
+			KSPe.Common.Dialogs.ShowStopperErrorBox.Show(
 				string.Format(MSG, msg),
 				AMSG,
 				() => { KSPe.Util.UrlTools.OpenURL(URL); }

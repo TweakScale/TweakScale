@@ -35,7 +35,7 @@ Reason reported: {0}";
 		private static readonly string AMSG = @"close KSP, then reinstall TweakScale";
 
 		internal static void Show(string msg) {
-			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
+			KSPe.Common.Dialogs.ShowStopperErrorBox.Show(
 				string.Format(MSG, msg),
 				AMSG,
 				() => { Application.Quit(); }
