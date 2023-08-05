@@ -1,5 +1,11 @@
 # TweakScale :: Change Log
 
+* 2023-0805: 2.4.7.3 (Lisias) for KSP >= 1.3
+	+ Backport the Unity's `Update` Life Cycle fix from [Aviation Lights #4](https://github.com/net-lisias-ksp/AviationLights/issues/4)
+		- Hopefully preventing some shitstorm on users running KSP on Hybrid CPUs (P-Cores, E-Cores, that crap).
+	+ Closes Issues:
+		- [#308](https://github.com/TweakScale/TweakScale/issues/308) Insidious NRE on changing scenes 
+		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant
 * 2023-0803: 2.5.0.60 **BETA** (Lisias) for KSP >= 1.3
 	+ Adds a hotfix for mispatchings adding `FSFuelSwitch` and `B9PS` on the same part on the `Extras` folder.
 	+ Remove deprecated KSPe calls.
