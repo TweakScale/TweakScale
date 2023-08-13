@@ -80,10 +80,11 @@ namespace TweakScale.PartDB
 			return (Scaler)Activator.CreateInstance(type, prefab, part, scaleType, ts);
 		}
 
+		public virtual double CalculateResourcesCost() => this.prefab.Resources.Cast<PartResource>().Aggregate (0.0, (a, b) => a + b.maxAmount * b.info.unitCost);
 		public virtual double CalculateDryCost()
 		{
 			Log.dbg("CalculateDryCost {0}", null == this.ts ? this.part.name : this.ts.InstanceID);
-			double dryCost = (this.part.partInfo.cost - this.prefab.Resources.Cast<PartResource>().Aggregate (0.0, (a, b) => a + b.maxAmount * b.info.unitCost));
+			double dryCost = (this.part.partInfo.cost - this.CalculateResourcesCost());
 			Log.dbg("CalculateDryCost {0} {1}", null == this.ts ? this.part.name : this.ts.InstanceID, dryCost);
 			if (dryCost < 0) {
 				dryCost = 0;

@@ -140,18 +140,35 @@ namespace TweakScale
                 }
 #endif
                 SEngine.Instance.Check(p);
-                try
-                {   // Now we can try to calculate the DryCost. Safely.
-                    TweakScale m = p.partPrefab.Modules["TweakScale"] as TweakScale;
-                    m.CalculateDryCostIfNeeded();
-                    Log.dbg("Part {0} ({1}) has drycost {2} and OriginalCrewCapacity {3}",  p.name, p.title, m.DryCost, p.partPrefab.CrewCapacity);
-                }
-                catch (Exception e)
-                {
-                    ++drycost_failures_count;
-                    Log.error("part={0} ({1}) Exception on writeDryCost: {2}", p.name, p.title, e);
-                }
-            }
+				{
+					TweakScale m = p.partPrefab.Modules["TweakScale"] as TweakScale;
+					try
+					{   // Now we can try to calculate the DryCost. Safely.
+						if (0f == m.DryCost)
+							m.DryCost = (float)m.scaler.CalculateDryCost();
+						Log.dbg("Part {0} ({1}) has drycost {2} and OriginalCrewCapacity {3}", p.name, p.title, m.DryCost, p.partPrefab.CrewCapacity);
+					}
+					catch (Exception e)
+					{
+						++drycost_failures_count;
+						Log.error("part={0} ({1}) Exception on writeDryCost: {2}", p.name, p.title, e);
+					}
+					if (m.CostRecalculate)
+					{
+						double cost = (double) m.DryCost;
+						double resourceCost = (float)m.scaler.CalculateResourcesCost();
+						cost += resourceCost;
+						Log.dbg("CostRecalculate! Part {0} ({1}) have drycost {2} and resourcecost {3}", p.name, p.title, m.DryCost, resourceCost);
+
+						// Preventing screwing up the original cost if the value has changed by 3rd parties, or fixed by the original Author
+						if (p.cost < cost)
+						{ 
+							p.cost = (float)cost;
+							Log.info("Part {0} ({1}) has its cost updated to {2}.", p.name, p.title, p.cost);
+						}
+					}
+				}
+			}
 
             {   // Log the summary info
                 List<string> m = new List<string>();

@@ -143,6 +143,15 @@ namespace TweakScale
         [KSPField(isPersistant = true)]
         public float DryCost = 0f;  // Default value, so missing DryCost from the Config will be calculated by the PrefabCostWriter.
 
+		/// <summary>
+		/// If set to true, tells tweakcale for overwritte the original part's cost with an updated value, recalculated from the DryCost,
+		/// and all the Resources. The calculated value is only set if bigger than the original value, preventing screwing up the cost
+		/// if it was updated by the original author, or patched by 3rd parties.
+		/// To be used very sparingly.
+		/// </summary>
+		[KSPField(isPersistant = true)]
+		internal bool CostRecalculate = false;
+
         /// <summary>
         /// Flag to tell TweakScale to plain ignore the part's resources on the costs calculation.
 		/// Needed for Modules that does their own Resources Management instead of using stock's one.
