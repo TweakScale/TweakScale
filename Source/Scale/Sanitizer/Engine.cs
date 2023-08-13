@@ -100,8 +100,7 @@ namespace TweakScale.Sanitizer
 
 			// Run the Show Stopper checks. It's run at last so the Sanity Checks has a chance of act before blowing everything up.
 			foreach(ISanityCheck sc in CHECKS_AVAILABLE) if (Priority.ShowStopper == sc.Priority)
-				if (sc.Check(ap, ap.partPrefab)) continue; // If anyone of the show stopper kicks, it's game over for this part. It's the reason they are called Show Stoppers!
-
+				if (sc.Check(ap, ap.partPrefab)) return; // If anyone from the show stoppers kicks, it's game over for this part. It's the reason they are called Show Stoppers!
 		}
 	}
 }
