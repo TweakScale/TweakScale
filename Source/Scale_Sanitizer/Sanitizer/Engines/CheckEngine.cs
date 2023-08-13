@@ -193,7 +193,7 @@ namespace TweakScale.Sanitizer.Engines
 		{
 			Result r = new Result(job, p, part);
 			r.Execute();
-			Log.detail(r.ToLog());
+			Log.trace(r.ToLog());
 			return r;
 		}
 

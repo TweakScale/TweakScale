@@ -92,6 +92,7 @@ namespace TweakScale.Sanitizer
 
 		internal void Check(AvailablePart ap)
 		{
+			Log.detail("Sanity Checks for part {0} ({1}) started.", ap.name, ap.title);
 			{	// Run all the Sanity Checks (but Show Stoppers), priorized.
 				for(Priority i = 0; i < Priority.__SIZE; ++i)
 					foreach(ISanityCheck sc in CHECKS_AVAILABLE) if (i == sc.Priority)
