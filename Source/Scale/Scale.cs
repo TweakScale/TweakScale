@@ -239,13 +239,6 @@ namespace TweakScale
             }
         }
 
-        internal void CalculateDryCostIfNeeded()    // Needed by PrefabDryCostWriter
-        {
-            Log.dbg("CalculateDryCostIfNeeded {0}", this.InstanceID);
-            if (0f == this.DryCost)
-				this.DryCost = (float)this.scaler.GetDryCost();
-        }
-
         /// <summary>
         /// Loads settings from <paramref name="scaleType"/>.
         /// </summary>

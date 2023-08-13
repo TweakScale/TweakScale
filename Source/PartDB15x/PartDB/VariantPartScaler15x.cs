@@ -42,7 +42,7 @@ namespace TweakScale.PartDB
 			}
 		}
 
-		protected override double CalculateDryCost()
+		public override double CalculateDryCost()
 		{
 			Log.dbg("VariantPartScaler.CalculateDryCost");
 
