@@ -349,9 +349,8 @@ namespace TweakScale
                     if (childName != null)
                     {
                         if (childName.FieldType != typeof(string) || (string)childName.GetValue(item.Current) != _name)
-                        {
                             continue;
-                        }
+                        // FIXME: Some code is being missed here!
                     }
                 }
                 UpdateFields(item.Current, item.Prefab, factor, part);
