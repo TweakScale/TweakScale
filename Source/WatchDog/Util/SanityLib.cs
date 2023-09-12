@@ -50,9 +50,18 @@ namespace TweakScale.WatchDog
 				;
 		}
 
-		public static bool CheckIsOnRightPlace(string pathname, string filename = null)
+		public static bool CheckIsOnGameData(AssemblyLoader.LoadedAssembly loadedAssembly, string filename = null)
 		{
-			string fullpath = Path.GetFullPath(pathname);
+			string fullpath = Path.GetFullPath(loadedAssembly.path);
+			string directory = Path.GetDirectoryName(fullpath);
+			string gamedata = Path.GetFullPath(GetPathFor("GameData"));
+			return directory.Equals(gamedata)
+				&& ((null == filename) || filename == Path.GetFileName(fullpath));
+		}
+
+		public static bool CheckIsOnRightPlace(AssemblyLoader.LoadedAssembly loadedAssembly, string filename = null)
+		{
+			string fullpath = Path.GetFullPath(loadedAssembly.path);
 			string directory = Path.GetDirectoryName(fullpath);
 			string gamedata = Path.GetFullPath(GetPathFor("GameData"));
 			string tweakscale = Path.Combine(gamedata, "TweakScale");

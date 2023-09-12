@@ -82,6 +82,8 @@ namespace TweakScale.WatchDog
 		private const string MM_ASSEMBLY_NAME = "ModuleManager";
 		private const string MM_MYFORK_ASMTITTLE = "Module Manager /L";
 		private const string MMWD_ASSEMBLY_NAME = "ModuleManagerWatchDog";
+		private const string TSREDIST_ASSEMBLY_NAME = "Scale_Redist";
+		private const string TSREDIST_ASSEMBLY_FILENAME = "999_Scale_Redist.dll";
 
 		private string CheckMyself()
 		{
@@ -95,7 +97,7 @@ namespace TweakScale.WatchDog
 
 			// Obviously, would be pointless to check for it not being installed! (0 == count). :)
 			if (1 != loaded.Count()) return ErrorMessage.ERR_TSWD_DUPLICATED;
-			if (!SanityLib.CheckIsOnRightPlace(loaded.First().path))
+			if (!SanityLib.CheckIsOnRightPlace(loaded.First()))
 				return ErrorMessage.ERR_TSWD_WRONGPLACE;
 			return null;
 		}
@@ -149,7 +151,20 @@ namespace TweakScale.WatchDog
 
 		private string CheckScaleRedist()
 		{
-			throw new NotImplementedException();
+			IEnumerable<AssemblyLoader.LoadedAssembly> loaded = SanityLib.FetchLoadedAssembliesByName(TSREDIST_ASSEMBLY_NAME);
+
+#if DEBUG
+			Log.dbg("CheckScaleRedist");
+			foreach (AssemblyLoader.LoadedAssembly la in loaded)
+				Log.dbg("{0} :: {1}", la.assembly.FullName, la.assembly.Location);
+#endif
+
+			if (0 == loaded.Count()) return ErrorMessage.ERR_TSREDIST_ABSENT;
+			if (1 != loaded.Count()) return ErrorMessage.ERR_TSREDIST_DUPLICATED;
+			if (!SanityLib.CheckIsOnGameData(loaded.First(), TSREDIST_ASSEMBLY_FILENAME))
+				return ErrorMessage.ERR_TSREDIST_WRONGPLACE;
+
+			return null;
 		}
 
 		private string CheckTweakScale()
