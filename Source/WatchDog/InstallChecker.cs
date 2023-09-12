@@ -36,23 +36,34 @@ namespace TweakScale.WatchDog
 			{
 				// Always check for being the unique Assembly loaded. This will avoid problems in the future.
 				String msg = this.CheckMyself();
+				if (null != msg)
+					Log.detail("{0} is present and correctly installed.", this.GetType().Name);
 
 				if (null == msg)	// If MMWD is installed, there's nothing we need to do.
 					msg = this.CheckModuleManagerWatchDog();
+				else
+					Log.detail("ModuleManagerWatchDog is present and correctly installed.");
 
 				if (null == msg)
 					msg = this.CheckModuleManager();
+				else
+					Log.detail("ModuleManager is present and correctly installed.");
 
 				if (null == msg)
 					 msg = this.CheckScaleRedist();
+				else
+					Log.detail("Scale_Redist is present and correctly installed.");
 
 				if (null == msg)
 					 msg = this.CheckTweakScale();
+				else
+					Log.detail("TweakScale is present and correctly installed.");
 
 				Handle(msg);
 			}
-			catch (EnvironmentSaneException)
+			catch (EnvironmentSaneException e)
 			{
+				Log.detail("System considered sane due \"{0}\". No further testings neeed.", e.Message);
 				return;
 			}
 			catch (Exception e)
@@ -116,7 +127,7 @@ namespace TweakScale.WatchDog
 #endif
 
 			if (0 == loaded.Count()) return ErrorMessage.ERR_MM_ABSENT;
-			if (this.IsModuleManagerMyFork()) throw new EnvironmentSaneException("My fork is present");
+			if (this.IsModuleManagerMyFork()) throw new EnvironmentSaneException("MM/L is present");
 
 			return null;
 		}

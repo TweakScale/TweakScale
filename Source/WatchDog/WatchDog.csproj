@@ -47,7 +47,6 @@
     <Compile Include="GUI\Abstract.cs" />
     <Compile Include="GUI\WarningAlertbox.cs" />
     <Compile Include="GUI\ShowStopperAlertBox.cs" />
-    <Compile Include="GUI\RebootTheGameAlertBox.cs" />
     <Compile Include="Util\Toolbox.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\SanityLib.cs" />
