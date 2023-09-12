@@ -29,12 +29,5 @@ namespace TweakScale.WatchDog
 				ic.Execute();
 			}
 		}
-
-		internal static bool quitOnDestroy = false;
-		private void OnDestroy()
-		{
-			if (quitOnDestroy)
-				Application.Quit();
-		}
 	}
 }
