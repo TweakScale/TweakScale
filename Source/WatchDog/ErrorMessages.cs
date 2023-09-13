@@ -23,6 +23,8 @@ namespace TweakScale.WatchDog
 		public static readonly string ERR_TSREDIST_ABSENT = "There's no Scale_Redist on this KSP installment! You need to properly install TweakScale!";
 		public static readonly string ERR_TSREDIST_DUPLICATED = "There're more than one Scale_Redist on this KSP installment! Please delete all but the GameData/999_Scale_Redist.dll one.";
 		public static readonly string ERR_TSREDIST_WRONGPLACE = "999_Scale_Redist.dll <b>must be</b> directly on GameData and not inside any subfolder or on other filename. You need to fix your installation!";
+		public static readonly string ERR_TS_ABSENT = "TweakScale wasn't found on this KSP installment! You need to properly install TweakScale!";
+		public static readonly string ERR_TS_DUPLICATED = "There're more than one TweakScale installed on this KSP installment! Please delete all but the GameData/TweakScale one.";
 		public static readonly string ERR_MM_ABSENT = "There's no Module Manager on this KSP installment! You need to install Module Manager!";
 		public static readonly string ERR_MM_WRONGPLACE = "ModuleManager.dll <b>must be</b> directly on GameData and not inside any subfolder. Please move ModuleManager.dll directly into GameData.";
 	}

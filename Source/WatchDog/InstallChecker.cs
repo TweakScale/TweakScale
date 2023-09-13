@@ -84,6 +84,7 @@ namespace TweakScale.WatchDog
 		private const string MMWD_ASSEMBLY_NAME = "ModuleManagerWatchDog";
 		private const string TSREDIST_ASSEMBLY_NAME = "Scale_Redist";
 		private const string TSREDIST_ASSEMBLY_FILENAME = "999_Scale_Redist.dll";
+		private const string TS_ASSEMBLY_NAME = "Scale";
 
 		private string CheckMyself()
 		{
@@ -169,7 +170,18 @@ namespace TweakScale.WatchDog
 
 		private string CheckTweakScale()
 		{
-			throw new NotImplementedException();
+			IEnumerable<AssemblyLoader.LoadedAssembly> loaded = SanityLib.FetchLoadedAssembliesByName(TS_ASSEMBLY_NAME);
+
+#if DEBUG
+			Log.dbg("CheckScaleRedist");
+			foreach (AssemblyLoader.LoadedAssembly la in loaded)
+				Log.dbg("{0} :: {1}", la.assembly.FullName, la.assembly.Location);
+#endif
+
+			if (0 == loaded.Count()) return ErrorMessage.ERR_TS_ABSENT;
+			if (1 != loaded.Count()) return ErrorMessage.ERR_TS_DUPLICATED;
+
+			return null;
 		}
 
 	}
