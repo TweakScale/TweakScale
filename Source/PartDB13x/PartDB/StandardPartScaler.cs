@@ -43,7 +43,11 @@ namespace TweakScale.PartDB
 		protected override void DoRestore()
 		{
 			base.DoRestore();
-			this.ScalePart(true, true);
+
+			// Attention! See issue https://github.com/TweakScale/TweakScale/issues/314 before fixing this again.
+			// Undoing https://github.com/TweakScale/TweakScale/issues/307 (the `absolute` should be true)
+			this.ScalePart(true, false);
+
 			this.OnChange();
 		}
 
