@@ -1,5 +1,7 @@
 # TweakScale :: Known Issues
 
+* Attachment nodes are being reset when changing Variant on a scaled part. Please change the Variant **before** scaling the part as a temporary workaround.
+	+ See issues [#307](https://github.com/TweakScale/TweakScale/issues/307) and [#314](https://github.com/TweakScale/TweakScale/issues/314) for the gory details. 
 * There's a long standing issue on TweakScale about scaling `ModuleEnginesFX`'s plumes - some engines' plumes is just not scaled, while others scaled pretty badly. It's something that never worked right on TweakScale, and it will only be really fixed on TweakScale 2.5 (when this thing goes gold)
 	+ The best workaround (and also the reason I'm dragging my feet on this) is to use SmokeScreen or Waterfall.
 		- For SmokeScreen (works on all KSP versions), you need:
