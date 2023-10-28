@@ -33,6 +33,15 @@ namespace TweakScale.PartDB
 			this.previousVariant = this.currentVariant = part.variants.SelectedVariant;
 		}
 
+		protected override void DoRestore()
+		{
+			// This fixes (again) https://github.com/TweakScale/TweakScale/issues/307
+			// To tell you the true, it's really only needed when the root part is a VARIANT one,
+			// but anyway...
+			this.ScalePart(true, !HighLogic.LoadedSceneIsEditor);
+			this.OnChange();
+		}
+
 		internal PartVariant SetVariant(PartVariant partVariant)
 		{
 			Log.dbg("VariantPartScaler.SetVariant from {0} to {1}", this.previousVariant.DisplayName, partVariant.DisplayName);
