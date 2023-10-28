@@ -56,9 +56,8 @@ namespace TweakScale.PartDB
 			return dryCost;
 		}
 
-		protected override void OnChange()
+		protected override void DoOnChange()
 		{
-			base.OnChange();
 			this.ReCalculateCostAndMass();
 		}
 	}

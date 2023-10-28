@@ -49,16 +49,14 @@ namespace TweakScale.PartDB
 			return base.DestroyMyself();
 		}
 
-		protected override void OnEditorIn()
+		protected override void DoOnEditorIn()
 		{
-			base.OnEditorIn();
 			GameEventEditorVariantAppliedListener.Instance.Add(this);
 		}
 
-		protected override void OnEditorOut()
+		protected override void DoOnEditorOut()
 		{
 			GameEventEditorVariantAppliedListener.Instance.Remove(this);
-			base.OnEditorOut();
 		}
 
 		internal void OnEditorVariantApplied(Part part, PartVariant partVariant)

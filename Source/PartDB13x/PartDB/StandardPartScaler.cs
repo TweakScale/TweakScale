@@ -42,7 +42,6 @@ namespace TweakScale.PartDB
 
 		protected override void DoRestore()
 		{
-			base.DoRestore();
 			this.ScalePart(true, true);
 			this.OnChange();
 		}

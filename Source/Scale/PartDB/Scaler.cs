@@ -130,11 +130,15 @@ namespace TweakScale.PartDB
 			return r;
 		}
 
-		internal void FirstUpdate()		{ this.DoFirstUpdate(); }
-		internal void CopyUpdate()		{ this.DoCopyUpdate(); }
-		internal void Scale()			{ this.DoScale(); }
-		internal void Restore()			{ this.DoRestore(); }
-		internal void OnClone()			{ this.DoClone(); }
+		internal void FirstUpdate()		{ Log.dbg("{0}:{1}.FirstUpdate", this.GetType().Name, this.ts.InstanceID);	this.DoFirstUpdate(); }
+		internal void CopyUpdate()		{ Log.dbg("{0}:{1}.CopyUpdate", this.GetType().Name, this.ts.InstanceID);	this.DoCopyUpdate(); }
+		internal void Scale()			{ Log.dbg("{0}:{1}.Scale", this.GetType().Name, this.ts.InstanceID);		this.DoScale(); }
+		internal void Restore()			{ Log.dbg("{0}:{1}.Restore", this.GetType().Name, this.ts.InstanceID);		this.DoRestore(); }
+		internal void Clone()			{ Log.dbg("{0}:{1}.OnClone", this.GetType().Name, this.ts.InstanceID);		this.DoClone(); }
+
+		protected void OnChange()		{ Log.dbg("{0}:{1}.OnChange", this.GetType().Name, this.ts.InstanceID);		this.DoOnChange();} 
+		protected void OnEditorIn()		{ Log.dbg("{0}:{1}.OnEditorIn", this.GetType().Name, this.ts.InstanceID);	this.DoOnEditorIn(); }
+		protected void OnEditorOut()	{ Log.dbg("{0}:{1}.OnEditorOut", this.GetType().Name, this.ts.InstanceID);	this.DoOnEditorOut(); }
 
 		void IDisposable.Dispose()		{ this.DestroyMyself(); }
 		protected virtual Scaler DestroyMyself() {
@@ -152,20 +156,22 @@ namespace TweakScale.PartDB
 		//
 		// None of these makes any sense for Prefab!
 		//
-		protected virtual void DoScale()		{ Log.dbg("{0}.Scale for {0}", this.GetType().Name, this.ts.InstanceID); }
-		protected virtual void DoRestore()		{ Log.dbg("{0}.Restore for {0}", this.GetType().Name, this.ts.InstanceID); }
-		protected virtual void DoFirstUpdate()	{ Log.dbg("{0}.FirstUpdate for {0}", this.GetType().Name, this.ts.InstanceID); }
-		protected virtual void DoCopyUpdate()	{ Log.dbg("{0}.DoCopyUpdate", this.GetType().Name); }
-		protected virtual void DoClone()		{ Log.dbg("{0}.DoClone for {0}", this.GetType().Name, this.ts.InstanceID); }
-		protected virtual void OnChange()		{ Log.dbg("{0}.OnChange", this.GetType().Name); } 
+		protected virtual void DoScale()		{ }
+		protected virtual void DoRestore()		{ }
+		protected virtual void DoFirstUpdate()	{ }
+		protected virtual void DoCopyUpdate()	{ }
+		protected virtual void DoClone()		{ }
+
+		protected virtual void DoOnChange()		{ } 
+		protected virtual void DoOnEditorIn()	{ }
+		protected virtual void DoOnEditorOut()	{ }
+
 		protected virtual void ScalePartModelTransform()		{ Log.dbg("{0}.ScalePartModelTransform", this.GetType().Name); }
 		protected virtual void ScaleDragCubes(bool absolute)	{ Log.dbg("{0}.ScalePartModelTransform", this.GetType().Name); }
 		protected virtual void RescaleDragCubes()				{ Log.dbg("{0}.RescaleDragCubes", this.GetType().Name); }
 		protected virtual void MoveSurfaceAttachment(bool moveParts, bool absolute)	{ Log.dbg("{0}.MoveSurfaceAttachment", this.GetType().Name);  }
 		protected virtual void MoveAttachmentNodes(bool moveParts, bool absolute)	{ Log.dbg("{0}.MoveAttachmentNodes {0} {1}", this.GetType().Name, moveParts, absolute); }
 		protected virtual void MoveSurfaceAttachedParts()	{ Log.dbg("{0}.MoveSurfaceAttachedParts", this.GetType().Name); }
-		protected virtual void OnEditorIn()		{ Log.dbg("{0}:{1} OnEditorIn", this.GetType().Name, this.ts.InstanceID); }
-		protected virtual void OnEditorOut()	{ Log.dbg("{0}:{1} OnEditorOut", this.GetType().Name, this.ts.InstanceID); }
 
 		/// <summary>
 		/// Updates properties that change linearly with scale.

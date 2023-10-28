@@ -472,7 +472,7 @@ namespace TweakScale
 			Log.dbg("OnCopy {0}", this.InstanceID);
 			base.OnCopy(partModule);
 			this._firstUpdateAfterCopy = true;
-			this.scaler.OnClone();
+			this.scaler.Clone();
 		}
 
 		[UsedImplicitly]
