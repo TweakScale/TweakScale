@@ -34,7 +34,6 @@ namespace TweakScale.PartDB
 
 		protected override void DoScale()
 		{
-			base.DoScale();
 			this.ScalePart(true, true);
 			this.ScaleDragCubes(false);
 			this.OnChange();
@@ -56,7 +55,6 @@ namespace TweakScale.PartDB
 
 		protected override void DoClone()
 		{
-			base.DoClone();
 			Log.dbg("orgPos, attPos, attPos0 {0} {1} {2}", this.part.orgPos, this.part.attPos, this.part.attPos0);
 			Log.dbg("orgRot, attRotation, attRotation0 {0} {1} {2}", this.part.orgRot, this.part.attRotation, this.part.attRotation0);
 		}

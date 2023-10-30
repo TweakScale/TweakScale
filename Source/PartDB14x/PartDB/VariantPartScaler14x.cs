@@ -27,7 +27,6 @@ namespace TweakScale.PartDB
 	{
 		protected override void DoCopyUpdate()
 		{
-			base.DoCopyUpdate();
 			this.ts.Rescale();
 		}
 	}

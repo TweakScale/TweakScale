@@ -162,7 +162,7 @@ namespace TweakScale.PartDB
 		protected virtual void DoCopyUpdate()	{ }
 		protected virtual void DoClone()		{ }
 
-		protected virtual void DoOnChange()		{ } 
+		protected virtual void DoOnChange()		{ }
 		protected virtual void DoOnEditorIn()	{ }
 		protected virtual void DoOnEditorOut()	{ }
 

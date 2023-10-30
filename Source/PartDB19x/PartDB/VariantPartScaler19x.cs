@@ -29,7 +29,6 @@ namespace TweakScale.PartDB
 	{
 		protected override void DoFirstUpdate()
 		{
-			base.DoFirstUpdate();
 			if (HighLogic.LoadedSceneIsEditor)			// This is needed by (surprisingly!) KSP 1.9
 				this.MoveSurfaceAttachment(true, true);
 		}
