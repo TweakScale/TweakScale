@@ -1,5 +1,14 @@
 # TweakScale :: Changes
 
+* 2023-1106: 2.5.0.61 **BETA** (Lisias) for KSP >= 1.3
+	+ A serious regression was detected on 2.4.7.3. The code intended to fix [Issue 307](https://github.com/TweakScale/TweakScale/issues/307) triggered ***Yet Another Bug on Editor™***, and had to be removed. This, unfortunately, resurrects #307. :(
+	+ Refactoring: Simplifying internal interfaces
+	+ Small enhancements on logging
+	+ Fixing the Show Stopper handling (that wasn't stopping the show...)
+	+ Closes Issues:
+		- [#309](https://github.com/TweakScale/TweakScale/issues/309) Create an option to fix the part's cost when calculating the DryCost.
+	+ ReOpen Issues:
+		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant  
 * 2023-0803: 2.5.0.60 **BETA** (Lisias) for KSP >= 1.3
 	+ Adds a hotfix for mispatchings adding `FSFuelSwitch` and `B9PS` on the same part on the `Extras` folder.
 	+ Remove deprecated KSPe calls.
