@@ -104,7 +104,7 @@ namespace TweakScale
 					{
 						if (!COMPANIONS_INSTALLED.Contains(companion))
 						{
-							Log.warn("{0} is installed, but the respective Companion {1} is not! (mandatory?={2}", addon, companion, is_mandatory);
+							Log.warn("{0} is installed, but the respective Companion {1} is not! (mandatory?={2})", addon, companion, is_mandatory);
 							if (is_mandatory)	mandatory.Add(COMPANIONS_AVAILABLE[companion]);
 							else				needed.Add(COMPANIONS_AVAILABLE[companion]);
 						}
