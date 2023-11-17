@@ -42,6 +42,13 @@ namespace TweakScale.PartDB
 			this.OnChange();
 		}
 
+		protected override void DoClone()
+		{
+			this.ScalePart(true, !HighLogic.LoadedSceneIsEditor);
+			Log.dbg("orgPos, attPos, attPos0 {0} {1} {2}", this.part.orgPos, this.part.attPos, this.part.attPos0);
+			Log.dbg("orgRot, attRotation, attRotation0 {0} {1} {2}", this.part.orgRot, this.part.attRotation, this.part.attRotation0);
+		}
+
 		internal PartVariant SetVariant(PartVariant partVariant)
 		{
 			Log.dbg("VariantPartScaler.SetVariant from {0} to {1}", this.previousVariant.DisplayName, partVariant.DisplayName);
