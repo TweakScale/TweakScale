@@ -9,7 +9,7 @@ VERSIONFILE="TweakScale.version"
 
 DLLS="Scale KSPe.Light.TweakScale"
 # PluginData DLLs
-PD_DLLS="Scale.PartDB.13x Scale.PartDB.14x Scale.PartDB.15x Scale.PartDB.19x Scale_Sanitizer Scale_Redist"
+PD_DLLS="Scale.PartDB.13x Scale.PartDB.14x Scale.PartDB.15x Scale.PartDB.18x Scale_Sanitizer Scale_Redist"
 # Rule oriented deployoment for PluginData
 declare -A PD_SUB_RULES=( )
 PD_SUB_DLLS=`{ for K in "${!PD_SUB_RULES[@]}"; do echo $(basename ${PD_SUB_RULES[$K]}); done } | sort -u | tr '\n' ' '`

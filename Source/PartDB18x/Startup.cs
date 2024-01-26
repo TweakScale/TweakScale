@@ -23,7 +23,7 @@
 
 using KSPe.Annotations;
 
-namespace TweakScale.PartDB.KSP19x
+namespace TweakScale.PartDB.KSP18x
 {
 	public class Startup
 	{
@@ -31,7 +31,7 @@ namespace TweakScale.PartDB.KSP19x
 		private void Start()
 		{
 			KSPe.Util.KSP.Version last = KSPe.Util.KSP.PUBLISHED_VERSIONS[KSPe.Util.KSP.PUBLISHED_VERSIONS.Length-1];
-			Log.force("Support for KSP 1.9.0 to {0} Version {1}", last.ToString(), Version.Text);
+			Log.force("Support for KSP 1.8.0 to {0} Version {1}", last.ToString(), Version.Text);
 		}
 	}
 }

@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale_Redist", "Source\Scal
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale", "Source\Scale\Scale.csproj", "{70D38878-43DB-4F6E-8002-45ADA5391AF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale.PartDB.19x", "Source\PartDB19x\Scale.PartDB.19x.csproj", "{4A529FE9-0CA6-4EB6-8D93-9B71539012AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale.PartDB.18x", "Source\PartDB18x\Scale.PartDB.18x.csproj", "{4A529FE9-0CA6-4EB6-8D93-9B71539012AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale.PartDB.15x", "Source\PartDB15x\Scale.PartDB.15x.csproj", "{CC9CA66D-87A9-4ECD-A48A-91723A07E3D1}"
 EndProject

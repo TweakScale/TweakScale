@@ -5,10 +5,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4A529FE9-0CA6-4EB6-8D93-9B71539012AB}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>PartDB19x</RootNamespace>
-    <AssemblyName>Scale.PartDB.19x</AssemblyName>
+    <RootNamespace>PartDB18x</RootNamespace>
+    <AssemblyName>Scale.PartDB.18x</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <BaseIntermediateOutputPath>..\..\obj\PartDB19x</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\obj\PartDB18x</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,15 +30,15 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.9.0\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.8.0\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.9.0\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.8.0\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.9.0\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.8.0\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="KSPe">
@@ -52,7 +52,7 @@
     <Compile Include="..\PartDB14x\PartDB\EditorHelper.cs">
       <Link>PartDB\EditorHelper.cs</Link>
     </Compile>
-    <Compile Include="PartDB\VariantPartScaler19x.cs" />
+    <Compile Include="PartDB\VariantPartScaler18x.cs" />
     <Compile Include="..\PartDB13x\PartDB\StandardPartScaler.cs">
       <Link>PartDB\StandardPartScaler.cs</Link>
     </Compile>
