@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of TweakScale /L
-		© 2018-2023 LisiasT
+		© 2018-2024 LisiasT
 
 	THIS FILE is licensed to you under:
 		* WTFPL - http://www.wtfpl.net
