@@ -26,48 +26,16 @@ using UnityEngine;
 
 namespace TweakScale
 {
-    [KSPAddon(KSPAddon.Startup.EditorAny, false)]
-    public class TechUpdater : MonoBehaviour
-    {
-        public void Start()
-        {
-            Tech.Reload();
-        }
-    }
-
-    public static class Tech
-    {
-        private static HashSet<string> _unlockedTechs = new HashSet<string>();
-
-        public static void Reload()
-        {
-            if (HighLogic.CurrentGame == null)
-                return;
-            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER && HighLogic.CurrentGame.Mode != Game.Modes.SCIENCE_SANDBOX)
-                return;
-
-			string persistentfile = KSPUtil.ApplicationRootPath + "saves/" + HighLogic.SaveFolder + "/persistent.sfs";
-			ConfigNode config = ConfigNode.Load(persistentfile);
-			ConfigNode gameconf = config.GetNode("GAME");
-			ConfigNode[] scenarios = gameconf.GetNodes("SCENARIO");
-			ConfigNode thisScenario = scenarios.FirstOrDefault(a => a.GetValue("name") == "ResearchAndDevelopment");
-            if (thisScenario == null)
-                return;
-			ConfigNode[] techs = thisScenario.GetNodes("Tech");
-
-            _unlockedTechs = techs.Select(a => a.GetValue("id")).ToHashSet();
-            _unlockedTechs.Add("");
-        }
-
-        public static bool IsUnlocked(string techId)
-        {
-            if (HighLogic.CurrentGame == null)
-                return true;
-            if (HighLogic.CurrentGame.Mode != Game.Modes.CAREER && HighLogic.CurrentGame.Mode != Game.Modes.SCIENCE_SANDBOX)
-                return true;
-            return techId == "" || _unlockedTechs.Contains(techId);
-        }
-    }
+	public static class Tech
+	{
+		private static readonly HashSet<Game.Modes> LEGALMODES = new HashSet<Game.Modes> { Game.Modes.CAREER, Game.Modes.SCIENCE_SANDBOX };
+		public static bool IsLegalMode => (null != HighLogic.CurrentGame) && !LEGALMODES.Contains(HighLogic.CurrentGame.Mode);
+		public static bool IsUnlocked(string techId) {
+			if (!IsLegalMode) return true;
+			RDTech.State techState = ResearchAndDevelopment.GetTechnologyState(techId);
+			return RDTech.State.Available == techState;
+		}
+	}
 
     /// <summary>
     /// Configuration values for TweakScale.
