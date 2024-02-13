@@ -1,5 +1,16 @@
 # TweakScale :: Changes
 
+* 2024-0213: 2.5.0.62 **BETA** (Lisias) for KSP >= 1.3
+	+ An insidious bug screwing parts that use `techRequired` was fixed.
+		- Thanks to [Turbo Ben](https://forum.kerbalspaceprogram.com/profile/193979-turbo-ben/) for the [work into zeroing](https://forum.kerbalspaceprogram.com/topic/179030-ksp-130-tweakscale-under-lisias-management-2474-2023-1007/?do=findComment&comment=4366095) into the exact root cause of the problem!
+	+ Small typos fixed.
+	+ Fixes [#307](https://github.com/TweakScale/TweakScale/issues/307). **AGAIN**, and restores the [#261](https://github.com/TweakScale/TweakScale/issues/261) that got broken.
+	+ Reworks the support DLLs.
+		- Reinstates the 1.8.x one;
+		- Merges it with the 1.9.x, that became redundant.
+	+ Closes Issues:
+		- [#319](https://github.com/TweakScale/TweakScale/issues/319) Reinstate dedicated DLL support for KSP 1.8.x
+		- [#307](https://github.com/TweakScale/TweakScale/issues/309) Create an option to fix the part's cost when calculating the DryCost.
 * 2023-1106: 2.5.0.61 **BETA** (Lisias) for KSP >= 1.3
 	+ A serious regression was detected on 2.4.7.3. The code intended to fix [Issue 307](https://github.com/TweakScale/TweakScale/issues/307) triggered ***Yet Another Bug on Editor™***, and had to be removed. This, unfortunately, resurrects #307. :(
 	+ Refactoring: Simplifying internal interfaces
