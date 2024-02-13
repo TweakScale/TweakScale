@@ -1,5 +1,8 @@
 # TweakScale :: Change Log
 
+* 2024-0213: 2.4.7.5 (Lisias) for KSP >= 1.3
+	+ An insidious bug screwing parts that use `techRequired` was fixed.
+		- Thanks to [Turbo Ben](https://forum.kerbalspaceprogram.com/profile/193979-turbo-ben/) for the [work into zeroing](https://forum.kerbalspaceprogram.com/topic/179030-ksp-130-tweakscale-under-lisias-management-2474-2023-1007/?do=findComment&comment=4366095) into the exact root cause of the problem!
 * 2024-0213: 2.5.0.62 **BETA** (Lisias) for KSP >= 1.3
 	+ An insidious bug screwing parts that use `techRequired` was fixed.
 		- Thanks to [Turbo Ben](https://forum.kerbalspaceprogram.com/profile/193979-turbo-ben/) for the [work into zeroing](https://forum.kerbalspaceprogram.com/topic/179030-ksp-130-tweakscale-under-lisias-management-2474-2023-1007/?do=findComment&comment=4366095) into the exact root cause of the problem!
