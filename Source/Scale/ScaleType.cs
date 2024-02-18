@@ -32,6 +32,18 @@ namespace TweakScale
 		public static bool IsLegalMode => (null != HighLogic.CurrentGame) && !LEGALMODES.Contains(HighLogic.CurrentGame.Mode);
 		public static bool IsUnlocked(string techId) {
 			if (!IsLegalMode) return true;
+
+			// Prevents living crafts on the savegame to lose the ScaleFactor!!
+			//
+			// That's the history: if the part definition changes or is broken (or mangled by a Sanity Check like https://github.com/TweakScale/TweakScale/issues/322),
+			// we need to prevent the breakage on the already living crafts on savegames. `ResearchAndDevelopment` apparently returns an Available RDTech,
+			// but I don't think it's wise to trust on this behaviour as it isn't documented on the KSP API.
+			//
+			// So I decided to prevent the problem by allowing all ScaleFactors at FlightTime - there's no TweakScale GUI outside Editor, anyway.
+			//
+			// Oukey, this allows some runtime code to "cheat" at runtime - but, heck, who cares? :)
+			if (!HighLogic.LoadedSceneIsEditor) return true;
+
 			RDTech.State techState = ResearchAndDevelopment.GetTechnologyState(techId);
 			return RDTech.State.Available == techState;
 		}
