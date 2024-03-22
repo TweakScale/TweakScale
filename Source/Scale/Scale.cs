@@ -551,7 +551,7 @@ namespace TweakScale
 		[UsedImplicitly]
 		private void OnEditorShipModified(ShipConstruct ship)
 		{
-			if (!HighLogic.LoadedSceneIsEditor && this.IsScaled) return;
+			if (!HighLogic.LoadedSceneIsEditor) return;
 			Log.dbg("OnEditorShipModified {0}", this.InstanceID);
 		}
 
@@ -559,7 +559,7 @@ namespace TweakScale
 		[UsedImplicitly]
 		private void OnEditorAttach()
 		{
-			if (!(HighLogic.LoadedSceneIsEditor && this.IsScaled)) return;
+			if (!HighLogic.LoadedSceneIsEditor) return;
 			Log.dbg("OnEditorAttach {0}", this.InstanceID);
 
 			if (null == this.part.parent) return; // This should be impossible, but better safe than sorry...
