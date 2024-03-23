@@ -2,7 +2,7 @@
 
 * 2024-0322: 2.4.7.6 (Lisias) for KSP >= 1.3
 	+ Backports from **Beta** a long standing bug on AutoScale when attaching parts with different scaling methods. 
-	+ Found an idiocy on mine while trying to prevent a hypothetical problem - and ended up creating a concrete one instead.
+	+ Found an idiocy of mine while trying to prevent a hypothetical problem - and ended up creating a concrete one instead.
 		- If you know a priest in need to a job, [we are hiring](https://github.com/net-lisias-ksp/KSP-Recall/issues/61#issuecomment-2014430999)... :P
 	+ Closes Issues:
 		- [#323](https://github.com/TweakScale/TweakScale/issues/323) Auto-Scale is screwed since 2.4.7.0
