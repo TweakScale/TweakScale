@@ -90,14 +90,11 @@ namespace TweakScale.Features
 		/// <returns>The difference in scale between the (scaled) attachment nodes connecting <paramref name="a"/> and <paramref name="b"/>, or null if somethinng went wrong.</returns>
 		private static float GetRelativeScaling(TweakScale a, TweakScale b)
 		{
-			// Let's hope things match when freeScaling.
-			// The user would have to scale the thing manually anyway.
-			if (a.ScaleType.IsFreeScale) return a.currentScale;
+			float r = (a.tweakScale / a.defaultScale) / (b.tweakScale / b.defaultScale);
 
 			Tuple<AttachNode, AttachNode>? nodes = NodesBetween(a.part, b.part);
-
 			if (!nodes.HasValue)
-				return 1f;
+				return r;
 
 			AttachNode nodeA = nodes.Value.Item1;
 			AttachNode nodeB = nodes.Value.Item2;
@@ -108,7 +105,7 @@ namespace TweakScale.Features
 					|| aIdx >= a.scaler.prefab.attachNodes.Count
 					|| aIdx >= a.scaler.prefab.attachNodes.Count
 				)
-				return 1f;
+				return r;
 
 			float sizeA = (float)a.scaler.prefab.attachNodes[aIdx].size;
 			float sizeB = (float)b.scaler.prefab.attachNodes[bIdx].size;
@@ -116,7 +113,7 @@ namespace TweakScale.Features
 			if (sizeA == 0) sizeA = 0.5f;
 			if (sizeB == 0) sizeB = 0.5f;
 
-			return (sizeA * a.tweakScale / a.defaultScale) / (sizeB * b.tweakScale / b.defaultScale);
+			return (sizeA / sizeB) * r;
 		}
 
 		/// <summary>
@@ -129,9 +126,10 @@ namespace TweakScale.Features
 			Log.dbg("AutoScale.Execute {0} {1}", a, b);
 
 			float factor = GetRelativeScaling(a,b);
-
-			b.tweakScale = factor;
+			factor *= b.currentScale;
 			Log.dbg("AutoScale.Execute factor.value {0} tweakScale {1}", factor, b.tweakScale);
+			b.tweakScale = factor;
+
 			if (!b.isFreeScale && (b.ScaleFactors.Length > 0))
 			{
 				b.tweakName = Tools.ClosestIndex(b.tweakScale, b.ScaleFactors);
