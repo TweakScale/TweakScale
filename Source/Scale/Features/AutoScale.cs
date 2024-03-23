@@ -127,7 +127,7 @@ namespace TweakScale.Features
 
 			float factor = GetRelativeScaling(a,b);
 
-			b.tweakScale = b.defaultScale * factor;
+			b.tweakScale = b.currentScale * factor;
 			Log.dbg("AutoScale.Execute factor.value {0} tweakScale {1}", factor, b.tweakScale);
 			if (!b.isFreeScale && (b.ScaleFactors.Length > 0))
 			{
