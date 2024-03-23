@@ -1,5 +1,11 @@
 # TweakScale :: Change Log
 
+* 2024-0322: 2.4.7.6 (Lisias) for KSP >= 1.3
+	+ Backports from **Beta** a long standing bug on AutoScale when attaching parts with different scaling methods. 
+	+ Found an idiocy of mine while trying to prevent a hypothetical problem - and ended up creating a concrete one instead.
+		- If you know a priest in need to a job, [we are hiring](https://github.com/net-lisias-ksp/KSP-Recall/issues/61#issuecomment-2014430999)... :P
+	+ Closes Issues:
+		- [#323](https://github.com/TweakScale/TweakScale/issues/323) Auto-Scale is screwed since 2.4.7.0
 * 2024-0213: 2.4.7.5 (Lisias) for KSP >= 1.3
 	+ An insidious bug screwing parts that use `techRequired` was fixed.
 		- Thanks to [Turbo Ben](https://forum.kerbalspaceprogram.com/profile/193979-turbo-ben/) for the [work into zeroing](https://forum.kerbalspaceprogram.com/topic/179030-ksp-130-tweakscale-under-lisias-management-2474-2023-1007/?do=findComment&comment=4366095) into the exact root cause of the problem!
