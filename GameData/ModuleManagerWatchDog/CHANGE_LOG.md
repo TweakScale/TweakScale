@@ -1,5 +1,10 @@
 # Module Manager Watch Dog :: Change Log
 
+* 2024-0330: 1.1.1.2 (LisiasT) for KSP >= 1.2.2
+	+ Implements a "self-cleaning" mechanism intended to prevent the user being forced to manually delete artefacts on `GameData` once they decide to deinstall `Module Manager /L` and/or `Module Manager Watch Dog`. 
+		- Specially necessary for CurseForge users.
+	+ Closes issue:
+		- [#10](https://github.com/net-lisias-ksp/ModuleManagerWatchDog/issues/10) Detects when the host directory (`GameData\ModuleManager`) was removed, and kill `ModuleManager.dll` in response.
 * 2023-0703: 1.1.1.1 (LisiasT) for KSP >= 1.2.2
 	+ More sensible updating mechanism, coping with how Windows handles DLL files once they are loaded.
 	+ Fixes a bug on the KSPe's Install Checker/Update Tool

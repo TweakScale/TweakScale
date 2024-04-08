@@ -1,6 +1,6 @@
 # Module Manager Watch Dog
 
-A Watch Dog for Module Manager.
+A Watch Dog for Module Manager - with benefits.
 
 
 ## In a Hurry
@@ -34,7 +34,7 @@ A Watch Dog for Module Manager.
 
 `MMWD` is a Watch Dog to monitor Module Manager, preventing known (and unsolved) bugs on KSP 1.8 and newer that affects it.
 
-Additional services for updating specific DLLs on `GameData.` are now part of the solution, making it useful even for KSP <= 1.7.3 .
+Additional services for updating specific DLLs on `GameData` are now part of the solution, and it is's now effective for KSP <= 1.7.3 .
 
 The following services are provided:
 
@@ -44,11 +44,11 @@ Some 3rd party Add'Ons and this tool itself need critical DLLs to be present dir
 
 Additionally, CurseForge - at least at the moment of this release - doesn't have a mechanism to allow updating files on it, triggering bug reports that will be easily avoided by deploying this tool.
 
-This tool checks for need for installing (or updating) such critical DLLs automatically for selected Add'Ons.
+This tool checks for the need of installing (or updating) such critical DLLs automatically for selected Add'Ons.
 
 The feature is implemented on a discrete DLL, `WatchDogInstallChecker.dll`, and can be easily removed from the distribution without colateral effects (other than losing the functionality).
 
-**It's not advisable to use it on installments managed by CKAN**, as it manages itself these DLLs.
+**It's _not_ advisable to use it on installments managed by CKAN**, as it manages itself these DLLs.
 
 The following Add'Ons are currently managed:
 
@@ -64,27 +64,29 @@ Historically, managing multiple Module Manager versions was problematic on KSP -
 
 Before KSP 1.8, duplicated Assemblies were being loaded on dedicated App Domains, and so calling them would incur in marshalling (essentially, RPC but on the same process...) with significantly performance issues.
 
-But on KSP 1.8 (and until 1.12.0), while trying to tackle down the performance problem by short circuiting all the duplicated Assemblies to the first one loaded, Squad inadvertently caused the oldest MM being elected to be used (as DLLs are loaded in alphabetical order), with pretty serious consequences.
+But on KSP 1.8 (and until 1.12.0), while trying to tackle down the performance problem by short circuiting all the duplicated Assemblies to the first loaded one, Squad inadvertently caused the oldest MM being elected to be used (as DLLs are loaded in alphabetical order), with pretty serious consequences.
 
-On KSP 1.12.0 things changed again. Now the DLL version is used as criteria, and the highest version found is the one elected to be used. **However**, a new bug was introduced, playing havoc on the system if more than one DLL **has the same filename**.
+On KSP 1.12.0 things changed again. Now the DLL version is used as election criteria, and the highest version found is the one elected to be used. **However**, a new bug was introduced, playing havoc on the system if more than one DLL **has the same filename**.
+
+Finally, on KSP 1.12.5 the problem of selecting the first DLL was resurrected, and now that old problem that started to happen on KSP 1.8 is in effect again.
 
 So, different KSP releases will need different MM handling:
 
 * On KSP \< 1.8, the tool complains if MM is not installed.
-* On KSP \>= 1.8 and \< 1.12, the tool will yell on any duplicated Module Manager on the rig - *There can be only one!*
+* On KSP \>= 1.8 and \< 1.12, as well KSP 1.12.5, the tool will yell on any duplicated Module Manager on the rig - *There can be only one!*
 * On KSP \>= 1.12, the tool prevents installing MM/L together Forum's one as an extra safety measure.
-	+ MM/L behaves and it's 100% compatible, being a drop in replacement - it's safe to switch MM at any time.
+	+ MM/L behaves and it's 100% compatible, being a drop in replacement - it's absolutely safe to switch MM at any time (even the functional bugs are the same)
 	+ But yet is advisable to avoid having both installed at the same time.
 
 The Author strongly advises to edit the `WatchDog.cfg` file and select enforcing the "1.8 rules". It's far the safest option - besides risking being a bit annoying sometimes.
 
 ### Checking TweakScale
 
-Due the general mess that handling duplicated DLLs are on KSP, it was choose to install the formerly named `Scale_Redist.dll` file into `GameData` as `999_Scale_Redist.dll` . This aims to ensure the canon Redist is the first one to be loaded, as well to avoid eventual naming collisions with the few Add'Ons that used to have it embedded.
+Due the general mess that handling duplicated DLLs is on KSP, it was chosen to install the formerly named `Scale_Redist.dll` file into `GameData` as `999_Scale_Redist.dll` . This aims to ensure the canon Redist is the first one to be loaded, as well to avoid eventual naming collisions with the few Add'Ons that used to have it embedded.
 
 This way, we can be ensure the best performance on older KSPs as well a safest environment on newer ones.
 
-The tool checks for known `Scale_Redist` clients and yells if they are present but not the Redist. It also yells if there're more than one copy of `Scale_Redist` are installed, and also enforce that the only one installed are the `GameData/999_Scale_Redist.dll` .
+The tool checks for known `Scale_Redist` clients and yells if they are present but not the Redist. It also yells if there're more than one copy of `Scale_Redist` installed, and also enforces that the only one installed are the `GameData/999_Scale_Redist.dll` .
 
 ### Checking KSP Interstellar Extended
 
@@ -92,7 +94,7 @@ Similar handling are applied to `Interstellar_Redist.dll` from KSPIE.
 
 ### Final Considerations
 
-This tool was originally aimed to be redistributed embedded on Add'Ons that used to redistribute Module Manager themselves in the past, unintentionally triggering the problems this tool aims to detect, but evolved to an Add'On  de jure and de facto. 
+This tool was originally aimed to be redistributed embedded on Add'Ons that used to redistribute Module Manager themselves in the past, unintentionally triggering the problems this tool aims to detect - but evolved to an Add'On  *de jure and de facto*. 
 
 
 ## Installation
