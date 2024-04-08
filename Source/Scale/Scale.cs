@@ -736,7 +736,6 @@ namespace TweakScale
 
             this.NotifyPartSurfaceAttachmentChanged(); // This is not working on KSP 1.9, apparently Editor overwrites us before we send the event here!
 
-            Log.dbg("send scaling part message");
             this.NotifyPartScaleChanged();
 
             Log.dbg("Notify the World we changed the ship ? {0}", fireShipModified);
@@ -1197,19 +1196,32 @@ namespace TweakScale
 
         private void NotifyPartScaleChanged()
         {
+            Log.dbg("NotifyPartScaleChanged() is being handled.");
             BaseEventDetails data = new BaseEventDetails(BaseEventDetails.Sender.USER);
             data.Set<int>("InstanceID", this.part.GetInstanceID());
             data.Set<Type>("issuer", this.GetType());
             data.Set<float>("factorAbsolute", ScalingFactor.absolute.linear);
             data.Set<float>("factorRelative", ScalingFactor.relative.linear);
+
             this.part.SendEvent("OnPartScaleChanged", data, 0);
         }
 
         private void NotifyPartAttachmentNodesChanged()
         {
+            Log.dbg("NotifyPartAttachmentNodesChanged() is being handled.");
             BaseEventDetails data = new BaseEventDetails(BaseEventDetails.Sender.USER);
             data.Set<int>("InstanceID", this.part.GetInstanceID());
             data.Set<Type>("issuer", this.GetType());
+
+			data.Set<int>("attachNodesCount", this.part.attachNodes.Count);
+			for (int i = 0; i < this.part.attachNodes.Count; ++i)
+			{
+				AttachNode an = this.part.attachNodes[i];
+				data.Set<Vector3>(String.Format("AttachNode_position_{0}",i), an.position);
+				data.Set<int>(String.Format("AttachNode_size_{0}",i), an.size);
+				data.Set<Vector3>(String.Format("AttachNode_orientation_{0}",i), an.orientation);
+				data.Set<Vector3>(String.Format("AttachNode_offset_{0}",i), an.offset);
+			}
             this.part.SendEvent("OnPartAttachmentNodesChanged", data, 0);
         }
 
