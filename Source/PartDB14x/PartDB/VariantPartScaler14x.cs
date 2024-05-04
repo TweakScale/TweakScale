@@ -30,5 +30,16 @@ namespace TweakScale.PartDB
 			base.DoCopyUpdate();
 			this.ts.Rescale();
 		}
+
+		internal void OnEditorVariantApplied(Part part, PartVariant partVariant)
+		{
+			if(!this.ts.IsScaled) return;
+			Log.dbg("VariantPartScaler.OnEditorVariantApplied {0} {1}", this.ts.InstanceID, partVariant.Name);
+			this.SetVariant(partVariant);
+
+			// Rescale everything, as new variants may have different resources definitions, etc.
+			// I will trust (or hope) that any changes made by the Variant is already applied.
+			this.ts.Rescale();
+		}
 	}
 }
