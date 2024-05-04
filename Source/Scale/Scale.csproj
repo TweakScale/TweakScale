@@ -109,6 +109,7 @@
     </Reference>
     <Reference Include="KSPe.External">
       <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.External.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
