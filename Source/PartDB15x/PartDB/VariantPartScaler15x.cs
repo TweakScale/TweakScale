@@ -59,6 +59,7 @@ namespace TweakScale.PartDB
 		protected override void DoOnChange()
 		{
 			this.ReCalculateCostAndMass();
+			this.MoveAttachmentNodes(true, true);
 		}
 	}
 }
