@@ -20,6 +20,7 @@
 	You should have received a copy of the GNU General Public License 2.0
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -60,5 +61,28 @@ namespace TweakScale.PartDB
 		{
 			this.ReCalculateCostAndMass();
 		}
+
+		internal void OnEditorVariantApplied(Part part, PartVariant partVariant)
+		{
+			if(!this.ts.IsScaled) return;
+			Log.dbg("VariantPartScaler.OnEditorVariantApplied {0} {1}", this.ts.InstanceID, partVariant.Name);
+			this.SetVariant(partVariant);
+
+			this.ts.StartCoroutine(this.DelayedRescale());
+		}
+
+		private IEnumerator DelayedRescale ()
+		{
+			int i = 2;
+			while (--i > 0) yield return null;
+
+			// Rescale everything, as new variants may have different resources definitions, etc.
+			// I will trust (or hope) that any changes made by the Variant is already applied.
+			this.ts.Rescale();
+			this.MoveAttachmentNodes(false, true);
+			yield break;
+		}
+
+
 	}
 }
