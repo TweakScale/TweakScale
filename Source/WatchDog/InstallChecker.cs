@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of TweakScale Watch Dog
-		© 2023 Lisias T : http://lisias.net <support@lisias.net>
+		© 2024 Lisias T : http://lisias.net <support@lisias.net>
 
 	TweakScale Watch Dog is licensed as follows:
 		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt
@@ -17,8 +17,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using SIO = System.IO;
 
 namespace TweakScale.WatchDog
 {
@@ -39,16 +37,6 @@ namespace TweakScale.WatchDog
 				if (null != msg)
 					Log.detail("{0} is present and correctly installed.", this.GetType().Name);
 
-				if (null == msg)	// If MMWD is installed, there's nothing we need to do.
-					msg = this.CheckModuleManagerWatchDog();
-				else
-					Log.detail("ModuleManagerWatchDog is present and correctly installed.");
-
-				if (null == msg)
-					msg = this.CheckModuleManager();
-				else
-					Log.detail("ModuleManager is present and correctly installed.");
-
 				if (null == msg)
 					 msg = this.CheckScaleRedist();
 				else
@@ -58,6 +46,16 @@ namespace TweakScale.WatchDog
 					 msg = this.CheckTweakScale();
 				else
 					Log.detail("TweakScale is present and correctly installed.");
+
+				if (null == msg)	// If MMWD is installed, there's nothing we need to do.
+					msg = this.CheckModuleManagerWatchDog();
+				else
+					Log.detail("ModuleManagerWatchDog is present and correctly installed.");
+
+				if (null == msg)
+					msg = this.CheckModuleManager();
+				else
+					Log.detail("ModuleManager is present and correctly installed.");
 
 				Handle(msg);
 			}
@@ -143,8 +141,8 @@ namespace TweakScale.WatchDog
 			foreach (System.Reflection.Assembly a in loaded)
 				Log.dbg("{0} :: {1}", a.FullName, a.Location);
 #endif
-			Assembly assembly = loaded.First();
-			AssemblyTitleAttribute attributes = (AssemblyTitleAttribute)Attribute.GetCustomAttribute(assembly, typeof(AssemblyTitleAttribute), false);
+			System.Reflection.Assembly assembly = loaded.First();
+			System.Reflection.AssemblyTitleAttribute attributes = (System.Reflection.AssemblyTitleAttribute)Attribute.GetCustomAttribute(assembly, typeof(System.Reflection.AssemblyTitleAttribute), false);
 			string assemblyTittle = attributes.Title ?? "";
 			Log.dbg("First ({0}) = {1} :: {2}", assemblyTittle, assembly.FullName, assembly.Location);
 			return (assemblyTittle.StartsWith(MM_MYFORK_ASMTITTLE));
@@ -164,6 +162,10 @@ namespace TweakScale.WatchDog
 			if (1 != loaded.Count()) return ErrorMessage.ERR_TSREDIST_DUPLICATED;
 			if (!SanityLib.CheckIsOnGameData(loaded.First(), TSREDIST_ASSEMBLY_FILENAME))
 				return ErrorMessage.ERR_TSREDIST_WRONGPLACE;
+			if (!SanityLib.MatchTradeMark(loaded.First(), "TweakScale™ /L Redistributable"))
+				return ErrorMessage.ERR_TSREDIST_ALIEN;
+			if (!SanityLib.MatchAssemblyVersion(loaded.First(), TweakScale.RedistVersion.AssemblyVersion))
+				return ErrorMessage.ERR_TSREDIST_DEPRECATED;
 
 			return null;
 		}
@@ -173,13 +175,15 @@ namespace TweakScale.WatchDog
 			IEnumerable<AssemblyLoader.LoadedAssembly> loaded = SanityLib.FetchLoadedAssembliesByName(TS_ASSEMBLY_NAME);
 
 #if DEBUG
-			Log.dbg("CheckScaleRedist");
+			Log.dbg("CheckTweakScale");
 			foreach (AssemblyLoader.LoadedAssembly la in loaded)
 				Log.dbg("{0} :: {1}", la.assembly.FullName, la.assembly.Location);
 #endif
 
 			if (0 == loaded.Count()) return ErrorMessage.ERR_TS_ABSENT;
 			if (1 != loaded.Count()) return ErrorMessage.ERR_TS_DUPLICATED;
+			if (!SanityLib.MatchTradeMark(loaded.First(), "TweakScale /L"))
+				return ErrorMessage.ERR_TS_ALIEN;
 
 			return null;
 		}

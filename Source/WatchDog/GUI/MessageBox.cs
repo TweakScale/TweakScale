@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of TweakScale Watch Dog
-		© 2023 Lisias T : http://lisias.net <support@lisias.net>
+		© 2024 Lisias T : http://lisias.net <support@lisias.net>
 
 	TweakScale Watch Dog is licensed as follows:
 		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt

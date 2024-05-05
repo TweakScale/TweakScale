@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scale.PartDB.13x", "Source\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Source\Tests\Tests.csproj", "{2C63C91A-4715-4FAD-8515-0B81D420E308}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WatchDog", "Source\WatchDog\WatchDog.csproj", "{68C29DD6-947F-4F89-8E02-0C32CC67D002}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakScale.WatchDog", "Source\WatchDog\TweakScale.WatchDog.csproj", "{68C29DD6-947F-4F89-8E02-0C32CC67D002}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

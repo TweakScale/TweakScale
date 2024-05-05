@@ -14,16 +14,16 @@
 	<https://ksp.lisias.net/SKL-1_0.txt>.
 
 */
-using UnityEngine;
-
+using System;
 namespace TweakScale.WatchDog
 {
-	[KSPAddon(KSPAddon.Startup.Instantly, true)]
-	internal class Startup : MonoBehaviour
+	public static class ModuleInitializer
 	{
-		private void Start()
+		public static void Initialize()
 		{
-			Log.force("Version {0}", TweakScale.WatchDog.Version.Text);
+			Log.force("Initialize {0}", TweakScale.WatchDog.Version.Text);
+			InstallChecker ic = new InstallChecker();
+			ic.Execute();
 		}
 	}
 }

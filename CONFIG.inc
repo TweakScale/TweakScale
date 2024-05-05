@@ -7,7 +7,7 @@ TARGETBINDIR="$TARGETDIR/Plugins"
 PROJECTSDIR="$PACKAGE/"
 VERSIONFILE="TweakScale.version"
 
-DLLS="Scale KSPe.Light.TweakScale"
+DLLS="Scale KSPe.Light.TweakScale TweakScale.WatchDog"
 # PluginData DLLs
 PD_DLLS="Scale.PartDB.13x Scale.PartDB.14x Scale.PartDB.15x Scale.PartDB.18x Scale_Sanitizer Scale_Redist"
 # Rule oriented deployoment for PluginData

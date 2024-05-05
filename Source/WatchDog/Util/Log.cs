@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of TweakScale Watch Dog
-		© 2023 Lisias T : http://lisias.net <support@lisias.net>
+		© 2024 Lisias T : http://lisias.net <support@lisias.net>
 
 	TweakScale Watch Dog is licensed as follows:
 		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt
@@ -22,28 +22,28 @@ namespace TweakScale.WatchDog
 	{
 		internal static void force(string msg, params object[] @params)
 		{
-			UnityEngine.Debug.LogFormat("[ModuleManagerWatchDog] " + msg, @params);
+			UnityEngine.Debug.LogFormat("[TweakScale.WatchDog] " + msg, @params);
 		}
 
 		internal static void info(string msg, params object[] @params)
 		{
-			UnityEngine.Debug.LogFormat("[ModuleManagerWatchDog] INFO: " + msg, @params);
+			UnityEngine.Debug.LogFormat("[TweakScale.WatchDog] INFO: " + msg, @params);
 		}
 
 		internal static void detail(string msg, params object[] @params)
 		{
-			UnityEngine.Debug.LogFormat("[ModuleManagerWatchDog] DETAIL: " + msg, @params);
+			UnityEngine.Debug.LogFormat("[TweakScale.WatchDog] DETAIL: " + msg, @params);
 		}
 
 		internal static void error(string msg, params object[] @params)
 		{
-			UnityEngine.Debug.LogErrorFormat("[ModuleManagerWatchDog] ERROR: " + msg, @params);
+			UnityEngine.Debug.LogErrorFormat("[TweakScale.WatchDog] ERROR: " + msg, @params);
 		}
 
 		[ConditionalAttribute("DEBUG")]
 		internal static void dbg(string msg, params object[] @params)
 		{
-			UnityEngine.Debug.LogFormat("[ModuleManagerWatchDog] DEBUG: " + msg, @params);
+			UnityEngine.Debug.LogFormat("[TweakScale.WatchDog] DEBUG: " + msg, @params);
 		}
 	}
 }

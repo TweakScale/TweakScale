@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of TweakScale Watch Dog
-		© 2023 Lisias T : http://lisias.net <support@lisias.net>
+		© 2024 Lisias T : http://lisias.net <support@lisias.net>
 
 	TweakScale Watch Dog is licensed as follows:
 		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt
@@ -20,6 +20,7 @@ namespace TweakScale.WatchDog.GUI.Dialogs
 {
 	internal static class ShowStopperAlertBox
 	{
+		private const string URL = "https://ksp.lisias.net/add-ons/TweakScale/WatchDog/KNOWN_ISSUES";
 		private static readonly string AMSG = @"to get instructions about how to Download and Install Module Manager.";
 
 		internal static void Show(string msg)
@@ -27,7 +28,7 @@ namespace TweakScale.WatchDog.GUI.Dialogs
 			KSPe.Common.Dialogs.ShowStopperAlertBox.Show(
 				msg,
 				AMSG,
-				() => { Application.OpenURL("https://ksp.lisias.net/add-ons/ModuleManager/WatchDog/KNOWN_ISSUES"); Application.Quit(); }
+				() => { Application.OpenURL(URL); Application.Quit(); }
 			);
 			Log.detail("\"Houston, we have a Problem!\" was displayed about : {0}", msg);
 		}

@@ -1,6 +1,6 @@
 ﻿/*
 	This file is part of TweakScale Watch Dog
-		© 2023 Lisias T : http://lisias.net <support@lisias.net>
+		© 2024 Lisias T : http://lisias.net <support@lisias.net>
 
 	TweakScale Watch Dog is licensed as follows:
 		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt
@@ -19,6 +19,8 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace TweakScale.WatchDog
 {
@@ -86,6 +88,77 @@ namespace TweakScale.WatchDog
 			foreach (string p in paths)
 				r = Path.Combine(r, p);
 			return r;
+		}
+
+		internal static bool MatchTradeMark(AssemblyLoader.LoadedAssembly asm, string asmProd)
+		{
+			string assemblyCompany = null;
+			string assemblyProduct = null;
+			string assemblyTrademark = null;
+
+			try
+			{ 
+				object[] attribs = asm.assembly.GetCustomAttributes(typeof(AssemblyCompanyAttribute), true);
+				if (attribs.Length < 1) return false;
+				assemblyCompany = ((AssemblyCompanyAttribute)attribs[0]).Company;
+				Log.detail("assemblyCompany {0} {1}", assemblyCompany);
+			}
+			catch (Exception e)
+			{
+				Log.error("{0}\n{1}", e.ToString(), e.StackTrace);
+			}
+
+			try
+			{ 
+				object[] attribs = asm.assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), true);
+				if (attribs.Length < 1) return false;
+				assemblyProduct = ((AssemblyProductAttribute)attribs[0]).Product;
+				Log.detail("assemblyProduct {0}", assemblyProduct);
+			}
+			catch (Exception e)
+			{
+				Log.error("{0}\n{1}", e.ToString(), e.StackTrace);
+			}
+
+			try
+			{ 
+				object[] attribs = asm.assembly.GetCustomAttributes(typeof(AssemblyTrademarkAttribute), true);
+				if (attribs.Length < 1) return false;
+				assemblyTrademark = ((AssemblyTrademarkAttribute)attribs[0]).Trademark;
+				Log.detail("assemblyTrademark {0}", assemblyTrademark);
+			}
+			catch (Exception e)
+			{
+				Log.error("{0}\n{1}", e.ToString(), e.StackTrace);
+			}
+
+			bool r = true;
+			r = r && TweakScale.WatchDog.LegalMamboJambo.Company.Equals(assemblyCompany);
+			Log.dbg("{0}", r);
+			r = r && asmProd.Equals(assemblyProduct);
+			Log.dbg("{0}", r);
+			r = r && assemblyTrademark.Contains("TweakScale™");
+			Log.dbg("{0}", r);
+			r = r && assemblyTrademark.Contains("LisiasT");
+			Log.dbg("{0}", r);
+
+			return r;
+		}
+
+		internal static bool MatchAssemblyVersion(AssemblyLoader.LoadedAssembly asm, string asmVersion)
+		{
+			string assemblyVersion = null;
+			try
+			{ 
+				assemblyVersion = asm.assembly.GetName().Version.ToString();
+				Log.detail("assemblyVersion {0}", assemblyVersion);
+			}
+			catch (Exception e)
+			{
+				Log.error("{0}\n{1}", e.ToString(), e.StackTrace);
+			}
+
+			return assemblyVersion.StartsWith(asmVersion);
 		}
 	}
 }
