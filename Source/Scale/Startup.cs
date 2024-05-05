@@ -37,6 +37,8 @@ namespace TweakScale
 
 			try	// Check for critical artefacts first!
 			{
+				KSPe.Util.SystemTools.Assembly.Find.ByName("TweakScale.WatchDog");
+
 				using (KSPe.Util.SystemTools.Assembly.Loader<TweakScale> a = new KSPe.Util.SystemTools.Assembly.Loader<TweakScale>())
 				{
 					if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
