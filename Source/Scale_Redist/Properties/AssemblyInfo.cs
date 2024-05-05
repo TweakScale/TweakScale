@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Scale_Redist")]
 [assembly: AssemblyDescription("TweakScale /L Redistributable Assembly")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("L Aerospace/KSP Division")]
-[assembly: AssemblyProduct("TweakScale /L Redistributable")]
-[assembly: AssemblyCopyright("Copyright © 2018-2024 LisiasT")]
-[assembly: AssemblyTrademark("TweakScale™ by Gaius Goodspeed, Biotronic, Pellinor, LisiasT")]
+[assembly: AssemblyCompany(TweakScale.Redist.LegalMamboJambo.Company)]
+[assembly: AssemblyProduct(TweakScale.Redist.LegalMamboJambo.Product)]
+[assembly: AssemblyCopyright(TweakScale.Redist.LegalMamboJambo.Copyright)]
+[assembly: AssemblyTrademark(TweakScale.Redist.LegalMamboJambo.Trademark)]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -49,5 +49,5 @@ using System.Runtime.InteropServices;
  *		+ Original Interfaces from Biotronic times.
  *			- IRescalable & IRescalable<>
  */
-[assembly: AssemblyVersion("1.2")]
-[assembly: AssemblyFileVersion(TweakScale.Version.Number)]
+[assembly: AssemblyVersion(TweakScale.RedistVersion.AssemblyVersion)]
+[assembly: AssemblyFileVersion(TweakScale.RedistVersion.Number)]

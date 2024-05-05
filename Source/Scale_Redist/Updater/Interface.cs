@@ -35,7 +35,7 @@ namespace TweakScale
 	/// <summary>
 	/// A <c>IRescalable</c> for a specific <c>PartModule</c>.
 	///
-	/// Should be used instead of the <c>Part</c> counterpart when possible, as it will be injected only whem the target <c>PartModule</c> is present.
+	/// Should be used instead of the <c>Part</c> counterpart when possible, as it will be injected only when the target <c>PartModule</c> is present.
 	/// 
 	/// Prefferable method to support TweakScale.
 	/// </summary>
@@ -45,7 +45,7 @@ namespace TweakScale
 	/// For Priority Rescaling the <c>Part</c> itself or some of its attributes. Usually should not be used by 3rd Parties, unless they are sure the Rescalers implemented on Stock
 	/// will not cause conflicts with the new code.
 	///
-	/// There's no way to tell of the Stock Priority Rescaling will be called after or before yours.
+	/// There's no way to tell if the Stock Priority Rescaling will be called after or before yours.
 	/// </summary>
 	public interface IPriorityRescalable : IRescalable { }
 	/// <summary>

@@ -1,0 +1,93 @@
+<# /* This file is licensed under the Do What the F* You Want to Public License ( http://www.wtfpl.net )
+	* by LisiasT. http://ksp.lisias.net
+	*
+	* You are allowed to copy, modify and use this file unrestrictly. Just don't bother me with ridiculous demands. Please. :)
+	*/
+#>
+
+<# // from https://docs.microsoft.com/en-us/visualstudio/modeling/walkthrough-generating-code-by-using-text-templates?view=vs-2017 #>
+<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ import namespace="System.IO" #>
+<#
+	string PROJECT_NAME = "TweakScale";
+	int major = 0;
+	int minor = 0;
+	int patch = 0;
+	int build = 0;
+
+	try
+	{
+		string file = this.Host.ResolvePath("../../../" + PROJECT_NAME + ".version");
+		string text = File.ReadAllText(file);
+
+		{
+			int i = text.IndexOf("\"VERSION\"", System.StringComparison.Ordinal);
+			int j = text.IndexOf("}", i + 1, System.StringComparison.Ordinal);
+			text = text.Substring(i, j-i+1);
+		}
+
+		try
+		{
+			int i = text.IndexOf("\"MAJOR\"", System.StringComparison.Ordinal);
+			while (!Char.IsNumber(text[i])) ++i;
+			int j = i;
+			while (Char.IsNumber(text[j])) ++j;
+			Int32.TryParse(text.Substring(i,j-i), out major);
+		}
+		catch { }
+
+		try
+		{
+			int i = text.IndexOf("\"MINOR\"", System.StringComparison.Ordinal);
+			while (!Char.IsNumber(text[i])) ++i;
+			int j = i;
+			while (Char.IsNumber(text[j])) ++j;
+			Int32.TryParse(text.Substring(i,j-i), out minor);
+		}
+		catch { }
+
+		try
+		{
+			int i = text.IndexOf("\"PATCH\"", System.StringComparison.Ordinal);
+			while (!Char.IsNumber(text[i])) ++i;
+			int j = i;
+			while (Char.IsNumber(text[j])) ++j;
+			Int32.TryParse(text.Substring(i,j-i), out patch);
+		}
+		catch { }
+
+		try
+		{
+			int i = text.IndexOf("\"BUILD\"", System.StringComparison.Ordinal);
+			while (!Char.IsNumber(text[i])) ++i;
+			int j = i;
+			while (Char.IsNumber(text[j])) ++j;
+			Int32.TryParse(text.Substring(i,j-i), out build);
+		}
+		catch { }
+	}
+	catch (Exception e)
+	{
+		Write("Error: " + e.Message);
+	}
+#>
+
+// Automatically generated code. Any changes will be lost!
+namespace <#= PROJECT_NAME #>
+{
+	public static class RedistVersion
+	{
+		public const int major = <#= major #>;
+		public const int minor = <#= minor #>;
+		public const int patch = <#= patch #>;
+		public const int build = <#= build #>;
+		public const string Number = "<#= major #>.<#= minor #>.<#= patch #>.<#= build #>";
+#if DEBUG
+        public const string Text = Number + " /L BETA DEBUG";
+#else
+        public const string Text = Number + " /L BETA";
+#endif
+		public const string AssemblyVersion = "1.2";
+	}
+}

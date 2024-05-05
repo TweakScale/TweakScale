@@ -13,3 +13,4 @@ Source/*/*.user
 bin
 obj
 packages
+RedistVersion.cs

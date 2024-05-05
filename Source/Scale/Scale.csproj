@@ -79,6 +79,9 @@
     <Compile Include="GUI\DeprecatedCompanionFatalError.cs" />
     <Compile Include="Features\ResetOnNew.cs" />
     <Compile Include="EditorHelper.cs" />
+    <Compile Include="Properties\Version.cs">
+      <DependentUpon>Version.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -117,6 +120,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <Link>Properties\Configuration.tt</Link>
       <LastGenOutput>Configuration.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\Version.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Version.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
