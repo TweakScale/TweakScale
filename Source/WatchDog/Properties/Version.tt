@@ -74,9 +74,9 @@
 #>
 
 // Automatically generated code. Any changes will be lost!
-namespace <#= PROJECT_NAME #>
+namespace TweakScale.WatchDog
 {
-	public static class RedistVersion
+	public static class Version
 	{
 		public const int major = <#= major #>;
 		public const int minor = <#= minor #>;
@@ -84,10 +84,9 @@ namespace <#= PROJECT_NAME #>
 		public const int build = <#= build #>;
 		public const string Number = "<#= major #>.<#= minor #>.<#= patch #>.<#= build #>";
 #if DEBUG
-        public const string Text = Number + " /L BETA DEBUG";
+		public const string Text = Number + " /L DEBUG";
 #else
-        public const string Text = Number + " /L BETA";
+		public const string Text = Number + " /L";
 #endif
-		public const string AssemblyVersion = "1.0";
 	}
 }
