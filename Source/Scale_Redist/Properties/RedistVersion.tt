@@ -76,7 +76,7 @@
 // Automatically generated code. Any changes will be lost!
 namespace <#= PROJECT_NAME #>
 {
-	public static class Version
+	public static class RedistVersion
 	{
 		public const int major = <#= major #>;
 		public const int minor = <#= minor #>;
@@ -84,9 +84,10 @@ namespace <#= PROJECT_NAME #>
 		public const int build = <#= build #>;
 		public const string Number = "<#= major #>.<#= minor #>.<#= patch #>.<#= build #>";
 #if DEBUG
-        public const string Text = Number + " /L DEBUG";
+        public const string Text = Number + " /L BETA DEBUG";
 #else
-        public const string Text = Number + " /L";
+        public const string Text = Number + " /L BETA";
 #endif
+		public const string AssemblyVersion = "1.2";
 	}
 }

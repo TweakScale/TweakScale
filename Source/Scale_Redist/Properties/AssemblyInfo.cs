@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Scale_Redist")]
 [assembly: AssemblyDescription("TweakScale /L Redistributable Assembly")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("L Aerospace/KSP Division")]
-[assembly: AssemblyProduct("TweakScale /L Redistributable")]
-[assembly: AssemblyCopyright("Copyright © 2018-2024 LisiasT")]
-[assembly: AssemblyTrademark("TweakScale™ by Gaius Goodspeed, Biotronic, Pellinor, LisiasT")]
+[assembly: AssemblyCompany(TweakScale.Redist.LegalMamboJambo.Company)]
+[assembly: AssemblyProduct(TweakScale.Redist.LegalMamboJambo.Product)]
+[assembly: AssemblyCopyright(TweakScale.Redist.LegalMamboJambo.Copyright)]
+[assembly: AssemblyTrademark(TweakScale.Redist.LegalMamboJambo.Trademark)]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -22,21 +22,19 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("01c8d239-4233-4a83-ae50-3e1a12cff502")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-
-// this is the API definition of TweakScale.
-// Other mods can include this in their distribution and compile against it without depending on a TweakScale version.
-// It does not depend on KSP and has not been touched since biotronic wrote it.
-// So its version should stay at 1.0, to make clear that other mods do not need to compile against a new version
-// (pellinor)
-[assembly: AssemblyVersion("1.0")]
-[assembly: AssemblyFileVersion(TweakScale.Version.Number)]
+/*
+ * This is the API definition of TweakScale.
+ * 
+ * Originally, other mods could include this in their distribution and compile against it without depending on a TweakScale version,
+ * but having more than one copy of the ScaleRedist (or any other Assembly) is known to cause performance issues on KSP < 1.8, and to
+ * plain cause problems on KSP >= 1.8.
+ * 
+ * So from now on, only one copy should exist on the GameData's root.
+ *
+ * Change History:
+ *	* 1.0
+ *		+ Original Interfaces from Biotronic times.
+ *			- IRescalable & IRescalable<>
+ */
+[assembly: AssemblyVersion(TweakScale.RedistVersion.AssemblyVersion)]
+[assembly: AssemblyFileVersion(TweakScale.RedistVersion.Number)]
