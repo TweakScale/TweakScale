@@ -36,6 +36,7 @@ namespace TweakScale.GUI
                     fontSize = 22,
                     fontStyle = FontStyle.Bold,
                     alignment = TextAnchor.UpperCenter,
+                    richText = true,
                     wordWrap = false
                 };
                 winStyle.focused.textColor =
@@ -63,6 +64,7 @@ namespace TweakScale.GUI
                     fontSize = 14,
                     fontStyle = FontStyle.Normal,
                     alignment = TextAnchor.MiddleLeft,
+                    richText = true,
                     wordWrap = true
                 };
                 textStyle.focused.textColor =
