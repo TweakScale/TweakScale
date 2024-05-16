@@ -83,20 +83,24 @@ namespace TweakScale.PartDB
 			Log.dbg("VariantPartScaler.OnEditorVariantApplied {0} {1}", this.ts.InstanceID, partVariant.Name);
 			this.SetVariant(partVariant);
 
-			this.ts.StartCoroutine(this.DelayedRescale());
+			this.DelayedRun(2, this.executeRescaleAndMoveAttachments);
 		}
 
-		private IEnumerator DelayedRescale ()
+		protected delegate void F();
+		protected void DelayedRun(int i, F f) => this.ts.StartCoroutine(this.DelayedRunner(i, f));
+		private IEnumerator DelayedRunner(int i, F f)
 		{
-			int i = 2;
 			while (--i > 0) yield return null;
+			f();
+			yield break;
+		}
 
+		private void executeRescaleAndMoveAttachments()
+		{
 			// Rescale everything, as new variants may have different resources definitions, etc.
 			// I will trust (or hope) that any changes made by the Variant is already applied.
 			this.ts.Rescale();
 			this.MoveAttachmentNodes(false, true);
-			yield break;
 		}
-
 	}
 }
