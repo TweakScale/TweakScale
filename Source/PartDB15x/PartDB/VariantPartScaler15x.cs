@@ -21,8 +21,6 @@
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System.Collections;
-using System.Linq;
-using UnityEngine;
 
 namespace TweakScale.PartDB
 {
