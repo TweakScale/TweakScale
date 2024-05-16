@@ -45,7 +45,7 @@ namespace TweakScale
 						a.LoadAndStartup("Scale.PartDB.13x");
 					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 4))
 						a.LoadAndStartup("Scale.PartDB.14x");
-					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 8, 0))
+					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 9, 0))
 						a.LoadAndStartup("Scale.PartDB.15x");
 					else
 						a.LoadAndStartup("Scale.PartDB.18x");
