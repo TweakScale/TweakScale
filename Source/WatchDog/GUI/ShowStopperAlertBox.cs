@@ -21,7 +21,7 @@ namespace TweakScale.WatchDog.GUI.Dialogs
 	internal static class ShowStopperAlertBox
 	{
 		private const string URL = "https://ksp.lisias.net/add-ons/TweakScale/WatchDog/KNOWN_ISSUES";
-		private static readonly string AMSG = @"to get instructions about how to Download and Install Module Manager.";
+		private static readonly string AMSG = @"to get instructions about how to Download and Install TweakScale.";
 
 		internal static void Show(string msg)
 		{
