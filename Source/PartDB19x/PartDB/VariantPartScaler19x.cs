@@ -33,5 +33,13 @@ namespace TweakScale.PartDB
 			if (HighLogic.LoadedSceneIsEditor)			// This is needed by (surprisingly!) KSP 1.9
 				this.MoveSurfaceAttachment(true, true);
 		}
+
+		protected override void DoScale()
+		{
+			Log.dbg("VariantPartScaler19x.DoScale");
+			this.ScalePart(true, false);
+			this.ScaleDragCubes(false);
+			this.OnChange();
+		}
 	}
 }
