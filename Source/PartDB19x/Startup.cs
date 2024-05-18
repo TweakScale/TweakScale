@@ -23,7 +23,7 @@
 
 using KSPe.Annotations;
 
-namespace TweakScale.PartDB.KSP18x
+namespace TweakScale.PartDB.KSP19x
 {
 	public class Startup
 	{

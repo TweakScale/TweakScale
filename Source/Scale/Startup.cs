@@ -48,7 +48,7 @@ namespace TweakScale
 					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 9, 0))
 						a.LoadAndStartup("Scale.PartDB.15x");
 					else
-						a.LoadAndStartup("Scale.PartDB.18x");
+						a.LoadAndStartup("Scale.PartDB.19x");
 				}
 
 				// Check if the needed Classes are available...
