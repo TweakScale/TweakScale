@@ -34,7 +34,7 @@ namespace TweakScale.WatchDog
 			{
 				// Always check for being the unique Assembly loaded. This will avoid problems in the future.
 				String msg = this.CheckMyself();
-				if (null != msg)
+				if (null == msg)
 					Log.detail("{0} is present and correctly installed.", this.GetType().Name);
 
 				if (null == msg)

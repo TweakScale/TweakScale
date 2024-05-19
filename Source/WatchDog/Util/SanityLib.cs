@@ -101,7 +101,7 @@ namespace TweakScale.WatchDog
 				object[] attribs = asm.assembly.GetCustomAttributes(typeof(AssemblyCompanyAttribute), true);
 				if (attribs.Length < 1) return false;
 				assemblyCompany = ((AssemblyCompanyAttribute)attribs[0]).Company;
-				Log.detail("assemblyCompany {0} {1}", assemblyCompany);
+				Log.detail("assemblyCompany {0}", assemblyCompany);
 			}
 			catch (Exception e)
 			{
