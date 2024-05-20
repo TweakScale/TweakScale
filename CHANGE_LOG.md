@@ -1,8 +1,8 @@
 # TweakScale :: Change Log
 
 * 2024-0515: 2.4.8.0 (Lisias) for KSP >= 1.3
-	+  This release **finally** solves some long standing problems caused by Editor when handling `ModulePartVariant` that I only managed to diagnose recently, see issues [#307](https://github.com/TweakScale/TweakScale/issues/307) and [#314](https://github.com/TweakScale/TweakScale/issues/314) *et all* for the full history for this one.
-	+  I **hope** that, **finally**, the 2.4.8.x series will put an end point on the legacy branch. I plan to do only minor adjustments (if needed) on the legacy from now on.
+	+ This release **finally** solves some long standing problems caused by Editor when handling `ModulePartVariant` that I only managed to diagnose recently, see issues [#307](https://github.com/TweakScale/TweakScale/issues/307) and [#314](https://github.com/TweakScale/TweakScale/issues/314) *et all* for the full history for this one.
+	+ I **hope** that, **finally**, the 2.4.8.x series will put an end point on the legacy branch. I plan to do only minor adjustments (if needed) on the legacy from now on.
 		- If I manage to do everything right (this time), the already legendary 2.5 series will be bought into the mainstream Soon™.
 	+ **ATTENTION**: You need to update [KSP-Recall](https://github.com/net-lisias-ksp/KSP-Recall/releases) to 0.5.0.1 at least.
 	+  Closes Issues:
