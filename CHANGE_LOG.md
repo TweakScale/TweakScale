@@ -1,5 +1,15 @@
 # TweakScale :: Change Log
 
+* 2024-0515: 2.4.8.0 (Lisias) for KSP >= 1.3
+	+  This release **finally** solves some long standing problems caused by Editor when handling `ModulePartVariant` that I only managed to diagnose recently, see issues [#307](https://github.com/TweakScale/TweakScale/issues/307) and [#314](https://github.com/TweakScale/TweakScale/issues/314) *et all* for the full history for this one.
+	+  I **hope** that, **finally**, the 2.4.8.x series will put an end point on the legacy branch. I plan to do only minor adjustments (if needed) on the legacy from now on.
+		- If I manage to do everything right (this time), the already legendary 2.5 series will be bought into the mainstream Soon™.
+	+ **ATTENTION**: You need to update [KSP-Recall](https://github.com/net-lisias-ksp/KSP-Recall/releases) to 0.5.0.1 at least.
+	+  Closes Issues:
+		- [#325](https://github.com/TweakScale/TweakScale/issues/325) Cope with https://github.com/net-lisias-ksp/KSP-Recall/issues/73
+		- [#312](https://github.com/TweakScale/TweakScale/issues/312) Write an internal Self Check Mechanism
+		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant
+		- [#283](https://github.com/TweakScale/TweakScale/issues/283) New screw up from KSP 1.11.0 Editor was revealed by the 2.4.6.20 release
 * 2024-0322: 2.4.7.6 (Lisias) for KSP >= 1.3
 	+ Backports from **Beta** a long standing bug on AutoScale when attaching parts with different scaling methods. 
 	+ Found an idiocy of mine while trying to prevent a hypothetical problem - and ended up creating a concrete one instead.
@@ -9,26 +19,6 @@
 * 2024-0213: 2.4.7.5 (Lisias) for KSP >= 1.3
 	+ An insidious bug screwing parts that use `techRequired` was fixed.
 		- Thanks to [Turbo Ben](https://forum.kerbalspaceprogram.com/profile/193979-turbo-ben/) for the [work into zeroing](https://forum.kerbalspaceprogram.com/topic/179030-ksp-130-tweakscale-under-lisias-management-2474-2023-1007/?do=findComment&comment=4366095) into the exact root cause of the problem!
-* 2024-0213: 2.5.0.62 **BETA** (Lisias) for KSP >= 1.3
-	+ An insidious bug screwing parts that use `techRequired` was fixed.
-		- Thanks to [Turbo Ben](https://forum.kerbalspaceprogram.com/profile/193979-turbo-ben/) for the [work into zeroing](https://forum.kerbalspaceprogram.com/topic/179030-ksp-130-tweakscale-under-lisias-management-2474-2023-1007/?do=findComment&comment=4366095) into the exact root cause of the problem!
-	+ Small typos fixed.
-	+ Fixes [#307](https://github.com/TweakScale/TweakScale/issues/307). **AGAIN**, and restores the [#261](https://github.com/TweakScale/TweakScale/issues/261) that got broken.
-	+ Reworks the support DLLs.
-		- Reinstates the 1.8.x one;
-		- Merges it with the 1.9.x, that became redundant.
-	+ Closes Issues:
-		- [#319](https://github.com/TweakScale/TweakScale/issues/319) Reinstate dedicated DLL support for KSP 1.8.x
-		- [#307](https://github.com/TweakScale/TweakScale/issues/309) Create an option to fix the part's cost when calculating the DryCost.
-* 2023-1106: 2.5.0.61 **BETA** (Lisias) for KSP >= 1.3
-	+ A serious regression was detected on 2.4.7.3. The code intended to fix [Issue 307](https://github.com/TweakScale/TweakScale/issues/307) triggered ***Yet Another Bug on Editor™***, and had to be removed. This, unfortunately, resurrects #307. :(
-	+ Refactoring: Simplifying internal interfaces
-	+ Small enhancements on logging
-	+ Fixing the Show Stopper handling (that wasn't stopping the show...)
-	+ Closes Issues:
-		- [#309](https://github.com/TweakScale/TweakScale/issues/309) Create an option to fix the part's cost when calculating the DryCost.
-	+ ReOpen Issues:
-		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant  
 * 2023-1007: 2.4.7.4 (Lisias) for KSP >= 1.3
 	+ A serious regression was detected on 2.4.7.3. The code intended to fix [Issue 307](https://github.com/TweakScale/TweakScale/issues/307) triggered ***Yet Another Bug on Editor™***, and had to be removed. This, unfortunately, resurrects #307. :(
 	+ Closes Issues:
@@ -41,23 +31,6 @@
 	+ Closes Issues:
 		- [#308](https://github.com/TweakScale/TweakScale/issues/308) Insidious NRE on changing scenes 
 		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant
-* 2023-0803: 2.5.0.60 **BETA** (Lisias) for KSP >= 1.3
-	+ Adds a hotfix for mispatchings adding `FSFuelSwitch` and `B9PS` on the same part on the `Extras` folder.
-	+ Remove deprecated KSPe calls.
-	+ TweakScale's runtime configuration file is now on the `<KSP_ROOT>PluginData` directory, and not on `GameData` anymore.
-		- Not more polluting cloud backups with transitory data. 
-	+ Cumulative catch up from the `legacy` branch.
-	+ For the record, some work for [#297](https://github.com/TweakScale/TweakScale/issues/297) was done, but the thing ended up being postponed. Whoever, probing the solution's scaffolding on the field will make my task easier when I finally tackle this crap down. 
-	+ Updates MMWD to 1.1.1.1
-		- User will need to manually remove the `<KSP_ROOT>/GameData/666_ModuleManagerWatchDog.dll` file due a major screwup of mine on handling file updates on Windows.
-		- Hopefully this will not happen again.
-	+ Backport the Unity's `Update` Life Cycle fix from [Aviation Lights #4](https://github.com/net-lisias-ksp/AviationLights/issues/4)
-		- Hopefully preventing some shitstorm on users running KSP on Hybrid CPUs (P-Cores, E-Cores, that crap).
-	+ Closes Issues:
-		- [#308](https://github.com/TweakScale/TweakScale/issues/308) Insidious NRE on changing scenes 
-		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant
-	+ Related Issues:
-		- [Aviation Lights #4](https://github.com/net-lisias-ksp/AviationLights/issues/4) Aviation Lights *may* be involved on a weird bug report on Forum
 * 2023-0716: 2.4.7.2 (Lisias) for KSP >= 1.3
 	+ A new Feature was introduced that automatically deactivates the **Auto Scale** and the **Chain Scale** features every time the user enters the Editor, creates a new Craft or loads one.
 		- Aims to minimize support tickets opened by users that forget the features active and then thinks it's a bug on TweakScale
@@ -65,109 +38,75 @@
 	+ Updates KNOWN ISSUES with workarounds for the following Work In Progress bugs:
 		- https://github.com/TweakScale/TweakScale/issues/297
 		- https://github.com/TweakScale/TweakScale/issues/283
-* 2023-0324: 2.5.0.59 **BETA** (Lisias) for KSP >= 1.3
+* 2023-0324: 2.4.7.1 (Lisias) for KSP >= 1.3
 	+ Updates the Companions' definition file to mark KIS (and some others) deprecated add'ons as... deprecated!
 		- Thanks for the [heads up](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-ksp-130-tweakscale-under-lisias-management-24625-2023-0304/&do=findComment&comment=4264686), [@ngx](https://forum.kerbalspaceprogram.com/index.php?/profile/184821-ngx/)!
 	+ New checking to detect deprecated Companions forgotten on the `GameData`
-* 2023-0313: 2.5.0.58 **BETA** (Lisias) for KSP >= 1.3
-	+ I finally diagnosed and fixed a pretty stupid mistake on new `TweakScale.Updater.IVA`
+* 2023-0321: 2.4.7.0 (Lisias) for KSP >= 1.3
+	+ Better TweakScale Companion checkings.
+* 2023-0304: 2.4.6.25 (Lisias) for KSP >= 1.3
 	+ A Checker for the need specific TweakScale Companions was added.
-		- Your `GameData` is checked for 3rd party add'ons currently supported by a Companion and a Dialog Box is displayed listing the ones you need to install.  
-	+ Implements a missing use case when scaling IVAs and switching vessels. 
-	+ Removes deprecated calls to `KSPe` from the codebase
-		- (shame on me, these things are deprecated for months!)
-	+ More robust ScaleType Migration Code.
-		- Indirectly related to issue [#285](https://github.com/TweakScale/TweakScale/issues/285), as the Beta branch **does not** presented the misbehaviour.
-	+ Catches up with the main stream
-		- [#268](https://github.com/TweakScale/TweakScale/issues/268) Misbehaviour related to Taking Data from a Pod when it's scaled.
-		- [#261](https://github.com/TweakScale/TweakScale/issues/261) Misbehaviour (again) while scaling parts with VARIANT
-		- [#252](https://github.com/TweakScale/TweakScale/issues/252) Scale the Buoyance so the scaled parts has a similar floating capabilities as the original.
-		- [#246](https://github.com/TweakScale/TweakScale/issues/246) New bug related to IVA and Cameras when TweakScale is installed.
-		- [#238](https://github.com/TweakScale/TweakScale/issues/238) TweakScale is failing to consistently resize the Attachment Node's sizes.
-	+ Closes Issues:
-		- [#290](https://github.com/TweakScale/TweakScale/issues/290) Regression on handling the TweakScaleRogueDuplicate patching problem.
-		- [#289](https://github.com/TweakScale/TweakScale/issues/289) Yet another unexpected Misbehaviour, this time on `PartModule.OnSave`.
-		- [#287](https://github.com/TweakScale/TweakScale/issues/286) Misunderstanding (?) on how `PartModule.OnLoad(ConfigNode)` really works.
-		- [#286](https://github.com/TweakScale/TweakScale/issues/286) `PartModule.OnLoad` **is not** called with `node` as null on Flight Scene!
-		- [#280](https://github.com/TweakScale/TweakScale/issues/280) **UNDO** the :FOR[TWEAKSCALE] on Default TweakScale Patching...
-		- [#279](https://github.com/TweakScale/TweakScale/issues/279) Über refactoring on `IRescalable`
-		- [#276](https://github.com/TweakScale/TweakScale/issues/276) Update Scale_Redist Version to 1.2
-		- [#195](https://github.com/TweakScale/TweakScale/issues/195) Remove the stub CFG files for deprecated patches
-* 2023-0304: 2.5.0.57 **BETA** (Lisias) for KSP >= 1.3
-	+ ***DITCHED***
-* 2023-0304: 2.5.0.56 **BETA** (Lisias) for KSP >= 1.3
-	+ ***WITHDRAWN*** due a lame mistake on the configuration files. 
+		- Your `GameData` is checked for 3rd party add'ons currently supported by a Companion and a Dialog Box is displayed listing the ones you need to install.
+	+ Some mistakes on the configuration files were fixed.
+		- Thanks to [zangonoid](https://forum.kerbalspaceprogram.com/index.php?/profile/144919-zangonoid/) for the heads up!
 * 2023-0303: 2.4.6.24 (Lisias) for KSP >= 1.3
-	+ ***DITCHED***
-* 2023-0212: 2.5.0.55 **BETA** (Lisias) for KSP >= 1.3 
-	+ ***DITCHED***
-* 2023-0212: 2.5.0.54 **BETA** (Lisias) for KSP >= 1.3 
-	+ **WITHDRAWN** as a new release were made in less than 24 hours. 
-* 2023-0207: 2.5.0.53 **BETA** (Lisias) for KSP >= 1.3 
-	+ ***DITCHED***
+	+ ***WITHDRAWN*** due a lame mistake on the configuration files.
 * 2023-0206: 2.4.6.23 (Lisias) for KSP >= 1.3
-	+ ***DITCHED***
-* 2023-0204: 2.5.0.52 **BETA** (Lisias) for KSP >= 1.3 
-	+ ***DITCHED***
-* 2023-0202: 2.5.0.51 **BETA** (Lisias) for KSP >= 1.3 
-	+ ***WITHDRAWN***
-* 2023-0126: 2.5.0.50 **BETA** (Lisias) for KSP >= 1.3 
-	+ ***WITHDRAWN***
+	+ The fix for the *ScaleType Migration Code* on 2.4.6.22 ended up creating a new bug on the `TweakScaleRogueDuplicate` security feature, leading KSP rigs infected with this problem to crash when trying to save the game.
+		- My bad. Really sorry.
+		- **HUGE KUDOS** to [GoAHead](https://forum.kerbalspaceprogram.com/index.php?/profile/179049-goahead/) on Forum for their invaluable efforts on helping me on [diagnosing](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-ksp-130-tweakscale-under-lisias-management-24622-2023-0205/&do=findComment&comment=4228713) this problem. I would not had done this one by myself. 
+	+ Closes Issues:
+		- [#290](https://github.com/net-lisias-ksp/TweakScale/issues/290) Regression on handling the TweakScaleRogueDuplicate patching problem.
+		- [#289](https://github.com/net-lisias-ksp/TweakScale/issues/289) Yet another unexpected Misbehaviour, this time on `PartModule.OnSave`.
+* 2023-0205: 2.4.6.22 (Lisias) for KSP >= 1.3
+	+ I **DON'T KNOW** why I had to release this one. I don't know what had broken, I don't know why the changes needed to be made to make things thigh again "solved" the problem.
+		- I know **what**, I know **where**. But I don't know **why**. 
+		- Things that were working on March 2022 just stopped working - **on the same test beds** they worked before.
+	+ Works issues:
+		- [#287](https://github.com/net-lisias-ksp/TweakScale/issues/287) Misunderstanding (?) on how PartModule.OnLoad(ConfigNode) really works
+		- [#286](https://github.com/net-lisias-ksp/TweakScale/issues/286) PartModule.OnLoad **is not** called with node as null on Flight Scene!
+	+ (Dis)Honorable mention:
+		- [#288](https://github.com/net-lisias-ksp/TweakScale/issues/288) Carnage on crafts from very old TweakScale versions.
 * 2023-0128: 2.4.6.21 (Lisias) for KSP >= 1.3
-	+ ***DITCHED***
+	+ ***MOAR moar bug fixes!***
+		- An unfortunate merge ended up leaking a development only dependency into mainstream.
+	+ Updates KSPe.Light with yet ***moar*** bug fixes.
+		- And linking the damned thing to it this time. 
+	+ Fixes a bug on the Auto & Chain Scale
+		- They "forgot" to propagate the changes into the symmetric counter parts
+	+ WARNING: A new Editor bug plaguing KSP since 1.11.x was found and not worked around yet on code! (save and load the craft to fix the issue while editing it)
+		- [#283](https://github.com/net-lisias-ksp/TweakScale/issues/283) New screw up from KSP 1.11.0 Editor was revealed by the 2.4.6.20 release
+	+ (Properly) Closes Issues:
+		- [#282](https://github.com/net-lisias-ksp/TweakScale/issues/282) Auto Scale are not sending KSP-Recall the OnPartResourcesChanged event 
+		- [#261](https://github.com/net-lisias-ksp/TweakScale/issues/261) Misbehaviour (again) while scaling parts with VARIANT
+		- [#238](https://github.com/net-lisias-ksp/TweakScale/issues/238) TweakScale is failing to consistently resize the Attachment Node's sizes.
 * 2023-0126: 2.4.6.20 (Lisias) for KSP >= 1.3
-	+ ***DITCHED***
+	+ ***WITHDRAWN*** due a pretty stupid mistake on a merge.
 * 2023-0115: 2.4.6.19 (Lisias) for KSP >= 1.3
-	+ ***DITCHED***
+	+ Bug fixes.
+	+ States compatibility to KSP 1.12.5
+	+ Updates KSPe.Light with bug fixes and 1.12.5 support.
+	+ Closes Issues:
+		- [#246](https://github.com/net-lisias-ksp/TweakScale/issues/246) New bug related to IVA and Cameras when TweakScale is installed.
 * 2022-1116: 2.4.6.18 (Lisias) for KSP >= 1.3
-	+ ***DITCHED***
+	+ A merge error was detected, affecting the KSP dependencies checks, and fixed.
 * 2022-1113: 2.4.6.17r2 (Lisias) for KSP >= 1.3
-	+ ***DITCHED***
+	+ (Finally) Solves a long standing scaling problem related to Stock Buoyancy.
+	+ Solves the problem related to retrieving/storing Science from scaled Pods.
+	+ Makes some error messages easier to understand, as well fixes some pathnames to be useable on Windows. Thanks, [@Hebarusan](https://githu
+b.com/HebaruSan)!
+	+ Updates KSPe.Light to 2.4.1.23
+		- (Hopefully) Mitigates KSP being fired up with the wrong `pwd` - not that KSP will behave as expected, but at least I will not take the blame for it.
+	+ Closes Issues:
+		- [#268](https://github.com/net-lisias-ksp/TweakScale/issues/268) Misbehaviour related to Taking Data from a Pod when it's scaled.
+		- [#252](https://github.com/net-lisias-ksp/TweakScale/issues/252) Scale the Buoyance so the scaled parts has a similar floating capabilities as the original.
 * 2022-1112: 2.4.6.17 (Lisias) for KSP >= 1.3
 	+ ***DITCHED***
-* 2022-0716: 2.5.0.49 **BETA** (Lisias) for KSP >= 1.3 
-	+ Mitigates an undesired collateral effect from the symlink handling on C#'s runtime on MacOS and Linux.
-		- Updates KSPe.Light to 2.4.1.21
-		- Preload the TweakScale's toolbar Icons on the Space Center scene, where mysteriously they are loaded without nasty delays.
-	+ Closes or Rework Issues:
-		- [#187](https://github.com/TweakScale/TweakScale/issues/187) Check and implement all Modules left behind up to 1.3.1
-		- [#184](https://github.com/TweakScale/TweakScale/issues/184) Scale some unsupported parts on EXPERIMENTAL status
-		- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity 
 * 2022-0713: 2.4.6.16 (Lisias) for KSP >= 1.3
 	+ Mitigates an undesired collateral effect from the symlink handling on C#'s runtime on MacOS and Linux.
 		- Updates KSPe.Light to 2.4.1.21
 		- Preload the TweakScale's toolbar Icons on the Space Center scene, where mysteriously they are loaded without nasty delays.
 		- Thanks for the [heads up](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-ksp-130-tweakscale-under-lisias-management-24615-2022-0523/&do=findComment&comment=4153928), [revuwution](https://forum.kerbalspaceprogram.com/index.php?/profile/213676-revuwution/)!
-* 2022-0710: 2.5.0.48 **BETA** (Lisias) for KSP >= 1.3 
-	+ Bug fixes and improvements on the features implemented on the last pre-release.
-	+ Adds new FIXes and CHECKs for known problems
-		- Blue Dog Design Bureau
-		- Tantares
-		- Configurable Containers 
-	+ Closes Issues:
-		- [#260](https://github.com/TweakScale/TweakScale/issues/260) Preventing Configurable Containers from being used without proper Companion Support
-		- [#258](https://github.com/TweakScale/TweakScale/issues/258) TASK: Code a withdraw list of Parts, patchable by ModuleManager
-		- [#34](https://github.com/TweakScale/TweakScale/issues/34) Sanity Check: duplicated properties Support page
-		- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-* 2022-0708: 2.5.0.47 **BETA** (Lisias) for KSP >= 1.3 
-	+ Incepts a Fix/Check Engine to parametrize the Sanity Checks and shove them on the GameData, where they can be patcheable. Will be terribly useful for the TweakScale Companions.
-	+ Moves the Sanitizer Contract (and Interface) to Scale_Redist, so 3rd parties can implement checks without hard dependency on TweakScale.
-* 2022-0627: 2.5.0.46 **BETA** (Lisias) for KSP >= 1.3
-	+ Updates ModuleManagerWatchDog to 1.1.0.1
-	+ Better coping with Curse Installer
-	+ Fixes a brain fart of mine on the AutoScale feature.
-	+ Move the DryCostWriter and SanityChecks out of the Main Menu due Making History
-		- The thing is now executed when LOADING is phasing out, before Main Menu phase in.
-		- This will prevent the race condition I detected when the rig is heavily loaded, but whatever MH is creating on GameDatabase from now on is unchecked.
-	+ Closes Issues:
-		- [#256](https://github.com/TweakScale/TweakScale/issues/256) Move the DryCostWriter (and Sanity Checkes) out of the Main Menu startup
-		- [#255](https://github.com/TweakScale/TweakScale/issues/255) Special Deployment for Curseforge due Scale_Redist
-* 2022-0620: 2.5.0.45 **BETA** (Lisias) for KSP >= 1.3
-	+ **HUGE** refactoring on the Sanity Checks, "exporting" the checks into a dedicated DLL (`Scale_Sanitizer.dll`) at the same time allowing 3rd parties to include their own checks on it.
-	+ Some extra precautions on `EditorHelper`
-	+ Some less (useless) precautions on the Variant Support.
-	+ Closes Issues:
-		- [#254](https://github.com/TweakScale/TweakScale/issues/254) Extract the Sanity Checks in their own DLL
 * 2022-0523: 2.4.6.15 (Lisias) for KSP >= 1.3
 	+ Well, it's a bit embarrassing but I finally detected and fixed a regression on legacy support I inadvertently did when I removed the kludges I made on TweakScale when KSP 1.9.0 was launched.
 		- Long history made short, when I added that kludge, I broke support for [1.4.4 <= KSP <= 1.7.3] and then added another kludge to counter act the first kludge.
@@ -175,34 +114,23 @@
 		- As a side effect, less Scaling Engines are needed now, so we have one less DLL to worry about.
 	+ Additionally, yet another stupidity was detected and fixed on handling Variants (and this one was pretty old...)
 	+ Closes Issues:
-		- [#249](https://github.com/TweakScale/TweakScale/issues/249) Reorganize the Scaling Engines
+		- [#249](https://github.com/net-lisias-ksp/TweakScale/issues/249) Reorganize the Scaling Engines
 * 2022-0522: 2.4.6.14 (Lisias) for KSP >= 1.3
 	+ ***DITCHED*** as a new released was issued in less than 24 hours.
-* 2022-0415: 2.5.0.44 (Lisias) for KSP >= 1.3
-	+ Well, it's a bit embarrassing but I finally detected and fixed a regression on legacy support I inadvertently did when I removed the kludges I made on TweakScale when KSP 1.9.0 was launched.
-		- Long history made short, when I added that kludge, I broke support for [1.4.4 <= KSP <= 1.7.3] and then added another kludge to counter act the first kludge.
-		- Once I removed the 1.9.x kludge and moved it as a proper work around into KSP-Recall, I forgot to remove the second kludge...
-		- As a side effect, less Scaling Engines are needed now, so we have one less DLL to worry about.
-	+ Closes Issues:
-		- [#249](https://github.com/TweakScale/TweakScale/issues/249) Reorganize the Scaling Engines
 * 2022-0508: 2.4.6.13 (Lisias) for KSP >= 1.3
 	+ Fixes a nasty bug about scaling down crewed parts, reported by [robi_243](https://forum.kerbalspaceprogram.com/index.php?/profile/221308-robi_243/) on [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/208059-tweakscale-problem/#comment-4128151). Thanks, dude!!
 	+ Closes Issues:
-		- [#247](https://github.com/TweakScale/TweakScale/issues/247) Scaling down a crewed part makes the crew go M.I.A. and the crew capacity is not restored later!
+		- [#247](https://github.com/net-lisias-ksp/TweakScale/issues/247) Scaling down a crewed part makes the crew go M.I.A. and the crew capacity is not restored later!
 * 2022-0429: 2.4.6.12 (Lisias) for KSP >= 1.3
 	+ Fixes a not so subtle but definitively insidious problem reported by [Alexsys](https://forum.kerbalspaceprogram.com/index.php?/profile/211693-alexsys/). Thanks and sorry, dude!
 	+ Closes Issues:
-		- [#246](https://github.com/TweakScale/TweakScale/issues/246) New bug related to IVA and Cameras when TweakScale is installed
-		- [#222](https://github.com/TweakScale/TweakScale/issues/222) Update KSPe.Light for KSPe
+		- [#246](https://github.com/net-lisias-ksp/TweakScale/issues/246) New bug related to IVA and Cameras when TweakScale is installed
+		- [#222](https://github.com/net-lisias-ksp/TweakScale/issues/222) Update KSPe.Light for KSPe
 * 2022-0415: 2.4.6.11 (Lisias) for KSP >= 1.3
 	+ Fixes a subtile and insidious problem [reported by BTAxis](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-130/&do=findComment&comment=4117283). Thanks, dude!
 	+ Closes Issues:
-		- [#244](https://github.com/TweakScale/TweakScale/issues/244) Reactivating TweakScale is disabling the scaling feature for good
-* 2022-0415: 2.5.0.43 (Lisias) for KSP >= 1.3
-	+ Fixes a subtile and insidious problem [reported by BTAxis](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-130/&do=findComment&comment=4117283). Thanks, dude!
-	+ Closes Issues:
-		- [#244](https://github.com/TweakScale/TweakScale/issues/244) Reactivating TweakScale is disabling the scaling feature for good
-* 2022-0326: 2.5.0.42 **BETA** (Lisias) for KSP >= 1.3
+		- [#244](https://github.com/net-lisias-ksp/TweakScale/issues/244) Reactivating TweakScale is disabling the scaling feature for good
+* 2022-0326: 2.4.6.10 (Lisias) for KSP >= 1.3
 	+ Removes an (now) unnecessary "gambiarra", as KSP-Recall is now fixing the mess on KSP >= 1.9 editor.
 		- A small (and 3rd party safe) fraction of it remains to cover what may be a missing use-case on KSP-Recall, or a fishy code on TweakScale itself. 
 	+ Implements a new Sanity Check against a worrisome situation where a Part is given to TweakScale **without the partInfo**!!!
@@ -211,10 +139,10 @@
 		- No more worries about installing or updating Add'Ons that changes the TweakScale patches.
 		- [All Tweak!!!](https://forum.kerbalspaceprogram.com/index.php?/topic/182700-111x-all-tweak-07-23rdoctober2019/) users, this one is dedicated to you! :) 
 	+ Closes Issues:
-		- [#237](https://github.com/TweakScale/TweakScale/issues/237) New Sanity Check: parts without partInfo!!!
-		- [#236](https://github.com/TweakScale/TweakScale/issues/236) Extent the Scale migration feature to allow switching ScaleTypes and DefaultScales!
-		- [#218](https://github.com/TweakScale/TweakScale/issues/218) Implement GetInfo on TweakScale's Part Module
-* 2022-0322: 2.5.0.41 (Lisias) for KSP >= 1.3 **BETA**
+		- [#237](https://github.com/net-lisias-ksp/TweakScale/issues/237) New Sanity Check: parts without partInfo!!!
+		- [#236](https://github.com/net-lisias-ksp/TweakScale/issues/236) Extent the Scale migration feature to allow switching ScaleTypes and DefaultScales!
+		- [#218](https://github.com/net-lisias-ksp/TweakScale/issues/218) Implement GetInfo on TweakScale's Part Module
+* 2022-0322: 2.4.6.9 (Lisias) for KSP >= 1.3
 	+ ***DITCHED*** because I screwed the pooch on a merge **after testing the thing**, and ended up publishing a crappy release. :(
 		- I need some rest from dayjob. :/ 
 * 2021-1215: 2.4.6.8 (Lisias) for 1.3.0 <= KSP <= 1.12.3
@@ -226,100 +154,56 @@
 	+ ***DITCHED*** due a mishap on the distribution files.
 * 2021-1130: 2.4.6.5 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Closes Issues:
-		- [#219](https://github.com/TweakScale/TweakScale/issues/219) Apparently, OnCopy parts is misbehaving on Parts with Variants
-		- [#86](https://github.com/TweakScale/TweakScale/issues/86) When a root part is scaled, a part attached to it is displaced on the Y axis!
-* 2021-1130: 2.5.0.40 **BETA** (Lisias) for KSP >= 1.3
-	+ Maintenance Release.
-	+ Closes Issues:
-		- [#219](https://github.com/TweakScale/TweakScale/issues/219) Apparently, OnCopy parts is misbehaving on Parts with Variants
-		- [#86](https://github.com/TweakScale/TweakScale/issues/86) When a root part is scaled, a part attached to it is displaced on the Y axis!
+		- [#219](https://github.com/net-lisias-ksp/TweakScale/issues/219) Apparently, OnCopy parts is misbehaving on Parts with Variants
+		- [#86](https://github.com/net-lisias-ksp/TweakScale/issues/86) When a root part is scaled, a part attached to it is displaced on the Y axis!
 * 2021-1123: 2.4.6.4 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Turns off by default (and makes hard to activate) the StealthSave due a (another) bug related to the Upgrade Pipeline.
 	+ Reverts the `KSPe.Light.TweakScale` to the previous release due a shitstorm apparently related to borked `Kernel32.dll` on some systems
 * 2021-1120: 2.4.6.3 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Closes Issues:
-		- [#211](https://github.com/TweakScale/TweakScale/issues/211) Mitigate the HotKeys being hijacked by 3rd-parties
-		- [#209](https://github.com/TweakScale/TweakScale/issues/209) TweakScale not installed on wrong directory
-		- [#197](https://github.com/TweakScale/TweakScale/issues/197) Flags (the parts attachable) are losing the attaching points when its parent is duplicated
-		- [#167](https://github.com/TweakScale/TweakScale/issues/167) Mirror Symmetry is displacing some (all?) parts when scaled
-		- [#139](https://github.com/TweakScale/TweakScale/issues/139) Scaling Part with Variants that change attachment nodes is not working as expecnted
-* 2021-1120: 2.5.0.39 **BETA** (Lisias) for KSP >= 1.3
-	+ Maintenance Release.
-	+ Closes Issues:
-		- [#211](https://github.com/TweakScale/TweakScale/issues/211) Mitigate the HotKeys being hijacked by 3rd-parties
-		- [#209](https://github.com/TweakScale/TweakScale/issues/209) TweakScale not installed on wrong directory
-		- [#197](https://github.com/TweakScale/TweakScale/issues/197) Flags (the parts attachable) are losing the attaching points when its parent is duplicated
-		- [#167](https://github.com/TweakScale/TweakScale/issues/167) Mirror Symmetry is displacing some (all?) parts when scaled
-		- [#139](https://github.com/TweakScale/TweakScale/issues/139) Scaling Part with Variants that change attachment nodes is not working as expecnted
+		- [#211](https://github.com/net-lisias-ksp/TweakScale/issues/211) Mitigate the HotKeys being hijacked by 3rd-parties
+		- [#209](https://github.com/net-lisias-ksp/TweakScale/issues/209) TweakScale not installed on wrong directory
+		- [#197](https://github.com/net-lisias-ksp/TweakScale/issues/197) Flags (the parts attachable) are losing the attaching points when its parent is duplicated
+		- [#167](https://github.com/net-lisias-ksp/TweakScale/issues/167) Mirror Symmetry is displacing some (all?) parts when scaled
+		- [#139](https://github.com/net-lisias-ksp/TweakScale/issues/139) Scaling Part with Variants that change attachment nodes is not working as expecnted
 * 2021-1026: 2.4.6.2 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Fixes some mishaps on the scale types.
 	+ Adds a way to deactivate the StealthSave via MM patching.
 	+ Closes Issues:
-		- [#208](https://github.com/TweakScale/TweakScale/issues/208) Chain Scaling Parts with variants are borking when the parent part is "inverted"
-		- [#207](https://github.com/TweakScale/TweakScale/issues/207) The Upgrade Pipeline thingy (or something else?) is playing havoc with TweakScale 
-		- [#175](https://github.com/TweakScale/TweakScale/issues/175) Wrong displacement of the attached part placed inverted when scaling its parent
-		- [#163](https://github.com/TweakScale/TweakScale/issues/163) Radial Symmetry (when using variants) are misplacing parts.
-		- [#131](https://github.com/TweakScale/TweakScale/issues/131) Chain Scaling parts is playing havoc with the Radial Attachment Positions. 
-		- [#36](https://github.com/TweakScale/TweakScale/issues/36) [TweakScale Warning] Exception during ModulePartVariants interaction
-* 2021-0927: 2.5.0.38 **BETA** (Lisias) for KSP >= 1.3
-	+ Maintenance Release.
-	+ Closes Issues:
-		- [#208](https://github.com/TweakScale/TweakScale/issues/208) Chain Scaling Parts with variants are borking when the parent part is "inverted"
-		- [#207](https://github.com/TweakScale/TweakScale/issues/207) The Upgrade Pipeline thingy (or something else?) is playing havoc with TweakScale 
-		- [#175](https://github.com/TweakScale/TweakScale/issues/175) Wrong displacement of the attached part placed inverted when scaling its parent
-		- [#163](https://github.com/TweakScale/TweakScale/issues/163) Radial Symmetry (when using variants) are misplacing parts.
-		- [#131](https://github.com/TweakScale/TweakScale/issues/131) Chain Scaling parts is playing havoc with the Radial Attachment Positions. 
-		- [#36](https://github.com/TweakScale/TweakScale/issues/36) [TweakScale Warning] Exception during ModulePartVariants interaction
+		- [#208](https://github.com/net-lisias-ksp/TweakScale/issues/208) Chain Scaling Parts with variants are borking when the parent part is "inverted"
+		- [#207](https://github.com/net-lisias-ksp/TweakScale/issues/207) The Upgrade Pipeline thingy (or something else?) is playing havoc with TweakScale 
+		- [#175](https://github.com/net-lisias-ksp/TweakScale/issues/175) Wrong displacement of the attached part placed inverted when scaling its parent
+		- [#163](https://github.com/net-lisias-ksp/TweakScale/issues/163) Radial Symmetry (when using variants) are misplacing parts.
+		- [#131](https://github.com/net-lisias-ksp/TweakScale/issues/131) Chain Scaling parts is playing havoc with the Radial Attachment Positions. 
+		- [#36](https://github.com/net-lisias-ksp/TweakScale/issues/36) [TweakScale Warning] Exception during ModulePartVariants interaction
 * 2021-1016: 2.4.6.1 (Lisias) for 1.3.0 <= KSP <= 1.12.2
 	+ Rolls back an incomplete localization issue that passed through while merging features from the development branch.
 * 2021-1010: 2.4.6.0 (Lisias) for 1.3.0 <= KSP <= 1.12.2
-	* Breaks the 1.4.4 barrier! Now TweakScale supports from KSP 1.3.0 to the latest! **#HURRAY!!**
-	* Resurrects the AutoScale feature. Use `CTRL-L` to activate/deactivate
-		+ A HotKey collision with a 3rd-party add'on is a Known Issue. This will be tackled down on [Issue #202](https://github.com/TweakScale/TweakScale/issues/202).
-	* Updates KSPe.Light.TweakScale to 2.4.0.3
-		+ **ATTENTION!!** : Users of the following TweakScale Companions **must** update them _immediatelly_, as this release breaks binary compatibility (i.e. they will not load!!):
-			- [TSCo_FS](https://github.com/TweakScale/Companion_FS/releases/tag/RELEASE%2F1.1.0.0)
-			- [TSCo_KIS](https://github.com/TweakScale/Companion_KIS/releases)
-			- [TSCo_PKMC](https://github.com/TweakScale/Companion_PKMC/releases)
-			- [TSCo_Visuals](https://github.com/TweakScale/Companion_Visuals/releases/tag/PRERELEASE%2F0.2.0.0)  
-* 2021-0927: 2.5.0.37 **BETA** (Lisias) for KSP >= 1.3
-	+ Maintenance release
-		- Declares the Ground Anchor as Experimental
-		- Updates the code base to the latest KSPe release (2.4.0.1 at this moment)
+	+ Breaks the 1.4.4 barrier! Now TweakScale supports from KSP 1.3.0 to the latest! **#HURRAY!!**
+	+ Resurrects the AutoScale feature. Use `CTRL-L` to activate/deactivate
+		- A HotKey collision with a 3rd-party add'on is a Known Issue. This will be tackled down on [Issue #202](https://github.com/net-lisias-ksp/TweakScale/issues/202).
+	+ Updates KSPe.Light.TweakScale to 2.4.0.4
+		- **ATTENTION!!** : Users of the following TweakScale Companions **must** update them _immediatelly_, as this release breaks binary compatibility (i.e. they will not load!!):
+			- [TSCo_FS](https://github.com/net-lisias-ksp/TweakScaleCompanion_FS/releases/tag/RELEASE%2F1.1.0.0)
+			- [TSCo_KIS](https://github.com/net-lisias-ksp/TweakScaleCompanion_KIS/releases)
+			- [TSCo_PKMC](https://github.com/net-lisias-ksp/TweakScaleCompanion_PKMC/releases)
+			- [TSCo_Visuals](https://github.com/net-lisias-ksp/TweakScaleCompanion_Visuals/releases/tag/PRERELEASE%2F0.2.0.0)  
 * 2021-0925: 2.4.5.9 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ Adds (missing) patches for 3 parts that I left behind:
 		+ LV-T30 Reliant V2
 		+ LV-T45 Swivel V2
 		+ Ground Anchor (in Experimental yet)
 	+ Ongoing savegames still using the 'V1' parts didn't noticed the bork, because these parts still exists on the game (they are only hidden) and are being scaled normally. Only new crafts and savegames were being hindered by the absence of these two patches.
-* 2021-0922: 2.5.0.36 Beta (Lisias) for KSP >= 1.3.1
-	+ Recompiled against the new KSPe 2.4.0.0
-		- [Update before using](https://github.com/net-lisias-ksp/KSPAPIExtensions/releases/tag/RELEASE%2F2.4.0.0), it's a hard dependency on the new Version. 
 * 2021-0913: 2.4.5.8 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ Fixes (again) the Decluttering thingy. 
 	+ Closes Issues:
-		- [#201](https://github.com/TweakScale/TweakScale/issues/201) The "Decluttering" Feature from 2.5.4.4 is breaking KCT
-* 2021-0913: 2.5.0.35 Beta (Lisias) for KSP >= 1.3.1
-	+ Fixes (again) the Decluttering thingy. 
-	+ Closes Issues:
-		- [#201](https://github.com/TweakScale/TweakScale/issues/201) The "Decluttering" Feature from 2.5.4.4 is breaking KCT
+		- [#201](https://github.com/net-lisias-ksp/TweakScale/issues/201) The "Decluttering" Feature from 2.5.4.4 is breaking KCT
 * 2021-0912: 2.4.5.7 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ Better compatibility with 3rd Party Add'Ons when Decluttering. 
 	+ Closes Issues:
-		- [#201](https://github.com/TweakScale/TweakScale/issues/201) The "Decluttering" Feature from 2.5.4.4 is breaking KCT
-* 2021-0912: 2.5.0.34 Beta (Lisias) for KSP >= 1.3.1
-	+ Catches up all fixes already published on mainstream.
-	+ Implements support for **ALL** KSP versions downto 1.3.1 !!! #HURRAY!!
-		- Specialised DLLs loaded under demand, thanks KSPe!
-		- 1.2.2, however, will need more work. Unsure if it worths it.
-	+ Better compatibility with 3rd Party Add'Ons when Decluttering. 
-	+ Closes Issues:
-		- [#201](https://github.com/TweakScale/TweakScale/issues/201) The "Decluttering" Feature from 2.5.4.4 is breaking KCT
-		- [#198](https://github.com/TweakScale/TweakScale/issues/198) Breakdown Scaling support for each major KSP version in specialised DLLs
-* 2021-0912: 2.5.0.33 Beta (Lisias) for KSP >= 1.3.1
-	+ Ditching this version as a new release was made on the same day. 
+		- [#201](https://github.com/net-lisias-ksp/TweakScale/issues/201) The "Decluttering" Feature from 2.5.4.4 is breaking KCT
 * 2021-0911: 2.4.5.5 (Lisias) for 1.4.4 <= KSP <= 1.12.2
-	+ Re-release for Spacedock, as I managed to upload the wrong package. 
+	+ Re-release for Spacedock, as I managed to upload the wrong package.
 * 2021-0907: 2.4.5.4 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ Declutters craft files, preventing TweakScale MODULE nodes from being written on it when the part is not scaled or it's deactivated.
 		- Now your unscaled crafts can be shared on KerbalX *et all* without being tagged as using TweakScale.
@@ -329,7 +213,7 @@
 		- Add sanity checks for `999_Scale_Redist.dll`
 		- Add sanity checks for `Interstallar_Redist.dll`
 	+ Closes Issues:
-		- [#85](https://github.com/TweakScale/TweakScale/issues/85) Clean TweakScale's Module from unchanged parts on save 
+		- [#85](https://github.com/net-lisias-ksp/TweakScale/issues/85) Clean TweakScale's Module from unchanged parts on save 
 * 2021-0823: 2.4.5.3 (Lisias) for 1.4.4 <= KSP <= 1.12.2
 	+ **DITCHED**
 	+ Since I borked (again) the release on the Spacedock, I'm jumping this version to prevent playing havoc with CKAN.
@@ -341,13 +225,13 @@
 		+ A lot of patches are not fully tested, and some Exponents will probably need revising.
 		+ Since both these patches itself, as well the unavoidable revisions that will follow may unbalance current crafts in savegames, it's advised discretion on activating the Experimental features.
 	+ Closes Issues:
-		- [#186](https://github.com/TweakScale/TweakScale/issues/186) Check and implement all Modules left behind from 1.4.0 up to 1.10.1
-		- [#184](https://github.com/TweakScale/TweakScale/issues/184) Scale some unsupported parts on EXPERIMENTAL status
-		- [#182](https://github.com/TweakScale/TweakScale/issues/182) Get rid of TODOs related to updating scale types.
-		- [#181](https://github.com/TweakScale/TweakScale/issues/181) Support the new Parts introduced on KSP 1.12 and Update Scale Exponents to the new Modules
-		- [#128](https://github.com/TweakScale/TweakScale/issues/128) Support the new Parts introduced on KSP 1.12 and Update Scale Exponents to the new Modules
-		- [#120](https://github.com/TweakScale/TweakScale/issues/120) Support the new Parts introduced on KSP 1.10
-		- [#50](https://github.com/TweakScale/TweakScale/issues/150) Support the new Parts introduced on KSP 1.11 and Update Scale Exponents to the new Modules
+		- [#186](https://github.com/net-lisias-ksp/TweakScale/issues/186) Check and implement all Modules left behind from 1.4.0 up to 1.10.1
+		- [#184](https://github.com/net-lisias-ksp/TweakScale/issues/184) Scale some unsupported parts on EXPERIMENTAL status
+		- [#182](https://github.com/net-lisias-ksp/TweakScale/issues/182) Get rid of TODOs related to updating scale types.
+		- [#181](https://github.com/net-lisias-ksp/TweakScale/issues/181) Support the new Parts introduced on KSP 1.12 and Update Scale Exponents to the new Modules
+		- [#128](https://github.com/net-lisias-ksp/TweakScale/issues/128) Support the new Parts introduced on KSP 1.12 and Update Scale Exponents to the new Modules
+		- [#120](https://github.com/net-lisias-ksp/TweakScale/issues/120) Support the new Parts introduced on KSP 1.10
+		- [#50](https://github.com/net-lisias-ksp/TweakScale/issues/150) Support the new Parts introduced on KSP 1.11 and Update Scale Exponents to the new Modules
 * 2021-0627: 2.4.5.1 (Lisias) for 1.4.4 <= KSP <= 1.12.0
 	+ Allows running on KSP 1.12.0 without an warning
 	+ Warns the user to install KSP Recall on KSP 1.12.x too.
@@ -360,52 +244,32 @@
 	+ Allows running on KSP 1.11.2 without an warning
 	+ Warns the user to install KSP Recall on KSP 1.11.x too.
 	+ Closes Issues:
-		- [#165](https://github.com/TweakScale/TweakScale/issues/165) Issue with TweakScale instal 
+		- [#165](https://github.com/net-lisias-ksp/TweakScale/issues/165) Issue with TweakScale instal 
 			- Related to CurseForge. 
-* 2021-0410: 2.5.0.32 Beta (Lisias) for KSP >= 1.4.4
-	+ Declutters craft files, preventing TweakScale MODULE nodes from begin written on it when the part is not scaled or it's deactivated.
-		- Now your unscaled crafts can be shared on KerbalX *et all* without being tagged as using TweakScale.
-		- And you can play Challenges where TweakScale is not allowed without deinstalling TweakScale - or creating a new installment just because of it.
-	+ Closes Issues:
-		- [#85](https://github.com/TweakScale/TweakScale/issues/85) Clean TweakScale's Module from unchanged parts on save 
-* 2021-0403: 2.5.0.31 Beta (Lisias) for KSP >= 1.4.4
-	+ Implements `Active` and `Available` properties for runtime, part by part, control of availability of TweakScale features.
-		- `Active` controls if TweakScale will be activated for a given part.
-			- Inactivated Tweakscale will revert to the default scale, and the user will not be able to rescale the part unless he/she reactivate it using the PAW. No Scaling controls are enabled when inactivated.
-		- `Available` controls if TweakScale widgets on PAW will be available for the user, being it active or not.
-			- This can lock the current TweakScale state, as the user will not be able to change it.
-			- Can only be set (or reset) programatically or by patches.   
-		- Perfect for Challenges and Custom, dedicated Savegames. 
-	+ Recognises KSP 1.11.2 as a supported version.
-* 2021-0212: 2.5.0.30 Beta (Lisias) for KSP >= 1.4.4
-	+ Back to the beta program!
-	+ Consolidates all changes up to Release 2.4.4.5
-	+ Some minor code compliance and preemptive bug fixes
-	+ **Ressurrects** the long gone **AutoScale** #HURRAY!!!!
 * 2021-0120: 2.4.4.5 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ Fix some somewhat embarrassing bugs on the default patching.
 		- Thank you very much, [AccidentalDisassembly](https://forum.kerbalspaceprogram.com/index.php?/profile/110936-accidentaldisassembly/)!
 	+ Closes Issues:
-		- [#158](https://github.com/TweakScale/TweakScale/issues/158) Duplicate TS patches in provided .cfgs
-		- [#157](https://github.com/TweakScale/TweakScale/issues/157) Missing or extra curly braces
+		- [#158](https://github.com/net-lisias-ksp/TweakScale/issues/158) Duplicate TS patches in provided .cfgs
+		- [#157](https://github.com/net-lisias-ksp/TweakScale/issues/157) Missing or extra curly braces
 * 2021-0108: 2.4.4.4 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ Fix a nasty regression on scaling drag cubes. Sorry.
 	+ Closes Issues:
-		- [#155](https://github.com/TweakScale/TweakScale/issues/155) Drag is being terribly scaled!
+		- [#155](https://github.com/net-lisias-ksp/TweakScale/issues/155) Drag is being terribly scaled!
 * 2021-0105: 2.4.4.3 R2 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ Same old 2.4.4.3 release, but with some additional dummy patches to prevent FATALities when updating over a dirty TweakScale folder.
 	+ Fix some regressions from 2.4.4.2 that passed through.
 	+ Updates KSPe.Light for TweakScale
 	+ Closes Issues:
-		- [#154](https://github.com/TweakScale/TweakScale/issues/154) Problems on loading crafts with parts with variants that are surface attached
-		- [#143](https://github.com/TweakScale/TweakScale/issues/143) Wait for KSP Recall to close its issue #9 *AND* #11
+		- [#154](https://github.com/net-lisias-ksp/TweakScale/issues/154) Problems on loading crafts with parts with variants that are surface attached
+		- [#143](https://github.com/net-lisias-ksp/TweakScale/issues/143) Wait for KSP Recall to close its issue #9 *AND* #11
 * 2021-0104: 2.4.4.3 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ ***ditched***
 * 2020-1228: 2.4.4.2 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ Fixes a NRE that passed through unattended for some time since last refactoring.
 	+ **FINALLY** identified the merge error that leaked a duplicated patch file into the distribution stream!
 	+ Closes issues:
-		- [#152](https://github.com/TweakScale/TweakScale/issues/152) Unexpected NRE while initialising scaled parts on launch
+		- [#152](https://github.com/net-lisias-ksp/TweakScale/issues/152) Unexpected NRE while initialising scaled parts on launch
 * 2020-1228: 2.4.4.1 (Lisias) for 1.4.4 <= KSP <= 1.11.1
 	+ ***DITCHED***
 * 2020-1226: 2.4.4.0 (Lisias) for 1.4.4 <= KSP <= 1.11.1
@@ -415,737 +279,55 @@
 	+ From now on, tweakScale is licensed under [SKP 1.0](https://ksp.lisias.net/SKL-1_0.txt) **or** [GPL 2.0](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
 		- See [KNOWN ISSUES](./KNOWN_ISSUES.md) if you think this can affect you somehow.
 	+ Closes issues:
-		- [#141](https://github.com/TweakScale/TweakScale/issues/141) Latest beta - interaction with Ground Construction...
-		- [#126](https://github.com/TweakScale/TweakScale/issues/126) Changing the scale of an attached part doesn't update the Craft Cost on the spot.
+		- [#141](https://github.com/net-lisias-ksp/TweakScale/issues/141) Latest beta - interaction with Ground Construction...
+		- [#126](https://github.com/net-lisias-ksp/TweakScale/issues/126) Changing the scale of an attached part doesn't update the Craft Cost on the spot.
 	+ Formally closes the following issues, backporting (almost) all fixes from the Beta Releases up to 2.5.0.27
-		- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-		- [#142](https://github.com/TweakScale/TweakScale/issues/142) Add ignoreResourcesForCost to the TweakScale module attributes
-		- [#138](https://github.com/TweakScale/TweakScale/issues/138) Expand TweakScaleCompanion_NF#2 (suppress warnings due empty configs)
-		- [#137](https://github.com/TweakScale/TweakScale/issues/137) Prevent havoc from patches that changed the scaling on the prefab.
-		- [#136](https://github.com/TweakScale/TweakScale/issues/136) Config getting skipped during creation. 
-		- [#125](https://github.com/TweakScale/TweakScale/issues/125) The new deactivation process (due sanity checks) is preventing parts with TweakScale deactivated to be attached 
-		- [#124](https://github.com/TweakScale/TweakScale/issues/124) Script error (TweakScale): OnDestroy() can not take parameters.
-		- [#119](https://github.com/TweakScale/TweakScale/issues/119) Remove TweakScale's handler from the onEditorShipModified when the part is Destroyed
-		- [#115](https://github.com/TweakScale/TweakScale/issues/115) KSP 1.10 Support Status
-		- [#114](https://github.com/TweakScale/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
-		- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-		- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-		- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-		- [#87](https://github.com/TweakScale/TweakScale/issues/87) Wrong default scales (partial)
-		- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-		- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-		- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-		- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs
-		- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches (concluded)
-		- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-		- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-		- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-		- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-		- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-		- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-		- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
+		- [TSC_FS#2](https://github.com/net-lisias-ksp/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
+		- [TSC_FS#1](https://github.com/net-lisias-ksp/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
+		- [#142](https://github.com/net-lisias-ksp/TweakScale/issues/142) Add ignoreResourcesForCost to the TweakScale module attributes
+		- [#138](https://github.com/net-lisias-ksp/TweakScale/issues/138) Expand TweakScaleCompanion_NF#2 (suppress warnings due empty configs)
+		- [#137](https://github.com/net-lisias-ksp/TweakScale/issues/137) Prevent havoc from patches that changed the scaling on the prefab.
+		- [#136](https://github.com/net-lisias-ksp/TweakScale/issues/136) Config getting skipped during creation. 
+		- [#125](https://github.com/net-lisias-ksp/TweakScale/issues/125) The new deactivation process (due sanity checks) is preventing parts with TweakScale deactivated to be attached 
+		- [#124](https://github.com/net-lisias-ksp/TweakScale/issues/124) Script error (TweakScale): OnDestroy() can not take parameters.
+		- [#119](https://github.com/net-lisias-ksp/TweakScale/issues/119) Remove TweakScale's handler from the onEditorShipModified when the part is Destroyed
+		- [#115](https://github.com/net-lisias-ksp/TweakScale/issues/115) KSP 1.10 Support Status
+		- [#114](https://github.com/net-lisias-ksp/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
+		- [#110](https://github.com/net-lisias-ksp/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
+		- [#106](https://github.com/net-lisias-ksp/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
+		- [#103](https://github.com/net-lisias-ksp/TweakScale/issues/103) Implement KSP Recall :: Attachment support
+		- [#101](https://github.com/net-lisias-ksp/TweakScale/issues/101) Add Support for KSP 1.9
+		- [#98](https://github.com/net-lisias-ksp/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
+		- [#95](https://github.com/net-lisias-ksp/TweakScale/issues/95) Give some care to the Warnings system
+		- [#87](https://github.com/net-lisias-ksp/TweakScale/issues/87) Wrong default scales (partial)
+		- [#76](https://github.com/net-lisias-ksp/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
+		- [#74](https://github.com/net-lisias-ksp/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
+		- [#73](https://github.com/net-lisias-ksp/TweakScale/issues/73) Support the new parts for KSP 1.8 
+		- [#71](https://github.com/net-lisias-ksp/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
+		- [#69](https://github.com/net-lisias-ksp/TweakScale/issues/69) Act on deprecated or misplaced patches
+		- [#65](https://github.com/net-lisias-ksp/TweakScale/issues/65) Support for new Nertea's Cryo Engines
+		- [#58](https://github.com/net-lisias-ksp/TweakScale/issues/58) Mk4 System Patch (addendum)
+		- [#57](https://github.com/net-lisias-ksp/TweakScale/issues/57) Implement Warning Dialogs
+		- [#56](https://github.com/net-lisias-ksp/TweakScale/issues/56) "Breaking Parts" patches (concluded)
+		- [#54](https://github.com/net-lisias-ksp/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
+		- [#51](https://github.com/net-lisias-ksp/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
+		- [#50](https://github.com/net-lisias-ksp/TweakScale/issues/50) Check the patches for currently supported Add'Ons
+		- [#49](https://github.com/net-lisias-ksp/TweakScale/issues/49) Check the Default patches for problems due wildcard!
+		- [#48](https://github.com/net-lisias-ksp/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
+		- [#47](https://github.com/net-lisias-ksp/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
+		- [#46](https://github.com/net-lisias-ksp/TweakScale/issues/46) Feasibility Studies for Serenity
 			- Added scaling to Proppelers 
-		- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-		- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-		- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-		- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-		- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-		- [#13](https://github.com/TweakScale/TweakScale/issues/13) Properly support ModulePartVariants #HURRAY
-		- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-		- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-		- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-* 2020-1125: 2.5.0.29 Beta (Lisias) for KSP >= 1.4.4
-	+ I missed a detail, I didn't accounted for the `attPos` atribute (moving an attached part with the "Move" tool). Fixed.
-* 2020-1123: 2.5.0.28 Beta (Lisias) for KSP >= 1.4.4
-	+ Scaled parts with Variants now correctly translates the attached part when applying variants #HURRAY
-		- As long the part has no symmetry, when things get completely screwed up...
-		- See [this comment](https://github.com/TweakScale/TweakScale/issues/42#issuecomment-732321477) on [Issue #42](https://github.com/TweakScale/TweakScale/issues/42) for details.
-* 2020-1113: 2.5.0.27 Beta (Lisias) for KSP >= 1.4.4
-	+ Fixes a regression on Chain Scaling introduced on .25 and passed undetected on .26.
-	+ (Almost) implements changing variants on scaled part
-		+ There's something missing yet that affects the repositioning, specially on the Mastodon. 
-	+ Known Issues:
-		- Scaling parts with variants that change attachment nodes have a glitch, affecting:
-			- The Mastodon engine
-			- The Structural Tubes
-				- T-12
-				- T-18
-				- T-25
-				- T-37
-				- T-50
-			- And probably more, as Add'Ons starts to use such feature.
-			- See [this comment](https://github.com/TweakScale/TweakScale/issues/42#issuecomment-726428889) on [Issue #42](https://github.com/TweakScale/TweakScale/issues/42) for details.
-		- Detaching and reattaching the Mastodon work arounds the problem on the engine.
-		- Detaching and reattaching the parts attached to a scaled tube work arounds the problem with the tubes.
-		- Things on KSP 1.9 are yet more problematic. [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall/issues/9) will tackle this down.
-	+ This is a beta release, merging the latest fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.23
-			- [#142](https://github.com/TweakScale/TweakScale/issues/142) Add ignoreResourcesForCost to the TweakScale module attributes
-			- [#87](https://github.com/TweakScale/TweakScale/issues/87) Wrong default scales (partial)
-		- 2.5.0.21
-			- [#138](https://github.com/TweakScale/TweakScale/issues/138) Expand TweakScaleCompanion_NF#2 (suppress warnings due empty configs)
-			- [#13](https://github.com/TweakScale/TweakScale/issues/13) Properly support ModulePartVariants #HURRAY
-		- 2.5.0.20
-			- [#137](https://github.com/TweakScale/TweakScale/issues/137) Prevent havoc from patches that changed the scaling on the prefab.
-			- [#136](https://github.com/TweakScale/TweakScale/issues/136) Config getting skipped during creation. 
-		- 2.5.0.16
-			- [#125](https://github.com/TweakScale/TweakScale/issues/125) The new deactivation process (due sanity checks) is preventing parts with TweakScale deactivated to be attached 
-		- 2.5.0.15
-			- [#124](https://github.com/TweakScale/TweakScale/issues/124) Script error (TweakScale): OnDestroy() can not take parameters.
-			- [#119](https://github.com/TweakScale/TweakScale/issues/119) Remove TweakScale's handler from the onEditorShipModified when the part is Destroyed
-		- 2.5.0.14
-			- [#115](https://github.com/TweakScale/TweakScale/issues/115) KSP 1.10 Support Status
-			- [#114](https://github.com/TweakScale/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
-		- 2.5.0.13
-			- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
-		- Bug reports for this release **should be issued on the [Issue #42](https://github.com/TweakScale/TweakScale/issues/42) only**, as development problems are not considered "bugs" and should not clutter the back log where real issues happening the field need to be tackled down
-* 2020-1112: 2.5.0.26 Beta (Lisias) for KSP >= 1.4.4
-	+ (Almost) implements changing variants on scaled part
-		+ There's something missing yet that affects the repositioning, specially on the Mastodon. 
-	+ Known Issues:
-		- Scaling parts with variants that change attachment nodes have a glitch, affecting:
-			- The Mastodon engine
-			- The Structural Tubes
-				- T-12
-				- T-18
-				- T-25
-				- T-37
-				- T-50
-			- And probably more, as Add'Ons starts to use such feature.
-			- See [this comment](https://github.com/TweakScale/TweakScale/issues/42#issuecomment-726428889) on [Issue #42](https://github.com/TweakScale/TweakScale/issues/42) for details.
-		- Detaching and reattaching the Mastodon work arounds the problem on the engine.
-		- Detaching and reattaching the parts attached to a scaled tube work arounds the problem with the tubes.
-		- Things on KSP 1.9 are yet more problematic. [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall/issues/9) will tackle this down.
-	+ This is a beta release, merging the latest fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.23
-			- [#142](https://github.com/TweakScale/TweakScale/issues/142) Add ignoreResourcesForCost to the TweakScale module attributes
-			- [#87](https://github.com/TweakScale/TweakScale/issues/87) Wrong default scales (partial)
-		- 2.5.0.21
-			- [#138](https://github.com/TweakScale/TweakScale/issues/138) Expand TweakScaleCompanion_NF#2 (suppress warnings due empty configs)
-			- [#13](https://github.com/TweakScale/TweakScale/issues/13) Properly support ModulePartVariants #HURRAY
-		- 2.5.0.20
-			- [#137](https://github.com/TweakScale/TweakScale/issues/137) Prevent havoc from patches that changed the scaling on the prefab.
-			- [#136](https://github.com/TweakScale/TweakScale/issues/136) Config getting skipped during creation. 
-		- 2.5.0.16
-			- [#125](https://github.com/TweakScale/TweakScale/issues/125) The new deactivation process (due sanity checks) is preventing parts with TweakScale deactivated to be attached 
-		- 2.5.0.15
-			- [#124](https://github.com/TweakScale/TweakScale/issues/124) Script error (TweakScale): OnDestroy() can not take parameters.
-			- [#119](https://github.com/TweakScale/TweakScale/issues/119) Remove TweakScale's handler from the onEditorShipModified when the part is Destroyed
-		- 2.5.0.14
-			- [#115](https://github.com/TweakScale/TweakScale/issues/115) KSP 1.10 Support Status
-			- [#114](https://github.com/TweakScale/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
-		- 2.5.0.13
-			- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
-		- Bug reports for this release **should be issued on the [Issue #42](https://github.com/TweakScale/TweakScale/issues/42) only**, as development problems are not considered "bugs" and should not clutter the back log where real issues happening the field need to be tackled down
-* 2020-1023: 2.5.0.25 Beta (Lisias) for KSP >= 1.4.4
-	+ Correctly implements scaling Mass and Cost.
-		- Again. 
-	+ Fixes a regression where symmetry counterparts were not being scaled.
-		- Thanks for the [report](https://github.com/TweakScale/TweakScale/issues/42#issuecomment-703414755), AccidentalDisassembly! 
-	+ Fixes the Scale Chaining when non scalable parts are present.
-	+ Known Issues:
-		- Scaling parts with variants that change attachment nodes are still problematic at this moment affecting:
-			- The Mastodon engine
-			- The Structural Tubes
-				- T-12
-				- T-18
-				- T-25
-				- T-37
-				- T-50
-			- And probably more, as Add'Ons starts to use such feature.
-		- Detaching and reattaching the Mastodon work arounds the problem on the engine.
-		- Detaching and reattaching the parts attached to a scaled tube work arounds the problem with the tubes.
-		- Things on KSP 1.9 are yet more problematic. [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall/issues/9) will tackle this down.
-	+ This is a beta release, merging the latest fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.23
-			- [#142](https://github.com/TweakScale/TweakScale/issues/142) Add ignoreResourcesForCost to the TweakScale module attributes
-			- [#87](https://github.com/TweakScale/TweakScale/issues/87) Wrong default scales (partial)
-		- 2.5.0.21
-			- [#138](https://github.com/TweakScale/TweakScale/issues/138) Expand TweakScaleCompanion_NF#2 (suppress warnings due empty configs)
-			- [#13](https://github.com/TweakScale/TweakScale/issues/13) Properly support ModulePartVariants #HURRAY
-		- 2.5.0.20
-			- [#137](https://github.com/TweakScale/TweakScale/issues/137) Prevent havoc from patches that changed the scaling on the prefab.
-			- [#136](https://github.com/TweakScale/TweakScale/issues/136) Config getting skipped during creation. 
-		- 2.5.0.16
-			- [#125](https://github.com/TweakScale/TweakScale/issues/125) The new deactivation process (due sanity checks) is preventing parts with TweakScale deactivated to be attached 
-		- 2.5.0.15
-			- [#124](https://github.com/TweakScale/TweakScale/issues/124) Script error (TweakScale): OnDestroy() can not take parameters.
-			- [#119](https://github.com/TweakScale/TweakScale/issues/119) Remove TweakScale's handler from the onEditorShipModified when the part is Destroyed
-		- 2.5.0.14
-			- [#115](https://github.com/TweakScale/TweakScale/issues/115) KSP 1.10 Support Status
-			- [#114](https://github.com/TweakScale/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
-		- 2.5.0.13
-			- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
-		- Bug reports for this release **should be issued on the [Issue #42](https://github.com/TweakScale/TweakScale/issues/42) only**, as development problems are not considered "bugs" and should not clutter the back log where real issues happening the field need to be tackled down
-* 2020-0918: 2.5.0.24 Beta (Lisias) for KSP >= 1.4.4
-	+ Alleviates a bit the scaling issues on parts with Variants with Attachment Nodes introduced on .23
-		- Still don't works as it should, but now the nodes are not messed up, so savegames will be good now.
-	+ Known Issues:
-		- Scaling parts with variants that change attachment nodes is problematic at this moment affecting:
-			- The Mastodon engine
-			- The Structural Tubes
-				- T-12
-				- T-18
-				- T-25
-				- T-37
-				- T-50
-			- And probably more, as Add'Ons starts to use such feature.
-		- Detaching and reattaching the Mastodon work arounds the problem on the engine.
-		- Detaching and reattaching the parts attached to a scaled tube work arounds the problem with the tubes.
-		- Things on KSP 1.9 are yet more problematic. [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall/issues/9) will tackle this down.
-	+ This is a beta release, merging the latest fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.23
-			- [#142](https://github.com/TweakScale/TweakScale/issues/142) Add ignoreResourcesForCost to the TweakScale module attributes
-			- [#87](https://github.com/TweakScale/TweakScale/issues/87) Wrong default scales (partial)
-		- 2.5.0.21
-			- [#138](https://github.com/TweakScale/TweakScale/issues/138) Expand TweakScaleCompanion_NF#2 (suppress warnings due empty configs)
-			- [#13](https://github.com/TweakScale/TweakScale/issues/13) Properly support ModulePartVariants #HURRAY
-		- 2.5.0.20
-			- [#137](https://github.com/TweakScale/TweakScale/issues/137) Prevent havoc from patches that changed the scaling on the prefab.
-			- [#136](https://github.com/TweakScale/TweakScale/issues/136) Config getting skipped during creation. 
-		- 2.5.0.16
-			- [#125](https://github.com/TweakScale/TweakScale/issues/125) The new deactivation process (due sanity checks) is preventing parts with TweakScale deactivated to be attached 
-		- 2.5.0.15
-			- [#124](https://github.com/TweakScale/TweakScale/issues/124) Script error (TweakScale): OnDestroy() can not take parameters.
-			- [#119](https://github.com/TweakScale/TweakScale/issues/119) Remove TweakScale's handler from the onEditorShipModified when the part is Destroyed
-		- 2.5.0.14
-			- [#115](https://github.com/TweakScale/TweakScale/issues/115) KSP 1.10 Support Status
-			- [#114](https://github.com/TweakScale/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
-		- 2.5.0.13
-			- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
-* 2020-0917: 2.5.0.23 Beta (Lisias) for KSP >= 1.4.4
-	+ Fixes the DryCost problem introduced on .22
-	+ Known Issues:
-		- Scaling parts with variants that change attachment nodes is problematic at this moment, affecting:
-			- The Mastodon engine
-			- The Tubes
-		- Detaching and reattaching the Mastodon work arounds the problem on the engine, but the Tubes are really problematic and I don't have a workaround for it by now.
-	+ This is a beta release, merging the latest fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.23
-			- [#142](https://github.com/TweakScale/TweakScale/issues/142) Add ignoreResourcesForCost to the TweakScale module attributes
-			- [#87](https://github.com/TweakScale/TweakScale/issues/87) Wrong default scales (partial)
-		- 2.5.0.21
-			- [#138](https://github.com/TweakScale/TweakScale/issues/138) Expand TweakScaleCompanion_NF#2 (suppress warnings due empty configs)
-			- [#13](https://github.com/TweakScale/TweakScale/issues/13) Properly support ModulePartVariants #HURRAY
-		- 2.5.0.20
-			- [#137](https://github.com/TweakScale/TweakScale/issues/137) Prevent havoc from patches that changed the scaling on the prefab.
-			- [#136](https://github.com/TweakScale/TweakScale/issues/136) Config getting skipped during creation. 
-		- 2.5.0.16
-			- [#125](https://github.com/TweakScale/TweakScale/issues/125) The new deactivation process (due sanity checks) is preventing parts with TweakScale deactivated to be attached 
-		- 2.5.0.15
-			- [#124](https://github.com/TweakScale/TweakScale/issues/124) Script error (TweakScale): OnDestroy() can not take parameters.
-			- [#119](https://github.com/TweakScale/TweakScale/issues/119) Remove TweakScale's handler from the onEditorShipModified when the part is Destroyed
-		- 2.5.0.14
-			- [#115](https://github.com/TweakScale/TweakScale/issues/115) KSP 1.10 Support Status
-			- [#114](https://github.com/TweakScale/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
-		- 2.5.0.13
-			- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
-* 2020-0905: 2.5.0.22 Beta (Lisias) for KSP >= 1.4.4
-	+ Maintenance release, fixing some badly implemented features on the .21 one.  
-* 2020-0905: 2.5.0.21 Beta (Lisias) for KSP >= 1.4.4 
-	+ Raises the bar to KSP 1.4.4, as Variant with Mass and Costs started to be supported only from this version.
-	+ This is a beta release, merging the latest fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.21
-			- [#138](https://github.com/TweakScale/TweakScale/issues/138) Expand TweakScaleCompanion_NF#2 (suppress warnings due empty configs)
-			- [#13](https://github.com/TweakScale/TweakScale/issues/13) Properly support ModulePartVariants #HURRAY
-		- 2.5.0.20
-			- [#137](https://github.com/TweakScale/TweakScale/issues/137) Prevent havoc from patches that changed the scaling on the prefab.
-			- [#136](https://github.com/TweakScale/TweakScale/issues/136) Config getting skipped during creation. 
-		- 2.5.0.16
-			- [#125](https://github.com/TweakScale/TweakScale/issues/125) The new deactivation process (due sanity checks) is preventing parts with TweakScale deactivated to be attached 
-		- 2.5.0.15
-			- [#124](https://github.com/TweakScale/TweakScale/issues/124) Script error (TweakScale): OnDestroy() can not take parameters.
-			- [#119](https://github.com/TweakScale/TweakScale/issues/119) Remove TweakScale's handler from the onEditorShipModified when the part is Destroyed
-		- 2.5.0.14
-			- [#115](https://github.com/TweakScale/TweakScale/issues/115) KSP 1.10 Support Status
-			- [#114](https://github.com/TweakScale/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
-		- 2.5.0.13
-			- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)	
-* 2020-0830: 2.5.0.20 Beta (Lisias) for KSP >= 1.4.1 
-	+ Updating KSPe.Light for TweakScale
-		- Needed as some Companions will need it soon. 
-	+ Fixed mishaps on withdrawing `TweakScale` from insane parts
-	+ Lifting the ban on KSP 1.10.1
-	+ Fixing an error on handling Warnings and Houstons where a warning would occlude a Houston!
-	+ New helpers for the Companions.
-	+ Better (and safer) deactivation code using info gathered from [TweakScale](https://github.com/TweakScale/TweakScale/issues/125).
-	+ Updating the Houston for KSP-Recall
-		- Only KSP 1.9.x needs it, currently. 
-	+ This is a beta release, merging the latest fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.20
-			- [#137](https://github.com/TweakScale/TweakScale/issues/137) Prevent havoc from patches that changed the scaling on the prefab.
-			- [#136](https://github.com/TweakScale/TweakScale/issues/136) Config getting skipped during creation. 
-		- 2.5.0.16
-			- [#125](https://github.com/TweakScale/TweakScale/issues/125) The new deactivation process (due sanity checks) is preventing parts with TweakScale deactivated to be attached 
-		- 2.5.0.15
-			- [#124](https://github.com/TweakScale/TweakScale/issues/124) Script error (TweakScale): OnDestroy() can not take parameters.
-			- [#119](https://github.com/TweakScale/TweakScale/issues/119) Remove TweakScale's handler from the onEditorShipModified when the part is Destroyed
-		- 2.5.0.14
-			- [#115](https://github.com/TweakScale/TweakScale/issues/115) KSP 1.10 Support Status
-			- [#114](https://github.com/TweakScale/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
-		- 2.5.0.13
-			- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)	
-* 2020-0830: 2.5.0.19 Beta (Lisias) for KSP >= 1.4.1 
-	+ **Withdrawn**
-		- Superseded by 2.5.0.20. 
-* 2020-0829: 2.5.0.18 Beta (Lisias) for KSP >= 1.4.1 
-	+ Updating KSPe.Light for TweakScale
-		- Needed as some Companions will need it soon. 
-* 2020-0822: 2.5.0.17 Beta (Lisias) for KSP >= 1.4.1 
-	+ Fixed mishaps on withdrawing `TweakScale` from insane parts
-	+ Lifting the ban on KSP 1.10.1
-	+ Fixing an error on handling Warnings and Houstons where a warning would occlude a Houston!
+		- [#42](https://github.com/net-lisias-ksp/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
+		- [#41](https://github.com/net-lisias-ksp/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
+		- [#35](https://github.com/net-lisias-ksp/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
+		- [#34](https://github.com/net-lisias-ksp/TweakScale/issues/34) New Sanity Check: duplicated properties]
+		- [#31](https://github.com/net-lisias-ksp/TweakScale/issues/31) Preventing being ran over by other mods
+		- [#30](https://github.com/net-lisias-ksp/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
+		- [#26](https://github.com/net-lisias-ksp/TweakScale/issues/26) Document the patches
+		- [#13](https://github.com/net-lisias-ksp/TweakScale/issues/13) Properly support ModulePartVariants #HURRAY
+		- [#11](https://github.com/net-lisias-ksp/TweakScale/issues/11) Negative mass on parts.
+		- [#10](https://github.com/net-lisias-ksp/TweakScale/issues/10) Weird late ADDON-Binder issue
+		- [#07](https://github.com/net-lisias-ksp/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
 * 2020-0804: 2.4.3.21 (Lisias) for 1.4.1 <= KSP <= 1.10.1
 	+ A new **FINAL** release for the 2.4.3.x series. :P
 	+ A mishap on handling rogue duplicates was detected and fixed
@@ -1160,186 +342,22 @@
 	+ KSP 1.10 is considered supported. No more Houstons on it.
 		- But anything later will trigger a Houston again.
 	+ Some new Parts are now scalable.
-		- [Thanks](https://github.com/TweakScale/TweakScale/pull/122), [7ranceaddic7](https://github.com/TweakScale/TweakScale/pull/123)!
+		- [Thanks](https://github.com/net-lisias-ksp/TweakScale/pull/122), [7ranceaddic7](https://github.com/net-lisias-ksp/TweakScale/pull/123)!
 	+ [KSP-Recall](https://github.com/net-lisias-ksp/KSP-Recall/releases) is only pushed on KSP 1.9.x now.
-	+ A somewhat stupid mistake on handling `GameEvents.onEditorShipModified` [was fixed](https://github.com/TweakScale/TweakScale/issues/119).
-	+ A pretty stupid mistake on handling `OnDestroy` was fixed. Thanks again, [7ranceaddic7](https://github.com/TweakScale/TweakScale/issues/124)
-	+ A [weird mistake](https://github.com/TweakScale/TweakScale/issues/125) on withdrawing "insane" parts were detected and fixed.
+	+ A somewhat stupid mistake on handling `GameEvents.onEditorShipModified` [was fixed](https://github.com/net-lisias-ksp/TweakScale/issues/119).
+	+ A pretty stupid mistake on handling `OnDestroy` was fixed. Thanks again, [7ranceaddic7](https://github.com/net-lisias-ksp/TweakScale/issues/124)
+	+ A [weird mistake](https://github.com/net-lisias-ksp/TweakScale/issues/125) on withdrawing "insane" parts were detected and fixed.
 		- This time. (sigh) 
-* 2020-0715: 2.5.0.16 Beta (Lisias) for KSP >= 1.4.1 
-	+ New helpers for the Companions.
-	+ Better (and safer) deactivation code using info gathered from [TweakScale](https://github.com/TweakScale/TweakScale/issues/125).
-	+ Updating the Houston for KSP-Recall
-		- Only KSP 1.9.x needs it, currently. 
 * 2020-0713: 2.4.3.18 (Lisias) for 1.4.1 <= KSP <= 1.10.0
 	+ **Withdrawn**
 		- I refuse to acknowledge the existence of this thing.  
-* 2020-0711: 2.5.0.15 Beta (Lisias) for KSP >= 1.4.1 
-	+ Huge, comprehensive overhaul of the whole patching system.
-		- This will make my life **way** easier when adding support for new parts and detecting merge errors that started to plague my pull requests lately. 
-	+ Added support for some missed parts from Stock and MH (see the previous point)
-	+ Added support for the simplest parts from Serenity (no robotics yet)
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.15
-			- [#124](https://github.com/TweakScale/TweakScale/issues/124) Script error (TweakScale): OnDestroy() can not take parameters.
-			- [#119](https://github.com/TweakScale/TweakScale/issues/119) Remove TweakScale's handler from the onEditorShipModified when the part is Destroyed
-		- 2.5.0.14
-			- [#115](https://github.com/TweakScale/TweakScale/issues/115) KSP 1.10 Support Status
-			- [#114](https://github.com/TweakScale/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
-		- 2.5.0.13
-			- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
 * 2020-0710: 2.4.3.17 (Lisias) for 1.4.1 <= KSP <= 1.10.999
 	+ **Withdrawn**
 		- I refuse to acknowledge the existence of this thing.  
 * 2020-0708: 2.4.3.16 (Lisias) for KSP >= 1.4.1
 	+ **Withdrawn**
 		- I refuse to acknowledge the existence of this thing.  
-* 2020-0625: 2.5.0.14 Beta (Lisias) for KSP >= 1.4.1 
-	+ Module Manager is not distributed anymore.
-		- A [Watch Dog](https://github.com/net-lisias-ksp/ModuleManagerWatchDog) is being distributed instead.
-		- This will prevent users from running older versions of MM unattendly. Full history on [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-ksp-141-tweakscale-under-lisias-management-24314-2020-0519/&do=findComment&comment=3798088).
-	+ Fixed a pretty dumb mistake on a TWEAKSCALEBEHAVIOUR (ModuleGeneratorExtended).
-		- Don't have a clue when I messed up, the first release of that file was working. :(
-	+ Some smarter logging and warnings
-		- The MM cache is now checked, and Warnings only popup when it is newer than 1 hour.
-		- No more Dialog spamming.
-		- Sorry being late on this.
-	+ New "Houston" when running on KSP >= 1.9 without KSP Recall
-		- It's the only way to prevent KSP to reset the Resources to the `prefab` state after scaling the parts! 
-	+ New "Advise" when running on KSP >= 1.10
-		- Given the numerous problems I still have to handle from KSP 1.8 and 1.9, I don't think it's wise to use TweakScale on KSP 1.10 without a lot of testing from my side first. Proceed with caution, and use [S.A.V.E.](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-*) just in case.
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.14
-			- [#115](https://github.com/TweakScale/TweakScale/issues/115) KSP 1.10 Support Status
-			- [#114](https://github.com/TweakScale/TweakScale/issues/114) KSP 1.8 (and 1.9) rendered the Sanity Checks useless.
-		- 2.5.0.13
-			- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)* 2020-0623: 2.4.3.15 (Lisias) for KSP >= 1.4.1
+* 2020-0623: 2.4.3.15 (Lisias) for KSP >= 1.4.1
 	+ Module Manager is not distributed anymore.
 		- A [Watch Dog](https://github.com/net-lisias-ksp/ModuleManagerWatchDog) is being distributed instead.
 		- This will prevent users from running older versions of MM unatendly. Full history on [Forum](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-ksp-141-tweakscale-under-lisias-management-24314-2020-0519/&do=findComment&comment=3798088).
@@ -1354,390 +372,28 @@
 			- It's the only way to prevent KSP to reset the Resources to the `prefab` state after scaling the parts! 
 		- When running on KSP >= 1.10
 			- Given the numerous problems I still have to handle from KSP 1.8 and 1.9, I don't think it's wise to use TweakScale on KSP 1.10 without a lot of testing from my side first.
-* 2020-0531: 2.5.0.13 Beta (Lisias) for KSP >= 1.4.1 
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.13
-			- [TSC_FS#1](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/1) Weird issue with SXT parts using `FSBuoyancy`.
-			- [TSC_FS#2](https://github.com/TweakScale/TweakScaleCompantion_FS/issues/2) Properly Support `FSBuoyancy`.
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
 * 2020-0519: 2.4.3.14 (Lisias) for KSP >= 1.4.1 
 	+ Closes issue:
-		- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-* 2020-0505: 2.5.0.12 Beta (Lisias) for KSP >= 1.4.1 
-	+ Changes
-		- Fixed a problem on KSP 1.9 Editor with Attachments on Parts with Variants. 
-		- Fixed a pretty stupid mistake on handling TweakScaleRogueDuplicates
-		- Refactoring code
-		- Refactoring filesystem.
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.12
-			- [#110](https://github.com/TweakScale/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
+		- [#110](https://github.com/net-lisias-ksp/TweakScale/issues/110) Revert to Vehicle Assembly and Loading Craft are mangling the part attachments.
 * 2020-0518: 2.4.3.13 (Lisias) for KSP >= 1.4.1 
 	+ **DITCHED**
-* 2020-0505: 2.5.0.11 Beta (Lisias) for KSP >= 1.4.1 
-	+ Some new methods on `TweakScale Module` to make life easier to the TweakScale Companions.
-	+ All non Squad related patches are now on EoL, and are expected to be deprecated soon.
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.11
-			- [#106](https://github.com/TweakScale/TweakScale/issues/106) Deprecate everything and the kitchen's sink (but Stock and DLC)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system (rework) 
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
 * 2020-0426: 2.4.3.12 (Lisias) for KSP >= 1.4.1 
 	+ Some more care on supporting Stock and DLC parts
 	+ KIS and KAS patches is now on EoL, and are expected to be deprecated soon.
 	+ Closes issues:
-		- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-		- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-		- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-		- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-		- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-* 2020-0326: 2.5.0.10 Beta (Lisias) for KSP >= 1.4.1 
-	+ Some more care on supporting Stock and DLC parts
-	+ KIS and KAS patches is now on EoL, and are expected to be deprecated soon.
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.10
-			- [#103](https://github.com/TweakScale/TweakScale/issues/103) Implement KSP Recall :: Attachment support
-			- [#7](https://github.com/TweakScale/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
-			- [#95](https://github.com/TweakScale/TweakScale/issues/95) Give some care to the Warnings system
-			- [#101](https://github.com/TweakScale/TweakScale/issues/101) Add Support for KSP 1.9
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
+		- [#7](https://github.com/net-lisias-ksp/TweakScale/issues/7) Update some patches to KSP 1.5 and 1.6 (rework)
+		- [#35](https://github.com/net-lisias-ksp/TweakScale/issues/35) Check for new parts on KSP 1.7 (rework)
+		- [#73](https://github.com/net-lisias-ksp/TweakScale/issues/73) Support the new parts for KSP 1.8 (rework)
+		- [#95](https://github.com/net-lisias-ksp/TweakScale/issues/95) Give some care to the Warnings system
+		- [#101](https://github.com/net-lisias-ksp/TweakScale/issues/101) Add Support for KSP 1.9
 * 2020-0303: 2.4.3.11 (Lisias) for KSP >= 1.4.1
 	* Adding support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall), allowing TweakScale to be used on KSP 1.9.x due a new glitch introduced by these KSP versions.
-		- Closes issue [#98](https://github.com/TweakScale/TweakScale/issues/98)
-* 2020-0302: 2.5.0.9 Beta (Lisias) for KSP >= 1.4.1 
-	+ Some care on documentation
-	+ Some care on support Stock parts
-	+ Fixing a nasty mistake on the default scale of the Mk3 Engine Mount (`adapterEngine`)
-		- This can break existing savegames!
-	+ NFS patches is now on EoL, and are expected to be deprecated soon.
-	+ Some resilience on scaling parts
-	+ Added Localisation Suport for EN-US and ZH-CN
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.9
-			- KSP 1.9 Compliance
-				- Delegated to [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-			- [#98](https://github.com/TweakScale/TweakScale/issues/98) Added support for [KSP Recall](https://github.com/net-lisias-ksp/KSP-Recall).
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
-* 2019-1104: 2.5.0.8 Beta (Lisias) for KSP >= 1.4.1 TEST RELEASE
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.8
-			- KSP 1.8 Compliance
-				- Compatibility check updated
-				- Changing `Scale_Redist.dll` deployment model. See [KNOWN_ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for details.
-			- [#46](https://github.com/TweakScale/TweakScale/issues/46) Feasibility Studies for Serenity
-				- Added scaling to Proppelers 
-			- [#73](https://github.com/TweakScale/TweakScale/issues/73) Support the new parts for KSP 1.8 
-			- [#74](https://github.com/TweakScale/TweakScale/issues/74) Check (and fix if needed) a possible misbehaviour on handling Events on Scale
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
+		- Closes issue [#98](https://github.com/net-lisias-ksp/TweakScale/issues/98)
 * 2019-1030: 2.4.3.10 (Lisias) for KSP >= 1.4.1
 	+ Lifting the ban on running on KSP 1.8, as the glitch detected proved inoffensive (beside annoying) and was fixed on KSP 1.8.1
 	+ Changing install layout for `Scale_Dist.dll` .
 		- Needed to prevent being annoyed by Add'On Binder errors.
-		- Please read [KNOWN ISSUES](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) for further information.
+		- Please read [KNOWN ISSUES](https://github.com/net-lisias-ksp/TweakScale/blob/master/KNOWN_ISSUES.md) for further information.
 * 2019-1024: 2.4.3.9 (Lisias) for 1.4.1 <= KSP < 1.8
 	+ Repacking of 2.4.3.8 to fix a mistake on the files needed by CKAN.
 * 2019-1018: 2.4.3.8 (Lisias) for 1.4.1 <= KSP < 1.8
@@ -1746,7 +402,7 @@
 		- Checking against incompatible Unity Versions
 		- And this thing worked fine on Unity 2019.2 ! :)
 	+ Closing or reworking the following issues:
-		- [#79](https://github.com/TweakScale/TweakScale/issues/79) Prevent TweakScale from running on Incompatible Unity versions
+		- [#79](https://github.com/net-lisias-ksp/TweakScale/issues/79) Prevent TweakScale from running on Incompatible Unity versions
 * 2019-1011: 2.4.3.7 (Lisias) for KSP >= 1.4.1
 	+ Updated KSPe Light for TweakScale:
 		- Standard Installation Check
@@ -1755,255 +411,87 @@
 		- Internal routines updated to understand Unity 2019. 
 			- KSP 1.8 Ready, baby! ;)
 	+ Closing or reworking the following issues:
-		- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-		- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
+		- [#26](https://github.com/net-lisias-ksp/TweakScale/issues/26) Document the patches
+		- [#69](https://github.com/net-lisias-ksp/TweakScale/issues/69) Act on deprecated or misplaced patches
 			- And correctly cleaning up this time. 
-		-[#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
+		-[#76](https://github.com/net-lisias-ksp/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
 * 2019-1011: 2.4.3.6 (Lisias) for KSP >= 1.4.1
 	+ **DITCHED** 
 * 2019-1011: 2.4.3.5 (Lisias) for KSP >= 1.4.1
 	+ **DITCHED** 
 * 2019-0903: 2.4.3.4 (Lisias) for KSP >= 1.4.1
 	+ Closing or reworking the following issues:\
-		- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used
-		- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
+		- [#30](https://github.com/net-lisias-ksp/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used
+		- [#71](https://github.com/net-lisias-ksp/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
 			- Thanks to [Dizor](https://forum.kerbalspaceprogram.com/index.php?/profile/161502-dizor/). I'm still [laughing](https://forum.kerbalspaceprogram.com/index.php?/topic/179030-14-tweakscale-under-lisias-management-2433-2019-0814/page/33/&tab=comments#comment-3666432)! :D
 	+ New hotfixes:
 		- Contares ([old](https://forum.kerbalspaceprogram.com/index.php?/topic/122102-13x-contares-189-closed/) and [new](https://forum.kerbalspaceprogram.com/index.php?/topic/171305-17x-csa-contares-core-2012/)) breaking TweakScale.
-* 2019-0903: 2.5.0.6 Beta (Lisias) for KSP >= 1.4.1 TEST RELEASE
-	+ Added support for hot-fixes - handcrafted patches to brute force a correct path when the normal way is not possible - as when an unmaintained ARR Add'On is involved on the mess.
-		- New hot fix for [CxAerospace:Station Parts](https://forum.kerbalspaceprogram.com/index.php?/topic/138910-dev-halted13-cxaerospace-stations-parts-pack-v162-2017-5-24/page/31/) breaking [Bluedog_DB](https://forum.kerbalspaceprogram.com/index.php?/topic/122020-16x-bluedog-design-bureau-stockalike-saturn-apollo-and-more-v152-бруно-8feb2019/). 
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.6 	
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
-* 2019-1010: 2.5.0.7 Beta (Lisias) for KSP >= 1.4.1 TEST RELEASE
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- 2.5.0.7
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-				- Some entries for NFT were missing the fix 
-			- [#26](https://github.com/TweakScale/TweakScale/issues/26) Document the patches
-			- [#69](https://github.com/TweakScale/TweakScale/issues/69) Act on deprecated or misplaced patches
-			- [#76](https://github.com/TweakScale/TweakScale/issues/76) Prevent KSP from running if TweakScale is installed on the wrong place!
-		- 2.5.0.6
-			- [#71](https://github.com/TweakScale/TweakScale/issues/71) Check for typos on the _V2 parts from patches for Squad's revamped parts
-			- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used (reopened)
-		- 2.5.0.4
-			- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-		- 2.5.0.3
-			- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-			- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-			- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-			- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-			- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- 2.5.0.2
-			- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-			- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-			- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-			- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- 2.5.0.1
-			- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-			- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-			- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- 2.5.0.0
-			- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-			- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-			- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-			- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-			- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-			- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
 * 2019-0814: 2.4.3.3 (Lisias) for KSP >= 1.4.1
 	+ Added support for hot-fixes - handcrafted patches to brute force a correct path when the normal way is not possible - as when an unmaintained ARR Add'On is involved on the mess.
 		- New hot fix for [CxAerospace:Station Parts](https://forum.kerbalspaceprogram.com/index.php?/topic/138910-dev-halted13-cxaerospace-stations-parts-pack-v162-2017-5-24/page/31/) breaking [Bluedog_DB](https://forum.kerbalspaceprogram.com/index.php?/topic/122020-16x-bluedog-design-bureau-stockalike-saturn-apollo-and-more-v152-бруно-8feb2019/). 
-* 2019-0813: 2.5.0.5 Beta (Lisias) for KSP >= 1.4.1 TEST RELEASE
-	+ Added support for hot-fixes - handcrafted patches to brute force a correct path when the normal way is not possible - as when an unmaintained ARR Add'On is involved on the mess.
-		- New hot fix for [CxAerospace:Station Parts](https://forum.kerbalspaceprogram.com/index.php?/topic/138910-dev-halted13-cxaerospace-stations-parts-pack-v162-2017-5-24/page/31/) breaking [Bluedog_DB](https://forum.kerbalspaceprogram.com/index.php?/topic/122020-16x-bluedog-design-bureau-stockalike-saturn-apollo-and-more-v152-бруно-8feb2019/). 
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-		- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-		- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-		- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-		- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-		- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-		- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-		- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-		- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-		- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-		- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-		- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-		- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-		- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-		- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-		- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
-* 2019-0084: 2.5.0.4 Beta (Lisias) for KSP >= 1.4.1 TEST RELEASE
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-		- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-		- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-		- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-		- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-		- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-		- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-		- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-		- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-		- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-		- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-		- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-		- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-		- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-		- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-		- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-		- [#65](https://github.com/TweakScale/TweakScale/issues/65) Support for new Nertea's Cryo Engines
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
-* 2019-0721: 2.5.0.3 Beta (Lisias) for KSP >= 1.4.1 TEST RELEASE
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues:
-		- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-		- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-		- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-		- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-		- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-		- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-		- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-		- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-		- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- [#47](https://github.com/TweakScale/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user
-		- [#48](https://github.com/TweakScale/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light
-		- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-		- [#50](https://github.com/TweakScale/TweakScale/issues/50) Check the patches for currently supported Add'Ons
-		- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-		- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-		- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-		- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs (concluded)
-		- [#58](https://github.com/TweakScale/TweakScale/issues/58) Mk4 System Patch (addendum)
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-		- TweakScale **strongly** advises you to use [S.A.V.E](https://forum.kerbalspaceprogram.com/index.php?/topic/94997-171-save-automatic-backup-system-155-3121/) for regular backups of your savegames. Really. :)
-* 2019-0622: 2.5.0.2 Beta (Lisias) for KSP >= 1.4.1 TEST RELEASE
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues (some already fixed, others not yet):
-		- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-		- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-		- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-		- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-		- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-		- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-		- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them
-		- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-		- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-		- [#49](https://github.com/TweakScale/TweakScale/issues/49) Check the Default patches for problems due wildcard!
-		- [#51](https://github.com/TweakScale/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
-		- [#54](https://github.com/TweakScale/TweakScale/issues/54) [ERR \*\*FATAL\*\* link provided in KSP.log links to 404
-		- [#56](https://github.com/TweakScale/TweakScale/issues/56) "Breaking Parts" patches
-		- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods ***WiP***
-		- [#57](https://github.com/TweakScale/TweakScale/issues/57) Implement Warning Dialogs ***WiP***
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us all, please use this only under my instructions, and only if I ask you to do so! Twice. :)
-* 2019-0508: 2.5.0.1 Beta (Lisias) for KSP >= 1.4.1 TEST RELEASE
-	+ This is a beta release, merging the latest release fixes and aiming to test solutions and check stability issues related to the following issues (some already fixed, others not yet):
-		- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-		- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-		- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-		- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-		- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-		- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties]
-		- [#41](https://github.com/TweakScale/TweakScale/issues/41) TweakScale is being summoned to scale parts without TweakScale module info?
-		- [#42](https://github.com/TweakScale/TweakScale/issues/42) Crash Test for TweakScale - the Ground Breaking tests
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us, please use this only under my instructions, and only if I ask you to do so! Twice. :)
+* 2019-0804: 2.4.3.2 (Lisias) for KSP >= 1.4.1
+	+ This is an Emergencial Release due an Emergencial Release due an Emergencial Release. I love recursion, don't you? :P
+	+ Closing or reworking the following issues:
+		- [#65](https://github.com/net-lisias-ksp/TweakScale/issues/65) Support for new Nertea's Cryo Engines
+			- Thanks to [friznet](https://github.com/friznit) and [marr75](https://github.com/marr75).
+		- Fixing some tyops :P on Logging and Dialog Boxes.
+* 2019-0725: 2.4.3.1 (Lisias) for KSP >= 1.4.1
+	+ This is an emergencial Release due a Emergencial Release. :P
+	+ Adding KSPe Light facilites:
+		- Logging
+	+ Closing or reworking the following issues:
+		- [#31](https://github.com/net-lisias-ksp/TweakScale/issues/31) Preventing being ran over by other mods
+			- A misbehaviour on detecting the misbehaviour :) was fixed. 
+		- [#47](https://github.com/net-lisias-ksp/TweakScale/issues/47) Count failed Sanity Checks as a potential problem. Warn user.
+		- [#48](https://github.com/net-lisias-ksp/TweakScale/issues/48) Backport the Heterodox Logging system into Orthodox (using KSPe.Light)
+		- [#49](https://github.com/net-lisias-ksp/TweakScale/issues/49) Check the Default patches for problems due wildcard!
+		- [#50](https://github.com/net-lisias-ksp/TweakScale/issues/50) Check the patches for currently supported Add'Ons
+			- ModuleGeneratorExtended Behaviour 
+		- [#51](https://github.com/net-lisias-ksp/TweakScale/issues/51) Implement a "Cancel" button when Actions are given to MessageBox
+			- Yeah. Doing it right this time. 
+		- [#54](https://github.com/net-lisias-ksp/TweakScale/issues/54) [ERR ***FATAL*** link provided in KSP.log links to 404
+			- "Typo maldito, typo maldito - tralálálálálálá"
+		- [#56](https://github.com/net-lisias-ksp/TweakScale/issues/56) "Breaking Parts" patches
+		- [#57](https://github.com/net-lisias-ksp/TweakScale/issues/57) Implement Warning Dialogs
+			- Warnings about Overrules, parts that couldn't be 			- Doing it right this time! 
+checked and parts with TweakScale support withdrawn.
+		- [#58](https://github.com/net-lisias-ksp/TweakScale/issues/58) Mk4 System Patch (addendum)
 * 2019-0608: 2.4.3.0 (Lisias) for KSP >= 1.4.1
 	+ This is an emergencial Release due a Show Stopper issue (see Issue #34 below) with some new features.
 	+ Adding features:
-		- [#7](https://github.com/TweakScale/TweakScale/issues/7) Adding support for new Parts from KSP 1.5 and 1.6 (and Making History)! (**finally!**)
-		- [#35](https://github.com/TweakScale/TweakScale/issues/35) Checking for new Parts on KSP 1.7 (none found)
+		- [#7](https://github.com/net-lisias-ksp/TweakScale/issues/7) Adding support for new Parts from KSP 1.5 and 1.6 (and Making History)! (**finally!**)
+		- [#35](https://github.com/net-lisias-ksp/TweakScale/issues/35) Checking for new Parts on KSP 1.7 (none found)
 			- (Serenity is Work In Progress)
 		- Adding KSPe.Light support for some UI features. 
 	+ Fixing bugs:
-		- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-		- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties
-	+ [Known Issues](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) update:
+		- [#31](https://github.com/net-lisias-ksp/TweakScale/issues/31) Preventing being ran over by other mods
+		- [#34](https://github.com/net-lisias-ksp/TweakScale/issues/34) New Sanity Check: duplicated properties
+	+ [Known Issues](https://github.com/net-lisias-ksp/TweakScale/blob/master/KNOWN_ISSUES.md) update:
 		- A new and definitively destructive interaction was found due some old or badly written patches ends up injecting TweakScale properties **twice** on the Node.
-* 2019-0508: 2.5.0.0 Beta (Lisias) for KSP >= 1.4.1 TEST RELEASE
-	+ This is a beta release, aiming to test solutions and check stability issues related to the following issues (some already fixed, others not yet):
-		- [#07](https://github.com/TweakScale/TweakScale/issues/7)	Update some patches to KSP 1.5 and 1.6 bug
-		- [#10](https://github.com/TweakScale/TweakScale/issues/10) Weird late ADDON-Binder issue
-		- [#11](https://github.com/TweakScale/TweakScale/issues/11) Negative mass on parts.
-		- [#21](https://github.com/TweakScale/TweakScale/issues/21) Check that :FOR[TWEAKSCALE] thingy on the patches
-		- [#31](https://github.com/TweakScale/TweakScale/issues/31) Preventing being ran over by other mods
-		- [#34](https://github.com/TweakScale/TweakScale/issues/34) New Sanity Check: duplicated properties
-		- [#35](https://github.com/TweakScale/TweakScale/issues/35) Check for new parts on KSP 1.7 (with Making History!) and add support to them.
-	+ **WARNING**
-		- This can break your KSP, ruin your Windows, kill your pet, offend your mom  and poison your kids. :D
-		- By the Holy Kerbol that enlighten us, please use this only under my instructions, and only if I ask you to do so! Twice. :)
 * 2019-0505: 2.4.2.0 (Lisias) for KSP >= 1.4.1
 	+ Adding features:
-		- [#32](https://github.com/TweakScale/TweakScale/issues/32) Near Future Aeronautics Patches
+		- [#32](https://github.com/net-lisias-ksp/TweakScale/issues/32) Near Future Aeronautics Patches
 	+ Fixing bugs:
-		- [#20](https://github.com/TweakScale/TweakScale/issues/20)	Duplicated TweakScale support on some parts
-		- [#23](https://github.com/TweakScale/TweakScale/issues/23) Unhappy merge on TweakScale exponents
-		- [#24](https://github.com/TweakScale/TweakScale/issues/24) Fix that duplicated support on some parts
-		- [#30](https://github.com/TweakScale/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used
-	+ [Known Issues](https://github.com/TweakScale/TweakScale/blob/master/KNOWN_ISSUES.md) update:
+		- [#20](https://github.com/net-lisias-ksp/TweakScale/issues/20)	Duplicated TweakScale support on some parts
+		- [#23](https://github.com/net-lisias-ksp/TweakScale/issues/23) Unhappy merge on TweakScale exponents
+		- [#24](https://github.com/net-lisias-ksp/TweakScale/issues/24) Fix that duplicated support on some parts
+		- [#30](https://github.com/net-lisias-ksp/TweakScale/issues/30) Prevent incorrectly initialized Modules to be used
+	+ [Known Issues](https://github.com/net-lisias-ksp/TweakScale/blob/master/KNOWN_ISSUES.md) update:
 		- Users of "Classic" [Infernal Robotics](https://github.com/MagicSmokeIndustries/InfernalRobotics) should avoid scaling parts to "Small -" or Krakens will be released.
 			- [Infernal Robotics/Next](https://github.com/meirumeiru/InfernalRobotics) fixes this issue.   
 * 2019-0216: 2.4.1.0 (Lisias) for KSP >= 1.4.1
 	+ Adding 1.875 scale as default (being now a Stock size on MH, it makes sense to properly acknowledge it). Suggested by Tyko.
-		- Closing issue [#3](https://github.com/TweakScale/TweakScale/issues/3)
+		- Closing issue [#3](https://github.com/net-lisias-ksp/TweakScale/issues/3)
 	+ Adding support for Stock Alike Station Parts. Courtesy of Speadge.
-		- Closing issue [#8](https://github.com/TweakScale/TweakScale/issues/8)
+		- Closing issue [#8](https://github.com/net-lisias-ksp/TweakScale/issues/8)
 	+ Fixed a critical craft corruption (even flying ones) as TweakScale is sometimes being injected twice (or even more) into a part. This patch does not fix the duplicity, but prevent your crafts from being corrupted once a fix is applied (yeah - fixing the bug would cause craft corruption without this patch!)
-		- Closing issue [#20](https://github.com/TweakScale/TweakScale/issues/20)
+		- Closing issue [#20](https://github.com/net-lisias-ksp/TweakScale/issues/20)
 * 2018-1229: 2.4.0.7 (Lisias) for KSP >= 1.4.1
 	+ KSP 1.6 (partial) support certified.
 	+ Actively reverting support in runtime for parts with problematic or unsupported modules.
-		- Closing issue [#9](https://github.com/TweakScale/TweakScale/issues/9)
-		- Closing issue [#11](https://github.com/TweakScale/TweakScale/issues/11)
-		- Closing issue [#12](https://github.com/TweakScale/TweakScale/issues/12)
+		- Closing issue [#9](https://github.com/net-lisias-ksp/TweakScale/issues/9)
+		- Closing issue [#11](https://github.com/net-lisias-ksp/TweakScale/issues/11)
+		- Closing issue [#12](https://github.com/net-lisias-ksp/TweakScale/issues/12)
 	+ Lifting the Max KSP restriction on the `.version` file.
 	+ Updating Module Manager to 3.1.1
 * 2018-1027: 2.4.0.6 (Lisias) for KSP 1.4.1+; 1.5
