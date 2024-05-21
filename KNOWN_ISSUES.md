@@ -1,7 +1,5 @@
 # TweakScale :: Known Issues
 
-* Attachment nodes are being reset when changing Variant on a scaled part. Please change the Variant **before** scaling the part as a temporary workaround.
-	+ See issues [#307](https://github.com/TweakScale/TweakScale/issues/307) and [#314](https://github.com/TweakScale/TweakScale/issues/314) for the gory details. 
 * There's a long standing issue on TweakScale about scaling `ModuleEnginesFX`'s plumes - some engines' plumes is just not scaled, while others scaled pretty badly. It's something that never worked right on TweakScale, and it will only be really fixed on TweakScale 2.5 (when this thing goes gold)
 	+ The best workaround (and also the reason I'm dragging my feet on this) is to use SmokeScreen or Waterfall.
 		- For SmokeScreen (works on all KSP versions), you need:
@@ -38,9 +36,6 @@
 	+ **No bug reports** will be accepted when `TweakScaleExperimental` is active, but you can file reports telling me if the thing is working or not. :)
 		- And suggestions! Suggestions are welcome!  
 	+ **Use them at your own risk.** :)
-* KSP 1.9 is known to mangle with Attachment Points the same way it does with Resources, as well a lot of glitches and problems - none of them fixed until the moment.
-	+ But all of these know is [KSP-Recall](https://forum.kerbalspaceprogram.com/index.php?/topic/192048-18/) problem. :)
-	+ KSP can't be used without KSP-Recall on affected KSP versions.
 * The FTE-1 Drain Vale (ReleaseValve - new on KSP 1.9.x) is not being properly scaled. Only the size (and Mass) are scalable, the functionality is not.
 	+ See Issue [#102](https://github.com/net-lisias-ksp/TweakScale/issues/102) for details. 
 * A change on the Add'On Binder demanded that only **one** `Scale_Redist.dll` be available on the whole installment.
