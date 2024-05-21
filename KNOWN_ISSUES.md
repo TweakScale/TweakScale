@@ -36,9 +36,6 @@
 	+ **No bug reports** will be accepted when `TweakScaleExperimental` is active, but you can file reports telling me if the thing is working or not. :)
 		- And suggestions! Suggestions are welcome!  
 	+ **Use them at your own risk.** :)
-* KSP 1.9 is known to mangle with Attachment Points the same way it does with Resources, as well a lot of glitches and problems - none of them fixed until the moment.
-	+ But all of these know is [KSP-Recall](https://forum.kerbalspaceprogram.com/index.php?/topic/192048-18/) problem. :)
-	+ KSP can't be used without KSP-Recall on affected KSP versions.
 * The FTE-1 Drain Vale (ReleaseValve - new on KSP 1.9.x) is not being properly scaled. Only the size (and Mass) are scalable, the functionality is not.
 	+ See Issue [#102](https://github.com/TweakScale/TweakScale/issues/102) for details. 
 * A change on the Add'On Binder demanded that only **one** `Scale_Redist.dll` be available on the whole installment.
