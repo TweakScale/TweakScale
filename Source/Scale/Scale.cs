@@ -1084,7 +1084,11 @@ namespace TweakScale
         float IPartCostModifier.GetModuleCost(float defaultCost, ModifierStagingSituation situation) // TODO: This makes any sense? What's situation anyway?
         {
             Log.dbg("IPartCostModifier.GetModuleCost {0} IsScaled? {1}", this.InstanceID, this.IsScaled);
-			float r = this.IsScaled ? this.scaler.ModuleCost : 0;
+			#if DEBUG
+				Log.dbg("IPartCostModifier.GetModuleCost {0} Is this.scaler initialized? {1}", this.InstanceID, null != this.scaler);
+			#endif
+			// Somehow, this is being called before the OnLoad is called - why? It's a screw up of mine or it's yet a new misbehavior on Editor?
+			float r = this.IsScaled && null != this.scaler ? this.scaler.ModuleCost : 0;
             Log.dbg("IPartCostModifier.GetModuleCost {0} {1}", this.InstanceID, r);
             return r;
         }
@@ -1096,7 +1100,11 @@ namespace TweakScale
 
         float IPartMassModifier.GetModuleMass(float defaultMass, ModifierStagingSituation situation)
         {
-            if (IsScaled && scaleMass)
+			#if DEBUG
+				Log.dbg("IPartMassModifier.GetModuleMass {0} Is this.scaler initialized? {1}", this.InstanceID, null != this.scaler);
+			#endif
+			// Playing safe (see GetModuleCost) and preventing this from blowing up something too.
+            if (IsScaled && scaleMass && null != this.scaler)
 				return this.scaler.prefab.mass * (MassScale - 1f);
             else
               return 0;
