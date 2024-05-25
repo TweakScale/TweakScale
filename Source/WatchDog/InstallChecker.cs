@@ -48,9 +48,7 @@ namespace TweakScale.WatchDog
 					Log.detail("TweakScale is present and correctly installed.");
 
 				if (null == msg)	// If MMWD is installed, there's nothing we need to do.
-					msg = this.CheckModuleManagerWatchDog();
-				else
-					Log.detail("ModuleManagerWatchDog is present and correctly installed.");
+					this.CheckModuleManagerWatchDog();
 
 				if (null == msg)
 					msg = this.CheckModuleManager();
@@ -101,7 +99,7 @@ namespace TweakScale.WatchDog
 			return null;
 		}
 
-		private string CheckModuleManagerWatchDog()
+		private void CheckModuleManagerWatchDog()
 		{
 			IEnumerable<AssemblyLoader.LoadedAssembly> loaded = SanityLib.FetchLoadedAssembliesByName(MMWD_ASSEMBLY_NAME);
 
@@ -111,10 +109,8 @@ namespace TweakScale.WatchDog
 				Log.dbg("{0} :: {1}", la.assembly.FullName, la.assembly.Location);
 #endif
 
-			if (0 == loaded.Count()) return ErrorMessage.ERR_MM_ABSENT;
-			if (this.IsModuleManagerMyFork()) throw new EnvironmentSaneException("MMWD is present");
-
-			return null;
+			if (0 == loaded.Count()) return;
+			throw new EnvironmentSaneException("MMWD is present");
 		}
 
 		private string CheckModuleManager()
