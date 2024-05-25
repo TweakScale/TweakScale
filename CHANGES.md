@@ -1,5 +1,10 @@
 # TweakScale :: Changes
 
+* 2024-0525: 2.4.8.3 (Lisias) for KSP >= 1.3
+	+ Fixes a (yet another :P) major screwup of mine, this one while handling systems without `ModuleManagerWatchDog` installed - exactly the situation the `TweakScale.WatchDog` was born to handle on 2.4.8.0...
+		- Yep, sometimes I'm just overloaded by Real Life©...
+	+ Reworks Issues:
+		- [#312](https://github.com/TweakScale/TweakScale/issues/312) Write an internal Self Check Mechanism	 
 * 2024-0524: 2.4.8.2 (Lisias) for KSP >= 1.3
 	+ Detected and fixed a borderline situation in which the `IPartCostModifier` from the TweakScale's `PartModule` was being called **before** the `OnLoad` while merging a craft with scaled cockpit - unsure if the cockpit made any difference, but whatever.
 		- I'm shooting first and making questions later - I will left a proper diagnose to be tackled down on the Beta 2.5.
