@@ -140,4 +140,10 @@ The individual fields are:
                               true: TweakScale ignores Resources while computing costs. It's up to
                               other module to handle this.
 
-Deprecated fields: `scaleNodes`, `minScale`, `maxScale`, `incrementLarge`, `incrementSmall`.
+Deprecated fields:
+
+* `scaleNodes`
+* `minScale`
+* `maxScale`
+* `incrementLarge`
+* `incrementSmall`
