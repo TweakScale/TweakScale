@@ -1,5 +1,8 @@
 # TweakScale :: Changes
 
+* 2024-0831: 2.4.8.4 (Lisias) for KSP >= 1.3
+	+ Somewhat better error messages, in a (futile, probably) attempt to prevent this [kind of crap](https://www.reddit.com/r/KerbalAcademy/comments/1ejaf9b/houstonerror_contradiction/).
+	+ Updates MMWD to 1.1.2.1
 * 2024-0525: 2.4.8.3 (Lisias) for KSP >= 1.3
 	+ Fixes a (yet another :P) major screwup of mine, this one while handling systems without `ModuleManagerWatchDog` installed - exactly the situation the `TweakScale.WatchDog` was born to handle on 2.4.8.0...
 		- Yep, sometimes I'm just overloaded by Real Life©...
