@@ -34,7 +34,7 @@ namespace TweakScale.GUI
 
 		private static readonly string MSG = @"Deprecated Companion(s)™ was(were) found!
 
-The following Companion(s)™ **NEED** to be removed, having this(these) oldies lingering around is detrimental to KSP's health:
+The following Companion(s)™ <b>NEED</b> to be removed, having this(these) oldies lingering around is detrimental to KSP's health:
 
 {0}
 Alternatively, you may want to remove everything under `GameData/TweakScaleCompanion` and install the lastest ÜberPaket™ with everything and the kitchen's sink included!";

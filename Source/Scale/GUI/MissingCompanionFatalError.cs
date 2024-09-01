@@ -31,7 +31,7 @@ namespace TweakScale.GUI
 		private const string URL = "https://github.com/TweakScale/Companion/releases";
 		private static readonly string MSG = @"Supported 3rd parties were found, but the respective Companion™ weren't.
 
-The following Companions™ **NEED** to be installed, as the targets Add'Ons they support are known to play havoc with TweakScale™ and they fix or workaroud the known problems:
+The following Companions™ <b>NEED</b> to be installed, as the targets Add'Ons they support are known to play havoc with TweakScale™ and they fix or workaroud the known problems:
 
 {0}
 Alternatively, you may want to install the ÜberPaket™ with everything and the kitchen's sink included!";
