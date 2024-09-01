@@ -1,24 +1,24 @@
-/*
-	This file is part of TweakScale /L
+﻿/*
+	This file is part of TweakScale™ /L
 		© 2018-2024 LisiasT
 		© 2015-2018 pellinor
 		© 2014 Gaius Godspeed and Biotronic
 
-	TweakScale /L is double licensed, as follows:
+	TweakScale™ /L is double licensed, as follows:
 		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt
 		* GPL 2.0 : https://www.gnu.org/licenses/gpl-2.0.txt
 
 	And you are allowed to choose the License that better suit your needs.
 
-	TweakScale /L is distributed in the hope that it will be useful,
+	TweakScale™ /L is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 	You should have received a copy of the SKL Standard License 1.0
-	along with TweakScale /L. If not, see <https://ksp.lisias.net/SKL-1_0.txt>.
+	along with TweakScale™ /L. If not, see <https://ksp.lisias.net/SKL-1_0.txt>.
 
 	You should have received a copy of the GNU General Public License 2.0
-	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
+	along with TweakScale™ /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Linq;
@@ -50,7 +50,7 @@ namespace TweakScale
 
 	public class TweakScale : PartModule, IPartCostModifier, IPartMassModifier, IDisposable
 	{
-		// Checks if the running KSP has the Upgrade Pipeline feature, so TweakScale can omit itself from craft files when not used,
+		// Checks if the running KSP has the Upgrade Pipeline feature, so TweakScale™ can omit itself from craft files when not used,
 		// as the module will be injected back on loading when needed.
 		private static readonly bool UPGRADE_PILELINED_KSP = KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.GetVersion(1,4,0);
 
@@ -58,7 +58,7 @@ namespace TweakScale
 		public string type = "";
 
 		/// <summary>
-		/// Tells if TweakScale is active or not. When inactiva, it will be completely uselees, as it was not installed on this part at all
+		/// Tells if TweakScale™ is active or not. When inactiva, it will be completely uselees, as it was not installed on this part at all
 		/// </summary>
 		[KSPField(isPersistant = true, guiActiveEditor = true, guiName = "TweakScale is")]
 		[UI_Toggle(disabledText = "Inactive", enabledText = "Active", scene = UI_Scene.Editor)]
@@ -367,13 +367,13 @@ namespace TweakScale
 				return;
 			}
 
-			// Preventing saving the TweakScale module data on the craft file when TweakScale is not active neither in use for this
+			// Preventing saving the TweakScale™ module data on the craft file when TweakScale™ is not active neither in use for this
 			// part.
 			//
 			// Aims to declutter the craft files, allowing the user to publish unscaled crafts on KerbalX et all without cluttering
 			// it with unneeded dependencies.
 			//
-			// Will also save the user the need to build a TweakScaleless KSP installment to play Challenges where TweakScale is not
+			// Will also save the user the need to build a TweakScale™less KSP installment to play Challenges where TweakScale™ is not
 			// allowed.
 			//
 			// Theoretically this could be used too on savegames, but for what? Savegames are not usually shared, and when they do,
@@ -381,7 +381,7 @@ namespace TweakScale
 			// shivers down my spine.
 			//
 			// This can only be applied on KSP >= 1.4, where the Upgrade Pipeline is there to inject back the module on laoding,
-			// otherwise the part will get TweakScale permanently ripped off until being removed and a new one attached to the
+			// otherwise the part will get TweakScale™ permanently ripped off until being removed and a new one attached to the
 			// editting craft.
 			//
 			if (Globals.Instance.AllowStealthSave
@@ -391,7 +391,7 @@ namespace TweakScale
 					&& this.IsSaveMode()
 				)
 			{
-				Log.detail("Part {0} is being saved without TweakScale as it is not used or active.", this.part.name);
+				Log.detail("Part {0} is being saved without TweakScale™ as it is not used or active.", this.part.name);
 
 				// Besides aborting the method (what makes de node to be persisted as an empty node called PARTDATA)
 				// I'm mangling the node anyway.
@@ -722,7 +722,7 @@ namespace TweakScale
         }
 
 		/// <summary>
-		/// Disable TweakScale module if something is wrong.
+		/// Disable TweakScale™ module if something is wrong.
 		/// </summary>
 		/// <returns>True if something is wrong, false otherwise.</returns>
 		private bool FailsIntegrity()

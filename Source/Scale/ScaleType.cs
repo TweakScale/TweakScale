@@ -1,24 +1,24 @@
 ﻿/*
-	This file is part of TweakScale /L
+	This file is part of TweakScale™ /L
 		© 2018-2024 LisiasT
 		© 2015-2018 pellinor
 		© 2014 Gaius Godspeed and Biotronic
 
-	TweakScale /L is double licensed, as follows:
+	TweakScale™ /L is double licensed, as follows:
 		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt
 		* GPL 2.0 : https://www.gnu.org/licenses/gpl-2.0.txt
 
 	And you are allowed to choose the License that better suit your needs.
 
-	TweakScale /L is distributed in the hope that it will be useful,
+	TweakScale™ /L is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 	You should have received a copy of the SKL Standard License 1.0
-	along with TweakScale /L. If not, see <https://ksp.lisias.net/SKL-1_0.txt>.
+	along with TweakScale™ /L. If not, see <https://ksp.lisias.net/SKL-1_0.txt>.
 
 	You should have received a copy of the GNU General Public License 2.0
-	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
+	along with TweakScale™ /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +39,7 @@ namespace TweakScale
 			// we need to prevent the breakage on the already living crafts on savegames. `ResearchAndDevelopment` apparently returns an Available RDTech,
 			// but I don't think it's wise to trust on this behaviour as it isn't documented on the KSP API.
 			//
-			// So I decided to prevent the problem by allowing all ScaleFactors at FlightTime - there's no TweakScale GUI outside Editor, anyway.
+			// So I decided to prevent the problem by allowing all ScaleFactors at FlightTime - there's no TweakScale™ GUI outside Editor, anyway.
 			//
 			// Oukey, this allows some runtime code to "cheat" at runtime - but, heck, who cares? :)
 			if (!HighLogic.LoadedSceneIsEditor) return true;

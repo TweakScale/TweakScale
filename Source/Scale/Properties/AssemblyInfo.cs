@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Scale")]
-[assembly: AssemblyDescription("TweakScale scales everything!")]
+[assembly: AssemblyDescription("TweakScale™ scales everything!")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany(TweakScale.LegalMamboJambo.Company)]
 [assembly: AssemblyProduct(TweakScale.LegalMamboJambo.Product)]

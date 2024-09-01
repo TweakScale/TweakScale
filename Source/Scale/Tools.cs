@@ -1,24 +1,24 @@
 ﻿/*
-	This file is part of TweakScale /L
+	This file is part of TweakScale™ /L
 		© 2018-2024 LisiasT
 		© 2015-2018 pellinor
 		© 2014 Gaius Godspeed and Biotronic
 
-	TweakScale /L is double licensed, as follows:
+	TweakScale™ /L is double licensed, as follows:
 		* SKL 1.0 : https://ksp.lisias.net/SKL-1_0.txt
 		* GPL 2.0 : https://www.gnu.org/licenses/gpl-2.0.txt
 
 	And you are allowed to choose the License that better suit your needs.
 
-	TweakScale /L is distributed in the hope that it will be useful,
+	TweakScale™ /L is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 	You should have received a copy of the SKL Standard License 1.0
-	along with TweakScale /L. If not, see <https://ksp.lisias.net/SKL-1_0.txt>.
+	along with TweakScale™ /L. If not, see <https://ksp.lisias.net/SKL-1_0.txt>.
 
 	You should have received a copy of the GNU General Public License 2.0
-	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
+	along with TweakScale™ /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
 using System.Collections;
@@ -104,7 +104,7 @@ namespace TweakScale
         /// <param name="obj">The object to format.</param>
         /// <returns>A more readable representation of <paramref name="obj"/>>.</returns>
 		// TODO: Remove on Version 2.5
-		[System.Obsolete("Tools.PreFormat is deprecated and will be removed on TweakScale 2.5")]
+		[System.Obsolete("Tools.PreFormat is deprecated and will be removed on TweakScale™ 2.5")]
         public static object PreFormat(this object obj)
         {
             if (obj == null)
@@ -131,7 +131,7 @@ namespace TweakScale
         /// <param name="defaultValue">The exponentValue to use when the ConfigNode doesn't contain what we want.</param>
         /// <returns>The exponentValue in the ConfigNode, or <paramref name="defaultValue"/> if no decent exponentValue is found there.</returns>
 		// TODO: Remove on Version 2.5
-		[System.Obsolete("Tools.ConfigValue<T> is deprecated and will be removed on TweakScale 2.5")]
+		[System.Obsolete("Tools.ConfigValue<T> is deprecated and will be removed on TweakScale™ 2.5")]
         public static T ConfigValue<T>(ConfigNode config, string name, T defaultValue)
         {
             if (!config.HasValue(name))
@@ -164,7 +164,7 @@ namespace TweakScale
         /// <param name="defaultValue">The exponentValue to return if the exponentValue does not exist, or cannot be converted to <typeparamref name="T"/>s.</param>
         /// <returns>An array containing the elements of the string exponentValue as <typeparamref name="T"/>s.</returns>
 		// TODO: Remove on Version 2.5
-		[System.Obsolete("Tools.ConfigValue<T> is deprecated and will be removed on TweakScale 2.5")]
+		[System.Obsolete("Tools.ConfigValue<T> is deprecated and will be removed on TweakScale™ 2.5")]
         public static T[] ConfigValue<T>(ConfigNode config, string name, T[] defaultValue)
         {
             if (!config.HasValue(name))
@@ -182,7 +182,7 @@ namespace TweakScale
         /// <param name="defaultValue">The exponentValue to return if the list does not hold valid values.</param>
         /// <returns>An arra</returns>
 		// TODO: Remove on Version 2.5
-		[System.Obsolete("Tools.ConvertString<T> is deprecated and will be removed on TweakScale 2.5")]
+		[System.Obsolete("Tools.ConvertString<T> is deprecated and will be removed on TweakScale™ 2.5")]
         public static T[] ConvertString<T>(string value, T[] defaultValue)
         {
             try
@@ -223,7 +223,7 @@ namespace TweakScale
             }
         }
 
-		[System.Obsolete("Tools.HasParent is deprecated and will be removed on TweakScale 2.5")]
+		[System.Obsolete("Tools.HasParent is deprecated and will be removed on TweakScale™ 2.5")]
         public static bool HasParent(this Part p)
         {
             return !(p.parent is null);
