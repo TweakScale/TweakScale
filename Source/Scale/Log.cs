@@ -1,5 +1,5 @@
 ﻿/*
-	This file is part of TweakScale /L
+	This file is part of TweakScale™ /L
 		© 2018-2024 LisiasT
 		© 2015-2018 pellinor
 		© 2014 Gaius Godspeed and Biotronic
