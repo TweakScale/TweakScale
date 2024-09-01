@@ -26,9 +26,9 @@ namespace TweakScale.GUI
 {
 	internal static class MissingDLLAlertBox
 	{
-		private static readonly string MSG = @"Unfortunately TweakScale™ didn't found needed DLLs.
+		private static readonly string MSG = @"Unfortunately TweakScale™ didn't found needed DLLs by a reason or another.
 
-There's no safe way to proceed, without the support DLLs TweakScale™ will not work properly, and your craft files and savegames will be corrupted for sure!!
+There's no safe way to proceed as without the support DLLs TweakScale™ will not work properly, and your craft files and savegames will almost surely be corrupted on loading!!
 
 Missing Class: {0}";
 

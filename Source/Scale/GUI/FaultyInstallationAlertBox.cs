@@ -26,9 +26,9 @@ namespace TweakScale.GUI
 {
 	internal static class FaultyInstallationAlertBox
 	{
-		private static readonly string MSG = @"TweakScale™ is not installed correctly! Some of its required data files files are missing.
+		private static readonly string MSG = @"TweakScale™ is not installed correctly or something fishy happened on your GameData! Some of its required data files files appears to be missing.
 
-There is no safe way to proceed; without these files, TweakScale™ will not work properly!
+There is no safe way to proceed as without these files TweakScale™ will not work properly!
 
 Reason reported: {0}";
 
