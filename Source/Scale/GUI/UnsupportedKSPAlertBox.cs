@@ -29,7 +29,7 @@ namespace TweakScale.GUI
     {
         private static readonly string MSG = @"Unfortunately TweakScale™ is currently not known to work correctly on KSP {0} (and newer)!
 
-It's not certain that it will not work fine, it's **NOT KNOWN** and if anything goes wrong, KSP will inject bad information on your savegames corrupting parts with TwekScale™.
+It's not certain that it will not work fine, it's <b>NOT KNOWN</b> and if anything goes wrong, KSP will inject bad information on your savegames corrupting parts with TwekScale™.
 
 Please proceed with caution - backup anything valuable in your savegames.";
 

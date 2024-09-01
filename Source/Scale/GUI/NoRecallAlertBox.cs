@@ -29,7 +29,7 @@ namespace TweakScale.GUI
 		private const string URL = "https://ksp.lisias.net/add-ons/KSP-Recall/Support";
 		private static readonly string MSG = @"KSP Recall™ was not found!
 
-For this KSP version, KSP Recall™ **is required** to fix problems on Resources, Recovering Funds or something else (not only on TweakScale™, it only happens that TweakScale™ is the first known victim of the problems).";
+For this KSP version, KSP Recall™ <b>is required</b> to fix problems on Resources, Recovering Funds or something else (not only on TweakScale™, it only happens that TweakScale™ is the first known victim of the problems).";
 
 		private static readonly string AMSG = @"close KSP and open KSP Recall™'s support page, then download and install KSP Recall™";
 
