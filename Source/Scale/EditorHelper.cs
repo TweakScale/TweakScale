@@ -28,24 +28,25 @@ using KSPe.Annotations;
 
 namespace TweakScale
 {
-	[KSPAddon(KSPAddon.Startup.MainMenu, true)]
+	[KSPAddon(KSPAddon.Startup.EditorAny, false)]
 	internal class GameEventEditorListener : SingletonBehavior<GameEventEditorListener>
 	{
 		[UsedImplicitly]
-		new private void Awake()
+		new protected void Awake()
 		{
-			base.Awake(); DontDestroyOnLoad(this);
-			Log.dbg("GameEventEditorListener was awaken.");
+			base.Awake();
 			GameEvents.onEditorLoad.Add(this.OnEditorLoad);
 			GameEvents.onEditorNewShipDialogDismiss.Add(this.OnEditorNewShipDialogDismiss);
+			Log.dbg("GameEventEditorListener was awaken.");
 		}
 
 		[UsedImplicitly]
-		private void Destroy()
+		new protected void OnDestroy()
 		{
-			Log.dbg("GameEventEditorVariantAppliedListener was destroyed.");
 			GameEvents.onEditorNewShipDialogDismiss.Remove(this.OnEditorNewShipDialogDismiss);
 			GameEvents.onEditorLoad.Remove(this.OnEditorLoad);
+			base.OnDestroy();
+			Log.dbg("GameEventEditorVariantAppliedListener was destroyed.");
 		}
 
 		private void OnEditorLoad(ShipConstruct shipConstruct, CraftBrowserDialog.LoadType loadType) => ResetOnNew();
