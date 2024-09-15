@@ -1,5 +1,9 @@
 # TweakScale :: Changes
 
+* 2024-0914: 2.4.8.5 (Lisias) for KSP >= 1.3
+	+ Fixes a long standing mishandling on the Life Cycle of the `SingletonBehaviour`'s extended classes.
+	+ Closes Issues:
+		- [#336](https://github.com/TweakScale/TweakScale/issues/336) Finally Diagnosed a Memory Leak on `EditorHelper`
 * 2024-0831: 2.4.8.4 (Lisias) for KSP >= 1.3
 	+ Somewhat better error messages, in a (futile, probably) attempt to prevent this [kind of crap](https://www.reddit.com/r/KerbalAcademy/comments/1ejaf9b/houstonerror_contradiction/).
 	+ Updates MMWD to 1.1.2.1
