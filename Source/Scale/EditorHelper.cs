@@ -31,22 +31,18 @@ namespace TweakScale
 	[KSPAddon(KSPAddon.Startup.EditorAny, false)]
 	internal class GameEventEditorListener : SingletonBehavior<GameEventEditorListener>
 	{
-		[UsedImplicitly]
-		new protected void Awake()
+		override protected void DoAwake()
 		{
-			base.Awake();
 			GameEvents.onEditorLoad.Add(this.OnEditorLoad);
 			GameEvents.onEditorNewShipDialogDismiss.Add(this.OnEditorNewShipDialogDismiss);
-			Log.dbg("GameEventEditorListener was awaken.");
 		}
 
-		[UsedImplicitly]
-		new protected void OnDestroy()
+		protected override void DoStart() {	}
+
+		override protected void DoDestroy()
 		{
 			GameEvents.onEditorNewShipDialogDismiss.Remove(this.OnEditorNewShipDialogDismiss);
 			GameEvents.onEditorLoad.Remove(this.OnEditorLoad);
-			base.OnDestroy();
-			Log.dbg("GameEventEditorVariantAppliedListener was destroyed.");
 		}
 
 		private void OnEditorLoad(ShipConstruct shipConstruct, CraftBrowserDialog.LoadType loadType) => ResetOnNew();
