@@ -36,8 +36,9 @@ namespace TweakScale
 	{
 		internal static bool isConcluded = false;
 
-		[UsedImplicitly]
-		private void Start()
+		override protected void DoAwake() { }
+		override protected void DoDestroy() { }
+		override protected void DoStart()
 		{
 			using (KSPe.Util.SystemTools.Assembly.Loader<TweakScale> a = new KSPe.Util.SystemTools.Assembly.Loader<TweakScale>()) try
 			{

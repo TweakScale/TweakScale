@@ -28,10 +28,12 @@ namespace TweakScale.Sanitizer
 	[KSPAddon(KSPAddon.Startup.MainMenu, true)]
 	internal class Results : SingletonBehavior<Results>
 	{
+		override protected void DoAwake() { }
+		override protected void DoDestroy() { }
+
 		// Shows the Error Messages (only if there's no Show Stoppers). 
 		// The Dialogs should be positioned in a way that they could be all displayed at once.
-		[UsedImplicitly]
-		private void Start()
+		override protected void DoStart()
 		{
 			bool showStopper = false;
 			foreach (Sanitizer.ISanityCheck sc in Engine.Instance.CHECKS_AVAILABLE) if (Sanitizer.Priority.ShowStopper == sc.Priority)
