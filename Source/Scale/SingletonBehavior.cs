@@ -22,10 +22,11 @@
 */
 using UnityEngine;
 using KSPe.Annotations;
+using System;
 
 namespace TweakScale
 {
-	internal class SingletonBehavior<T> : MonoBehaviour where T : SingletonBehavior<T>
+	internal abstract class SingletonBehavior<T> : MonoBehaviour where T : SingletonBehavior<T>
 	{
 		// NOTE: THIS IS NOT THREAD SAFE!
 		private static T instance = null;
@@ -35,16 +36,33 @@ namespace TweakScale
 			}
 		}
 
+		protected abstract void DoAwake();
+		protected abstract void DoStart();
+		protected abstract void DoDestroy();
+
+
 		[UsedImplicitly]
 		protected void Awake()
 		{
-			Log.dbg("SingletonBehavior.Awake");
+			Log.dbg("SingletonBehavior.Awake: {0}", this.GetType().FullName);
 			instance = (T)this;
+			this.DoAwake();
+		}
+
+		[UsedImplicitly]
+		protected void Start()
+		{
+			Log.dbg("SingletonBehavior.Start: {0}", this.GetType().FullName);
+			// Guarantees that OnDestroy will be called.
+			this.enabled = true;
+			this.DoStart();
 		}
 
 		[UsedImplicitly]
 		protected void OnDestroy()
 		{
+			Log.dbg("SingletonBehavior.OnDestroy: {0}", this.GetType().FullName);
+			this.DoDestroy();
 			instance = null;
 		}
 	}
