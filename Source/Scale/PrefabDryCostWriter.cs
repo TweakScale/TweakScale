@@ -34,11 +34,12 @@ namespace TweakScale
         
         internal static bool isConcluded = false;
 
-        [UsedImplicitly]
-        private void Start()
+        override protected void DoAwake() { }
+        override protected void DoStart()
         {
             StartCoroutine("WriteDryCost");
         }
+        override protected void DoDestroy() { }
 
         private IEnumerator WriteDryCost()
         {

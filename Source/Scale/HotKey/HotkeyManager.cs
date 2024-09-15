@@ -35,15 +35,15 @@ namespace TweakScale
 		private readonly Dictionary<string, Hotkeyable> _hotkeys = new Dictionary<string, Hotkeyable>();
 		private /*readonly*/ PluginConfiguration _config;
 
-		[UsedImplicitly]
-		private new void Awake()
+		override protected void DoAwake()
 		{
-			Log.dbg("HotkeyManager.Awake");
-			base.Awake();
-			DontDestroyOnLoad(this);
+			DontDestroyOnLoad(this.gameObject);
 
 			_config = PluginConfiguration.CreateForType<TweakScale>();
 		}
+
+		override protected void DoStart() { }
+		override protected void DoDestroy() { }
 
 		public PluginConfiguration Config => _config;
 
