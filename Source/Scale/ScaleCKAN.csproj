@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70D38878-43DB-4F6E-8002-45ADA5391AF7}</ProjectGuid>
+    <ProjectGuid>{70D38878-43DB-4F6E-8002-45ADA5391AF8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <BaseIntermediateOutputPath>..\..\obj\Scale</BaseIntermediateOutputPath>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -19,14 +19,14 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\DebugCkan\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\ReleaseCkan\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -56,9 +56,6 @@
     <Compile Include="HotKey\Tuple.cs" />
     <Compile Include="GUI\CommonBox.cs" />
     <Compile Include="GUI\HotFixAdviseBox.cs" />
-    <Compile Include="..\Configuration.cs">
-      <DependentUpon>Configuration.tt</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="GUI\NoRecallAlertBox.cs" />
     <Compile Include="GUI\UnsupportedKSPAlertBox.cs" />
@@ -74,8 +71,16 @@
     <Compile Include="GUI\Icons.cs" />
     <Compile Include="GUI\ToolbarSupport.cs" />
     <Compile Include="GUI\SettingsGui.cs" />
+    <Compile Include="Properties\Version.cs" />
+    <Compile Include="..\Configuration.cs">
+      <Link>Properties\Configuration.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="KSPe.Light.TweakScale">
+      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.Light.TweakScale.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Compile Include="Features\AutoScale.cs" />
     <Compile Include="Features\ScaleChaining.cs" />
     <Compile Include="Properties\LegalMamboJambo.cs" />
@@ -90,9 +95,6 @@
     <Compile Include="GUI\DeprecatedCompanionFatalError.cs" />
     <Compile Include="Features\ResetOnNew.cs" />
     <Compile Include="EditorHelper.cs" />
-    <Compile Include="Properties\Version.cs">
-      <DependentUpon>Version.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -113,26 +115,6 @@
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="KSPe">
-      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
-    </Reference>
-    <Reference Include="KSPe.UI">
-      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="KSPe.External">
-      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.External.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Configuration.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <Link>Properties\Configuration.tt</Link>
-      <LastGenOutput>Configuration.cs</LastGenOutput>
-    </None>
-    <None Include="Properties\Version.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Version.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scale_Redist\Scale_Redist.csproj">
