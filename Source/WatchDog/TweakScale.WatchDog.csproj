@@ -53,8 +53,8 @@
     <Compile Include="Util\SanityLib.cs" />
     <Compile Include="InstallChecker.cs" />
     <Compile Include="ErrorMessages.cs" />
-    <Compile Include="Properties\Version.cs">
-      <DependentUpon>Version.tt</DependentUpon>
+    <Compile Include="Properties\WatchDogVersion.cs">
+      <DependentUpon>WatchDogVersion.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\LegalMamboJambo.cs" />
     <Compile Include="..\Scale_Redist\Properties\RedistVersion.cs">
@@ -62,11 +62,16 @@
     </Compile>
     <Compile Include="GUI\FatalError.cs" />
     <Compile Include="ModuleInitializer.cs" />
+    <Compile Include="GUI\UnsuitedForCkan.cs" />
+    <Compile Include="Util\CkanTools.cs" />
+    <Compile Include="..\Scale\Properties\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\Version.tt">
+    <None Include="Properties\WatchDogVersion.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Version.cs</LastGenOutput>
+      <LastGenOutput>WatchDogVersion.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

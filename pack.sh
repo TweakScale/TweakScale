@@ -9,3 +9,5 @@ pwd=$(pwd)
 cd $pwd
 ./pack-curse.sh
 cd $pwd
+./pack-ckan.sh
+cd $pwd
