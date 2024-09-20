@@ -13,7 +13,7 @@ clean() {
 }
 
 pwd=$(pwd)
-FILE=${pwd}/Archive/$PACKAGE-$VERSION${PROJECT_STATE}-CKAN.zip
+FILE=${pwd}/Archive/$PACKAGE-$VERSION${PROJECT_STATE}-SpaceDock.zip
 echo $FILE
 clean
 zip -r $FILE ./GameData/* -x ".*"
