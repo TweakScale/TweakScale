@@ -53,9 +53,6 @@
     <Compile Include="Util\SanityLib.cs" />
     <Compile Include="InstallChecker.cs" />
     <Compile Include="ErrorMessages.cs" />
-    <Compile Include="Properties\WatchDogVersion.cs">
-      <DependentUpon>WatchDogVersion.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\LegalMamboJambo.cs" />
     <Compile Include="..\Scale_Redist\Properties\RedistVersion.cs">
       <Link>Properties\RedistVersion.cs</Link>
@@ -68,12 +65,9 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="Globals.cs" />
+    <Compile Include="Properties\WatchDogVersion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\WatchDogVersion.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>WatchDogVersion.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
