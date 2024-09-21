@@ -1,5 +1,9 @@
 # TweakScale :: Changes
 
+* 2024-0921: 2.4.8.6 (Lisias) for KSP >= 1.3
+	+ Due recently realised changes on the way [CKAN handles alternate downloads](https://forum.kerbalspaceprogram.com/topic/225966-psa-update-your-ckan-clients-to-134/?do=findComment&comment=4421703), some safeties were implemented to alert the user if by some reason it was installed a non CKAN approved package on a CKAN managed installment.
+	+ Closes Issues:
+		- [#339](https://github.com/TweakScale/TweakScale/issues/339) Prevent non CKAN safe binaries from being used on CKAN managed installations.
 * 2024-0914: 2.4.8.5 (Lisias) for KSP >= 1.3
 	+ Fixes a long standing mishandling on the Life Cycle of the `SingletonBehaviour`'s extended classes.
 	+ Closes Issues:
