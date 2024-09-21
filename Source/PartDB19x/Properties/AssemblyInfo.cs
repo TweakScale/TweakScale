@@ -4,13 +4,13 @@ using System.Runtime.CompilerServices;
 // Information about this assembly is defined by the following attributes. 
 // Change them to the values specific to your project.
 
-[assembly: AssemblyTitle("PartDB19x")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Scale.PartDB.19x")]
+[assembly: AssemblyDescription("KSP 1.9.0 to latest scaling support for TweakScale")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("${AuthorCopyright}")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany(TweakScale.LegalMamboJambo.Company)]
+[assembly: AssemblyProduct(TweakScale.LegalMamboJambo.Product)]
+[assembly: AssemblyCopyright(TweakScale.LegalMamboJambo.Company)]
+[assembly: AssemblyTrademark(TweakScale.LegalMamboJambo.Trademark)]
 [assembly: AssemblyCulture("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".

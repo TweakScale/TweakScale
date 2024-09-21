@@ -88,6 +88,5 @@ namespace <#= PROJECT_NAME #>
 #else
         public const string Text = Number + " /L";
 #endif
-		public const string AssemblyVersion = "1.0";
 	}
 }
