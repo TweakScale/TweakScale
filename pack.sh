@@ -9,5 +9,5 @@ pwd=$(pwd)
 cd $pwd
 ./pack-curse.sh
 cd $pwd
-./pack-ckan.sh
+./pack-spacedock.sh
 cd $pwd
