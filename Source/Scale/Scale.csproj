@@ -76,6 +76,10 @@
     <Compile Include="GUI\SettingsGui.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="KSPe.Light.TweakScale">
+      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.Light.TweakScale.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Compile Include="Features\AutoScale.cs" />
     <Compile Include="Features\ScaleChaining.cs" />
     <Compile Include="Properties\LegalMamboJambo.cs" />
@@ -112,15 +116,6 @@
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\..\..\LIB\managed\1.3.0\UnityEngine.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="KSPe">
-      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
-    </Reference>
-    <Reference Include="KSPe.UI">
-      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="KSPe.External">
-      <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.External.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
