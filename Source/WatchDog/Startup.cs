@@ -25,7 +25,11 @@ namespace TweakScale.WatchDog
 		{
 			Log.force("Version {0}", TweakScale.WatchDog.Version.Text);
 
-			if (!TweakScale.Version.Text.Contains("BETA") && Util.CkanTools.CheckCkanInstalled() && Util.CkanTools.CheckCkanRepository())
+			if (
+				!Globals.Instance.ckan_ready
+				&& Util.CkanTools.CheckCkanInstalled()
+				&& Util.CkanTools.CheckCkanRepository()
+			)
 				GUI.Dialogs.UnsuitedForCkanErrorBox.Show();
 		}
 	}

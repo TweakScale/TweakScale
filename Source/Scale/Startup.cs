@@ -33,7 +33,12 @@ namespace TweakScale
 	{
 		[UsedImplicitly]
 		private void Start() {
-			Log.force("Version {0}", Version.Text);
+			Log.force("Version {0}{1}"
+				, Version.Text
+				, Globals.Instance.curseforge_ready ? " for CurseForge"
+					: Globals.Instance.ckan_ready ? " for CKAN"
+					: ""
+			);
 
 			try	// Check for critical artefacts first!
 			{
