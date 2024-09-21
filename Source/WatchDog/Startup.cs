@@ -26,7 +26,8 @@ namespace TweakScale.WatchDog
 			Log.force("Version {0}", TweakScale.WatchDog.Version.Text);
 
 			if (!TweakScale.Version.Text.Contains("BETA") && Util.CkanTools.CheckCkanInstalled() && Util.CkanTools.CheckCkanRepository())
-				GUI.Dialogs.UnsuitedForCkanErrorBox.Show();
+				//GUI.Dialogs.UnsuitedForCkanErrorBox.Show();
+				Log.force("**YOUR ATTENTION PLEASE!** This TweakScale™ packaging is not meant to be used under CKAN. It's usually a bad idea to do manual installings when using CKAN, futurelly this may break things for you! Please CKAN to install TweakScale™ on CKAN managed rigs.");
 		}
 	}
 }
