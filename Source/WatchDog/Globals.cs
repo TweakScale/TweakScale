@@ -37,8 +37,8 @@ namespace TweakScale
 		{
 			try
 			{
-				UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("STATUS")[0];
-				ConfigNode cn = urlc.config.GetNode("FEATURES");
+				UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
+				ConfigNode cn = urlc.config.GetNode("STATUS");
 				this.curseforge_ready = "True".Equals(cn.GetValue("curseforge_ready"),StringComparison.InvariantCultureIgnoreCase);
 				this.ckan_ready = "True".Equals(cn.GetValue("ckan_ready"),StringComparison.InvariantCultureIgnoreCase);
 			}

@@ -33,18 +33,29 @@ namespace TweakScale
 		public readonly bool AllowStealthSave;
 		public readonly DateTime LastCompanionMessage;
 
+		public readonly bool curseforge_ready;
+		public readonly bool ckan_ready;
+
 		private Globals()
 		{
 			try
 			{
 				UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
-				ConfigNodeWithSteroids cn = ConfigNodeWithSteroids.from(urlc.config.GetNode("FEATURES"));
-
-				this.AllowStealthSave = cn.GetValue<bool>("AllowStealthSave");
+				{ 
+					ConfigNodeWithSteroids cn = ConfigNodeWithSteroids.from(urlc.config.GetNode("FEATURES"));
+					this.AllowStealthSave = cn.GetValue<bool>("AllowStealthSave");
+				}
+				{
+					ConfigNodeWithSteroids cn = ConfigNodeWithSteroids.from(urlc.config.GetNode("STATUS"));
+					this.curseforge_ready = cn.GetValue<bool>("curseforge_ready");
+					this.ckan_ready = cn.GetValue<bool>("ckan_ready");
+				}
 			}
 			catch (Exception)
 			{
 				this.AllowStealthSave = false;
+				this.curseforge_ready = false;
+				this.ckan_ready = false;
 			}
 		}
 	}
