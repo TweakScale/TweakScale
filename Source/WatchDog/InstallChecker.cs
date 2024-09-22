@@ -32,29 +32,10 @@ namespace TweakScale.WatchDog
 		{
 			try
 			{
-				// Always check for being the unique Assembly loaded. This will avoid problems in the future.
-				String msg = this.CheckMyself();
-				if (null == msg)
-					Log.detail("{0} is present and correctly installed.", this.GetType().Name);
-
-				if (null == msg)
-					 msg = this.CheckScaleRedist();
-				else
-					Log.detail("Scale_Redist is present and correctly installed.");
-
-				if (null == msg)
-					 msg = this.CheckTweakScale();
-				else
-					Log.detail("TweakScale is present and correctly installed.");
-
-				if (null == msg)	// If MMWD is installed, there's nothing we need to do.
-					this.CheckModuleManagerWatchDog();
-
-				if (null == msg)
-					msg = this.CheckModuleManager();
-				else
-					Log.detail("ModuleManager is present and correctly installed.");
-
+				String msg = Globals.Instance.ckan_ready ? this.ChecksUnderCkan()
+						: Globals.Instance.curseforge_ready ? this.ChecksUnderCurseForge()
+						: this.Checks()
+						;
 				Handle(msg);
 			}
 			catch (EnvironmentSaneException e)
@@ -67,6 +48,54 @@ namespace TweakScale.WatchDog
 				Log.error(e.ToString());
 				GUI.Dialogs.ShowStopperAlertBox.Show(e.ToString());
 			}
+		}
+
+		private String Checks()
+		{
+			// Always check for being the unique Assembly loaded. This will avoid problems in the future.
+			String msg = this.CheckMyself();
+			if (null == msg)
+				Log.detail("{0} is present and correctly installed.", this.GetType().Name);
+
+			if (null == msg)
+					msg = this.CheckScaleRedist();
+			else
+				Log.detail("Scale_Redist is present and correctly installed.");
+
+			if (null == msg)
+					msg = this.CheckTweakScale();
+			else
+				Log.detail("TweakScale is present and correctly installed.");
+
+			if (null == msg)	// If MMWD is installed, there's nothing we need to do.
+				this.CheckModuleManagerWatchDog();
+
+			if (null == msg)
+				msg = this.CheckModuleManager(false);
+			else
+				Log.detail("ModuleManager is present and correctly installed.");
+
+			return msg;
+		}
+
+		private String ChecksUnderCurseForge()
+		{
+			return this.Checks();
+		}
+
+		private String ChecksUnderCkan()
+		{
+			// Always check for being the unique Assembly loaded. This will avoid problems in the future.
+			String msg = this.CheckMyself();
+			if (null == msg)
+				Log.detail("{0} is present and correctly installed.", this.GetType().Name);
+
+			if (null == msg)
+				msg = this.CheckModuleManager(true);
+			else
+				Log.detail("ModuleManager is present and correctly installed.");
+
+			return msg;
 		}
 
 		private void Handle(string msg)
@@ -113,7 +142,7 @@ namespace TweakScale.WatchDog
 			throw new EnvironmentSaneException("MMWD is present");
 		}
 
-		private string CheckModuleManager()
+		private string CheckModuleManager(bool simpleCheck)
 		{
 			IEnumerable<AssemblyLoader.LoadedAssembly> loaded = SanityLib.FetchLoadedAssembliesByName(MM_ASSEMBLY_NAME);
 
@@ -124,6 +153,8 @@ namespace TweakScale.WatchDog
 #endif
 
 			if (0 == loaded.Count()) return ErrorMessage.ERR_MM_ABSENT;
+			if (simpleCheck) return null;
+
 			if (this.IsModuleManagerMyFork()) throw new EnvironmentSaneException("MM/L is present");
 
 			return null;
