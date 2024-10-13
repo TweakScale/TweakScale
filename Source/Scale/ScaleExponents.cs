@@ -253,11 +253,11 @@ namespace TweakScale
 
             if (values != null)
             {
-                if (current.MemberType == typeof (float))
+                if (current.MemberType == typeof(float))
                 {
                     current.Set((float)values[factor.index]);
                 }
-                else if (current.MemberType == typeof(float))
+                else if (current.MemberType == typeof(double))
                 {
                     current.Set(values[factor.index]);
                 }
