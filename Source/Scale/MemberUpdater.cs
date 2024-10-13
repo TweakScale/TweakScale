@@ -122,6 +122,11 @@ namespace TweakScale
             _field = field;
             _property = property;
             _floatRange = floatRange;
+#if DEBUG
+            Log.dbg("Created {0} with type {1}", this.ToString(), this.Type.FullName);
+            if (this.MemberType == typeof(List<ResourceRatio>))
+                Log.dbg("And yes, it's a (List<ResourceRatio>)!!");
+#endif
         }
 
         public object Value
@@ -140,6 +145,8 @@ namespace TweakScale
             }
         }
 
+        public Type Type => this.Value?.GetType();
+
         public Type MemberType
         {
             get
@@ -156,6 +163,10 @@ namespace TweakScale
             }
         }
 
+		public object ValueAsString => (null != this._property) ? this._property.GetValue(this._object, null).ToString()
+									: (null != this._field) ? this._field.GetValue(this._object).ToString()
+									: "<NULL>"
+			;
         public void Set(object value)
         {
             if (value.GetType() != MemberType && MemberType.GetInterface("IConvertible") != null &&
@@ -176,6 +187,7 @@ namespace TweakScale
 
         public void Scale(double scale, MemberUpdater source)
         {
+			Log.dbg("MemberUpdate.Scale({0}, {1})", scale, source);
             if (_field == null && _property == null)
             {
                 return;
@@ -184,24 +196,51 @@ namespace TweakScale
 			object newValue = source.Value;
 			if (MemberType == typeof(float))
 			{
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::float({0}, {1}) from {2}", scale, source, this.ValueAsString);
+#endif
 				RescaleFloatRange((float)scale);
 				Set((float)newValue * (float)scale);
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::float({0}, {1}) to {2}", scale, source, this.ValueAsString);
+#endif
 			}
 			else if (MemberType == typeof(double))
 			{
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::double({0}, {1}) from {2}", scale, source, this.ValueAsString);
+#endif
 				RescaleFloatRange((float)scale);
 				Set((double)newValue * scale);
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::double({0}, {1}) to {2}", scale, source, this.ValueAsString);
+#endif
 			}
 			else if (MemberType == typeof(int))
 			{
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::int({0}, {1}) from {2}", scale, source, this.ValueAsString);
+#endif
 				Set((int)Math.Round((int)(newValue) * scale));
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::int({0}, {1}) to {2}", scale, source, this.ValueAsString);
+#endif
 			}
 			else if (MemberType == typeof(Vector3))
 			{
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::Vector3({0}, {1}) from {2}", scale, source, this.ValueAsString);
+#endif
 				Set((Vector3)newValue * (float)scale);
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::Vector3({0}, {1}) to {2}", scale, source, this.ValueAsString);
+#endif
 			}
 			else if (MemberType == typeof(FloatCurve))
 			{
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::FloatCurve({0}, {1}) from {2}", scale, source, this.ValueAsString);
+#endif
 				AnimationCurve curve = (newValue as FloatCurve).Curve;
 				AnimationCurve tmp = new AnimationCurve();
 				for (int i = 0; i < curve.length; i++)
@@ -213,38 +252,59 @@ namespace TweakScale
 					tmp.AddKey(k);
 				}
 				(Value as FloatCurve).Curve = tmp;
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::FloatCurve({0}, {1}) to {2}", scale, source, this.ValueAsString);
+#endif
 			}
 			else if (MemberType == typeof(List<ResourceRatio>))
 			{
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::List<ResourceRatio>({0}, {1}) from {2}", scale, source, this.ValueAsString);
+#endif
 				List<ResourceRatio> l = (newValue as List<ResourceRatio>);
 				//List<ResourceRatio> l2 = new List<ResourceRatio>();
-				for (int i = 0; i < l.Count; i++)
-				{
-					ResourceRatio tmp = l[i];
-					tmp.Ratio *= scale;
-					(Value as List<ResourceRatio>)[i] = tmp;
-				}
+				this.ScaleResourceList(l, scale);
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::List<ResourceRatio>({0}, {1}) to {2}", scale, source, this.ValueAsString);
+#endif
 			}
 			else if (MemberType == typeof(ConversionRecipe))
 			{
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::ConversionRecipe({0}, {1}) from {2}", scale, source, this.ValueAsString);
+#endif
 				ConversionRecipe l = (newValue as ConversionRecipe);
                 ScaleResourceList(l.Inputs, scale);
                 ScaleResourceList(l.Outputs, scale);
                 ScaleResourceList(l.Requirements, scale);
+#if DEBUG
+				Log.dbg("MemberUpdate.Scale::ConversionRecipe({0}, {1}) to {2}", scale, source, this.ValueAsString);
+#endif
             }
+            else
+				Log.warn("MemberUpdate.Scale({0}, {1}) doesn't supports {2}", scale, source, MemberType.ToString());
+
         }
 
-        public void ScaleResourceList(List<ResourceRatio> l, double scale)
-        {
-            for (int i = 0; i < l.Count; i++)
+		public void ScaleResourceList(List<ResourceRatio> l, double scale)
+		{
+			for (int i = 0; i < l.Count; i++)
 			{
 				ResourceRatio tmp = l[i];
-                tmp.Ratio *= scale;
-                l[i] = tmp;
-            }
-        }
+				tmp.Ratio *= scale;
+				l[i] = tmp;
+			}
+#if DEBUG
+			{
+				List<string> ll = new List<string>();
+				for (int i = 0; i < l.Count; i++)
+					ll.Add(l[i].ToString());
+				Log.dbg("MemberUpdate.ScaleResourceList({0}, {1}) to {2}", this._object.GetType().FullName, this.Name, String.Join(",", ll.ToArray()));
+			}
+#endif
+		}
 
-        private void RescaleFloatRange(float factor)
+		private void RescaleFloatRange(float factor)
         {
             if ((object)_floatRange == null)
             {
@@ -268,8 +328,12 @@ namespace TweakScale
                 {
                     return _property.Name;
                 }
-                return null;
+                return "<NULL>";
             }
         }
-    }
+
+		public override string ToString() {
+			return String.Format("MemberUpdate({0}, {1})", this._object.GetType().FullName, this.Name);
+		}
+	}
 }

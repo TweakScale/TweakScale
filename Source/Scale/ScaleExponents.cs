@@ -191,6 +191,7 @@ namespace TweakScale
         /// <returns>The rescaled exponentValue.</returns>
         static private void Rescale(MemberUpdater current, MemberUpdater baseValue, string name, ScalingMode scalingMode, ScalingFactor factor)
         {
+            Log.dbg("ScaleExponents.Rescale({0}, {1}, {2}, {3}, {4})", current, baseValue, name, scalingMode, factor);
 			string exponentValue = scalingMode.Exponent;
 			double exponent = double.NaN;
             double[] values = null;
