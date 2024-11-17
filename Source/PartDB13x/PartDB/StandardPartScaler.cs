@@ -45,7 +45,6 @@ namespace TweakScale.PartDB
 			base.DoRestore();
 
 			// Attention! See issue https://github.com/TweakScale/TweakScale/issues/314 before fixing this again.
-			// Undoing https://github.com/TweakScale/TweakScale/issues/307 (the `absolute` should be true)
 			this.ScalePart(true, false);
 
 			this.OnChange();
