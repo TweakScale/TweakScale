@@ -34,6 +34,7 @@ namespace TweakScale.PartDB
 
 		protected override void DoScale()
 		{
+			base.DoScale();
 			this.ScalePart(true, true);
 			this.ScaleDragCubes(false);
 			this.OnChange();
@@ -41,7 +42,11 @@ namespace TweakScale.PartDB
 
 		protected override void DoRestore()
 		{
-			this.ScalePart(true, true);
+			base.DoRestore();
+
+			// Attention! See issue https://github.com/TweakScale/TweakScale/issues/314 before fixing this again.
+			this.ScalePart(true, false);
+
 			this.OnChange();
 		}
 
