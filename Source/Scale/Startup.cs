@@ -46,12 +46,12 @@ namespace TweakScale
 				{
 					if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
 						a.LoadAndStartup("Scale.PartDB.13x");
-					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 4))
+					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 5, 0))
 						a.LoadAndStartup("Scale.PartDB.14x");
-					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 8, 0)) // Alerta de Gambiarra!
+					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 8, 0))
 						a.LoadAndStartup("Scale.PartDB.15x");
 					else
-						a.LoadAndStartup("Scale.PartDB.19x");
+						a.LoadAndStartup("Scale.PartDB.19x");  // Alerta de Gambiarra! Era pra ser 18x, mas não vou renomear isso hoje
 				}
 
 				// Check if the needed Classes are available...

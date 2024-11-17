@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("Scale.PartDB.14x")]
-[assembly: AssemblyDescription("KSP 1.4.0 to 1.4.3 scaling support for TweakScale")]
+[assembly: AssemblyDescription("KSP 1.4.0 to 1.4.5 scaling support for TweakScale")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany(TweakScale.LegalMamboJambo.Company)]
 [assembly: AssemblyProduct(TweakScale.LegalMamboJambo.Product)]
