@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4A529FE9-0CA6-4EB6-8D93-9B71539012AB}</ProjectGuid>
+    <ProjectGuid>{274C1C45-FA97-4F53-946F-CB354F04355C}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>PartDB19x</RootNamespace>
-    <AssemblyName>Scale.PartDB.19x</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <BaseIntermediateOutputPath>..\..\obj\PartDB19x</BaseIntermediateOutputPath>
+    <RootNamespace>TweakScale</RootNamespace>
+    <AssemblyName>Scale.PartDB.144</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <BaseIntermediateOutputPath>..\..\obj</BaseIntermediateOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,46 +30,44 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.9.0\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.1\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.9.0\UnityEngine.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.9.0\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.1\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="KSPe.Light.TweakScale">
       <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.Light.TweakScale.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="..\PartDB140\PartDB\EditorHelper.cs">
-      <Link>PartDB\EditorHelper.cs</Link>
-    </Compile>
-    <Compile Include="PartDB\VariantPartScaler19x.cs" />
     <Compile Include="..\PartDB13x\PartDB\StandardPartScaler.cs">
       <Link>PartDB\StandardPartScaler.cs</Link>
     </Compile>
-    <Compile Include="..\PartDB15x\PartDB\VariantPartScaler15x.cs">
-      <Link>PartDB\VariantPartScaler15x.cs</Link>
+    <Compile Include="..\PartDB140\PartDB\EditorHelper.cs">
+      <Link>PartDB\EditorHelper.cs</Link>
     </Compile>
     <Compile Include="..\PartDB140\PartDB\VariantPartScaler.cs">
       <Link>PartDB\VariantPartScaler.cs</Link>
+    </Compile>
+    <Compile Include="..\PartDB140\PartDB\VariantPartScaler14x.cs">
+      <Link>PartDB\VariantPartScaler14x.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scale\Scale.csproj">
       <Project>{70D38878-43DB-4F6E-8002-45ADA5391AF7}</Project>
       <Name>Scale</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Scale_Redist\Scale_Redist.csproj">
       <Project>{2BE63D8B-350E-4EDD-959C-4B7397984364}</Project>
       <Name>Scale_Redist</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -49,10 +49,10 @@
     <Compile Include="..\PartDB13x\PartDB\StandardPartScaler.cs">
       <Link>PartDB\StandardPartScaler.cs</Link>
     </Compile>
-    <Compile Include="..\PartDB14x\PartDB\EditorHelper.cs">
+    <Compile Include="..\PartDB140\PartDB\EditorHelper.cs">
       <Link>PartDB\EditorHelper.cs</Link>
     </Compile>
-    <Compile Include="..\PartDB14x\PartDB\VariantPartScaler.cs">
+    <Compile Include="..\PartDB140\PartDB\VariantPartScaler.cs">
       <Link>PartDB\VariantPartScaler.cs</Link>
     </Compile>
   </ItemGroup>

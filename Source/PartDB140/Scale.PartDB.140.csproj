@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{274C1C45-FA97-4F53-946F-CB354F04355C}</ProjectGuid>
+    <ProjectGuid>{AE4A7DDE-67F7-488B-9668-94EE3915FBB1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>TweakScale</RootNamespace>
-    <AssemblyName>Scale.PartDB.14x</AssemblyName>
+    <AssemblyName>Scale.PartDB.140</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <BaseIntermediateOutputPath>..\..\obj</BaseIntermediateOutputPath>
   </PropertyGroup>
@@ -30,16 +30,13 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.1\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.3\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.1\UnityEngine.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.3\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="KSPe.Light.TweakScale">
       <HintPath>..\..\..\..\..\..\LIB\plugins\KSPe.Light.TweakScale.dll</HintPath>
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -47,21 +44,17 @@
     <Compile Include="Startup.cs" />
     <Compile Include="PartDB\EditorHelper.cs" />
     <Compile Include="PartDB\VariantPartScaler.cs" />
-    <Compile Include="..\PartDB13x\PartDB\StandardPartScaler.cs">
-      <Link>PartDB\StandardPartScaler.cs</Link>
-    </Compile>
     <Compile Include="PartDB\VariantPartScaler14x.cs" />
+    <Compile Include="PartDB\StandardPartScaler140.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scale\Scale.csproj">
       <Project>{70D38878-43DB-4F6E-8002-45ADA5391AF7}</Project>
       <Name>Scale</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Scale_Redist\Scale_Redist.csproj">
       <Project>{2BE63D8B-350E-4EDD-959C-4B7397984364}</Project>
       <Name>Scale_Redist</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

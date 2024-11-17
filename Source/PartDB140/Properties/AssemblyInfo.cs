@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 // Information about this assembly is defined by the following attributes. 
 // Change them to the values specific to your project.
 
-[assembly: AssemblyTitle("Scale.PartDB.14x")]
+[assembly: AssemblyTitle("Scale.PartDB.140")]
 [assembly: AssemblyDescription("KSP 1.4.0 to 1.4.3 scaling support for TweakScale")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany(TweakScale.LegalMamboJambo.Company)]
