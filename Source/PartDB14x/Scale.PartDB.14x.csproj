@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{274C1C45-FA97-4F53-946F-CB354F04355C}</ProjectGuid>
+    <ProjectGuid>{AE4A7DDE-67F7-488B-9668-94EE3915FBB1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>TweakScale</RootNamespace>
     <AssemblyName>Scale.PartDB.14x</AssemblyName>
@@ -30,11 +30,11 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.1\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.3\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.1\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\LIB\managed\1.4.3\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="KSPe">
@@ -47,9 +47,6 @@
     <Compile Include="Startup.cs" />
     <Compile Include="PartDB\EditorHelper.cs" />
     <Compile Include="PartDB\VariantPartScaler.cs" />
-    <Compile Include="..\PartDB13x\PartDB\StandardPartScaler.cs">
-      <Link>PartDB\StandardPartScaler.cs</Link>
-    </Compile>
     <Compile Include="PartDB\VariantPartScaler14x.cs" />
     <Compile Include="..\PartDB13x\Updater\Generic.cs">
       <Link>Updater\Generic.cs</Link>
@@ -66,6 +63,7 @@
     <Compile Include="..\PartDB13x\Updater\CrewManifest.cs">
       <Link>Updater\CrewManifest.cs</Link>
     </Compile>
+    <Compile Include="PartDB\StandardPartScaler140.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Scale\Scale.csproj">

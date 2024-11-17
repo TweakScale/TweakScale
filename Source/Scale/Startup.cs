@@ -21,8 +21,6 @@
 	along with TweakScale™ /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using System.Text;
-using System.Reflection;
 using UnityEngine;
 using KSPe.Annotations;
 
@@ -48,31 +46,18 @@ namespace TweakScale
 				{
 					if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
 						a.LoadAndStartup("Scale.PartDB.13x");
-					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 4, 4))
+					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 5, 0))
 						a.LoadAndStartup("Scale.PartDB.14x");
-					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 9, 0))
+					else if (KSPe.Util.KSP.Version.Current < KSPe.Util.KSP.Version.GetVersion(1, 8, 0))
 						a.LoadAndStartup("Scale.PartDB.15x");
 					else
-						a.LoadAndStartup("Scale.PartDB.19x");
+						a.LoadAndStartup("Scale.PartDB.19x");  // Alerta de Gambiarra! Era pra ser 18x, mas não vou renomear isso hoje
 				}
 
 				// Check if the needed Classes are available...
 				KSPe.Util.SystemTools.Type.Find.ByQualifiedName("TweakScale.PartDB.StandardPartScaler");
 				if (KSPe.Util.KSP.Version.Current >= KSPe.Util.KSP.Version.GetVersion(1, 4, 0))
 					KSPe.Util.SystemTools.Type.Find.ByQualifiedName("TweakScale.PartDB.VariantPartScaler");
-			}
-			catch (ReflectionTypeLoadException e)
-			{
-				Log.error(e.ToString());
-				StringBuilder sb = new StringBuilder();
-				foreach (Exception loaderExc in e.LoaderExceptions)
-				{
-					if (loaderExc != null)
-					{
-						sb.AppendLine(loaderExc.Message);
-					}
-				}
-				GUI.MissingDLLAlertBox.Show(sb.ToString());
 			}
 			catch (System.Exception e)
 			{
@@ -104,8 +89,45 @@ namespace TweakScale
 			catch (KSPe.Util.InstallmentException e)
 			{
 				Log.error(e.ToShortMessage());
-				KSPe.Common.Dialogs.ShowStopperErrorBox.Show(e);
+				KSPe.Common.Dialogs.ShowStopperAlertBox.Show(e);
 			}
+
+			try
+			{
+				CompanionSupport cs = new CompanionSupport();
+				cs.Execute();
+			}
+			catch (CompanionSupport.DeprecatedCompanionsException e)
+			{
+				GUI.DeprecatedCompanionFatalError.Show(e.companions);
+			}
+			catch (CompanionSupport.MandatoryCompanionsException e)
+			{
+				GUI.MissingCompanionFatalError.Show(e.companions);
+			}
+			catch (CompanionSupport.NeededCompanionsException e)
+			{
+				MainMenu.E = e;
+			}
+			catch (Exception e)
+			{
+				// TODO: This is too harsh, if we reach here the problem is on TweakScale, not on the user's GameData!
+				// Better message needed!
+				KSPe.Common.Dialogs.ShowStopperAlertBox.Show(e.Message, "Close KSP and Reinstall TweakScale", () => { Application.Quit(); });
+			}
+		}
+	}
+
+	[KSPAddon(KSPAddon.Startup.MainMenu, true)]
+	internal class MainMenu : MonoBehaviour
+	{
+		internal static CompanionSupport.NeededCompanionsException E = null;
+		[UsedImplicitly]
+		private void Start()
+		{
+			if (null != E)
+				GUI.MissingCompanionAdviseBox.Show(E.companions);
+			E = null;
 		}
 	}
 }
