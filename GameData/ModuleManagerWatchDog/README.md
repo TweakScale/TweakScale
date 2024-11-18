@@ -34,7 +34,7 @@ A Watch Dog for Module Manager - with benefits.
 
 `MMWD` is a Watch Dog to monitor Module Manager, preventing known (and unsolved) bugs on KSP 1.8 and newer that affects it.
 
-Additional services for updating specific DLLs on `GameData` are now part of the solution, and it is's now effective for KSP <= 1.7.3 .
+Additional services for updating specific DLLs on `GameData` are now part of the solution, and it's now effective for KSP <= 1.7.3 .
 
 The following services are provided:
 
@@ -104,7 +104,7 @@ Detailed installation instructions are now on its own file (see the [In a Hurry]
 ### Licensing
 
 * Module Manager Watch Dog is licensed as follows:
-	+ [SKL 1.0](https://ksp.lisias.net/SKL-1_0.txt). See [here](./LICENSE.KSPe.SKL-1_0)
+	+ [SKL 1.0](https://ksp.lisias.net/SKL-1_0.txt). See [here](./LICENSE)
 		+ You are free to:
 			- Use : unpack and use the material in any computer or device
 			- Redistribute : redistribute the original package in any medium

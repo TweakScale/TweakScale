@@ -1,10 +1,18 @@
 # Module Manager Watch Dog :: Change Log
 
+* 2024-0831: 1.1.2.1 (Lisias) for KSP >= 1.2.2
+	+ Somewhat better error messages, in a (futile, probably) attempt to prevent this [kind of crap](https://www.reddit.com/r/KerbalAcademy/comments/1ejaf9b/houstonerror_contradiction/).
+* 2024-0423: 1.1.2.0 (LisiasT) for KSP >= 1.2.2
+	+ Adds an Option Box asking the user what would be their preferred MM Fork when a conflict is detected.
+	+ We had moved!
+		- The Official Repository is now on https://github.com/KSP-ModularManagement/ModuleManagerWatchDog
+	+ Closes issue:
+		- [#11](https://github.com/KSP-ModularManagement/ModuleManagerWatchDog/issues/11) Implement a more friendly way to allow the user to select which MM fork it wants.
 * 2024-0330: 1.1.1.2 (LisiasT) for KSP >= 1.2.2
 	+ Implements a "self-cleaning" mechanism intended to prevent the user being forced to manually delete artefacts on `GameData` once they decide to deinstall `Module Manager /L` and/or `Module Manager Watch Dog`. 
 		- Specially necessary for CurseForge users.
 	+ Closes issue:
-		- [#10](https://github.com/net-lisias-ksp/ModuleManagerWatchDog/issues/10) Detects when the host directory (`GameData\ModuleManager`) was removed, and kill `ModuleManager.dll` in response.
+		- [#10](https://github.com/KSP-ModularManagement/ModuleManagerWatchDog/issues/10) Detects when the host directory (`GameData\ModuleManager`) was removed, and kill `ModuleManager.dll` in response.
 * 2023-0703: 1.1.1.1 (LisiasT) for KSP >= 1.2.2
 	+ More sensible updating mechanism, coping with how Windows handles DLL files once they are loaded.
 	+ Fixes a bug on the KSPe's Install Checker/Update Tool
@@ -14,11 +22,11 @@
 		- Safer handling 1.12.x without screwing older KSPs.
 	+ Implements an "AutoFix", automatically fixing the user's rig when possible (respecting user's preferences).
 	+ Closes issue:
-		- [#8](https://github.com/net-lisias-ksp/ModuleManagerWatchDog/issues/8) Automatically fix the Module Manager installation borks when possible.
+		- [#8](https://github.com/KSP-ModularManagement/ModuleManagerWatchDog/issues/8) Automatically fix the Module Manager installation borks when possible.
 * 2023-0313: 1.1.0.4 (LisiasT) for KSP >= 1.2.2
 	+ Makes the thing survivable if KSP starts with the `pwd` set to anywhere but the `KSPUtil.ApplicationRootPath`.
 	+ Closes issue:
-		- [#6](https://github.com/net-lisias-ksp/ModuleManagerWatchDog/issues/6) Resurrect the multiple ModuleManager DLLs check for KSP 1.12.x 
+		- [#6](https://github.com/KSP-ModularManagement/ModuleManagerWatchDog/issues/6) Resurrect the multiple ModuleManager DLLs check for KSP 1.12.x 
 * 2022-1112: 1.1.0.3 (LisiasT) for KSP >= 1.2.2
 	+ ***DITCHED***
 * 2022-0719: 1.1.0.2 (LisiasT) for KSP >= 1.2.2
@@ -29,7 +37,7 @@
 		- ModuleManager /L
 		- TweakScale
 	+ Closes issue:
-		- [#5](https://github.com/net-lisias-ksp/ModuleManagerWatchDog/issues/5) Cook a `GameData/*.dll` update tool 
+		- [#5](https://github.com/KSP-ModularManagement/ModuleManagerWatchDog/issues/5) Cook a `GameData/*.dll` update tool 
 * 2022-0621: 1.1.0.0 (LisiasT) for KSP >= 1.2.2
 	+ ***DTICHED*** due a stupid mistake on handling pathnames... #facePalm 
 * 2021-0907: 1.0.1.1 (LisiasT) for KSP >= 1.2.2
