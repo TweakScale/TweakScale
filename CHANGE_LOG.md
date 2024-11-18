@@ -42,7 +42,6 @@
 		- [#312](https://github.com/TweakScale/TweakScale/issues/312) Write an internal Self Check Mechanism
 		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant
 		- [#283](https://github.com/TweakScale/TweakScale/issues/283) New screw up from KSP 1.11.0 Editor was revealed by the 2.4.6.20 release
-		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant.
 * 2024-1117: 2.4.8.8 (Lisias) for KSP >= 1.3
 	+ Fixes (**AGAIN**) a regression on handling attachment nodes, thanks Kraken affecting **only** KSP 1.4.3 (and almost surely 1.4.0 to 1.4.2, but I didn't bored to check).
 		- Special attention and caring were taken to **do not** change anything on support for any other KSP.

@@ -8,6 +8,7 @@
 	+ Incepts the `TweakScale.WatchDog`
 	+ Reworks scale support for KSP (1.4.x, 1.5.x and 1.9.x at this moment)
 	+ Updates MMWD to 1.1.2.1
+	+ Updates `KSPe.Light.TweakScale` to 2.5.4.5
 	+ Syncing fixes from `legacy`
 		- 2.4.8.8
 			- Fixes (**AGAIN**) a regression on handling attachment nodes, thanks Kraken affecting **only** KSP 1.4.3 (and almost surely 1.4.0 to 1.4.2, but I didn't bored to check).
@@ -41,7 +42,6 @@
 		- [#312](https://github.com/TweakScale/TweakScale/issues/312) Write an internal Self Check Mechanism
 		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant
 		- [#283](https://github.com/TweakScale/TweakScale/issues/283) New screw up from KSP 1.11.0 Editor was revealed by the 2.4.6.20 release
-		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant.
 * 2024-0213: 2.5.0.62 **BETA** (Lisias) for KSP >= 1.3
 	+ An insidious bug screwing parts that use `techRequired` was fixed.
 		- Thanks to [Turbo Ben](https://forum.kerbalspaceprogram.com/profile/193979-turbo-ben/) for the [work into zeroing](https://forum.kerbalspaceprogram.com/topic/179030-ksp-130-tweakscale-under-lisias-management-2474-2023-1007/?do=findComment&comment=4366095) into the exact root cause of the problem!
