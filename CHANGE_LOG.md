@@ -1,5 +1,13 @@
 # TweakScale :: Change Log
 
+* 2024-1117: 2.4.8.8 (Lisias) for KSP >= 1.3
+	+ Fixes (**AGAIN**) a regression on handling attachment nodes, thanks Kraken affecting **only** KSP 1.4.3 (and almost surely 1.4.0 to 1.4.2, but I didn't bored to check).
+		- Special attention and caring were taken to **do not** change anything on support for any other KSP.
+	+ **Finally** fixes an embarrassing bug that where `double`s were being squashed to `float`s. I do not expect any change the default scalings, but people using some dramatic customisations on really big and really small exponents should see some improvements.
+	+ Removes some (TS unrelated) sanity checks when a CKAN managed installment is detected
+		- TweakScale is, from now on, blindly trusting CKAN on keeping the running environment sane, only yelling when it's directly affected.
+	+ Reworks Issues:
+		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant.
 * 2024-0921: 2.4.8.6 (Lisias) for KSP >= 1.3
 	+ Due recently realised changes on the way [CKAN handles alternate downloads](https://forum.kerbalspaceprogram.com/topic/225966-psa-update-your-ckan-clients-to-134/?do=findComment&comment=4421703), some safeties were implemented to alert the user if by some reason it was installed a non CKAN approved package on a CKAN managed installment.
 	+ Closes Issues:
