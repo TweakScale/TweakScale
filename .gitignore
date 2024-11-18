@@ -8,7 +8,6 @@ GameData/**/CHANGE_LOG.md
 GameData/**/KNOWN_ISSUES.md
 GameData/**/*.version
 Source/**/Version.cs
-Source/**/WatchDogVersion.cs
 Source/**/Configuration.cs
 Source/*/*.user
 bin
