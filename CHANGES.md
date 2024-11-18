@@ -1,5 +1,47 @@
 # TweakScale :: Changes
 
+* 2024-1117: 2.5.0.63 **BETA** (Lisias) for KSP >= 1.3
+	+ Prevents living crafts on the savegame to lose the ScaleFactor!!
+	+ Fixes some embarrassing screw-ups
+	+ Survives hostile forks screwing up `Scale_Redist.dll`
+	+ Enables rich text on dialog boxes
+	+ Incepts the `TweakScale.WatchDog`
+	+ Reworks scale support for KSP (1.4.x, 1.5.x and 1.9.x at this moment)
+	+ Updates MMWD to 1.1.2.1
+	+ Syncing fixes from `legacy`
+		- 2.4.8.8
+			- Fixes (**AGAIN**) a regression on handling attachment nodes, thanks Kraken affecting **only** KSP 1.4.3 (and almost surely 1.4.0 to 1.4.2, but I didn't bored to check).
+				- Special attention and caring were taken to **do not** change anything on support for any other KSP.
+			- **Finally** fixes an embarrassing bug that where `double`s were being squashed to `float`s. I do not expect any change the default scalings, but people using some dramatic customisations on really big and really small exponents should see some improvements.
+			- Removes some (TS unrelated) sanity checks when a CKAN managed installment is detected
+				- TweakScale is, from now on, blindly trusting CKAN on keeping the running environment sane, only yelling when it's directly affected.
+		- 2.4.8.6
+			- Due recently realised changes on the way [CKAN handles alternate downloads](https://forum.kerbalspaceprogram.com/topic/225966-psa-update-your-ckan-clients-to-134/?do=findComment&comment=4421703), some safeties were implemented to alert the user if by some reason it was installed a non CKAN approved package on a CKAN managed installment.
+		- 2.4.8.5
+			- Fixes a long standing mishandling on the Life Cycle of the `SingletonBehaviour`'s extended classes.
+		- 2.4.8.4
+			- Somewhat better error messages, in a (futile, probably) attempt to prevent this [kind of crap](https://www.reddit.com/r/KerbalAcademy/comments/1ejaf9b/houstonerror_contradiction/).
+		- 2.4.8.3
+			- Fixes a (yet another :P) major screwup of mine, this one while handling systems without `ModuleManagerWatchDog` installed - exactly the situation the `TweakScale.WatchDog` was born to handle on 2.4.8.0...
+				- Yep, sometimes I'm just overloaded by Real Life©...
+		- 2.4.8.2 (Lisias) for KSP >= 1.3
+			- Detected and fixed a borderline situation in which the `IPartCostModifier` from the TweakScale's `PartModule` was being called **before** the `OnLoad` while merging a craft with scaled cockpit - unsure if the cockpit made any difference, but whatever.
+			- I'm shooting first and making questions later - I will left a proper diagnose to be tackled down on the Beta 2.5.
+		- 2.4.7.6
+			- Found an idiocy of mine while trying to prevent a hypothetical problem - and ended up creating a concrete one instead.
+			- If you know a priest in need to a job, [we are hiring](https://github.com/net-lisias-ksp/KSP-Recall/issues/61#issuecomment-2014430999)... :P
+		- 2.4.7.5
+			- An insidious bug screwing parts that use `techRequired` was fixed.
+			- Thanks to [Turbo Ben](https://forum.kerbalspaceprogram.com/profile/193979-turbo-ben/) for the [work into zeroing](https://forum.kerbalspaceprogram.com/topic/179030-ksp-130-tweakscale-under-lisias-management-2474-2023-1007/?do=findComment&comment=4366095) into the exact root cause of the problem!
+	+ Related Issues:
+		- [#339](https://github.com/TweakScale/TweakScale/issues/339) Prevent non CKAN safe binaries from being used on CKAN managed installations.
+		- [#336](https://github.com/TweakScale/TweakScale/issues/336) Finally Diagnosed a Memory Leak on `EditorHelper`
+		- [#325](https://github.com/TweakScale/TweakScale/issues/325) Cope with https://github.com/net-lisias-ksp/KSP-Recall/issues/73
+		- [#323](https://github.com/TweakScale/TweakScale/issues/323) Auto-Scale is screwed since 2.4.7.0
+		- [#312](https://github.com/TweakScale/TweakScale/issues/312) Write an internal Self Check Mechanism
+		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant
+		- [#283](https://github.com/TweakScale/TweakScale/issues/283) New screw up from KSP 1.11.0 Editor was revealed by the 2.4.6.20 release
+		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant.
 * 2024-0213: 2.5.0.62 **BETA** (Lisias) for KSP >= 1.3
 	+ An insidious bug screwing parts that use `techRequired` was fixed.
 		- Thanks to [Turbo Ben](https://forum.kerbalspaceprogram.com/profile/193979-turbo-ben/) for the [work into zeroing](https://forum.kerbalspaceprogram.com/topic/179030-ksp-130-tweakscale-under-lisias-management-2474-2023-1007/?do=findComment&comment=4366095) into the exact root cause of the problem!
