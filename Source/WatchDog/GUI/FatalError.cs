@@ -86,8 +86,7 @@ Your KSP is running from:
 
 		private static string AppRoot()
 		{
-			string location = System.Reflection.Assembly.GetExecutingAssembly().Location;
-			location = location.Substring(0, location.IndexOf("GameData"));
+			string location = KSPUtil.ApplicationRootPath;
 			location = System.IO.Path.GetFullPath(location);
 			return location;
 		}
