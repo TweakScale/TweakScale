@@ -24,23 +24,24 @@ using UnityEngine;
 
 namespace TweakScale.GUI
 {
-	internal static class MissingDLLAlertBox
+	internal static class MissingSanitizerAlertBox
 	{
-		private static readonly string MSG = @"Unfortunately TweakScale™ didn't found needed DLLs by a reason or another.
+		private static readonly string MSG = @"THIS TWEAKSCALE™ INSTALLATION IS UNSUPPORTED!
 
-There's no safe way to proceed as without the support DLLs TweakScale™ will not work properly, and your craft files and savegames will almost surely be corrupted on loading!!
+Scale_Sanitizer, a DLL TweakScale™ needs to check for known problems and prevent disastrous consequences in your rig, was not found. This means that TweakScale™ can't check if it's safe to run!
 
-Missing Class: {0}";
+Proceed at your own risk. TweakScale™'s maintainer will <B>NOT</B> accept bug reports, neither will help diagnosing problems without it.";
 
-		private static readonly string AMSG = @"reinstall TweakScale™ from a trusted Distribution Channel (KSP will close)";
+		private static readonly string AMSG = @"fully reinstall TweakScale™";
 
-		internal static void Show(string msg) {
-			KSPe.Common.Dialogs.ShowStopperErrorBox.Show(
-				string.Format(MSG, msg),
-				AMSG,
-				() => { Application.Quit(); }
-			);
-			Log.force("\"Houston, we have a Problem!\" about Missing DLLs was displayed. Missing class: {0}", msg);
+		internal static void Show() {
+			if (ModuleManagerListener.shouldShowWarnings)
+				KSPe.Common.Dialogs.ShowStopperErrorBox.Show(
+					MSG,
+					AMSG,
+					() => { Application.Quit(); }
+				);
+			Log.force("\"Houston, we have a problem!\" about missing Scale_Sanitizer was {0}", ModuleManagerListener.shouldShowWarnings ? "displayed" : "suppressed");
 		}
 	}
 }
