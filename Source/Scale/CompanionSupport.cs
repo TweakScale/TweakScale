@@ -24,6 +24,7 @@ using System;
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Linq;
+using SIO = System.IO;
 
 using HIERARCHY = KSPe.IO.Hierarchy<TweakScale.Startup>;
 
@@ -127,6 +128,10 @@ namespace TweakScale
 					DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0
 				);
 				return !KSPe.Util.SystemTools.Assembly.Exists.ByName("TweakScaleCompanion") || today >= v.VERSION;
+			}
+			catch (SIO.IOException e) when (e is SIO.DirectoryNotFoundException || e is SIO.FileNotFoundException)
+			{
+				Log.info("TweakScale Companion™ appears not to be installed due {0}", e.Message);
 			}
 			catch (Exception e)
 			{
