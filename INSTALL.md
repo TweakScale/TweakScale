@@ -59,6 +59,12 @@ The following file layout must be present after installation:
 	...
 ```
 
+### Your attention please!
+
+Unless told otherwise, **do not** install anything from the `Extras` directory - and even if someone tell you to do it, **READ ALL THE INSTRUCTIONS THERE** first.
+
+These artefacts can be useful on some borderline situations, and as a rule of thumb, if you don't know that they do, it's because you don't need them.
+
 
 ### Dependencies
 
