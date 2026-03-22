@@ -1,5 +1,7 @@
 # TweakScale :: Change Log
 
+* 2026-0321: 2.4.8.9 (Lisias) for KSP >= 1.3
+	+ Updates `KSPe.Light` to 2.5.5.2, fixing a lame mistake that prevented it from working on KSP < 1.8.0 🤦
 * 2024-1117: 2.5.0.63 **BETA** (Lisias) for KSP >= 1.3
 	+ Prevents living crafts on the savegame to lose the ScaleFactor!!
 	+ Fixes some embarrassing screw-ups
@@ -52,6 +54,8 @@
 	+ Updates `KSPe.Light.TweakScale` to 2.5.4.5
 	+ Reworks Issues:
 		- [#307](https://github.com/TweakScale/TweakScale/issues/307) Attachment Points are not being scaled (or being reset) after changing the Variant.
+* 2024-1117: 2.4.8.7 (Lisias) for KSP >= 1.3
+	+ ***DITCHED*** due a borkage induced on KSO 1.4.5 due a misunderstanding about the root cause.
 * 2024-0921: 2.4.8.6 (Lisias) for KSP >= 1.3
 	+ Due recently realised changes on the way [CKAN handles alternate downloads](https://forum.kerbalspaceprogram.com/topic/225966-psa-update-your-ckan-clients-to-134/?do=findComment&comment=4421703), some safeties were implemented to alert the user if by some reason it was installed a non CKAN approved package on a CKAN managed installment.
 	+ Closes Issues:
