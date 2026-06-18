@@ -437,8 +437,9 @@ namespace TweakScale
                 }
             }
 
-            foreach (ModulesAndExponents modExp in modulesAndExponents)
+			for (int i = 0; i < modulesAndExponents.Length; ++i)
             {
+				ModulesAndExponents modExp = modulesAndExponents[i];
 				Log.dbg("modExP: {0} {1}", (modExp.Prefab as PartModule).moduleName, modExp.Prefab.GetType());
                 modExp.Exponents.UpdateFields(modExp.Current, modExp.Prefab, factor, part);
             }
@@ -448,9 +449,10 @@ namespace TweakScale
         {
 			Type type = Type.GetType(typeName);
             if (type != null) return type;
-            foreach (System.Reflection.Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+			System.Reflection.Assembly[] list = AppDomain.CurrentDomain.GetAssemblies();
+			for (int i = 0; i < list.Length; ++i)
             {
-                type = a.GetType(typeName);
+				type = list[i].GetType(typeName);
                 if (type != null)
                     return type;
             }

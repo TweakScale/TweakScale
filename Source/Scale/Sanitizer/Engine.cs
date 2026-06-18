@@ -36,14 +36,14 @@ namespace TweakScale.Sanitizer
 		override protected void DoStart()
 		{
 			bool showStopper = false;
-			foreach (Sanitizer.ISanityCheck sc in Engine.Instance.CHECKS_AVAILABLE) if (Sanitizer.Priority.ShowStopper == sc.Priority)
+			for (int i = 0; i < Engine.Instance.CHECKS_AVAILABLE.Count; ++i) if (Sanitizer.Priority.ShowStopper == Engine.Instance.CHECKS_AVAILABLE[i].Priority)
 				// Only the first Show Stopper is emitted. There's no point on flooding the screen with more than one.
-				if (showStopper = sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings))
+				if (showStopper = Engine.Instance.CHECKS_AVAILABLE[i].EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings))
 					break;
 			if (!showStopper) // If a Show Stopper as emitted, nothing else matters. Otherwise, notify user about the lesser problems.
 				for (Priority i = 0; i < Priority.__SIZE; ++i)
-					foreach (ISanityCheck sc in Engine.Instance.CHECKS_AVAILABLE) if (i == sc.Priority)
-						sc.EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings);
+					for (int j = 0; j < Engine.Instance.CHECKS_AVAILABLE.Count; ++j) if (i == Engine.Instance.CHECKS_AVAILABLE[j].Priority)
+						Engine.Instance.CHECKS_AVAILABLE[j].EmmitMessageIfNeeded(ModuleManagerListener.shouldShowWarnings);
 		}
 
 		[UsedImplicitly]
@@ -81,8 +81,9 @@ namespace TweakScale.Sanitizer
 		{
 			List<string> m = new List<string>();
 			int failure_count = 0;
-			foreach(Sanitizer.ISanityCheck sc in Engine.Instance.CHECKS_AVAILABLE)
+			for (int i = 0; i < Engine.Instance.CHECKS_AVAILABLE.Count; ++i)
 			{
+				Sanitizer.ISanityCheck sc = Engine.Instance.CHECKS_AVAILABLE[i];
 				unscalable_count += sc.Unscalable;
 				failure_count += sc.Failures;
 				m.Add(sc.Summary);
@@ -97,13 +98,13 @@ namespace TweakScale.Sanitizer
 			Log.detail("Sanity Checks for part {0} ({1}) started.", ap.name, ap.title);
 			{	// Run all the Sanity Checks (but Show Stoppers), priorized.
 				for(Priority i = 0; i < Priority.__SIZE; ++i)
-					foreach(ISanityCheck sc in CHECKS_AVAILABLE) if (i == sc.Priority)
-						if (sc.Check(ap, ap.partPrefab)) break;
+					for (int j = 0; j < CHECKS_AVAILABLE.Count; ++j) if (i == CHECKS_AVAILABLE[j].Priority)
+						if (CHECKS_AVAILABLE[j].Check(ap, ap.partPrefab)) break;
 			}
 
 			// Run the Show Stopper checks. It's run at last so the Sanity Checks has a chance of act before blowing everything up.
-			foreach(ISanityCheck sc in CHECKS_AVAILABLE) if (Priority.ShowStopper == sc.Priority)
-				if (sc.Check(ap, ap.partPrefab)) return; // If anyone from the show stoppers kicks, it's game over for this part. It's the reason they are called Show Stoppers!
+			for (int i = 0; i < CHECKS_AVAILABLE.Count; ++i) if (Priority.ShowStopper == CHECKS_AVAILABLE[i].Priority)
+				if (CHECKS_AVAILABLE[i].Check(ap, ap.partPrefab)) return; // If anyone from the show stoppers kicks, it's game over for this part. It's the reason they are called Show Stoppers!
 		}
 	}
 }

@@ -63,8 +63,8 @@ namespace TweakScale.Sanitizer.Engines
 				{
 					string[] sa = cn.GetValues("parturl_conflict_regex");
 					List<Regex> r = new List<Regex>();
-					foreach(string s in sa)
-						r.Add(new Regex(s));
+					for (int i = 0; i < sa.Length; ++i)
+						r.Add(new Regex(sa[i]));
 					this.conflictsPartUrlRx = r.ToArray();
 				}
 
@@ -72,8 +72,8 @@ namespace TweakScale.Sanitizer.Engines
 				{
 					string[] sa = cn.GetValues("partname_conflict_regex");
 					List<Regex> r = new List<Regex>();
-					foreach(string s in sa)
-						r.Add(new Regex(s));
+					for (int i = 0; i < sa.Length; ++i)
+						r.Add(new Regex(sa[i]));
 					this.conflictsPartNameRx = r.ToArray();
 				}
 			}
@@ -116,12 +116,16 @@ namespace TweakScale.Sanitizer.Engines
 				List<string> missing = new List<string>();
 				if (this.prefab.Modules.Contains(this.job.module))	// The potentially offended module is installed? Otherwise we have nothing to do.
 				{
-					foreach(string module in this.job.dependencies) if (!this.prefab.Modules.Contains(module))
-						missing.Add(module);
-
-					foreach(string module in this.job.conflicts) if (this.prefab.Modules.Contains(module))
-						conflicts.Add(module);
-
+					{
+						string[] list = this.job.dependencies;
+						for (int i = 0; i < list.Length; ++i) if (!this.prefab.Modules.Contains(list[i]))
+							missing.Add(list[i]);
+					}
+					{
+						string[] list = this.job.conflicts;
+						for (int i = 0; i < list.Length; ++i) if (this.prefab.Modules.Contains(list[i]))
+							conflicts.Add(list[i]);
+					}
 					this.checkPartUrl(conflicts);
 					this.checkPartName(conflicts);
 				}
@@ -132,25 +136,37 @@ namespace TweakScale.Sanitizer.Engines
 			private void checkPartUrl(List<string> conflicts)
 			{
 				string partUrl = this.availablePart.partUrl;
-				foreach(Regex rx in this.job.conflictsPartUrlRx)
 				{
-					MatchCollection m = rx.Matches(partUrl);
-					if (0 != m.Count) conflicts.Add(partUrl);
+					Regex[] list = this.job.conflictsPartUrlRx;
+					for (int i = 0; i < list.Length; ++i)
+					{
+						MatchCollection m = list[i].Matches(partUrl);
+						if (0 != m.Count) conflicts.Add(partUrl);
+					}
 				}
-				foreach(string s in this.job.conflictsPartUrlPrefix) if (partUrl.StartsWith(s))
-					conflicts.Add(partUrl);
+				{
+					string[] list = this.job.conflictsPartUrlPrefix;
+					for (int i = 0; i < list.Length; ++i) if (partUrl.StartsWith(list[i]))
+						conflicts.Add(partUrl);
+				}
 			}
 
 			private void checkPartName(List<string> conflicts)
 			{
 				string partName = this.availablePart.name;
-				foreach(Regex rx in this.job.conflictsPartNameRx)
 				{
-					MatchCollection m = rx.Matches(partName);
-					if (0 != m.Count) conflicts.Add(partName);
+					Regex[] list = this.job.conflictsPartNameRx;
+					for (int i = 0; i < list.Length; ++i)
+					{
+						MatchCollection m = list[i].Matches(partName);
+						if (0 != m.Count) conflicts.Add(partName);
+					}
 				}
-				foreach(string s in this.job.conflictsPartUrlPrefix) if (partName.StartsWith(s))
-					conflicts.Add(partName);
+				{
+					string[] list = this.job.conflictsPartUrlPrefix;
+					for (int i = 0; i < list.Length; ++i) if (partName.StartsWith(list[i]))
+						conflicts.Add(partName);
+				}
 			}
 
 			public string ToLog()

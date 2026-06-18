@@ -77,8 +77,8 @@ namespace TweakScale.Sanitizer.Engines
 					case Job.Correction.RemoveOffendingModules:
 						if (0 != this.result.MissingDependencies.Length) throw new InvalidOperationException(string.Format("Can't fix {0} as it miss the folliowing dependencies {1}!", this.prefab.partName, this.MissingDependencies));
 						this.CorrectionApplied = 0 != this.Conflicts.Length;
-						foreach (string m in this.Conflicts)
-							RemoveModuleFrom(this.availablePart, this.prefab, m);
+						for (int i = 0; i < this.Conflicts.Length; ++i)
+							RemoveModuleFrom(this.availablePart, this.prefab, this.Conflicts[i]);
 						break;
 					default:
 						throw new NotImplementedException(string.Format("Action {0} not implemented", job.correction));

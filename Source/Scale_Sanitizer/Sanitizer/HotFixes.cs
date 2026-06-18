@@ -69,8 +69,10 @@ namespace TweakScale.Sanitizer
 			if (null == part) return null; // Let the this.checkForShowStoppers do the job.
 
 			{
-				foreach (ConfigNode basket in part.GetNodes("MODULE"))
+				ConfigNode[] list = part.GetNodes("MODULE");
+				for (int i = 0; i < list.Length; ++i)
 				{
+					ConfigNode basket = list[i];
 					if ("TweakScale" != basket.GetValue("name")) continue;
 					if (basket.HasValue("HOTFIX"))
 						return System.Uri.UnescapeDataString(basket.GetValue("HOTFIX"));

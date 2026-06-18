@@ -43,12 +43,16 @@ namespace TweakScale.Sanitizer
 		{
 			UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
 			ConfigNode sanityNodes = urlc.config.GetNode("SANITY");
-			foreach (ConfigNode cn in sanityNodes.GetNodes("FIX"))
 			{
-				// All fixes must be executed on the Critical Priority.
-				if (cn.HasValue("priority")) cn.RemoveValues("priority");
-				cn.SetValue("priority", Priority.Critical.ToString());
-				AVAILABLE_FIXES.Add(new Engines.Fix.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
+				ConfigNode[] list = sanityNodes.GetNodes("FIX");
+				for (int i = 0; i < list.Length; ++i)
+				{
+					ConfigNode cn = list[i];
+					// All fixes must be executed on the Critical Priority.
+					if (cn.HasValue("priority")) cn.RemoveValues("priority");
+					cn.SetValue("priority", Priority.Critical.ToString());
+					AVAILABLE_FIXES.Add(new Engines.Fix.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
+				}
 			}
 			Log.dbg("{0} has {1} available fixes.", this.Priority, this.AVAILABLE_FIXES.Count);
 		}
@@ -121,9 +125,9 @@ namespace TweakScale.Sanitizer
 		private List<Engines.Fix.Result> ApplyFixes(AvailablePart p, Part prefab)
 		{
 			List<Engines.Fix.Result> fixesApplied = new List<Engines.Fix.Result>();
-			foreach (Engines.Fix.Job j in AVAILABLE_FIXES) if (Engines.Fix.Job.Correction.RemoveOffendedModule == j.correction)
+			for (int i = 0; i < AVAILABLE_FIXES.Count; ++i) if (Engines.Fix.Job.Correction.RemoveOffendedModule == AVAILABLE_FIXES[i].correction)
 			{
-				Engines.Fix.Result r = Engines.Fix.Instance.Execute(j, p, prefab);
+				Engines.Fix.Result r = Engines.Fix.Instance.Execute(AVAILABLE_FIXES[i], p, prefab);
 				if (r.CorrectionApplied)
 				{
 					++this.count;
@@ -132,9 +136,9 @@ namespace TweakScale.Sanitizer
 					return fixesApplied;		// We removed TweakScale from the part. There's nothing else we can do.
 				}
 			}
-			foreach (Engines.Fix.Job j in AVAILABLE_FIXES) if (Engines.Fix.Job.Correction.RemoveOffendedModule != j.correction)
+			for (int i = 0; i < AVAILABLE_FIXES.Count; ++i) if (Engines.Fix.Job.Correction.RemoveOffendedModule != AVAILABLE_FIXES[i].correction)
 			{
-				Engines.Fix.Result r = Engines.Fix.Instance.Execute(j, p, prefab);
+				Engines.Fix.Result r = Engines.Fix.Instance.Execute(AVAILABLE_FIXES[i], p, prefab);
 				if (r.CorrectionApplied)
 				{
 					++this.count;

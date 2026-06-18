@@ -204,21 +204,22 @@ namespace TweakScale
         /// </summary>
         public static IEnumerable<Type> GetAllTypes()
         {
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+			Assembly[] list = AppDomain.CurrentDomain.GetAssemblies();
+			for (int i = 0; i < list.Length; ++i)
             {
                 Type[] types;
                 try
                 {
-                    types = assembly.GetTypes();
+					types = list[i].GetTypes();
                 }
                 catch (Exception)
                 {
                     types = Type.EmptyTypes;
                 }
 
-                foreach (Type type in types)
-                {
-                    yield return type;
+				for (int j = 0; j < types.Length; ++j)
+				{
+					yield return types[j];
                 }
             }
         }
@@ -239,23 +240,31 @@ namespace TweakScale
 
             Func<object, string> fmt = a => a == null ? "(null)" :  depth == 0 ? a.ToString() : a.ToString_rec();
 
-            foreach (FieldInfo field in tt.GetFields(BindingFlags.Public | BindingFlags.Instance))
-            {
-                result.AppendFormat("{0}: {1}, ", field.Name, fmt(field.GetValue(obj)));
-            }
+			{
+				FieldInfo[] list = tt.GetFields(BindingFlags.Public | BindingFlags.Instance);
+				for (int i = 0; i < list.Length; ++i)
+				{
+					FieldInfo field = list[i];
+					result.AppendFormat("{0}: {1}, ", field.Name, fmt(field.GetValue(obj)));
+				}
+			}
 
-            foreach (PropertyInfo field in tt.GetProperties(BindingFlags.Public | BindingFlags.Instance))
-            {
-                try
-                {
-                    result.AppendFormat("{0}: {1}, ", field.Name, fmt(field.GetValue(obj, null)));
-                }
-                catch (Exception e)
-                {
-                    // FIXME Why this? Check for problems, log it. Reevaluate and try to fix the cause.
-                    Debug.LogException(e);
-                }
-            }
+			{
+				PropertyInfo[] list = tt.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+				for (int i = 0; i < list.Length; ++i)
+				{
+					PropertyInfo field = list[i];
+					try
+					{
+						result.AppendFormat("{0}: {1}, ", field.Name, fmt(field.GetValue(obj, null)));
+					}
+					catch (Exception e)
+					{
+						// FIXME Why this? Check for problems, log it. Reevaluate and try to fix the cause.
+						Debug.LogException(e);
+					}
+				}
+			}
 
             result.Append(")");
 

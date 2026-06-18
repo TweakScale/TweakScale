@@ -415,8 +415,10 @@ namespace TweakScale
 		private bool IsSaveMode()
 		{
 			System.Diagnostics.StackTrace st = new System.Diagnostics.StackTrace();
-			foreach (System.Diagnostics.StackFrame frame in st.GetFrames())
+			System.Diagnostics.StackFrame[] list = st.GetFrames();
+			for (int i = 0; i < list.Length; ++i)
 			{
+				System.Diagnostics.StackFrame frame = list[i];
 				string classname = frame.GetMethod().DeclaringType.Name;
 				string methodname = frame.GetMethod().ToString();
 				Log.dbg("IsSaveMode {0} {1}", classname, methodname);
@@ -523,8 +525,9 @@ namespace TweakScale
 		internal void OnTweakScaleChanged()
 		{
 			this.HandleTweakScaleChanged();
-			foreach (Part p in this.part.symmetryCounterparts)
-				p.FindModuleImplementing<TweakScale>().HandleTweakScaleChanged();
+			List<Part> list = this.part.symmetryCounterparts;
+			for (int i = 0; i < list.Count; ++i)
+				list[i].FindModuleImplementing<TweakScale>().HandleTweakScaleChanged();
 		}
 
 		private void HandleTweakScaleChanged()
@@ -993,8 +996,9 @@ namespace TweakScale
 		{
 			Log.stackdump("SetState {0} to active = {1}, available = {2})", this.InstanceID, active, available);
 			this.SetStateInternal(active, available);
-			foreach (Part p in this.part.symmetryCounterparts)
-				p.FindModuleImplementing<TweakScale>().SetStateInternal(active, available);
+			List<Part> list = this.part.symmetryCounterparts;
+			for (int i = 0; i < list.Count; ++i)
+				list[i].FindModuleImplementing<TweakScale>().SetStateInternal(active, available);
 		}
 
 		// Helper to a 3rd party be able to force a complete rescaling.
@@ -1121,20 +1125,32 @@ namespace TweakScale
 		{
 			if (null == this.updateables) return;
 
-			foreach (object o in this.updateables)
-				if (o is IDisposable oo) oo.Dispose();
+			{
+				IUpdateable[] list = this.updateables;
+				for (int i = 0; i < list.Length; ++i)
+					if (list[i] is IDisposable o) o.Dispose();
+			}
 			this.updateables = null;
 
-			foreach (object o in this.secondaryRescalables)
-				if (o is IDisposable oo) oo.Dispose();
+			{
+				ISecondaryRescalable[] list = this.secondaryRescalables;
+				for (int i = 0; i < list.Length; ++i)
+					if (list[i] is IDisposable o) o.Dispose();
+			}
 			this.secondaryRescalables = null;
 
-			foreach (object o in this.rescalables)
-				if (o is IDisposable oo) oo.Dispose();
+			{
+				IRescalable[] list = this.rescalables;
+				for (int i = 0; i < list.Length; ++i)
+					if (list[i] is IDisposable o) o.Dispose();
+			}
 			this.rescalables = null;
 
-			foreach (object o in this.priorityRescalables)
-				if (o is IDisposable oo) oo.Dispose();
+			{
+				IPriorityRescalable[] list = this.priorityRescalables;
+				for (int i = 0; i < list.Length; ++i)
+					if (list[i] is IDisposable o) o.Dispose();
+			}
 			this.priorityRescalables = null;
 		}
 
@@ -1147,8 +1163,8 @@ namespace TweakScale
             string result = string.Format("TweakScale:{0} {{", this.InstanceID);
             result += "; isFreeScale = " + isFreeScale;
             result += "; " + ScaleFactors.Length  + " scaleFactors = ";
-            foreach (float s in ScaleFactors)
-                result += s + "  ";
+			for (int i = 0; i < this.ScaleFactors.Length; ++i)
+				result += this.ScaleFactors[i] + "  ";
             result += "; tweakScale = "   + tweakScale;
             result += "; currentScale = " + currentScale;
             result += "; defaultScale = " + defaultScale;

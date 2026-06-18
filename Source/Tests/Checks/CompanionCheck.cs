@@ -64,8 +64,8 @@ namespace Tests.Checks
 		private static string toString(byte[] hashvalue)
 		{
 			StringBuilder sb = new StringBuilder();
-			foreach (byte b in hashvalue)
-				sb.Append(string.Format("{0}, ", b));
+			for (int i = 0; i < hashvalue.Length; ++i)
+				sb.Append(string.Format("{0}, ", hashvalue[i]));
 			return sb.ToString();
 		}
 	}

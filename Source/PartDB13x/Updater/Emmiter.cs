@@ -107,16 +107,15 @@ namespace TweakScale.Updater
 
 			EffectBehaviour[] fxn = this.part.GetComponents<EffectBehaviour>();
 			this.rescale = fxn.Length != 0;
-			foreach(EffectBehaviour fx in fxn)
+			for (int i = 0; i < fxn.Length; ++i)
 			{
+				EffectBehaviour fx = fxn[i];
 				if(fx is ModelMultiParticleFX)
 				{
 					if(!(_mmpFxField.GetValue(fx) is List<KSPParticleEmitter> p))
 						continue;
-					foreach(KSPParticleEmitter pe in p)
-					{
-						UpdateParticleEmitter(pe);
-					}
+					for (int j = 0; j < p.Count; ++j)
+						UpdateParticleEmitter(p[j]);
 					this.rescale = false;
 				}
 				else if(fx is ModelParticleFX)

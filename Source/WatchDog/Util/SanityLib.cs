@@ -85,8 +85,8 @@ namespace TweakScale.WatchDog
 		{
 			string r = Path.GetFullPath(KSPUtil.ApplicationRootPath);
 			r = Path.Combine(r, path);
-			foreach (string p in paths)
-				r = Path.Combine(r, p);
+			for (int i = 0; i < paths.Length; ++i)
+				r = Path.Combine(r, paths[i]);
 			return r;
 		}
 

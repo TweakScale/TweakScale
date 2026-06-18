@@ -56,8 +56,9 @@ namespace TweakScale.Features
 
 		private static AttachNode FindAttachNodeByPart(Part a, Part b)
 		{
-			foreach (AttachNode an in a.attachNodes)
-				if (an.attachedPart == b) return an;
+			System.Collections.Generic.List<AttachNode> list = a.attachNodes;
+			for (int i = 0; i < list.Count; ++i)
+				if (list[i].attachedPart == b) return list[i];
 			return null;
 		}
 

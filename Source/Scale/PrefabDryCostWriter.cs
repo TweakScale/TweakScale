@@ -108,8 +108,9 @@ namespace TweakScale
             int drycost_failures_count = 0;
             int unscalable_count = 0;
 
-            foreach (AvailablePart p in PartLoader.LoadedPartsList)
+			for (int i = 0; i < PartLoader.LoadedPartsList.Count; ++i)
             {
+				AvailablePart p = PartLoader.LoadedPartsList[i];
                 Log.detail("Procesing part named {0} ; title {1}.", p.name, p.title);
                 { 
                     bool containsTweakScale = false;

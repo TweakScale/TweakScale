@@ -414,17 +414,17 @@ namespace TweakScale
             foreach (KeyValuePair<string, ScaleExponents> s in Exponents)
                 result += "\n\t" +string.Format("[ {0}:{1} ]", s.Key, s.Value);
             result += "\n " + _scaleFactors.Length  + " scaleFactors = ";
-            foreach (float s in _scaleFactors)
-                result += s + "  ";
+			for (int i = 0; i < this._scaleFactors.Length; ++i)
+				result += this._scaleFactors[i] + "  ";
             result += "\n " + _scaleNames.Length  + " scaleNames = ";
-            foreach (string s in _scaleNames)
-                result += s + "  ";
+			for (int i = 0; i < this._scaleNames.Length; ++i)
+				result += this._scaleNames[i] + "  ";
             result += "\n " + IncrementSlide.Length + " incrementSlide = ";
-            foreach (float s in IncrementSlide)
-                result += s + "  ";
+			for (int i = 0; i < this.IncrementSlide.Length; ++i)
+				result += this.IncrementSlide[i] + "  ";
             result += "\n " + TechRequired.Length + " TechRequired = ";
-            foreach (string s in TechRequired)
-                result += s + "  ";
+			for (int i = 0; i < this.TechRequired.Length; ++i)
+				result += this.TechRequired[i] + "  ";
             result += "\n defaultScale = " + DefaultScale;
             result += "\n scaleNodes = " + ScaleNodes;
             return result + "\n}";

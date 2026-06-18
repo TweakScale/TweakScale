@@ -44,10 +44,15 @@ namespace TweakScale.Sanitizer
 			this.priority = priority;
 			UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
 			ConfigNode sanityNodes = urlc.config.GetNode("SANITY");
-			foreach (ConfigNode cn in sanityNodes.GetNodes("CHECK"))
-			{
-				if (!cn.HasValue("priority") || !this.priority.ToString().Equals(cn.GetValue("priority"))) continue;
-				AVAILABLE_CHECKS.Add(new Engines.Check.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
+
+			{ 
+				ConfigNode[] list = sanityNodes.GetNodes("CHECK");
+				for (int i = 0; i < list.Length; ++i)
+				{
+					ConfigNode cn = list[i];
+					if (!cn.HasValue("priority") || !this.priority.ToString().Equals(cn.GetValue("priority"))) continue;
+					AVAILABLE_CHECKS.Add(new Engines.Check.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
+				}
 			}
 			Log.dbg("{0} has {1} available checks.", this.priority, this.AVAILABLE_CHECKS.Count);
 		}
@@ -80,13 +85,16 @@ namespace TweakScale.Sanitizer
 		private List<Engines.Check.Result> CheckIntegrity(AvailablePart p, Part prefab)
 		{
 			List<Engines.Check.Result> checksFailed = new List<Engines.Check.Result>();
-			foreach (Engines.Check.Job j in AVAILABLE_CHECKS)
 			{
-				Engines.Check.Result r = Engines.Check.Instance.Execute(j, p, prefab);
-				if (r.IsProblematic)
+				List<Engines.Check.Job> list = AVAILABLE_CHECKS;
+				for (int i = 0; i < list.Count; ++i)
 				{
-					++this.count;
-					checksFailed.Add(r);
+					Engines.Check.Result r = Engines.Check.Instance.Execute(list[i], p, prefab);
+					if (r.IsProblematic)
+					{
+						++this.count;
+						checksFailed.Add(r);
+					}
 				}
 			}
 			return checksFailed;

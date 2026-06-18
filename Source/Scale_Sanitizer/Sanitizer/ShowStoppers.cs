@@ -42,10 +42,14 @@ namespace TweakScale.Sanitizer
 		{
 			UrlDir.UrlConfig urlc = GameDatabase.Instance.GetConfigs("TWEAKSCALE")[0];
 			ConfigNode sanityNodes = urlc.config.GetNode("SANITY");
-			foreach (ConfigNode cn in sanityNodes.GetNodes("CHECK"))
 			{
-				if (!cn.HasValue("priority") || !this.Priority.ToString().Equals(cn.GetValue("priority"))) continue;
-				AVAILABLE_CHECKS.Add(new Engines.Check.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
+				ConfigNode[] list = sanityNodes.GetNodes("CHECK");
+				for (int i = 0; i < list.Length; ++i)
+				{
+					ConfigNode cn = list[i];
+					if (!cn.HasValue("priority") || !this.Priority.ToString().Equals(cn.GetValue("priority"))) continue;
+					AVAILABLE_CHECKS.Add(new Engines.Check.Job(KSPe.ConfigNodeWithSteroids.from(cn)));
+				}
 			}
 			Log.dbg("{0} has {1} available checks.", this.Priority, this.AVAILABLE_CHECKS.Count);
 		}
@@ -101,17 +105,24 @@ namespace TweakScale.Sanitizer
 			ConfigNode part = Abstract.GetMeThatConfigNode(p);
 			if (null == part) return "having a part without a partInfo! - see issue [#237]( https://github.com/TweakScale/TweakScale/issues/237";
 
-			foreach (ConfigNode basket in part.GetNodes("MODULE"))
 			{
-				string moduleName = basket.GetValue("name");
-				if ("TweakScale" != moduleName) continue;
-				if (basket.HasValue("ISSUE_OVERRULE")) continue; // TODO: Check if the issue overrule is for #34 or any other that is checked here.
-				Log.dbg("\tModule {0}", moduleName);
-				foreach (ConfigNode.Value property in basket.values)
+				ConfigNode[] list = part.GetNodes("MODULE");
+				for (int i = 0; i < list.Length; ++i)
 				{
-					Log.dbg("\t\t{0} = {1}", property.name, property.value);
-					if (1 != basket.GetValues(property.name).Length)
-						return "having duplicated properties - see issue [#34]( https://github.com/TweakScale/TweakScale/issues/34 )";
+					ConfigNode basket = list[i];
+					string moduleName = basket.GetValue("name");
+					if ("TweakScale" != moduleName) continue;
+					if (basket.HasValue("ISSUE_OVERRULE")) continue; // TODO: Check if the issue overrule is for #34 or any other that is checked here.
+					Log.dbg("\tModule {0}", moduleName);
+					{ 
+						for (int j = 0; j < basket.values.Count; ++j)
+						{
+							ConfigNode.Value property = basket.values[j];
+							Log.dbg("\t\t{0} = {1}", property.name, property.value);
+							if (1 != basket.GetValues(property.name).Length)
+								return "having duplicated properties - see issue [#34]( https://github.com/TweakScale/TweakScale/issues/34 )";
+						}
+					}
 				}
 			}
 
@@ -121,9 +132,9 @@ namespace TweakScale.Sanitizer
 		private List<Engines.Check.Result> CheckIntegrity(AvailablePart p, Part prefab)
 		{
 			List<Engines.Check.Result> checksFailed = new List<Engines.Check.Result>();
-			foreach (Engines.Check.Job j in AVAILABLE_CHECKS)
+			for (int i = 0; i < AVAILABLE_CHECKS.Count; ++i)
 			{
-				Engines.Check.Result r = Engines.Check.Instance.Execute(j, p, prefab);
+				Engines.Check.Result r = Engines.Check.Instance.Execute(AVAILABLE_CHECKS[i], p, prefab);
 				if (r.IsProblematic)
 				{
 					++this.count;
