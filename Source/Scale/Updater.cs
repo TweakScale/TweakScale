@@ -135,10 +135,8 @@ namespace TweakScale.Updater
 				foreach(IRescalable updater in updaters)
 					yield return updater;
 			}
-			{
-				foreach(Func<Part, IRescalable> updater in partCtors)
-					yield return updater(part);
-			}
+			for (int i = 0; i < partCtors.Count; ++i)
+				yield return partCtors[i](part);
 		}
 
 		private static IRescalable CreateUpdater(PartModule module)

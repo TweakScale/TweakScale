@@ -21,9 +21,11 @@
 	along with TweakScale™ /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using System.Linq;
-using System.Reflection;
 using UnityEngine;
+
+#if DEBUG
+using System.Linq;
+#endif
 
 using KSPe.Annotations;
 using System.Collections.Generic;
@@ -181,8 +183,7 @@ namespace TweakScale
 		protected virtual void SetupPrefab(Part prefabPart)
 		{
 			Log.dbg("SetupPrefab {0}", this.InstanceID);
-			ConfigNode PartNode = GameDatabase.Instance.GetConfigs("PART").FirstOrDefault(c => c.name.Replace('_', '.') == part.name).config;
-			ConfigNode ModuleNode = PartNode.GetNodes("MODULE").FirstOrDefault(n => n.GetValue("name") == moduleName);
+			ConfigNode ModuleNode = Lib.GameDatabase.GetPartModule(this.part.name, this.moduleName);
 
 			this.ScaleType = new ScaleType(KSPe.ConfigNodeWithSteroids.from(ModuleNode));
 			this.SetupFromConfig(ScaleType);
@@ -428,6 +429,7 @@ namespace TweakScale
 			return false;
 		}
 
+		[UsedImplicitly]
         public override void OnAwake()
         {
             Log.dbg("OnAwake {0}", this.InstanceID);
@@ -436,6 +438,7 @@ namespace TweakScale
             if (HighLogic.LoadedSceneIsEditor) this.Setup(this.part);
         }
 
+        [UsedImplicitly]
         public override void OnStart(StartState state)
         {
             if (this.FailsIntegrity()) return;
@@ -543,7 +546,7 @@ namespace TweakScale
 				Features.ScaleChaining.Execute(this);
 
             this.ScaleAndUpdate();
-            this.MarkWindowDirty();
+            Lib.Window.MarkDirty(this.part);
 
             currentScale = tweakScale;
 
@@ -730,7 +733,7 @@ namespace TweakScale
 		/// <returns>True if something is wrong, false otherwise.</returns>
 		private bool FailsIntegrity()
         {
-            if (this != part.Modules.GetModules<TweakScale>().First())
+            if (this != Lib.GameDatabase.GetTweakScaleModules(this.part))
             {
                 this.DisableEverything();
                 this.is_duplicate = true; // Flags this as not persistent
@@ -894,18 +897,6 @@ namespace TweakScale
 			Log.dbg("ExecuteMyUpgradePipeline after {0}", node);
 			return r;
 		}
-
-        /// <summary>
-        /// Marks the right-click window as dirty (i.e. tells it to update).
-        /// </summary>
-        private void MarkWindowDirty() // redraw the right-click window with the updated stats
-        {
-            foreach (UIPartActionWindow win in FindObjectsOfType<UIPartActionWindow>().Where(win => win.part == part))
-            {
-                // This causes the slider to be non-responsive - i.e. after you click once, you must click again, not drag the slider.
-                win.displayDirty = true;
-            }
-        }
 
 
 		#region Interface Implementation

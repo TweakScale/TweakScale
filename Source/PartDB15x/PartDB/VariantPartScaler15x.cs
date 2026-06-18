@@ -32,8 +32,9 @@ namespace TweakScale.PartDB
 			float costFactor = (float)this.ts.DryCostFactor;
 			float massFactor = (float)this.ts.MassFactor;
 
-			foreach (PartVariant p in this.part.variants.variantList)
+			for (int i = 0; i < this.part.variants.variantList.Count; ++i)
 			{
+				PartVariant p = this.part.variants.variantList[i];
 				PartVariant prefab = this.prefab.variants.variantList[this.prefab.variants.GetVariantIndex(p.Name)];
 				p.Cost = prefab.Cost * costFactor;
 				p.Mass = prefab.Mass * massFactor;

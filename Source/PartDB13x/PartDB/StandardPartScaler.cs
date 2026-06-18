@@ -21,7 +21,8 @@
 	along with TweakScale /L. If not, see <https://www.gnu.org/licenses/>.
 */
 using System;
-using System.Linq;
+using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace TweakScale.PartDB
@@ -172,22 +173,16 @@ namespace TweakScale.PartDB
 		{
 			Log.dbg("StandardPartScaler.FindNodesWithSameId {0}", node.id);
 
-			AttachNode[] nodesWithSameId = this.part.attachNodes
-				.Where(a => a.id == node.id)
-				.ToArray();
-
-			return nodesWithSameId;
+			List<AttachNode> nodesWithSameId = Lib.Part.AttachNode.FindById(this.part.attachNodes,node.id);
+			return nodesWithSameId.ToArray();
 		}
 
 		protected virtual AttachNode[] FindBaseNodesWithSameId(AttachNode node)
 		{
 			Log.dbg("StandardPartScaler.FindBaseNodesWithSameId {0}", node.id);
 
-			AttachNode[] baseNodesWithSameId = this.prefab.attachNodes
-				.Where(a => a.id == node.id)
-				.ToArray();
-
-			return baseNodesWithSameId;
+			List<AttachNode> baseNodesWithSameId = Lib.Part.AttachNode.FindById(this.prefab.attachNodes, node.id);
+			return baseNodesWithSameId.ToArray();
 		}
 
 		protected override void MoveSurfaceAttachment(bool moveParts, bool absolute)
